@@ -2,8 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ef045956-34e2-4209-a662-08c4aa21ae0f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/client/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/App.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/reportWebVitals.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/setupTests.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/yarn.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/.dockerignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/client/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/client/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/server/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +49,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1604439430175</updated>
-      <workItem from="1604439431263" duration="753000" />
+      <workItem from="1604439431263" duration="2928000" />
     </task>
     <servers />
   </component>
@@ -41,9 +57,21 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="699" y="335" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604440447779">
+      <screen x="0" y="26" width="1920" height="1054" />
+    </state>
+    <state x="699" y="335" key="#com.intellij.fileTypes.FileTypeChooser/0.26.1920.1054/1920.0.1920.1080@0.26.1920.1054" timestamp="1604440447779" />
     <state x="746" y="301" key="FileChooserDialogImpl" timestamp="1604439592529">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
     <state x="746" y="301" key="FileChooserDialogImpl/0.26.1920.1054/1920.0.1920.1080@0.26.1920.1054" timestamp="1604439592529" />
+    <state x="776" y="456" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604440661941">
+      <screen x="0" y="26" width="1920" height="1054" />
+    </state>
+    <state x="776" y="456" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.26.1920.1054/1920.0.1920.1080@0.26.1920.1054" timestamp="1604440661941" />
+    <state x="688" y="372" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1604442309556">
+      <screen x="0" y="26" width="1920" height="1054" />
+    </state>
+    <state x="688" y="372" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.26.1920.1054/1920.0.1920.1080@0.26.1920.1054" timestamp="1604442309556" />
   </component>
 </project>
