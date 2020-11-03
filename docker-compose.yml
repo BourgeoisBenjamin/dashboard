@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  db:
+    container_name: db
+    image: postgres:12.4
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - db-tier
+    environment:
+      POSTGRES_DB: dashboard
+      POSTGRES_USER: dashboard
+      POSTGRES_PASSWORD: dashboard
+  server:
+    container_name: server
+    build: ./server
+    restart: always
+    ports:
+    - 8080:8080
+    networks:
+      - db-tier
+      - back-tier
+    env_file:
+      - server/server-variables.env
+  client:
+    container_name: client
+    build: ./client
+    restart: always
+    ports:
+    - 80:80
+    networks:
+      - client-tier
+      - back-tier
+    env_file:
+      - client/client-variables.env
+
+networks:
+  db-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge
+  client-tier:
+    driver: bridge
+
+volumes:
+  db-data:

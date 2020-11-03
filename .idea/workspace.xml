@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ef045956-34e2-4209-a662-08c4aa21ae0f" name="Default Changelist" comment="" />
+    <list default="true" id="ef045956-34e2-4209-a662-08c4aa21ae0f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,7 +21,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Hub/Statweetstiques" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -30,11 +33,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1604439430175</updated>
-      <workItem from="1604439431263" duration="112000" />
+      <workItem from="1604439431263" duration="753000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="746" y="301" key="FileChooserDialogImpl" timestamp="1604439592529">
+      <screen x="0" y="26" width="1920" height="1054" />
+    </state>
+    <state x="746" y="301" key="FileChooserDialogImpl/0.26.1920.1054/1920.0.1920.1080@0.26.1920.1054" timestamp="1604439592529" />
   </component>
 </project>
