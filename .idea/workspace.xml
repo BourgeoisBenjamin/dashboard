@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="ef045956-34e2-4209-a662-08c4aa21ae0f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/client/.dockerignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/Dockerfile.dev" beforeDir="false" afterPath="$PROJECT_DIR$/client/Dockerfile.dev" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/server/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +44,7 @@
       <updated>1604439430175</updated>
       <workItem from="1604439431263" duration="3030000" />
       <workItem from="1604477767799" duration="4005000" />
-      <workItem from="1604656129113" duration="2678000" />
+      <workItem from="1604656129113" duration="3124000" />
     </task>
     <servers />
   </component>
