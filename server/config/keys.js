@@ -19,10 +19,15 @@ const SERVER = {
     CLIENT_HOME_PAGE_URL: process.env.CLIENT_HOME_PAGE_URL
 };
 
+const JWT = {
+    JWT_SECRET: process.env.JWT_TOKEN_SECRET
+};
+
 // KEYS PACKAGE
 const KEYS = {
     POSTGRESQL,
-    SERVER
+    SERVER,
+    JWT
 };
 
 module.exports = KEYS;

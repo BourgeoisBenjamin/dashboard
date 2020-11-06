@@ -9,6 +9,10 @@ const ms = require('ms');
 
 const KEYS = require("./config/keys");
 
+const accountRoutes = require("./routes/account/account-routes");
+//const accountPasswordRoutes = require("./routes/account/password/account-password-routes");
+//const accountServiceRoutes = require("./routes/account/service/account-service-routes");
+
 // set up cors to allow us to accept requests from our client
 app.use(
     cors({
@@ -17,6 +21,11 @@ app.use(
         credentials: true // allow session cookie from browser to pass through
     })
 );
+
+// set up routes
+app.use("/account", accountRoutes);
+//app.use("/account/password", accountPasswordRoutes);
+//app.use("/account/service", accountServiceRoutes);
 
 app.get('/', (req, res) => {
     res.set('Content-Type', 'text/html');

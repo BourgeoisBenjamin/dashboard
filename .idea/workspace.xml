@@ -2,16 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ef045956-34e2-4209-a662-08c4aa21ae0f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/server/routes/account/account-routes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routes/account/password/account-password-routes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routes/account/service/account-service-routes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/services/JWTToken.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/services/postgresql.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/services/postgresql.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/config/keys.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/config/keys.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/server_variables.dev.env" beforeDir="false" afterPath="$PROJECT_DIR$/server/server_variables.dev.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/server_variables.env" beforeDir="false" afterPath="$PROJECT_DIR$/server/server_variables.env" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="ProjectId" id="1jnUcfpi5HqA5dOm0G6wliSZtOy" />
   <component name="ProjectViewState">
@@ -26,6 +49,9 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/server/routes/account" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/server" />
       <recent name="$PROJECT_DIR$" />
@@ -43,7 +69,8 @@
       <workItem from="1604439431263" duration="3030000" />
       <workItem from="1604477767799" duration="4005000" />
       <workItem from="1604656129113" duration="3218000" />
-      <workItem from="1604669233134" duration="2550000" />
+      <workItem from="1604669233134" duration="3788000" />
+      <workItem from="1604679668530" duration="5850000" />
     </task>
     <servers />
   </component>
