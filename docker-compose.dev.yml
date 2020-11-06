@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  db:
-    container_name: db
+  dashboard-db:
+    container_name: dashboard-db
     image: postgres:12.4
     restart: always
     volumes:
@@ -14,8 +14,8 @@ services:
       POSTGRES_DB: dashboard
       POSTGRES_USER: dashboard
       POSTGRES_PASSWORD: dashboard
-  server:
-    container_name: server
+  dashboard-server:
+    container_name: dashboard-server
     build: ./server
     restart: always
     ports:
@@ -24,9 +24,9 @@ services:
       - db-tier
       - back-tier
     env_file:
-      - server/server_variables.env
-  client:
-    container_name: client
+      - server/server_variables.dev.env
+  dashboard-client:
+    container_name: dashboard-client
     build:
       context: ./client
       dockerfile: Dockerfile.dev
