@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ef045956-34e2-4209-a662-08c4aa21ae0f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/client/.dockerignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.dev.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +42,8 @@
       <option name="presentableId" value="Default" />
       <updated>1604439430175</updated>
       <workItem from="1604439431263" duration="3030000" />
-      <workItem from="1604477767799" duration="3757000" />
+      <workItem from="1604477767799" duration="4005000" />
+      <workItem from="1604656129113" duration="2678000" />
     </task>
     <servers />
   </component>
@@ -51,10 +55,10 @@
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
     <state x="699" y="335" key="#com.intellij.fileTypes.FileTypeChooser/0.26.1920.1054/1920.0.1920.1080@0.26.1920.1054" timestamp="1604440447779" />
-    <state x="746" y="301" key="FileChooserDialogImpl" timestamp="1604439592529">
+    <state x="746" y="301" key="FileChooserDialogImpl" timestamp="1604483438395">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state x="746" y="301" key="FileChooserDialogImpl/0.26.1920.1054/1920.0.1920.1080@0.26.1920.1054" timestamp="1604439592529" />
+    <state x="746" y="301" key="FileChooserDialogImpl/0.26.1920.1054/1920.0.1920.1080@0.26.1920.1054" timestamp="1604483438395" />
     <state x="776" y="456" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604440661941">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
