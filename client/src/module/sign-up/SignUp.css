@@ -1,0 +1,49 @@
+#sign-up-module
+{
+    padding-top: 50px;
+}
+
+#sign-up-module .title
+{
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#sign-up-module .register-form
+{
+    margin-top: 100px;
+}
+
+#sign-up-module .input
+{
+    margin-top: 50px;
+    margin-bottom: 40px;
+    width: 400px;
+    margin-inline: auto;
+}
+
+#sign-up-module .button-sign-up
+{
+    margin-top: 100px;
+    color: white;
+    text-align: center;
+}
+
+#sign-up-module .button-sign-up button
+{
+    padding: 15px 150px;
+    background-color: #5C80BC;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+    outline: none;
+}
+
+#sign-up-module .button-sign-up button:hover
+{
+    background-color: #6892de;
+}
