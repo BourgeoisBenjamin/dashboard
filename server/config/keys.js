@@ -23,11 +23,17 @@ const JWT = {
     JWT_SECRET: process.env.JWT_TOKEN_SECRET
 };
 
+const WEATHER_SERVICE = {
+    API_KEY: process.env.SERVICE_WEATHER_API_KEY
+}
+
+
 // KEYS PACKAGE
 const KEYS = {
     POSTGRESQL,
     SERVER,
-    JWT
+    JWT,
+    WEATHER_SERVICE
 };
 
 module.exports = KEYS;

@@ -497,7 +497,9 @@ ALTER SEQUENCE public.views_video_youtube_id_seq OWNED BY public.views_video_you
 
 CREATE TABLE public.weather_service (
     id bigint NOT NULL,
-    id_user bigint NOT NULL
+    id_user bigint NOT NULL,
+    weather_service character varying NOT NULL,
+    activate boolean NOT NULL
 );
 
 
