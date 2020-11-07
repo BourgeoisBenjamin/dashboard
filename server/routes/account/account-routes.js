@@ -38,9 +38,15 @@ router.post('/login', function (req, res) {
     })
 })
 
-
 router.get('/infos', JWTService.authenticateToken, function (req, res) {
-    res.sendStatus(200);
+    pool.getPool().query("SELECT username, email, activate_email FROM users WHERE id = $1", [req.user.user_id], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"})
+        } else {
+            res.json(result.rows)
+        }
+    })
 })
 
 module.exports = router;

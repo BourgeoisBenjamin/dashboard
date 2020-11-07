@@ -7,12 +7,12 @@ function authenticateToken(req, res, next) {
     const token = authHeader && authHeader.split(' ')[1]
     if (token == null) return res.sendStatus(401) // if there isn't any token
 
-    jwt.verify(token, KEYS.JWT.JWT_SECRET, (err, user_id) => {
+    jwt.verify(token, KEYS.JWT.JWT_SECRET, (err, user) => {
         if (err) {
             console.debug(err)
             return res.sendStatus(403)
         }
-        req.user_id = user_id
+        req.user = user
         next() // pass the execution off to whatever request the client intended
     })
 }
