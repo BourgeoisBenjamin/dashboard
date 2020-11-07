@@ -11,6 +11,9 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY package*.json ./
 RUN npm install --silent
 RUN npm install react-scripts -g --silent
+RUN yarn add @material-ui/core
+RUN npm i install @material-ui/core --save
+RUN npm install @material-ui/icons
 
 # add app
 COPY . ./

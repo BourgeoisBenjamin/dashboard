@@ -1,0 +1,14 @@
+#login-module
+{
+    background-image: url('/src/assets/images/background-login.jpg');
+    width: 100%;
+    height: 100vh;
+}
+
+#login-module .content
+{
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    width: 100%;
+    padding-top: 100px;
+}
