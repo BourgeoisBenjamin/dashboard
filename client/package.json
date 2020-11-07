@@ -39,6 +39,7 @@
     "file-loader": "6.1.1",
     "font-proxima-nova": "^1.0.1",
     "fs-extra": "^9.0.1",
+    "history": "^5.0.0",
     "html-webpack-plugin": "4.5.0",
     "identity-obj-proxy": "3.0.0",
     "install": "^0.13.0",

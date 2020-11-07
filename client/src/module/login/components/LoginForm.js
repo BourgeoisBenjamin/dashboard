@@ -5,8 +5,15 @@ import LockIcon from '@material-ui/icons/Lock';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import youtubeImage from '../../../assets/images/youtube.png';
 import twitterImage from '../../../assets/images/twitter.png';
+import history from '../../../history';
 
 export class LoginForm extends Component {
+
+    handleSignUpClick = () =>
+    {
+        history.push('/sign-up')
+    }
+
     render() {
         return (
             <div id="login-form">
@@ -54,7 +61,7 @@ export class LoginForm extends Component {
                     </div>
                 </div>
                 <div className="button-sign-up">
-                    <p>Sign up</p>
+                    <p onClick={this.handleSignUpClick}>Sign up</p>
                 </div>
             </div>
         );
