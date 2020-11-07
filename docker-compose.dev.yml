@@ -5,6 +5,8 @@ services:
     container_name: dashboard-db
     image: postgres:12.4
     restart: always
+    ports:
+      - 5432:5432
     volumes:
       - db-data:/var/lib/postgresql/data
       - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
@@ -14,6 +16,7 @@ services:
       POSTGRES_DB: dashboard
       POSTGRES_USER: dashboard
       POSTGRES_PASSWORD: dashboard
+
   dashboard-server:
     container_name: dashboard-server
     build: ./server
@@ -25,6 +28,7 @@ services:
       - back-tier
     env_file:
       - server/server_variables.dev.env
+
   dashboard-client:
     container_name: dashboard-client
     build:
@@ -44,6 +48,22 @@ services:
     env_file:
       - client/client_variables.env
 
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    logging:
+      driver: none
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - db-tier
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+    volumes:
+      - pgadmin:/root/.pgadmin
+
 networks:
   db-tier:
     driver: bridge
@@ -54,3 +74,4 @@ networks:
 
 volumes:
   db-data:
+  pgadmin:
