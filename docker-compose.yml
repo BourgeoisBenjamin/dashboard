@@ -14,6 +14,7 @@ services:
       POSTGRES_DB: dashboard
       POSTGRES_USER: dashboard
       POSTGRES_PASSWORD: dashboard
+
   dashboard-server:
     container_name: dashboard-server
     build: ./server
@@ -25,6 +26,7 @@ services:
       - back-tier
     env_file:
       - server/server_variables.env
+
   dashboard-client:
     container_name: dashboard-client
     build:
@@ -39,6 +41,22 @@ services:
     env_file:
       - client/client_variables.env
 
+  pg:
+    container_name: pg
+    image: dpage/pgadmin4
+    restart: always
+    logging:
+      driver: none
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - db-tier
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+    volumes:
+      - pgadmin:/root/.pgadmin
+
 networks:
   db-tier:
     driver: bridge
@@ -49,3 +67,4 @@ networks:
 
 volumes:
   db-data:
+  pgadmin:
