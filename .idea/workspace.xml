@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ef045956-34e2-4209-a662-08c4aa21ae0f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/server/routes/account/account-routes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/routes/account/password/account-password-routes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/routes/account/service/account-service-routes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/services/JWTToken.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/config/keys.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/config/keys.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/account/account-routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/account/account-routes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/server_variables.dev.env" beforeDir="false" afterPath="$PROJECT_DIR$/server/server_variables.dev.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/server_variables.env" beforeDir="false" afterPath="$PROJECT_DIR$/server/server_variables.env" afterDir="false" />
     </list>
