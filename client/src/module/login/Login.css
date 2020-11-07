@@ -1,0 +1,15 @@
+#login-module
+{
+    background-image: url('/src/assets/images/background-login.jpg');
+    width: 100%;
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+#login-module .content
+{
+    padding-top: 100px;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    padding-bottom: 100px;
+}
