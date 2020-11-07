@@ -38,4 +38,27 @@ router.post('/login', function (req, res) {
     })
 })
 
+router.delete('/delete', JWTService.authenticateToken, function (req, res) {
+    //TODO: delete other tables
+    pool.getPool().query("DELETE FROM users WHERE id = $1", [req.user.user_id], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"})
+        } else {
+            res.sendStatus(200);
+        }
+    })
+})
+
+router.get('/infos', JWTService.authenticateToken, function (req, res) {
+    pool.getPool().query("SELECT username, email, activate_email FROM users WHERE id = $1", [req.user.user_id], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"})
+        } else {
+            res.json(result.rows)
+        }
+    })
+})
+
 module.exports = router;
