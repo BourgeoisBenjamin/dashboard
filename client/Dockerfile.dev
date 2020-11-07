@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:14-alpine
+FROM node:10.19.0
 
 # set working directory
 WORKDIR /app
@@ -9,12 +9,13 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 # install app dependencies
 COPY package*.json ./
-RUN npm install --silent
-RUN npm install react-scripts -g --silent
-RUN yarn add @material-ui/core
-RUN npm i install @material-ui/core --save
-RUN npm install @material-ui/icons
-RUN npm i install @material-ui/lab
+RUN npm install
+#RUN npm install react-scripts -g --silent
+#RUN yarn add @material-ui/core
+#RUN npm i install @material-ui/core --save
+#RUN npm install @material-ui/icons
+#RUN npm i install @material-ui/lab
+RUN yarn add history@4.10.1
 
 # add app
 COPY . ./

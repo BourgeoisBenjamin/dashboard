@@ -5,6 +5,8 @@ import './SignUp.css'
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LockIcon from '@material-ui/icons/Lock';
 import RegisterService from "../../core/services/register/RegisterService";
+import { Alert } from '@material-ui/lab'
+// import { Alert } from 'reactstrap';
 
 class SignUp extends Component {
 
@@ -17,21 +19,25 @@ class SignUp extends Component {
         this.confirmPassword = "";
     }
 
-    onClickRegister()
+    onClickRegister = () =>
     {
+        console.log(this.registerService);
         console.log(this.username);
         console.log(this.email);
         console.log(this.password);
         console.log(this.confirmPassword);
-        // this.registerService.register({
-        //     username: this.username,
-        //     password: this.password,
-        //     email: this.email
-        // }, (res) => {
-        //
-        // }, (res) => {
-        //
-        // })
+        this.registerService.register({
+            username: this.username,
+            password: this.password,
+            email: this.email
+        }, (res) => {
+            this.username = "";
+            this.email = "";
+            this.password = "";
+            this.confirmPassword = "";
+        }, (res) => {
+            console.log(res)
+        })
     }
 
     handleUsernameChange = (e) => {
@@ -53,6 +59,7 @@ class SignUp extends Component {
     render() {
         return (
             <div id="sign-up-module">
+                <Alert severity="success">This is a success alert — check it out!</Alert>
                 <div class="title">
                     <p>Inscription</p>
                 </div>
@@ -65,6 +72,7 @@ class SignUp extends Component {
                                 startAdornment={<InputAdornment position="start"><PersonOutlineIcon/></InputAdornment>}
                                 labelWidth={80}
                                 onChange={this.handleUsernameChange}
+                                value={this.username}
                             />
                         </FormControl>
                     </div>
@@ -76,6 +84,7 @@ class SignUp extends Component {
                                 startAdornment={<InputAdornment position="start"><MailOutlineIcon/></InputAdornment>}
                                 labelWidth={70}
                                 onChange={this.handleEmailChange}
+                                value={this.email}
                             />
                         </FormControl>
                     </div>
@@ -88,6 +97,7 @@ class SignUp extends Component {
                                 labelWidth={70}
                                 type="password"
                                 onChange={this.handlePasswordChange}
+                                value={this.password}
                             />
                         </FormControl>
                     </div>
@@ -100,9 +110,13 @@ class SignUp extends Component {
                                 labelWidth={150}
                                 type="password"
                                 onChange={this.handleConfirmPasswordChange}
+                                value={this.confirmPassword}
                             />
                         </FormControl>
                     </div>
+                </div>
+                <div class="error-message">
+                    <p>C'est un message d'erreur</p>
                 </div>
                 <div className="button-sign-up">
                     <button onClick={this.onClickRegister}>Register</button>

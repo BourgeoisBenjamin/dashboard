@@ -4,14 +4,12 @@ class RegisterService
 {
     register(data, onSuccess, onFailure)
     {
-        axios.post(`https://jsonplaceholder.typicode.com/users`)
-            .then(res => {
-                if (res.status === 200) {
-                    onSuccess(res);
-                } else {
-                    onFailure(res);
-                }
-            })
+        axios.post(`http://localhost:8080/account/register`, data)
+        .then(res => {
+            onSuccess(res);
+        }).catch(error => {
+            onFailure(error);
+        })
     }
 }
 

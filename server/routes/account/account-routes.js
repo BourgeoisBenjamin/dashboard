@@ -6,7 +6,7 @@ const JWTService = require("../../services/JWTToken");
 
 // register a user
 router.post('/register', function(req, res) {
-    pool.getPool().query("INSERT INTO users (username, password, email, activate_email) VALUES ($1, $2, $3, $4) ON CONFLICT DO NOTHING RETURNING id", [req.query.username, req.query.password, req.query.email, false], (err, result) => {
+    pool.getPool().query("INSERT INTO users (username, password, email, activate_email) VALUES ($1, $2, $3, $4) ON CONFLICT DO NOTHING RETURNING id", [req.body.username, req.body.password, req.body.email, false], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
