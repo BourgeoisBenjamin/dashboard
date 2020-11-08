@@ -6,8 +6,54 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import youtubeImage from '../../../assets/images/youtube.png';
 import twitterImage from '../../../assets/images/twitter.png';
 import history from '../../../history';
+import LoginService from "../../../core/services/login/LoginService";
+import {Alert} from "@material-ui/lab";
+import Snackbar from "@material-ui/core/Snackbar";
 
 export class LoginForm extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.loginService = new LoginService();
+
+        this.state = {
+            identifier: '',
+            password: '',
+            errorMessageOpen: false
+        };
+
+        this.handleIdentifierChange = this.handleIdentifierChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleErrorMessageClose = this.handleErrorMessageClose.bind(this);
+    }
+
+    handleIdentifierChange(e) {
+        this.setState({identifier: e.target.value});
+    }
+
+    handlePasswordChange(e) {
+        this.setState({password: e.target.value});
+    }
+
+    handleErrorMessageClose(e) {
+        this.setState({errorMessageOpen: false});
+    }
+
+    handleConnectClick = () =>
+    {
+        console.log(this.state);
+        this.loginService.register({
+            identifier: this.state.identifier,
+            password: this.state.password
+        }, (res) => {
+            history.push('/home')
+        }, (res) => {
+            this.setState({
+                errorMessageOpen: true
+            })
+        })
+    }
 
     handleSignUpClick = () =>
     {
@@ -17,6 +63,11 @@ export class LoginForm extends Component {
     render() {
         return (
             <div id="login-form">
+                <Snackbar open={this.state.errorMessageOpen} autoHideDuration={6000} onClose={this.handleErrorMessageClose} anchorOrigin={{ vertical: 'top', horizontal: 'left' }}>
+                    <Alert onClose={this.handleErrorMessageClose} severity="error" variant="filled">
+                        Sorry you can't logged in to your account
+                    </Alert>
+                </Snackbar>
                 <div class="title">
                      <p>Dashboard</p>
                 </div>
@@ -27,6 +78,8 @@ export class LoginForm extends Component {
                             id="outlined-adornment-amount"
                             startAdornment={<InputAdornment position="start"><PersonOutlineIcon/></InputAdornment>}
                             labelWidth={150}
+                            onChange={this.handleIdentifierChange}
+                            value={this.state.identifier}
                         />
                     </FormControl>
                 </div>
@@ -38,6 +91,8 @@ export class LoginForm extends Component {
                             startAdornment={<InputAdornment position="start"><LockIcon/></InputAdornment>}
                             labelWidth={80}
                             type="password"
+                            onChange={this.handlePasswordChange}
+                            value={this.state.password}
                         />
                     </FormControl>
                 </div>
@@ -45,7 +100,7 @@ export class LoginForm extends Component {
                     <p>Forgot your password ?</p>
                 </div>
                 <div class="button-login">
-                    <button>Login</button>
+                    <button onClick={this.handleConnectClick}>Login</button>
                 </div>
                 <div class="tiers-service-connect">
                     <div class="title">

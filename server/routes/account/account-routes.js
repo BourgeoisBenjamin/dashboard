@@ -22,7 +22,7 @@ router.post('/register', function(req, res) {
 });
 
 router.post('/login', function (req, res) {
-    pool.getPool().query("SELECT id FROM users WHERE username = $1 OR email = $1 AND password = $2", [req.query.identifier, req.query.password], (err, result) => {
+    pool.getPool().query("SELECT id FROM users WHERE username = $1 OR email = $1 AND password = $2", [req.body.identifier, req.body.password], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})

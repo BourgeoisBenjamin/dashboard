@@ -57,6 +57,7 @@
     font-size: 20px;
     cursor: pointer;
     transition: 0.5s;
+    outline: none;
 }
 
 #login-form .button-login button:hover
