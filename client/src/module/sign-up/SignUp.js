@@ -7,6 +7,7 @@ import LockIcon from '@material-ui/icons/Lock';
 import RegisterService from "../../core/services/register/RegisterService";
 import { Alert } from '@material-ui/lab'
 import Snackbar from "@material-ui/core/Snackbar";
+import history from "../../history";
 
 class SignUp extends Component {
 
@@ -70,10 +71,16 @@ class SignUp extends Component {
 
     handleSuccessMessageClose(e) {
         this.setState({successMessageOpen: false});
+        this.returnToHomeClick()
     }
 
     handleErrorMessageClose(e) {
         this.setState({errorMessageOpen: false});
+    }
+
+    returnToHomeClick()
+    {
+        history.push('/')
     }
 
     render() {
@@ -146,6 +153,9 @@ class SignUp extends Component {
                 </div>
                 <div className="button-sign-up">
                     <button onClick={this.onClickRegister}>Register</button>
+                </div>
+                <div class="already-register">
+                    <p>Already register ? Sign in <strong onClick={this.returnToHomeClick}>here</strong></p>
                 </div>
             </div>
         );
