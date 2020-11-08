@@ -1,0 +1,64 @@
+#header-menu .header
+{
+    height: 60px;
+    background-color: #F3F3F3;
+    display: flex;
+    align-items: center;
+}
+
+#header-menu .header .logo-menu .menu-icon
+{
+    font-size: 40px;
+    margin-left: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+#header-menu .header .logo-menu .menu-icon:hover
+{
+    color: #5C80BC;
+}
+
+#header-menu .header .title
+{
+    font-size: 25px;
+    margin-left: 30px;
+}
+
+#header-menu .header .title p
+{
+    margin-bottom: 0px;
+}
+
+#header-menu .menu
+{
+    height: 100vh;
+    background-color: #F3F3F3;
+    width: 300px;
+    position: fixed;
+    transition: 0.5s;
+}
+
+#header-menu .menu .button
+{
+    width: 250px;
+    margin-inline: auto;
+    background-color: white;
+    cursor: pointer;
+    padding: 20px 20px;
+    font-weight: bold;
+    border-radius: 100px;
+    margin-top: 50px;
+    transition: 0.5s;
+    border: 1px solid white;
+}
+
+#header-menu .menu .button:hover
+{
+    border: 1px solid #5C80BC;
+}
+
+#header-menu .menu .button p
+{
+    margin-bottom: 0px;
+}
