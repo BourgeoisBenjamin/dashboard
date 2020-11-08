@@ -13,6 +13,11 @@ class SignUp extends Component {
 
     constructor(props) {
         super(props);
+
+        if (localStorage.getItem('JWTToken') !== null) {
+            history.push('/home');
+        }
+
         this.registerService = new RegisterService();
 
         this.state = {

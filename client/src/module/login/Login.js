@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import './Login.css';
 import { LoginForm } from './components/LoginForm'
+import history from "../../history";
 
 class Login extends Component {
+
+    constructor(props) {
+        super(props);
+
+        if (localStorage.getItem('JWTToken') !== null) {
+            history.push('/home');
+        }
+    }
+
     render() {
         return (
             <div id="login-module">
