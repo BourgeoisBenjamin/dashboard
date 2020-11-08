@@ -6,60 +6,89 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LockIcon from '@material-ui/icons/Lock';
 import RegisterService from "../../core/services/register/RegisterService";
 import { Alert } from '@material-ui/lab'
-// import { Alert } from 'reactstrap';
+import Snackbar from "@material-ui/core/Snackbar";
 
 class SignUp extends Component {
 
     constructor(props) {
         super(props);
         this.registerService = new RegisterService();
-        this.username = "";
-        this.password = "";
-        this.email = "";
-        this.confirmPassword = "";
+
+        this.state = {
+            username: '',
+            password: '',
+            email: '',
+            confirmPassword: '',
+            successMessageOpen: false,
+            errorMessageOpen: false
+        };
+
+        this.handleUsernameChange = this.handleUsernameChange.bind(this);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
+        this.handleSuccessMessageClose = this.handleSuccessMessageClose.bind(this);
+        this.handleErrorMessageClose = this.handleErrorMessageClose.bind(this);
     }
 
     onClickRegister = () =>
     {
-        console.log(this.registerService);
-        console.log(this.username);
-        console.log(this.email);
-        console.log(this.password);
-        console.log(this.confirmPassword);
         this.registerService.register({
-            username: this.username,
-            password: this.password,
-            email: this.email
+            username: this.state.username,
+            password: this.state.password,
+            email: this.state.email
         }, (res) => {
-            this.username = "";
-            this.email = "";
-            this.password = "";
-            this.confirmPassword = "";
+            this.setState({
+                username: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+                successMessageOpen: true
+            })
         }, (res) => {
-            console.log(res)
+            this.setState({
+                errorMessageOpen: true
+            })
         })
     }
 
-    handleUsernameChange = (e) => {
-        this.username = e.target.value;
+    handleUsernameChange(e) {
+        this.setState({username: e.target.value});
     }
 
-    handleEmailChange = (e) => {
-        this.email = e.target.value;
+    handleEmailChange(e) {
+        this.setState({email: e.target.value});
     }
 
-    handlePasswordChange = (e) => {
-        this.password = e.target.value;
+    handlePasswordChange(e) {
+        this.setState({password: e.target.value});
     }
 
-    handleConfirmPasswordChange = (e) => {
-        this.confirmPassword = e.target.value;
+    handleConfirmPasswordChange(e) {
+        this.setState({confirmPassword: e.target.value});
+    }
+
+    handleSuccessMessageClose(e) {
+        this.setState({successMessageOpen: false});
+    }
+
+    handleErrorMessageClose(e) {
+        this.setState({errorMessageOpen: false});
     }
 
     render() {
         return (
             <div id="sign-up-module">
-                <Alert severity="success">This is a success alert — check it out!</Alert>
+                <Snackbar open={this.state.successMessageOpen} autoHideDuration={6000} onClose={this.handleSuccessMessageClose} anchorOrigin={{ vertical: 'top', horizontal: 'left' }}>
+                    <Alert onClose={this.handleSuccessMessageClose} severity="success" variant="filled">
+                        Account registered !
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={this.state.errorMessageOpen} autoHideDuration={6000} onClose={this.handleErrorMessageClose} anchorOrigin={{ vertical: 'top', horizontal: 'left' }}>
+                    <Alert onClose={this.handleErrorMessageClose} severity="error" variant="filled">
+                        Cannot registered your account
+                    </Alert>
+                </Snackbar>
                 <div class="title">
                     <p>Inscription</p>
                 </div>
@@ -72,7 +101,7 @@ class SignUp extends Component {
                                 startAdornment={<InputAdornment position="start"><PersonOutlineIcon/></InputAdornment>}
                                 labelWidth={80}
                                 onChange={this.handleUsernameChange}
-                                value={this.username}
+                                value={this.state.username}
                             />
                         </FormControl>
                     </div>
@@ -84,7 +113,7 @@ class SignUp extends Component {
                                 startAdornment={<InputAdornment position="start"><MailOutlineIcon/></InputAdornment>}
                                 labelWidth={70}
                                 onChange={this.handleEmailChange}
-                                value={this.email}
+                                value={this.state.email}
                             />
                         </FormControl>
                     </div>
@@ -97,7 +126,7 @@ class SignUp extends Component {
                                 labelWidth={70}
                                 type="password"
                                 onChange={this.handlePasswordChange}
-                                value={this.password}
+                                value={this.state.password}
                             />
                         </FormControl>
                     </div>
@@ -110,13 +139,10 @@ class SignUp extends Component {
                                 labelWidth={150}
                                 type="password"
                                 onChange={this.handleConfirmPasswordChange}
-                                value={this.confirmPassword}
+                                value={this.state.confirmPassword}
                             />
                         </FormControl>
                     </div>
-                </div>
-                <div class="error-message">
-                    <p>C'est un message d'erreur</p>
                 </div>
                 <div className="button-sign-up">
                     <button onClick={this.onClickRegister}>Register</button>
