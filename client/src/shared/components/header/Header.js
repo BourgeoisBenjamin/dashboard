@@ -1,9 +1,12 @@
-import React, { Component } from 'react';
-// import history from "../../../history";
+import React, {Component} from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import './Header.css'
+import history from "../../../history";
+import MenuContext from "../../../core/contexts/MenuContext";
 
 class HeaderMenu extends Component {
+
+    static contextType = MenuContext;
 
     constructor(props) {
         super(props);
@@ -12,7 +15,8 @@ class HeaderMenu extends Component {
             styleMenu: {
                 'margin-left': '-300px'
             },
-            menuIsOpen: false
+            menuIsOpen: false,
+            title: 'Home'
         };
     }
 
@@ -35,33 +39,75 @@ class HeaderMenu extends Component {
         }
     }
 
+    handleClickDisconnect = () =>
+    {
+        localStorage.removeItem('JWTToken');
+        this.context.setShowMenu('none');
+        this.setState({
+            styleMenu: {
+                'margin-left': '-300px'
+            },
+            menuIsOpen: false,
+            title: 'Home'
+        })
+        history.push('/');
+    }
+
+    handleClickHome = () =>
+    {
+        this.setState({
+            styleMenu: {
+                'margin-left': '-300px'
+            },
+            menuIsOpen: false,
+            title: 'Home'
+        })
+        history.push('/home');
+    }
+
+    handleClickAccount = () =>
+    {
+        this.setState({
+            styleMenu: {
+                'margin-left': '-300px'
+            },
+            menuIsOpen: false,
+            title: 'Account'
+        })
+        history.push('/account');
+    }
+
+    componentDidMount()
+    {
+        console.log(this.context);
+    }
+
+    componentDidUpdate() {
+        console.log("Update", this.context);
+    }
+
     render() {
         return (
-            <div id="header-menu">
+            <div id="header-menu" style={{display: this.context.showMenu}}>
                 <div className="header">
                     <div className="logo-menu">
                         <MenuIcon className="menu-icon" onClick={this.handleClickMenuIcon} />
                     </div>
                     <div className="title">
-                        <p>Home</p>
+                        <p>{this.state.title}</p>
                     </div>
                 </div>
                 <div className="menu" style={this.state.styleMenu}>
-                    <div className="home-button button">
+                    <div className="home-button button" onClick={this.handleClickHome}>
                         <p>Home</p>
                     </div>
-                    <div className="profile-button button">
-                        <p>Profile</p>
+                    <div className="account-button button" onClick={this.handleClickAccount}>
+                        <p>Account</p>
                     </div>
-                    <div className="disconnect-button button">
+                    <div className="disconnect-button button" onClick={this.handleClickDisconnect}>
                         <p>Disconnect</p>
                     </div>
                 </div>
-                {/*<div className="profile">*/}
-                {/*    <div>*/}
-                {/*        */}
-                {/*    </div>*/}
-                {/*</div>*/}
             </div>
         );
     }

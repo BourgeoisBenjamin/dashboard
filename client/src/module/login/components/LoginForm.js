@@ -9,8 +9,11 @@ import history from '../../../history';
 import LoginService from "../../../core/services/login/LoginService";
 import {Alert} from "@material-ui/lab";
 import Snackbar from "@material-ui/core/Snackbar";
+import MenuContext from "../../../core/contexts/MenuContext";
 
 export class LoginForm extends Component {
+
+    static contextType = MenuContext;
 
     constructor(props) {
         super(props);
@@ -47,7 +50,10 @@ export class LoginForm extends Component {
             identifier: this.state.identifier,
             password: this.state.password
         }, (res) => {
+            sessionStorage.setItem('menu', 'block');
             history.push('/home')
+            // this.context.setLimitInUse('lol');
+            this.context.setShowMenu('block');
         }, (res) => {
             this.setState({
                 errorMessageOpen: true
