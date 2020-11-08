@@ -30,6 +30,15 @@
     margin-bottom: 0px;
 }
 
+#header-menu .background
+{
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    transition: 0.5s;
+}
+
 #header-menu .menu
 {
     height: 100vh;

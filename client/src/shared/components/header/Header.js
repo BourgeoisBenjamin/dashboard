@@ -16,7 +16,9 @@ class HeaderMenu extends Component {
                 'margin-left': '-300px'
             },
             menuIsOpen: false,
-            title: 'Home'
+            title: 'Home',
+            visibilityBackground: 'hidden',
+            opacityBackground: '0'
         };
     }
 
@@ -27,14 +29,18 @@ class HeaderMenu extends Component {
                 styleMenu: {
                     'margin-left': '-300px'
                 },
-                menuIsOpen: false
+                menuIsOpen: false,
+                visibilityBackground: 'hidden',
+                opacityBackground: '0'
             })
         } else {
             this.setState({
                 styleMenu: {
                     'margin-left': '0px'
                 },
-                menuIsOpen: true
+                menuIsOpen: true,
+                visibilityBackground: 'visible',
+                opacityBackground: '1'
             })
         }
     }
@@ -48,7 +54,9 @@ class HeaderMenu extends Component {
                 'margin-left': '-300px'
             },
             menuIsOpen: false,
-            title: 'Home'
+            title: 'Home',
+            visibilityBackground: 'hidden',
+            opacityBackground: '0'
         })
         history.push('/');
     }
@@ -60,7 +68,9 @@ class HeaderMenu extends Component {
                 'margin-left': '-300px'
             },
             menuIsOpen: false,
-            title: 'Home'
+            title: 'Home',
+            visibilityBackground: 'hidden',
+            opacityBackground: '0'
         })
         history.push('/home');
     }
@@ -72,7 +82,9 @@ class HeaderMenu extends Component {
                 'margin-left': '-300px'
             },
             menuIsOpen: false,
-            title: 'Account'
+            title: 'Account',
+            visibilityBackground: 'hidden',
+            opacityBackground: '0'
         })
         history.push('/account');
     }
@@ -96,6 +108,9 @@ class HeaderMenu extends Component {
                     <div className="title">
                         <p>{this.state.title}</p>
                     </div>
+                </div>
+                <div className="background" style={{visibility: this.state.visibilityBackground, opacity: this.state.opacityBackground}}>
+
                 </div>
                 <div className="menu" style={this.state.styleMenu}>
                     <div className="home-button button" onClick={this.handleClickHome}>
