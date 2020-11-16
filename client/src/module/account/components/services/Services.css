@@ -1,3 +1,87 @@
 #services
 {
 }
+
+#services .title
+{
+    margin-top: 70px;
+    font-size: 30px;
+    text-align: center;
+}
+
+#services .content
+{
+    display: flex;
+    margin-top: 100px;
+    justify-content: center;
+}
+
+#services .service
+{
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-top: 40px;
+    width: 400px;
+    padding-bottom: 40px;
+    box-shadow: 5px 5px 20px 5px grey;
+}
+
+#services .service .logo
+{
+    text-align: center;
+}
+
+#services .service .logo img
+{
+    height: 80px;
+}
+
+#services .service .title
+{
+    text-align: center;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+#services .service .button
+{
+    text-align: center;
+    margin-top: 40px;
+}
+
+#services .service .button button
+{
+    padding: 13px 60px;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+    outline: none;
+}
+
+#services .service .connect-button button
+{
+    background-color: #5C80BC;
+}
+
+#services .service .disconnect-button button
+{
+    background-color: #545454;
+}
+
+#services .service .disconnect-button button:hover
+{
+    background-color: #868686;
+}
+
+#services .service .connect-button button:hover
+{
+    background-color: #6892de;
+}
+
+#services .service .hide
+{
+    display: none;
+}

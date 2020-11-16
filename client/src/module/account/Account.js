@@ -4,9 +4,11 @@ import { VscAccount } from 'react-icons/vsc';
 import { RiLockPasswordLine } from 'react-icons/ri'
 import MenuContext from "../../core/contexts/MenuContext";
 import './Account.css'
-import Services from "./components/services/Services";
 import Information from "./components/information/Information";
+import { Route, Switch, Redirect } from 'react-router-dom';
+import history from "../../history";
 import Password from "./components/password/Password";
+import Services from "./components/services/Services";
 
 class Account extends Component {
 
@@ -17,9 +19,19 @@ class Account extends Component {
         super(props);
 
         this.state = {
-            informationIsSelected: true,
+            informationIsSelected: false,
             passwordIsSelected: false,
             servicesIsSelected: false,
+
+            setInformationIsSelected: (newValue) => {
+                this.setState({informationIsSelected: newValue});
+            },
+            setPasswordIsSelected: (newValue) => {
+                this.setState({passwordIsSelected: newValue});
+            },
+            setServicesIsSelected: (newValue) => {
+                this.setState({servicesIsSelected: newValue});
+            }
         };
 
         this.onClickInformation = this.onClickInformation.bind(this);
@@ -34,29 +46,17 @@ class Account extends Component {
 
     onClickInformation()
     {
-        this.setState({
-            informationIsSelected: true,
-            passwordIsSelected: false,
-            servicesIsSelected: false
-        });
+        history.push('/account/information');
     }
 
     onClickPassword()
     {
-        this.setState({
-            informationIsSelected: false,
-            passwordIsSelected: true,
-            servicesIsSelected: false
-        });
+        history.push('/account/password');
     }
 
     onClickServices()
     {
-        this.setState({
-            informationIsSelected: false,
-            passwordIsSelected: false,
-            servicesIsSelected: true
-        });
+        history.push('/account/services');
     }
 
     render() {
@@ -89,9 +89,20 @@ class Account extends Component {
                     </div>
                 </div>
                 <div class="content">
-                    <Information className="element" hide={ !this.state.informationIsSelected }/>
-                    <Services class="element" hide={ !this.state.servicesIsSelected }/>
-                    <Password class="element" hide={ !this.state.passwordIsSelected }/>
+                    <Switch>
+                        <Route path={'/account/information'}>
+                            <Information parentState={this.state}/>
+                        </Route>
+                        <Route path={'/account/password'}>
+                            <Password parentState={this.state}/>
+                        </Route>
+                        <Route path={'/account/services'}>
+                            <Services parentState={this.state}/>
+                        </Route>
+                        <Route path="/account">
+                            <Redirect to="/account/information" />
+                        </Route>
+                    </Switch>
                 </div>
             </div>
         );
