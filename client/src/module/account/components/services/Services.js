@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import './Services.css'
+import Service from './components/Service'
+import TwitterImage from '../../../../assets/images/twitter.png';
+import YoutubeImage from '../../../../assets/images/youtube.png';
 
 class Services extends Component
 {
@@ -14,7 +17,13 @@ class Services extends Component
     render() {
         return (
             <div id="services">
-                <p>Services</p>
+                <div class="title">
+                    <p>Connect your account to services</p>
+                </div>
+                <div class="content">
+                    <Service connected={ true } title="Twitter" logo={ TwitterImage }/>
+                    <Service connected={ false } title="Youtube" logo={ YoutubeImage }/>
+                </div>
             </div>
         )
     }
