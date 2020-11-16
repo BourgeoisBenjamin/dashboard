@@ -1,3 +1,88 @@
-#information
+#information-account
 {
+    width: 90%;
+    margin-inline: auto;
+    padding-bottom: 100px;
+}
+
+#information-account .element
+{
+    border-bottom: 1px solid grey;
+    display: flex;
+    padding-bottom: 100px;
+    margin-top: 100px;
+}
+
+#information-account .element .first-column
+{
+    width: 50%;
+}
+
+#information-account .element .first-column .title
+{
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#information-account .element .first-column .description
+{
+    margin-top: 50px;
+    font-style: italic;
+    color: grey;
+}
+
+#information-account .element .second-column
+{
+    border-left: 1px solid grey;
+    width: 50%;
+}
+
+#information-account .element .second-column .email-input, #information-account .element .second-column .username-input
+{
+    margin-bottom: 50px;
+    width: 60%;
+    margin-inline: auto;
+}
+
+#information-account .element .second-column .update-button, #information-account .element .second-column .delete-button
+{
+    margin-top: 100px;
+    color: white;
+    text-align: center;
+}
+
+#information-account .element .second-column .update-button button
+{
+    padding: 15px 100px;
+    background-color: #5C80BC;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+    outline: none;
+}
+
+#information-account .element .second-column .update-button button:hover
+{
+    background-color: #6892de;
+}
+
+#information-account .element .second-column .delete-button button
+{
+    padding: 15px 100px;
+    background-color: #cb0000;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+    outline: none;
+}
+
+#information-account .element .second-column .delete-button button:hover
+{
+    background-color: #ff0000;
 }
