@@ -3,10 +3,27 @@ const pool = require('../../services/postgresql');
 const KEYS = require('../../config/keys');
 const https = require('https');
 const JWTService = require("../../services/JWTToken");
+const emailValidator = require('email-validator')
 
 // register a user
 router.post('/register', function(req, res) {
-    pool.getPool().query("INSERT INTO users (username, password, email, activate_email) VALUES ($1, $2, $3, $4) ON CONFLICT DO NOTHING RETURNING id", [req.body.username, req.body.password, req.body.email, false], (err, result) => {
+    let email = req.body.email;
+    let username = req.body.username;
+    let password = req.body.password;
+
+    if (!email || !username || !password) {
+        res.sendStatus(404);
+        return;
+    }
+    // Removed trailing space
+    email = email.trim();
+    username = username.trim();
+
+    if (!emailValidator.validate(email)) {
+        res.sendStatus(404);
+        return;
+    }
+    pool.getPool().query("INSERT INTO users (username, password, email, activate_email) VALUES ($1, $2, $3, $4) ON CONFLICT DO NOTHING RETURNING id", [username, password, email, false], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
