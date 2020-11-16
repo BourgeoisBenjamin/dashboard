@@ -5,7 +5,7 @@
 -- Dumped from database version 12.4 (Debian 12.4-1.pgdg100+1)
 -- Dumped by pg_dump version 12.4
 
--- Started on 2020-11-16 12:51:07 UTC
+-- Started on 2020-11-16 15:45:02 UTC
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -435,10 +435,8 @@ CREATE TABLE public.users (
     username character varying,
     password character varying,
     email character varying,
-    activate_email boolean NOT NULL,
-    user_token character varying,
-    user_tokensecret character varying,
-    user_id bigint
+    activate_email boolean,
+    tier_user_id character varying
 );
 
 
@@ -830,11 +828,11 @@ ALTER TABLE ONLY public.users
 
 --
 -- TOC entry 2911 (class 2606 OID 16602)
--- Name: users users_user_id; Type: CONSTRAINT; Schema: public; Owner: dashboard
+-- Name: users users_tier_user_id; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
 ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_user_id UNIQUE (user_id);
+    ADD CONSTRAINT users_tier_user_id UNIQUE (tier_user_id);
 
 
 --
@@ -1016,7 +1014,7 @@ ALTER TABLE ONLY public.youtube_service
     ADD CONSTRAINT youtube_service_id_user_fkey FOREIGN KEY (id_user) REFERENCES public.users(id);
 
 
--- Completed on 2020-11-16 12:51:07 UTC
+-- Completed on 2020-11-16 15:45:02 UTC
 
 --
 -- PostgreSQL database dump complete

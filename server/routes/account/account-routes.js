@@ -12,7 +12,6 @@ router.post('/register', function(req, res) {
             res.json({message: "Service Unavailable"})
         } else {
             if (!result.rows.length) {
-                console.debug("REGISTER : User already exist.")
                 res.sendStatus(409)
             } else {
                 res.sendStatus(200);
