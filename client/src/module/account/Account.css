@@ -1,0 +1,58 @@
+#account-module
+{
+    width: 100%;
+    display: flex;
+}
+
+#account-module .account-menu
+{
+    width: 300px;
+    border-right: 1px solid grey;
+    min-height: 400px;
+}
+
+#account-module .account-menu .element
+{
+    display: flex;
+    font-size: 20px;
+    padding-bottom: 20px;
+    margin: 30px;
+    cursor: pointer;
+    transition: 0.5s;
+    border-bottom: 2px solid white;
+}
+
+#account-module .account-menu .element:hover
+{
+    border-bottom: 2px solid #5C80BC;
+}
+
+#account-module .account-menu .selected
+{
+    border-bottom: 2px solid #5C80BC;
+}
+
+#account-module .account-menu .element .logo
+{
+
+}
+
+#account-module .account-menu .element .name
+{
+    margin-left: 20px;
+}
+
+#account-module .account-menu .element p
+{
+    margin-bottom: 0;
+}
+
+#account-module .content
+{
+    width: 100%;
+}
+
+#account-module .hide
+{
+    display: none;
+}
