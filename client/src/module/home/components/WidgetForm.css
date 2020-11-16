@@ -1,0 +1,93 @@
+#widget-form
+{
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    transition: 0.5s;
+}
+
+#widget-form .form
+{
+    width: 900px;
+    padding-bottom: 50px;
+    margin-inline: auto;
+    background-color: white;
+    margin-top: 100px;
+    border: 1px solid black;
+}
+
+#widget-form .form .header
+{
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #5C80BC;
+    display: flex;
+    color: white;
+}
+
+#widget-form .form .header .title
+{
+
+    font-size: 25px;
+}
+
+#widget-form .form .header .close-button
+{
+    margin-left: auto;
+    cursor: pointer;
+}
+
+#widget-form .form .content .title
+{
+    margin-top: 50px;
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#widget-form .form .content .input
+{
+    text-align: center;
+    margin-top: 50px;
+}
+
+#widget-form .form .content .input .MuiSelect-select
+{
+    text-align: left;
+    padding: 15px;
+}
+
+#widget-form .form .content .title-parameters
+{
+    font-size: 20px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+#widget-form .form .content .widget-button
+{
+    margin-top: 70px;
+    color: white;
+    text-align: center;
+}
+
+#widget-form .form .content .widget-button button
+{
+    padding: 15px 100px;
+    background-color: #5C80BC;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+    outline: none;
+}
+
+#widget-form .form .content .widget-button button:hover
+{
+    background-color: #6892de;
+}
