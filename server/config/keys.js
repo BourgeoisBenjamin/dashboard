@@ -20,6 +20,15 @@ const TWITTER_APP = {
     APP_API_CALLBACK: process.env.TWITTER_APP_API_CALLBACK
 }
 
+const GOOGLE_APP = {
+    APP_API_KEY: process.env.GOOGLE_APP_API_KEY,
+    APP_API_KEY_SECRET: process.env.GOOGLE_APP_API_KEY_SECRET,
+    APP_API_CALLBACK: process.env.GOOGLE_APP_API_CALLBACK,
+    APP_API_SCOPE: process.env.GOOGLE_APP_API_SCOPE,
+    APP_API_ACCESS_TYPE: process.env.GOOGLE_APP_API_ACCESS_TYPE,
+    APP_API_PROMPT: process.env.GOOGLE_APP_API_PROMPT,
+}
+
 // OTHERS
 const SERVER = {
     CLIENT_HOME_PAGE_URL: process.env.CLIENT_HOME_PAGE_URL
@@ -40,7 +49,8 @@ const KEYS = {
     SERVER,
     JWT,
     TWITTER_APP,
-    SESSION
+    SESSION,
+    GOOGLE_APP
 };
 
 module.exports = KEYS;
