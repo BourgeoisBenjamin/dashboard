@@ -1,13 +1,15 @@
-const express = require('express');
-const bodyParser = require('body-parser')
-const app = express();
 const port = process.env.SERVER_PORT
+const express = require('express');
+const app = express();
 
-const pg = require('pg');
-const pool = require('./services/postgresql')
+const session = require("express-session");
+const pgSession = require('connect-pg-simple')(session);
+const bodyParser = require('body-parser')
 const cors = require("cors");
+const pg = require('pg');
 const ms = require('ms');
 
+const pool = require('./services/postgresql')
 const KEYS = require("./config/keys");
 
 const accountRoutes = require("./routes/account/account-routes");
@@ -15,6 +17,21 @@ const accountRoutes = require("./routes/account/account-routes");
 //const accountServiceRoutes = require("./routes/account/service/account-service-routes");
 
 app.use(bodyParser());
+
+const sessionConfig = {
+    name: 'dashboard',
+    secret: KEYS.SESSION.SESSION_KEY,
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
+    store: new pgSession({
+        pool : pool.getPool(),
+        tableName : KEYS.SESSION.TABLE_NAME
+    }),
+    resave: false,
+    saveUninitialized: false,
+    tokenSecret: null,
+}
+
+app.use(session(sessionConfig))
 
 // set up cors to allow us to accept requests from our client
 app.use(
