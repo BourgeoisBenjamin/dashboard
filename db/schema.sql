@@ -5,7 +5,7 @@
 -- Dumped from database version 12.4 (Debian 12.4-1.pgdg100+1)
 -- Dumped by pg_dump version 12.4
 
--- Started on 2020-11-16 12:18:34 UTC
+-- Started on 2020-11-16 12:51:07 UTC
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,7 +23,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 203 (class 1259 OID 16394)
+-- TOC entry 202 (class 1259 OID 16385)
 -- Name: channels_videos_youtube; Type: TABLE; Schema: public; Owner: dashboard
 --
 
@@ -39,7 +39,7 @@ CREATE TABLE public.channels_videos_youtube (
 ALTER TABLE public.channels_videos_youtube OWNER TO dashboard;
 
 --
--- TOC entry 204 (class 1259 OID 16397)
+-- TOC entry 203 (class 1259 OID 16388)
 -- Name: channels_videos_youtube_id_seq; Type: SEQUENCE; Schema: public; Owner: dashboard
 --
 
@@ -55,7 +55,7 @@ ALTER TABLE public.channels_videos_youtube_id_seq OWNER TO dashboard;
 
 --
 -- TOC entry 3068 (class 0 OID 0)
--- Dependencies: 204
+-- Dependencies: 203
 -- Name: channels_videos_youtube_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dashboard
 --
 
@@ -63,7 +63,7 @@ ALTER SEQUENCE public.channels_videos_youtube_id_seq OWNED BY public.channels_vi
 
 
 --
--- TOC entry 205 (class 1259 OID 16399)
+-- TOC entry 204 (class 1259 OID 16390)
 -- Name: city_meteo_weather; Type: TABLE; Schema: public; Owner: dashboard
 --
 
@@ -79,7 +79,7 @@ CREATE TABLE public.city_meteo_weather (
 ALTER TABLE public.city_meteo_weather OWNER TO dashboard;
 
 --
--- TOC entry 206 (class 1259 OID 16405)
+-- TOC entry 205 (class 1259 OID 16396)
 -- Name: city_meteo_weather_id_seq; Type: SEQUENCE; Schema: public; Owner: dashboard
 --
 
@@ -95,7 +95,7 @@ ALTER TABLE public.city_meteo_weather_id_seq OWNER TO dashboard;
 
 --
 -- TOC entry 3069 (class 0 OID 0)
--- Dependencies: 206
+-- Dependencies: 205
 -- Name: city_meteo_weather_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dashboard
 --
 
@@ -103,7 +103,7 @@ ALTER SEQUENCE public.city_meteo_weather_id_seq OWNED BY public.city_meteo_weath
 
 
 --
--- TOC entry 207 (class 1259 OID 16407)
+-- TOC entry 206 (class 1259 OID 16398)
 -- Name: comments_video_youtube; Type: TABLE; Schema: public; Owner: dashboard
 --
 
@@ -119,7 +119,7 @@ CREATE TABLE public.comments_video_youtube (
 ALTER TABLE public.comments_video_youtube OWNER TO dashboard;
 
 --
--- TOC entry 208 (class 1259 OID 16410)
+-- TOC entry 207 (class 1259 OID 16401)
 -- Name: comments_video_youtube_id_seq; Type: SEQUENCE; Schema: public; Owner: dashboard
 --
 
@@ -135,7 +135,7 @@ ALTER TABLE public.comments_video_youtube_id_seq OWNER TO dashboard;
 
 --
 -- TOC entry 3070 (class 0 OID 0)
--- Dependencies: 208
+-- Dependencies: 207
 -- Name: comments_video_youtube_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dashboard
 --
 
@@ -143,7 +143,7 @@ ALTER SEQUENCE public.comments_video_youtube_id_seq OWNED BY public.comments_vid
 
 
 --
--- TOC entry 209 (class 1259 OID 16412)
+-- TOC entry 208 (class 1259 OID 16403)
 -- Name: country_case_covid; Type: TABLE; Schema: public; Owner: dashboard
 --
 
@@ -158,7 +158,7 @@ CREATE TABLE public.country_case_covid (
 ALTER TABLE public.country_case_covid OWNER TO dashboard;
 
 --
--- TOC entry 210 (class 1259 OID 16418)
+-- TOC entry 209 (class 1259 OID 16409)
 -- Name: country_case_covid_id_seq; Type: SEQUENCE; Schema: public; Owner: dashboard
 --
 
@@ -174,7 +174,7 @@ ALTER TABLE public.country_case_covid_id_seq OWNER TO dashboard;
 
 --
 -- TOC entry 3071 (class 0 OID 0)
--- Dependencies: 210
+-- Dependencies: 209
 -- Name: country_case_covid_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dashboard
 --
 
@@ -182,7 +182,7 @@ ALTER SEQUENCE public.country_case_covid_id_seq OWNED BY public.country_case_cov
 
 
 --
--- TOC entry 211 (class 1259 OID 16420)
+-- TOC entry 210 (class 1259 OID 16411)
 -- Name: covid_service; Type: TABLE; Schema: public; Owner: dashboard
 --
 
@@ -195,7 +195,7 @@ CREATE TABLE public.covid_service (
 ALTER TABLE public.covid_service OWNER TO dashboard;
 
 --
--- TOC entry 212 (class 1259 OID 16423)
+-- TOC entry 211 (class 1259 OID 16414)
 -- Name: covid_service_id_seq; Type: SEQUENCE; Schema: public; Owner: dashboard
 --
 
@@ -211,7 +211,7 @@ ALTER TABLE public.covid_service_id_seq OWNER TO dashboard;
 
 --
 -- TOC entry 3072 (class 0 OID 0)
--- Dependencies: 212
+-- Dependencies: 211
 -- Name: covid_service_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dashboard
 --
 
@@ -219,7 +219,7 @@ ALTER SEQUENCE public.covid_service_id_seq OWNED BY public.covid_service.id;
 
 
 --
--- TOC entry 213 (class 1259 OID 16425)
+-- TOC entry 212 (class 1259 OID 16416)
 -- Name: last_tweets_twitter; Type: TABLE; Schema: public; Owner: dashboard
 --
 
@@ -234,7 +234,7 @@ CREATE TABLE public.last_tweets_twitter (
 ALTER TABLE public.last_tweets_twitter OWNER TO dashboard;
 
 --
--- TOC entry 214 (class 1259 OID 16428)
+-- TOC entry 213 (class 1259 OID 16419)
 -- Name: last_tweets_twitter_id_seq; Type: SEQUENCE; Schema: public; Owner: dashboard
 --
 
@@ -250,7 +250,7 @@ ALTER TABLE public.last_tweets_twitter_id_seq OWNER TO dashboard;
 
 --
 -- TOC entry 3073 (class 0 OID 0)
--- Dependencies: 214
+-- Dependencies: 213
 -- Name: last_tweets_twitter_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dashboard
 --
 
@@ -258,7 +258,7 @@ ALTER SEQUENCE public.last_tweets_twitter_id_seq OWNED BY public.last_tweets_twi
 
 
 --
--- TOC entry 215 (class 1259 OID 16430)
+-- TOC entry 214 (class 1259 OID 16421)
 -- Name: search_tweets_twitter; Type: TABLE; Schema: public; Owner: dashboard
 --
 
@@ -273,7 +273,7 @@ CREATE TABLE public.search_tweets_twitter (
 ALTER TABLE public.search_tweets_twitter OWNER TO dashboard;
 
 --
--- TOC entry 216 (class 1259 OID 16436)
+-- TOC entry 215 (class 1259 OID 16427)
 -- Name: search_tweets_twitter_id_seq; Type: SEQUENCE; Schema: public; Owner: dashboard
 --
 
@@ -289,7 +289,7 @@ ALTER TABLE public.search_tweets_twitter_id_seq OWNER TO dashboard;
 
 --
 -- TOC entry 3074 (class 0 OID 0)
--- Dependencies: 216
+-- Dependencies: 215
 -- Name: search_tweets_twitter_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dashboard
 --
 
@@ -297,7 +297,7 @@ ALTER SEQUENCE public.search_tweets_twitter_id_seq OWNED BY public.search_tweets
 
 
 --
--- TOC entry 202 (class 1259 OID 16385)
+-- TOC entry 216 (class 1259 OID 16429)
 -- Name: session; Type: TABLE; Schema: public; Owner: dashboard
 --
 
@@ -311,7 +311,7 @@ CREATE TABLE public.session (
 ALTER TABLE public.session OWNER TO dashboard;
 
 --
--- TOC entry 217 (class 1259 OID 16438)
+-- TOC entry 217 (class 1259 OID 16435)
 -- Name: subscribers_channels_youtube; Type: TABLE; Schema: public; Owner: dashboard
 --
 
@@ -326,7 +326,7 @@ CREATE TABLE public.subscribers_channels_youtube (
 ALTER TABLE public.subscribers_channels_youtube OWNER TO dashboard;
 
 --
--- TOC entry 218 (class 1259 OID 16441)
+-- TOC entry 218 (class 1259 OID 16438)
 -- Name: subscribers_channels_youtube_id_seq; Type: SEQUENCE; Schema: public; Owner: dashboard
 --
 
@@ -350,7 +350,7 @@ ALTER SEQUENCE public.subscribers_channels_youtube_id_seq OWNED BY public.subscr
 
 
 --
--- TOC entry 219 (class 1259 OID 16443)
+-- TOC entry 219 (class 1259 OID 16440)
 -- Name: summary_country_covid; Type: TABLE; Schema: public; Owner: dashboard
 --
 
@@ -365,7 +365,7 @@ CREATE TABLE public.summary_country_covid (
 ALTER TABLE public.summary_country_covid OWNER TO dashboard;
 
 --
--- TOC entry 220 (class 1259 OID 16449)
+-- TOC entry 220 (class 1259 OID 16446)
 -- Name: summary_country_covid_id_seq; Type: SEQUENCE; Schema: public; Owner: dashboard
 --
 
@@ -389,7 +389,7 @@ ALTER SEQUENCE public.summary_country_covid_id_seq OWNED BY public.summary_count
 
 
 --
--- TOC entry 221 (class 1259 OID 16451)
+-- TOC entry 221 (class 1259 OID 16448)
 -- Name: twitter_service; Type: TABLE; Schema: public; Owner: dashboard
 --
 
@@ -402,7 +402,7 @@ CREATE TABLE public.twitter_service (
 ALTER TABLE public.twitter_service OWNER TO dashboard;
 
 --
--- TOC entry 222 (class 1259 OID 16454)
+-- TOC entry 222 (class 1259 OID 16451)
 -- Name: twitter_service_id_seq; Type: SEQUENCE; Schema: public; Owner: dashboard
 --
 
@@ -426,7 +426,7 @@ ALTER SEQUENCE public.twitter_service_id_seq OWNED BY public.twitter_service.id;
 
 
 --
--- TOC entry 223 (class 1259 OID 16456)
+-- TOC entry 223 (class 1259 OID 16453)
 -- Name: users; Type: TABLE; Schema: public; Owner: dashboard
 --
 
@@ -437,14 +437,15 @@ CREATE TABLE public.users (
     email character varying,
     activate_email boolean NOT NULL,
     user_token character varying,
-    user_tokensecret character varying
+    user_tokensecret character varying,
+    user_id bigint
 );
 
 
 ALTER TABLE public.users OWNER TO dashboard;
 
 --
--- TOC entry 224 (class 1259 OID 16462)
+-- TOC entry 224 (class 1259 OID 16459)
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: dashboard
 --
 
@@ -468,7 +469,7 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- TOC entry 225 (class 1259 OID 16464)
+-- TOC entry 225 (class 1259 OID 16461)
 -- Name: views_video_youtube; Type: TABLE; Schema: public; Owner: dashboard
 --
 
@@ -483,7 +484,7 @@ CREATE TABLE public.views_video_youtube (
 ALTER TABLE public.views_video_youtube OWNER TO dashboard;
 
 --
--- TOC entry 226 (class 1259 OID 16467)
+-- TOC entry 226 (class 1259 OID 16464)
 -- Name: views_video_youtube_id_seq; Type: SEQUENCE; Schema: public; Owner: dashboard
 --
 
@@ -507,7 +508,7 @@ ALTER SEQUENCE public.views_video_youtube_id_seq OWNED BY public.views_video_you
 
 
 --
--- TOC entry 227 (class 1259 OID 16469)
+-- TOC entry 227 (class 1259 OID 16466)
 -- Name: weather_service; Type: TABLE; Schema: public; Owner: dashboard
 --
 
@@ -520,7 +521,7 @@ CREATE TABLE public.weather_service (
 ALTER TABLE public.weather_service OWNER TO dashboard;
 
 --
--- TOC entry 228 (class 1259 OID 16472)
+-- TOC entry 228 (class 1259 OID 16469)
 -- Name: weather_service_id_seq; Type: SEQUENCE; Schema: public; Owner: dashboard
 --
 
@@ -544,7 +545,7 @@ ALTER SEQUENCE public.weather_service_id_seq OWNED BY public.weather_service.id;
 
 
 --
--- TOC entry 229 (class 1259 OID 16474)
+-- TOC entry 229 (class 1259 OID 16471)
 -- Name: youtube_service; Type: TABLE; Schema: public; Owner: dashboard
 --
 
@@ -557,7 +558,7 @@ CREATE TABLE public.youtube_service (
 ALTER TABLE public.youtube_service OWNER TO dashboard;
 
 --
--- TOC entry 230 (class 1259 OID 16477)
+-- TOC entry 230 (class 1259 OID 16474)
 -- Name: youtube_service_id_seq; Type: SEQUENCE; Schema: public; Owner: dashboard
 --
 
@@ -581,7 +582,7 @@ ALTER SEQUENCE public.youtube_service_id_seq OWNED BY public.youtube_service.id;
 
 
 --
--- TOC entry 2865 (class 2604 OID 16479)
+-- TOC entry 2865 (class 2604 OID 16476)
 -- Name: channels_videos_youtube id; Type: DEFAULT; Schema: public; Owner: dashboard
 --
 
@@ -589,7 +590,7 @@ ALTER TABLE ONLY public.channels_videos_youtube ALTER COLUMN id SET DEFAULT next
 
 
 --
--- TOC entry 2866 (class 2604 OID 16480)
+-- TOC entry 2866 (class 2604 OID 16477)
 -- Name: city_meteo_weather id; Type: DEFAULT; Schema: public; Owner: dashboard
 --
 
@@ -597,7 +598,7 @@ ALTER TABLE ONLY public.city_meteo_weather ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
--- TOC entry 2867 (class 2604 OID 16481)
+-- TOC entry 2867 (class 2604 OID 16478)
 -- Name: comments_video_youtube id; Type: DEFAULT; Schema: public; Owner: dashboard
 --
 
@@ -605,7 +606,7 @@ ALTER TABLE ONLY public.comments_video_youtube ALTER COLUMN id SET DEFAULT nextv
 
 
 --
--- TOC entry 2868 (class 2604 OID 16482)
+-- TOC entry 2868 (class 2604 OID 16479)
 -- Name: country_case_covid id; Type: DEFAULT; Schema: public; Owner: dashboard
 --
 
@@ -613,7 +614,7 @@ ALTER TABLE ONLY public.country_case_covid ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
--- TOC entry 2869 (class 2604 OID 16483)
+-- TOC entry 2869 (class 2604 OID 16480)
 -- Name: covid_service id; Type: DEFAULT; Schema: public; Owner: dashboard
 --
 
@@ -621,7 +622,7 @@ ALTER TABLE ONLY public.covid_service ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 2870 (class 2604 OID 16484)
+-- TOC entry 2870 (class 2604 OID 16481)
 -- Name: last_tweets_twitter id; Type: DEFAULT; Schema: public; Owner: dashboard
 --
 
@@ -629,7 +630,7 @@ ALTER TABLE ONLY public.last_tweets_twitter ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- TOC entry 2871 (class 2604 OID 16485)
+-- TOC entry 2871 (class 2604 OID 16482)
 -- Name: search_tweets_twitter id; Type: DEFAULT; Schema: public; Owner: dashboard
 --
 
@@ -637,7 +638,7 @@ ALTER TABLE ONLY public.search_tweets_twitter ALTER COLUMN id SET DEFAULT nextva
 
 
 --
--- TOC entry 2872 (class 2604 OID 16486)
+-- TOC entry 2872 (class 2604 OID 16483)
 -- Name: subscribers_channels_youtube id; Type: DEFAULT; Schema: public; Owner: dashboard
 --
 
@@ -645,7 +646,7 @@ ALTER TABLE ONLY public.subscribers_channels_youtube ALTER COLUMN id SET DEFAULT
 
 
 --
--- TOC entry 2873 (class 2604 OID 16487)
+-- TOC entry 2873 (class 2604 OID 16484)
 -- Name: summary_country_covid id; Type: DEFAULT; Schema: public; Owner: dashboard
 --
 
@@ -653,7 +654,7 @@ ALTER TABLE ONLY public.summary_country_covid ALTER COLUMN id SET DEFAULT nextva
 
 
 --
--- TOC entry 2874 (class 2604 OID 16488)
+-- TOC entry 2874 (class 2604 OID 16485)
 -- Name: twitter_service id; Type: DEFAULT; Schema: public; Owner: dashboard
 --
 
@@ -661,7 +662,7 @@ ALTER TABLE ONLY public.twitter_service ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 2875 (class 2604 OID 16489)
+-- TOC entry 2875 (class 2604 OID 16486)
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: dashboard
 --
 
@@ -669,7 +670,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- TOC entry 2876 (class 2604 OID 16490)
+-- TOC entry 2876 (class 2604 OID 16487)
 -- Name: views_video_youtube id; Type: DEFAULT; Schema: public; Owner: dashboard
 --
 
@@ -677,7 +678,7 @@ ALTER TABLE ONLY public.views_video_youtube ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- TOC entry 2877 (class 2604 OID 16491)
+-- TOC entry 2877 (class 2604 OID 16488)
 -- Name: weather_service id; Type: DEFAULT; Schema: public; Owner: dashboard
 --
 
@@ -685,7 +686,7 @@ ALTER TABLE ONLY public.weather_service ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 2878 (class 2604 OID 16492)
+-- TOC entry 2878 (class 2604 OID 16489)
 -- Name: youtube_service id; Type: DEFAULT; Schema: public; Owner: dashboard
 --
 
@@ -693,7 +694,7 @@ ALTER TABLE ONLY public.youtube_service ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 2883 (class 2606 OID 16494)
+-- TOC entry 2880 (class 2606 OID 16491)
 -- Name: channels_videos_youtube channels_videos_youtube_pkey; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -702,7 +703,7 @@ ALTER TABLE ONLY public.channels_videos_youtube
 
 
 --
--- TOC entry 2885 (class 2606 OID 16496)
+-- TOC entry 2882 (class 2606 OID 16493)
 -- Name: city_meteo_weather city_meteo_weather_pkey; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -711,7 +712,7 @@ ALTER TABLE ONLY public.city_meteo_weather
 
 
 --
--- TOC entry 2887 (class 2606 OID 16498)
+-- TOC entry 2884 (class 2606 OID 16495)
 -- Name: comments_video_youtube comments_video_youtube_pkey; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -720,7 +721,7 @@ ALTER TABLE ONLY public.comments_video_youtube
 
 
 --
--- TOC entry 2889 (class 2606 OID 16500)
+-- TOC entry 2886 (class 2606 OID 16497)
 -- Name: country_case_covid country_case_covid_pkey; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -729,7 +730,7 @@ ALTER TABLE ONLY public.country_case_covid
 
 
 --
--- TOC entry 2891 (class 2606 OID 16502)
+-- TOC entry 2888 (class 2606 OID 16499)
 -- Name: covid_service covid_service_id_user_key; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -738,7 +739,7 @@ ALTER TABLE ONLY public.covid_service
 
 
 --
--- TOC entry 2893 (class 2606 OID 16504)
+-- TOC entry 2890 (class 2606 OID 16501)
 -- Name: covid_service covid_service_pkey; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -747,7 +748,7 @@ ALTER TABLE ONLY public.covid_service
 
 
 --
--- TOC entry 2895 (class 2606 OID 16506)
+-- TOC entry 2892 (class 2606 OID 16503)
 -- Name: last_tweets_twitter last_tweets_twitter_pkey; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -756,7 +757,7 @@ ALTER TABLE ONLY public.last_tweets_twitter
 
 
 --
--- TOC entry 2897 (class 2606 OID 16508)
+-- TOC entry 2894 (class 2606 OID 16505)
 -- Name: search_tweets_twitter search_tweets_twitter_pkey; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -765,7 +766,7 @@ ALTER TABLE ONLY public.search_tweets_twitter
 
 
 --
--- TOC entry 2881 (class 2606 OID 16392)
+-- TOC entry 2897 (class 2606 OID 16507)
 -- Name: session session_pkey; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -774,7 +775,7 @@ ALTER TABLE ONLY public.session
 
 
 --
--- TOC entry 2899 (class 2606 OID 16510)
+-- TOC entry 2899 (class 2606 OID 16509)
 -- Name: subscribers_channels_youtube subscribers_channels_youtube_pkey; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -783,7 +784,7 @@ ALTER TABLE ONLY public.subscribers_channels_youtube
 
 
 --
--- TOC entry 2901 (class 2606 OID 16512)
+-- TOC entry 2901 (class 2606 OID 16511)
 -- Name: summary_country_covid summary_country_covid_pkey; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -792,7 +793,7 @@ ALTER TABLE ONLY public.summary_country_covid
 
 
 --
--- TOC entry 2903 (class 2606 OID 16514)
+-- TOC entry 2903 (class 2606 OID 16513)
 -- Name: twitter_service twitter_service_id_user_key; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -801,7 +802,7 @@ ALTER TABLE ONLY public.twitter_service
 
 
 --
--- TOC entry 2905 (class 2606 OID 16516)
+-- TOC entry 2905 (class 2606 OID 16515)
 -- Name: twitter_service twitter_service_pkey; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -810,7 +811,7 @@ ALTER TABLE ONLY public.twitter_service
 
 
 --
--- TOC entry 2907 (class 2606 OID 16518)
+-- TOC entry 2907 (class 2606 OID 16517)
 -- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -819,7 +820,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2909 (class 2606 OID 16520)
+-- TOC entry 2909 (class 2606 OID 16519)
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -828,16 +829,16 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2911 (class 2606 OID 16522)
--- Name: users users_user_token; Type: CONSTRAINT; Schema: public; Owner: dashboard
+-- TOC entry 2911 (class 2606 OID 16602)
+-- Name: users users_user_id; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
 ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_user_token UNIQUE (user_token);
+    ADD CONSTRAINT users_user_id UNIQUE (user_id);
 
 
 --
--- TOC entry 2913 (class 2606 OID 16524)
+-- TOC entry 2913 (class 2606 OID 16523)
 -- Name: users users_username_key; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -846,7 +847,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2915 (class 2606 OID 16526)
+-- TOC entry 2915 (class 2606 OID 16525)
 -- Name: views_video_youtube views_video_youtube_pkey; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -855,7 +856,7 @@ ALTER TABLE ONLY public.views_video_youtube
 
 
 --
--- TOC entry 2917 (class 2606 OID 16528)
+-- TOC entry 2917 (class 2606 OID 16527)
 -- Name: weather_service weather_service_id_user_key; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -864,7 +865,7 @@ ALTER TABLE ONLY public.weather_service
 
 
 --
--- TOC entry 2919 (class 2606 OID 16530)
+-- TOC entry 2919 (class 2606 OID 16529)
 -- Name: weather_service weather_service_pkey; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -873,7 +874,7 @@ ALTER TABLE ONLY public.weather_service
 
 
 --
--- TOC entry 2921 (class 2606 OID 16532)
+-- TOC entry 2921 (class 2606 OID 16531)
 -- Name: youtube_service youtube_service_id_user_key; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -882,7 +883,7 @@ ALTER TABLE ONLY public.youtube_service
 
 
 --
--- TOC entry 2923 (class 2606 OID 16534)
+-- TOC entry 2923 (class 2606 OID 16533)
 -- Name: youtube_service youtube_service_pkey; Type: CONSTRAINT; Schema: public; Owner: dashboard
 --
 
@@ -891,7 +892,7 @@ ALTER TABLE ONLY public.youtube_service
 
 
 --
--- TOC entry 2879 (class 1259 OID 16393)
+-- TOC entry 2895 (class 1259 OID 16534)
 -- Name: idx_session_expire; Type: INDEX; Schema: public; Owner: dashboard
 --
 
@@ -1015,7 +1016,7 @@ ALTER TABLE ONLY public.youtube_service
     ADD CONSTRAINT youtube_service_id_user_fkey FOREIGN KEY (id_user) REFERENCES public.users(id);
 
 
--- Completed on 2020-11-16 12:18:35 UTC
+-- Completed on 2020-11-16 12:51:07 UTC
 
 --
 -- PostgreSQL database dump complete

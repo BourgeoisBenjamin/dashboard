@@ -13,6 +13,7 @@ const pool = require('./services/postgresql')
 const KEYS = require("./config/keys");
 
 const accountRoutes = require("./routes/account/account-routes");
+const loginTiersRoutes = require("./routes/account/login/tiers/tiers-routes");
 //const accountPasswordRoutes = require("./routes/account/password/account-password-routes");
 //const accountServiceRoutes = require("./routes/account/service/account-service-routes");
 
@@ -44,6 +45,7 @@ app.use(
 
 // set up routes
 app.use("/account", accountRoutes);
+app.use("/account/login/tiers", loginTiersRoutes);
 //app.use("/account/password", accountPasswordRoutes);
 //app.use("/account/service", accountServiceRoutes);
 
