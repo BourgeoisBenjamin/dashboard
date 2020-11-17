@@ -1,0 +1,48 @@
+#home-module
+{
+
+}
+
+#home-module .new-widgets-button
+{
+    margin-top: 70px;
+    color: white;
+    text-align: center;
+}
+
+#home-module .new-widgets-button button
+{
+    padding: 15px 100px;
+    background-color: #5C80BC;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+    outline: none;
+}
+
+#home-module .new-widgets-button button:hover
+{
+    background-color: #6892de;
+}
+
+
+.fade-enter {
+    opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+}
