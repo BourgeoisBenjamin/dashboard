@@ -4,7 +4,7 @@ import MenuContext from "../../core/contexts/MenuContext";
 import './Home.css'
 import WidgetForm from './components/WidgetForm'
 import {Route, Switch} from "react-router-dom";
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+// import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 class Home extends Component {
 

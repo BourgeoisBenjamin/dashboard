@@ -23,7 +23,7 @@ router.post('/register', function(req, res) {
         res.sendStatus(404);
         return;
     }
-    pool.getPool().query("INSERT INTO users (username, password, email, activate_email) VALUES ($1, $2, $3, $4) ON CONFLICT DO NOTHING RETURNING id", [username, password, email, false], (err, result) => {
+    pool.getPool().query("INSERT INTO users (username, password, email, activate_email) VALUES ($1, crypt($2, gen_salt('bf')), $3, $4) ON CONFLICT DO NOTHING RETURNING id", [username, password, email, false], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -39,7 +39,7 @@ router.post('/register', function(req, res) {
 });
 
 router.post('/login', function (req, res) {
-    pool.getPool().query("SELECT id FROM users WHERE username = $1 OR email = $1 AND password = $2", [req.body.identifier, req.body.password], (err, result) => {
+    pool.getPool().query("SELECT id FROM users WHERE (username = $1 OR email = $1) AND password = crypt($2, password)", [req.body.identifier, req.body.password], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
