@@ -43,6 +43,10 @@ const SESSION = {
     TABLE_NAME: process.env.SESSION_TABLE_NAME
 }
 
+const WEATHER_SERVICE = {
+    API_KEY: process.env.SERVICE_WEATHER_API_KEY
+}
+
 // KEYS PACKAGE
 const KEYS = {
     POSTGRESQL,
@@ -50,7 +54,8 @@ const KEYS = {
     JWT,
     TWITTER_APP,
     SESSION,
-    GOOGLE_APP
+    GOOGLE_APP,
+    WEATHER_SERVICE
 };
 
 module.exports = KEYS;

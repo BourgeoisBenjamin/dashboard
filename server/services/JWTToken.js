@@ -2,10 +2,9 @@ const jwt = require("jsonwebtoken");
 const KEYS = require("../config/keys");
 
 function authenticateToken(req, res, next) {
-    // Gather the jwt access token from the request header
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
-    if (token == null) return res.sendStatus(401) // if there isn't any token
+    if (token == null) return res.sendStatus(401)
 
     jwt.verify(token, KEYS.JWT.JWT_SECRET, (err, user) => {
         if (err) {
@@ -13,14 +12,11 @@ function authenticateToken(req, res, next) {
             return res.sendStatus(403)
         }
         req.user = user
-        next() // pass the execution off to whatever request the client intended
+        next()
     })
 }
 
-// id is in the form { user_id: 1 }
-// ^^the above object structure is completely arbitrary
 function generateAccessToken(user_id) {
-    // expires after half and hour (1800 seconds = 30 minutes)
     return jwt.sign(user_id, KEYS.JWT.JWT_SECRET, { expiresIn: '1800s' });
 }
 
