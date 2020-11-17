@@ -6,15 +6,45 @@ import Select from "@material-ui/core/Select";
 import Input from "@material-ui/core/Input";
 import MenuItem from "@material-ui/core/MenuItem";
 import history from "../../../history";
+import {Route, Switch} from "react-router-dom";
+import YoutubeWidgetLastVideosOfChannelForm from "./form-widgets/YoutubeWidgetLastVideosOfChannelForm";
+import YoutubeDisplayChannelSubscribersForm from "./form-widgets/YoutubeDisplayChannelSubscribersForm";
 
-const servicesName = [
-    'Twitter',
-    'Youtube',
-];
-
-const widgetsName = [
-    'Je sais pas quoi',
-    'Lalaaaaalala jentends pas'
+const services = [
+    {
+        name: 'Select a service',
+        widgets: []
+    },
+    {
+        name: 'Twitter',
+        widgets: [
+            {
+                name: 'Last tweets',
+                urlClient: '/home/widget/twitter/last-tweets/',
+                urlRequest: '/service/twitter/last-tweets/'
+            },
+            {
+                name: 'Search',
+                urlClient: '/home/widget/twitter/search/',
+                urlRequest: '/service/twitter/search/'
+            }
+        ]
+    },
+    {
+        name: 'Youtube',
+        widgets: [
+            {
+                name: 'Last videos of a channel',
+                urlClient: '/home/widget/youtube/last-videos-of-a-channel/',
+                urlRequest: '/service/youtube/last-videos-channel/'
+            },
+            {
+                name: 'Display channel subscribers',
+                urlClient: '/home/widget/youtube/display-channel-subscribers/',
+                urlRequest: '/service/youtube/channel-subscribers/'
+            }
+        ]
+    }
 ];
 
 class WidgetForm extends Component {
@@ -23,8 +53,8 @@ class WidgetForm extends Component {
         super(props);
 
         this.state = {
-            'servicesSelected' : 'Select a service',
-            'widgetSelected': 'Select a widget'
+            'servicesSelected' : services.find(service => service.name === this.props.name),
+            'widgetSelected': ''
         };
 
         this.handleSelectServicesChanged = this.handleSelectServicesChanged.bind(this);
@@ -34,12 +64,18 @@ class WidgetForm extends Component {
 
     handleSelectServicesChanged(e)
     {
-        this.setState({'servicesSelected': e.target.value});
+        this.setState(
+            {
+                'servicesSelected': services.find(service => service.name === e.target.value),
+                'widgetSelected': ''
+            },
+        );
     }
 
     handleSelectWidgetsChanged(e)
     {
         this.setState({'widgetSelected': e.target.value});
+        history.push(this.state['servicesSelected'].widgets.find(widget => widget.name === e.target.value).urlClient);
     }
 
     handleCloseClick()
@@ -53,7 +89,7 @@ class WidgetForm extends Component {
                 <div class="form">
                     <div class="header">
                         <div class="title">
-                            <p>New widgets</p>
+                            <p>{this.props.title}</p>
                         </div>
                         <div class="close-button">
                             <CgClose size={35} onClick={this.handleCloseClick} />
@@ -69,11 +105,11 @@ class WidgetForm extends Component {
                                     variant={'outlined'}
                                     displayEmpty
                                     input={<Input />}
-                                    value={this.state.servicesSelected}
+                                    value={this.state.servicesSelected.name}
                                     onChange={this.handleSelectServicesChanged}
                                     renderValue={(selected) => {
                                         if (selected.length === 0) {
-                                            return <em>Placeholder</em>;
+                                            return <em>Select a service</em>;
                                         }
                                         return selected;
                                     }}
@@ -82,9 +118,9 @@ class WidgetForm extends Component {
                                     <MenuItem disabled value="">
                                         <em>Select a service</em>
                                     </MenuItem>
-                                    {servicesName.map((name) => (
-                                        <MenuItem key={name} value={name}>
-                                            {name}
+                                    {services.map((service) => (
+                                        <MenuItem key={service.name} value={service.name}>
+                                            {service.name}
                                         </MenuItem>
                                     ))}
                                 </Select>
@@ -100,18 +136,18 @@ class WidgetForm extends Component {
                                     onChange={this.handleSelectWidgetsChanged}
                                     renderValue={(selected) => {
                                         if (selected.length === 0) {
-                                            return <em>Placeholder</em>;
+                                            return <em>Select a widget</em>;
                                         }
                                         return selected;
                                     }}
                                     inputProps={{'aria-label': 'Without label'}}
                                 >
                                     <MenuItem disabled value="">
-                                        <em>Select a service</em>
+                                        <em>Select a widget</em>
                                     </MenuItem>
-                                    {widgetsName.map((name) => (
-                                        <MenuItem key={name} value={name}>
-                                            {name}
+                                    {this.state.servicesSelected.widgets.map((widget) => (
+                                        <MenuItem key={widget.name} value={widget.name}>
+                                            {widget.name}
                                         </MenuItem>
                                     ))}
                                 </Select>
@@ -120,7 +156,10 @@ class WidgetForm extends Component {
                         <div class="title-parameters">
                             <p>Parameters</p>
                         </div>
-                        <p>...</p>
+                        <Switch>
+                            <Route path={'/home/widget/youtube/last-videos-of-a-channel/'} render={() => <YoutubeWidgetLastVideosOfChannelForm />}/>
+                            <Route path={'/home/widget/youtube/display-channel-subscribers/'} render={() => <YoutubeDisplayChannelSubscribersForm />}/>
+                        </Switch>
                         <div class="widget-button">
                             <button>Add widgets</button>
                         </div>

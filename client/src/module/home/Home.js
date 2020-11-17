@@ -3,7 +3,7 @@ import history from "../../history";
 import MenuContext from "../../core/contexts/MenuContext";
 import './Home.css'
 import WidgetForm from './components/WidgetForm'
-import {Redirect, Route, Switch} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 class Home extends Component {
@@ -27,7 +27,7 @@ class Home extends Component {
 
     handleNewWidgetClick()
     {
-        history.push('/home/new-widget')
+        history.push('/home/widget/')
     }
 
     render() {
@@ -39,14 +39,15 @@ class Home extends Component {
                 <div class="content">
 
                 </div>
-                <TransitionGroup component={null}>
-                    <CSSTransition timeout={{ enter: 300, exit: 300 }} classNames="fade" key={this.props.location.key}>
+                {/*<TransitionGroup component={null}>*/}
+                {/*    <CSSTransition timeout={{ enter: 300, exit: 300 }} classNames="fade" key={this.state.key}>*/}
                         <Switch location={this.props.location}>
-                            <Route path={'/home/new-widget'} render={() => <WidgetForm />}>
+                            <Route path={'/home/widget/'}>
+                                <WidgetForm name={'Youtube'} widget={'Last tweets'} />
                             </Route>
                         </Switch>
-                    </CSSTransition>
-                </TransitionGroup>
+                {/*    </CSSTransition>*/}
+                {/*</TransitionGroup>*/}
             </div>
         );
     }
