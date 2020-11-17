@@ -7,6 +7,7 @@ import SignUp from './module/sign-up/SignUp';
 import Header from './shared/components/header/Header'
 import history from './history';
 import MenuContext from "./core/contexts/MenuContext";
+import EmailVerify from "./module/email-verify/EmailVerify";
 
 class App extends Component {
 
@@ -32,6 +33,7 @@ class App extends Component {
                             <Route exact path='/sign-up' component={SignUp} />
                             <Route path='/account' component={Account} />
                             <Route path='/home' component={Home} />
+                            <Route path='/email/verify/:token' component={EmailVerify} />
                         </Switch>
                     </div>
                 </MenuContext.Provider>

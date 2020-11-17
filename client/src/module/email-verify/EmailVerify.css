@@ -1,0 +1,24 @@
+#email-verify-module
+{
+    padding-top: 200px;
+}
+
+#email-verify-module .title
+{
+    text-align: center;
+    font-size: 40px;
+}
+
+#email-verify-module .loader
+{
+    margin-top: 50px;
+    text-align: center;
+}
+
+#email-verify-module .status
+{
+    margin-top: 100px;
+    text-align: center;
+    size: 150px;
+    font-size: 150px;
+}

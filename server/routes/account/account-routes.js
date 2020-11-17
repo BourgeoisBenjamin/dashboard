@@ -3,7 +3,8 @@ const pool = require('../../services/postgresql');
 const KEYS = require('../../config/keys');
 const https = require('https');
 const JWTService = require("../../services/JWTToken");
-const emailValidator = require('email-validator')
+const emailValidator = require('email-validator');
+const cryptoRandomString = require('crypto-random-string');
 
 // register a user
 router.post('/register', function(req, res) {
@@ -23,7 +24,9 @@ router.post('/register', function(req, res) {
         res.sendStatus(404);
         return;
     }
-    pool.getPool().query("INSERT INTO users (username, password, email, activate_email) VALUES ($1, crypt($2, gen_salt('bf')), $3, $4) ON CONFLICT DO NOTHING RETURNING id", [username, password, email, false], (err, result) => {
+
+    const token = cryptoRandomString({length: 250, type: 'alphanumeric'});
+    pool.getPool().query("INSERT INTO users (username, password, email, token_email) VALUES ($1, crypt($2, gen_salt('bf')), $3, $4) ON CONFLICT DO NOTHING RETURNING id", [username, password, email, token], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -31,6 +34,7 @@ router.post('/register', function(req, res) {
             if (!result.rows.length) {
                 res.sendStatus(409)
             } else {
+                console.log('http://localhost:3000/email/verify/' + token);
                 res.sendStatus(200);
             }
         }
@@ -76,5 +80,20 @@ router.get('/infos', JWTService.authenticateToken, function (req, res) {
         }
     })
 })
+
+router.post('/email/verify/', function(req, res) {
+    if (!req.body.token_email) {
+        res.sendStatus(404);
+        return;
+    }
+    pool.getPool().query("UPDATE users SET token_email = null, activate_email = true WHERE token_email = $1", [req.body.token_email], (err, result) => {
+        if (err || result.rowCount === 0) {
+            res.status(503);
+            res.json({message: "Service Unavailable"});
+            return;
+        }
+        res.sendStatus(200);
+    });
+});
 
 module.exports = router;
