@@ -23,6 +23,83 @@ const google = new GoogleLogin({
     prompt: KEYS.GOOGLE_APP.APP_API_PROMPT, // to prompt user everytime
 })
 
+// get services list
+router.get('/', JWTService.authenticateToken, function(req, res) {
+
+    const twitter_service = {
+        service_name : 'twitter',
+        connected : false
+    }
+    const youtube_service = {
+        service_name : 'youtube',
+        connected : false
+    }
+    const weather_service = {
+        service_name : 'weather',
+        connected : false
+    }
+    const covid_service = {
+        service_name : 'covid',
+        connected : false
+    }
+
+    pool.getPool().query("SELECT activate FROM twitter_service WHERE id_user = $1", [req.user.user_id], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"})
+        } else {
+            if (!result.rows.length)
+                twitter_service.connected = false;
+            else {
+                twitter_service.connected = result.rows[0].activate
+            }
+        }
+    })
+    pool.getPool().query("SELECT activate FROM youtube_service WHERE id_user = $1", [req.user.user_id], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"})
+        } else {
+            if (!result.rows.length)
+                youtube_service.connected = false;
+            else {
+                youtube_service.connected = result.rows[0].activate
+            }
+        }
+    })
+    pool.getPool().query("SELECT activate FROM weather_service WHERE id_user = $1", [req.user.user_id], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"})
+        } else {
+            if (!result.rows.length)
+                weather_service.connected = false;
+            else {
+                weather_service.connected = result.rows[0].activate
+            }
+        }
+    })
+    pool.getPool().query("SELECT activate FROM covid_service WHERE id_user = $1", [req.user.user_id], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"})
+        } else {
+            if (!result.rows.length)
+                covid_service.connected = false;
+            else {
+                covid_service.connected = result.rows[0].activate
+            }
+            res.status(200)
+            const response = []
+            response.push(twitter_service)
+            response.push(youtube_service)
+            response.push(weather_service)
+            response.push(covid_service)
+            res.json({data: response})
+        }
+    })
+});
+
 // connect weather service
 router.post('/weather/connect', JWTService.authenticateToken, function(req, res) {
     pool.getPool().query("INSERT INTO weather_service (id_user, api_key, activate) VALUES ($1, $2, $3) ON CONFLICT (id_user) DO UPDATE SET api_key = $2, activate = $3", [req.user.user_id, KEYS.WEATHER_SERVICE.API_KEY, true], (err, result) => {
