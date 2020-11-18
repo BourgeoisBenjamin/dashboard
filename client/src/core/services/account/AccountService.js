@@ -42,6 +42,23 @@ class AccountService
         });
     }
 
+    updateUserInfos(data, onSuccess, onFailure)
+    {
+        const header = {
+            headers: {
+                "Authorization" : `Bearer ${localStorage.getItem('JWTToken')}`
+            }
+        }
+
+        axios.post(`http://localhost:8080/account/infos`, data, header)
+            .then(res => {
+                Object.assign(this.model, data);
+                onSuccess();
+            }).catch(error => {
+                onFailure();
+        });
+    }
+
     getUsername()
     {
         return this.model.username;

@@ -53,7 +53,7 @@
 
 #information-account .element .second-column .update-button button
 {
-    padding: 15px 100px;
+    padding: 15px 60px;
     background-color: #5C80BC;
     color: white;
     border: none;
@@ -62,6 +62,23 @@
     cursor: pointer;
     transition: 0.5s;
     outline: none;
+}
+
+#information-account .element .second-column .update-button .disable
+{
+    background-color: grey;
+}
+
+#information-account .element .second-column .loader
+{
+    text-align: center;
+    margin-top: -53px;
+    margin-left: 300px;
+}
+
+#information-account .element .second-column .loader-confirmation-email
+{
+    margin-left: 450px;
 }
 
 #information-account .element .second-column .update-button button:hover
