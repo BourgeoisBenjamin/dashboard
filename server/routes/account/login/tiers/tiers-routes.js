@@ -76,7 +76,7 @@ router.get('/twitter/redirect', (req, res) => {
             return (elem.uuid === req.session.uuid);
         });
 
-        pool.getPool().query("INSERT INTO users (tier_user_id, tier_username) VALUES ($1, $2) ON CONFLICT (tier_user_id) DO UPDATE SET tier_username = $2 RETURNING id", [user.userId, user.userName], (err, result) =>  {
+        pool.getPool().query("INSERT INTO users (tier_user_id, tier_username, tier_name) VALUES ($1, $2, $3) ON CONFLICT (tier_user_id) DO UPDATE SET tier_username = $2 RETURNING id", [user.userId, user.userName, 'twitter'], (err, result) =>  {
             if (err) {
                 client.error = true;
             } else {
@@ -123,7 +123,7 @@ router.get('/google/redirect', async (req, res) => {
                 return (elem.uuid === req.session.uuid);
             });
 
-            pool.getPool().query("INSERT INTO users (tier_user_id, tier_username) VALUES ($1, $2) ON CONFLICT (tier_user_id) DO UPDATE SET tier_username = $2 RETURNING id", [tokenInfo.sub, tokenInfo.name], (err, result) =>  {
+            pool.getPool().query("INSERT INTO users (tier_user_id, tier_username, tier_name) VALUES ($1, $2, $3) ON CONFLICT (tier_user_id) DO UPDATE SET tier_username = $2 RETURNING id", [tokenInfo.sub, tokenInfo.name, 'google'], (err, result) =>  {
                 if (err) {
                     client.error = true;
                 } else {

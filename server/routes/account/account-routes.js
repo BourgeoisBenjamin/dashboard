@@ -71,7 +71,7 @@ router.delete('/delete', JWTService.authenticateToken, function (req, res) {
 })
 
 router.get('/infos', JWTService.authenticateToken, function (req, res) {
-    pool.getPool().query("SELECT username, email, activate_email FROM users WHERE id = $1", [req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT username, email, activate_email, tier_username, tier_name FROM users WHERE id = $1", [req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
