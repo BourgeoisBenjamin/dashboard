@@ -15,6 +15,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
+import history from "../../../../history";
 
 class Information extends Component
 {
@@ -128,8 +129,6 @@ class Information extends Component
         });
     }
 
-    handleErrorMessage
-
     handleSuccessMessageClose()
     {
         this.setState({
@@ -160,6 +159,8 @@ class Information extends Component
                 successMessageOpen: true,
                 successMessageText: 'Account deleted'
             });
+            localStorage.removeItem('JWTToken');
+            history.push('/');
         }, () => {
             this.setState({
                 sendingDeleteAccount: false,
