@@ -76,10 +76,71 @@ router.get('/infos', JWTService.authenticateToken, function (req, res) {
             res.status(503);
             res.json({message: "Service Unavailable"})
         } else {
-            res.json(result.rows)
+            res.json(result.rows[0])
         }
     })
 })
+
+router.post('/infos', JWTService.authenticateToken, function (req, res) {
+    let email = req.body.email;
+    let username = req.body.username;
+
+    email = email.trim();
+    username = username.trim();
+
+    if (!username || !email) {
+        res.sendStatus(404);
+        return;
+    }
+
+    if (!emailValidator.validate(email)) {
+        res.sendStatus(404);
+        return;
+    }
+
+    const token = cryptoRandomString({length: 250, type: 'alphanumeric'});
+
+    pool.getPool().query("SELECT email FROM users WHERE id = $1", [req.user.user_id], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"})
+        } else {
+            if (result.rows[0].email !== email) {
+                pool.getPool().query("UPDATE users SET username = $1, email = $2, activate_email = false, token_email = $3 WHERE id = $4", [username, email, token, req.user.user_id], (err, result) => {
+                    if (err) {
+                        res.status(503);
+                        res.json({message: "Service Unavailable"})
+                    } else {
+                        console.log('http://localhost:3000/email/verify/' + token);
+
+                        res.sendStatus(200)
+                    }
+                })
+            } else {
+                pool.getPool().query("UPDATE users SET username = $1 WHERE id = $2", [username, req.user.user_id], (err, result) => {
+                    if (err) {
+                        res.status(503);
+                        res.json({message: "Service Unavailable"})
+                    } else {
+                        res.sendStatus(200)
+                    }
+                })
+            }
+        }
+    });
+})
+
+router.post('/email/send', JWTService.authenticateToken, function (req, res) {
+    pool.getPool().query("SELECT token_email FROM users WHERE id = $1", [req.user.user_id], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"})
+        } else {
+            console.log('http://localhost:3000/email/verify/' + result.rows[0].token_email);
+            res.sendStatus(200);
+        }
+    })
+});
 
 router.post('/email/verify/', function(req, res) {
     if (!req.body.token_email) {
