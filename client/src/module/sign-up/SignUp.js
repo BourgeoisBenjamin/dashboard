@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import {FormControl, InputAdornment, InputLabel, OutlinedInput} from "@material-ui/core";
-import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import './SignUp.css'
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import LockIcon from '@material-ui/icons/Lock';
 import RegisterService from "../../core/services/register/RegisterService";
 import { Alert } from '@material-ui/lab'
 import Snackbar from "@material-ui/core/Snackbar";
 import history from "../../history";
+import EmailInput from "../../shared/components/inputs/EmailInput";
+import PasswordInput from "../../shared/components/inputs/PasswordInput";
+import UsernameInput from "../../shared/components/inputs/UsernameInput";
+import BasicButton from "../../shared/components/buttons/BasicButton";
+import SuccessDialog from "../../shared/components/dialogs/SuccessDialog";
+import ErrorDialog from "../../shared/components/dialogs/ErrorDialog";
+import {Error} from "@material-ui/icons";
 
 class SignUp extends Component {
 
@@ -26,7 +29,8 @@ class SignUp extends Component {
             email: '',
             confirmPassword: '',
             successMessageOpen: false,
-            errorMessageOpen: false
+            errorMessageOpen: false,
+            sendingRequest: false
         };
 
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -39,6 +43,9 @@ class SignUp extends Component {
 
     onClickRegister = () =>
     {
+        this.setState({
+            sendingRequest: true
+        });
         this.registerService.register({
             username: this.state.username,
             password: this.state.password,
@@ -49,13 +56,45 @@ class SignUp extends Component {
                 email: '',
                 password: '',
                 confirmPassword: '',
-                successMessageOpen: true
+                successMessageOpen: true,
+                sendingRequest: false
             })
         }, (res) => {
             this.setState({
-                errorMessageOpen: true
+                errorMessageOpen: true,
+                sendingRequest: false
             })
         })
+    }
+
+    render() {
+        return (
+            <div id="sign-up-module">
+                <SuccessDialog onClose={this.handleSuccessMessageClose} text="Account registered !" open={this.state.successMessageOpen} />
+                <ErrorDialog onClose={this.handleErrorMessageClose} text="Cannot registered your account" open={this.state.errorMessageOpen} />
+                <div class="title">
+                    <p>Inscription</p>
+                </div>
+                <div class="register-form">
+                    <div class="username-input input">
+                        <UsernameInput name="Username" labelWidth={80} onChange={this.handleUsernameChange} value={this.state.username} />
+                    </div>
+                    <div class="email-input input">
+                        <EmailInput name="Email" labelWidth={70} onChange={this.handleEmailChange} value={this.state.email} />
+                    </div>
+                    <div class="password-input input">
+                        <PasswordInput name="Password" labelWidth={70} onChange={this.handlePasswordChange} value={this.state.password} />
+                    </div>
+                    <div class="password-confirmation-input input">
+                        <PasswordInput name="Confirm password" labelWidth={150} onChange={this.handleConfirmPasswordChange} value={this.state.confirmPassword} />
+                    </div>
+                </div>
+                <BasicButton onClick={this.onClickRegister} name="Register" display={this.state.sendingRequest} loaderSize={50} />
+                <div class="already-register">
+                    <p>Already register ? Sign in <strong onClick={this.returnToHomeClick}>here</strong></p>
+                </div>
+            </div>
+        );
     }
 
     handleUsernameChange(e) {
@@ -86,84 +125,6 @@ class SignUp extends Component {
     returnToHomeClick()
     {
         history.push('/')
-    }
-
-    render() {
-        return (
-            <div id="sign-up-module">
-                <Snackbar open={this.state.successMessageOpen} autoHideDuration={6000} onClose={this.handleSuccessMessageClose} anchorOrigin={{ vertical: 'top', horizontal: 'left' }}>
-                    <Alert onClose={this.handleSuccessMessageClose} severity="success" variant="filled">
-                        Account registered !
-                    </Alert>
-                </Snackbar>
-                <Snackbar open={this.state.errorMessageOpen} autoHideDuration={6000} onClose={this.handleErrorMessageClose} anchorOrigin={{ vertical: 'top', horizontal: 'left' }}>
-                    <Alert onClose={this.handleErrorMessageClose} severity="error" variant="filled">
-                        Cannot registered your account
-                    </Alert>
-                </Snackbar>
-                <div class="title">
-                    <p>Inscription</p>
-                </div>
-                <div class="register-form">
-                    <div class="username-input input">
-                        <FormControl fullWidth variant="outlined">
-                            <InputLabel htmlFor="outlined-adornment-amount">Username</InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-amount"
-                                startAdornment={<InputAdornment position="start"><PersonOutlineIcon/></InputAdornment>}
-                                labelWidth={80}
-                                onChange={this.handleUsernameChange}
-                                value={this.state.username}
-                            />
-                        </FormControl>
-                    </div>
-                    <div class="email-input input">
-                        <FormControl fullWidth variant="outlined">
-                            <InputLabel htmlFor="outlined-adornment-amount">Email</InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-amount"
-                                startAdornment={<InputAdornment position="start"><MailOutlineIcon/></InputAdornment>}
-                                labelWidth={70}
-                                onChange={this.handleEmailChange}
-                                value={this.state.email}
-                            />
-                        </FormControl>
-                    </div>
-                    <div class="password-input input">
-                        <FormControl fullWidth variant="outlined">
-                            <InputLabel htmlFor="outlined-adornment-amount">Password</InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-amount"
-                                startAdornment={<InputAdornment position="start"><LockIcon/></InputAdornment>}
-                                labelWidth={70}
-                                type="password"
-                                onChange={this.handlePasswordChange}
-                                value={this.state.password}
-                            />
-                        </FormControl>
-                    </div>
-                    <div class="password-confirmation-input input">
-                        <FormControl fullWidth variant="outlined">
-                            <InputLabel htmlFor="outlined-adornment-amount">Confirm password</InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-amount"
-                                startAdornment={<InputAdornment position="start"><LockIcon/></InputAdornment>}
-                                labelWidth={150}
-                                type="password"
-                                onChange={this.handleConfirmPasswordChange}
-                                value={this.state.confirmPassword}
-                            />
-                        </FormControl>
-                    </div>
-                </div>
-                <div className="button-sign-up">
-                    <button onClick={this.onClickRegister}>Register</button>
-                </div>
-                <div class="already-register">
-                    <p>Already register ? Sign in <strong onClick={this.returnToHomeClick}>here</strong></p>
-                </div>
-            </div>
-        );
     }
 }
 
