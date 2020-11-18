@@ -76,10 +76,22 @@ router.get('/infos', JWTService.authenticateToken, function (req, res) {
             res.status(503);
             res.json({message: "Service Unavailable"})
         } else {
-            res.json(result.rows)
+            res.json(result.rows[0])
         }
     })
 })
+
+router.post('/email/send', JWTService.authenticateToken, function (req, res) {
+    pool.getPool().query("SELECT token_email FROM users WHERE id = $1", [req.user.user_id], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"})
+        } else {
+            console.log('http://localhost:3000/email/verify/' + result.rows[0].token_email);
+            res.sendStatus(200);
+        }
+    })
+});
 
 router.post('/email/verify/', function(req, res) {
     if (!req.body.token_email) {
