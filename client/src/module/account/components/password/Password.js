@@ -1,7 +1,10 @@
 import React, {Component} from "react";
 import './Password.css'
-import {FormControl, InputAdornment, InputLabel, OutlinedInput} from "@material-ui/core";
-import LockIcon from "@material-ui/icons/Lock";
+import BasicButton from "../../../../shared/components/buttons/BasicButton";
+import PasswordInput from "../../../../shared/components/inputs/PasswordInput";
+import SuccessDialog from "../../../../shared/components/dialogs/SuccessDialog";
+import ErrorDialog from "../../../../shared/components/dialogs/ErrorDialog";
+import AccountService from "../../../../core/services/account/AccountService";
 
 class Password extends Component
 {
@@ -9,9 +12,48 @@ class Password extends Component
     {
         super(props);
 
+        this.service = new AccountService();
+
+        this.state = {
+            sendingPassword: false,
+            oldPassword: '',
+            newPassword: '',
+            confirmationNewPassword: '',
+            displaySuccessDialog: false,
+            textSuccessDialog: '',
+            displayErrorDialog: false,
+            textErrorDialog: '',
+        };
+
         this.props.parentState.setServicesIsSelected(false);
         this.props.parentState.setInformationIsSelected(false);
         this.props.parentState.setPasswordIsSelected(true);
+        this.onClickUpdate = this.onClickUpdate.bind(this);
+        this.handleOnDialogSuccessClose = this.handleOnDialogSuccessClose.bind(this);
+        this.handleOnDialogErrorClose = this.handleOnDialogErrorClose.bind(this);
+    }
+
+    onClickUpdate()
+    {
+        if (this.state.newPassword !== this.state.confirmationNewPassword) {
+            this.displayDialog('error', 'New password and confirmation new password doest not match');
+            return;
+        }
+        this.displayLoaderButtonUpdate(true);
+
+        const data = {
+            old_password: this.state.oldPassword,
+            new_password: this.state.newPassword
+        }
+
+        this.service.changePassword(data, () => {
+            this.displayLoaderButtonUpdate(false);
+            this.displayDialog('success', 'Password change');
+            this.resetInput();
+        }, () => {
+            this.displayLoaderButtonUpdate(false);
+            this.displayDialog('error', 'Error when changing password');
+        })
     }
 
     render() {
@@ -28,45 +70,76 @@ class Password extends Component
                     </div>
                     <div className="second-column">
                         <div className="input">
-                            <FormControl fullWidth variant="outlined">
-                                <InputLabel htmlFor="outlined-adornment-amount">Old password</InputLabel>
-                                <OutlinedInput
-                                    id="outlined-adornment-amount"
-                                    startAdornment={<InputAdornment position="start"><LockIcon/></InputAdornment>}
-                                    labelWidth={100}
-                                    type="password"
-                                />
-                            </FormControl>
+                            <PasswordInput name="Old password" labelWidth={100} onChange={ (e) => {this.setState({oldPassword: e.target.value})}} />
                         </div>
                         <div className="input">
-                            <FormControl fullWidth variant="outlined">
-                                <InputLabel htmlFor="outlined-adornment-amount">New password</InputLabel>
-                                <OutlinedInput
-                                    id="outlined-adornment-amount"
-                                    startAdornment={<InputAdornment position="start"><LockIcon/></InputAdornment>}
-                                    labelWidth={120}
-                                    type="password"
-                                />
-                            </FormControl>
+                            <PasswordInput name="New password" labelWidth={120} onChange={ (e) => {this.setState({newPassword: e.target.value})} } />
                         </div>
                         <div className="input">
-                            <FormControl fullWidth variant="outlined">
-                                <InputLabel htmlFor="outlined-adornment-amount">Confirm new password</InputLabel>
-                                <OutlinedInput
-                                    id="outlined-adornment-amount"
-                                    startAdornment={<InputAdornment position="start"><LockIcon/></InputAdornment>}
-                                    labelWidth={200}
-                                    type="password"
-                                />
-                            </FormControl>
+                            <PasswordInput name="Confirm new password" labelWidth={200} onChange={ (e) => {this.setState({confirmationNewPassword: e.target.value})} } />
                         </div>
-                        <div className="button">
-                            <button onClick={this.onClickRegister}>Update</button>
-                        </div>
+                        <BasicButton name={'Update'} loaderSize={50} onClick={this.onClickUpdate} display={this.state.sendingPassword} />
                     </div>
                 </div>
+
+                <SuccessDialog open={this.state.displaySuccessDialog} onClose={this.handleOnDialogSuccessClose} text={this.state.textSuccessDialog}  />
+                <ErrorDialog open={this.state.displayErrorDialog} onClose={this.handleOnDialogErrorClose} text={this.state.textErrorDialog} />
             </div>
         );
+    }
+
+    handleOnDialogSuccessClose()
+    {
+        this.removeDialog('success');
+    }
+
+    handleOnDialogErrorClose()
+    {
+        this.removeDialog('error');
+    }
+
+    displayDialog(type, text)
+    {
+        if (type === 'error') {
+            this.setState({
+                displayErrorDialog: true,
+                textErrorDialog: text
+            });
+        } else {
+            this.setState({
+                displaySuccessDialog: true,
+                textErrorDialog: text
+            });
+        }
+    }
+
+    removeDialog(type)
+    {
+        if (type === 'error') {
+            this.setState({
+                displayErrorDialog: false
+            });
+        } else {
+            this.setState({
+                displaySuccessDialog: false
+            });
+        }
+    }
+
+    displayLoaderButtonUpdate(display)
+    {
+        this.setState({
+            sendingPassword: display
+        });
+    }
+
+    resetInput()
+    {
+        this.setState({
+            oldPassword: '',
+            newPassword: '',
+            confirmationNewPassword: '',
+        });
     }
 }
 

@@ -1,0 +1,42 @@
+.basic-button
+{
+}
+
+.basic-button .button
+{
+    display: flex;
+    color: white;
+    text-align: center;
+    margin: auto;
+    justify-content: center;
+    transition: 0.5s;
+}
+
+.basic-button .loader
+{
+    position: fixed;
+    margin-left: 300px;
+}
+
+.basic-button .button button
+{
+    padding: 15px 60px;
+    background-color: #5C80BC;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+    outline: none;
+}
+
+.basic-button .button button:hover:enabled
+{
+    background-color: #6892de;
+}
+
+.basic-button .button button:disabled
+{
+    background-color: grey;
+}

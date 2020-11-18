@@ -75,6 +75,22 @@ class AccountService
         });
     }
 
+    changePassword(data, onSuccess, onFailure)
+    {
+        const header = {
+            headers: {
+                "Authorization" : `Bearer ${localStorage.getItem('JWTToken')}`
+            }
+        }
+
+        axios.post(`http://localhost:8080/account/password`, data, header)
+            .then(res => {
+                onSuccess();
+            }).catch(error => {
+                onFailure();
+        });
+    }
+
     getUsername()
     {
         return this.model.username;
