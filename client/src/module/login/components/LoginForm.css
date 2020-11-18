@@ -48,22 +48,24 @@
     text-align: center;
 }
 
-#login-form .button-login button
+#login-form .basic-button
 {
-    padding: 15px 150px;
-    background-color: #5C80BC;
-    color: white;
-    border: none;
-    border-radius: 100px;
-    font-size: 20px;
-    cursor: pointer;
-    transition: 0.5s;
-    outline: none;
+    margin-top: 50px;
 }
 
-#login-form .button-login button:hover
+#login-form .basic-button button
 {
-    background-color: #6892de;
+    padding: 15px 100px;
+}
+
+#login-form .basic-button .loader
+{
+    margin-left: 350px;
+}
+
+#login-form .tiers-service-connect
+{
+    margin-top: 20px;
 }
 
 #login-form .tiers-service-connect .title

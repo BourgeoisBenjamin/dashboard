@@ -10,6 +10,9 @@ import LoginService from "../../../core/services/login/LoginService";
 import {Alert} from "@material-ui/lab";
 import Snackbar from "@material-ui/core/Snackbar";
 import MenuContext from "../../../core/contexts/MenuContext";
+import UsernameInput from "../../../shared/components/inputs/UsernameInput";
+import PasswordInput from "../../../shared/components/inputs/PasswordInput";
+import BasicButton from "../../../shared/components/buttons/BasicButton";
 
 export class LoginForm extends Component {
 
@@ -23,7 +26,8 @@ export class LoginForm extends Component {
         this.state = {
             identifier: '',
             password: '',
-            errorMessageOpen: false
+            errorMessageOpen: false,
+            sendingLoginRequest: false
         };
 
         this.handleIdentifierChange = this.handleIdentifierChange.bind(this);
@@ -45,18 +49,20 @@ export class LoginForm extends Component {
 
     handleConnectClick = () =>
     {
-        console.log(this.state);
+        this.setState({
+            sendingLoginRequest: true
+        })
         this.loginService.register({
             identifier: this.state.identifier,
             password: this.state.password
         }, (res) => {
             sessionStorage.setItem('menu', 'block');
             history.push('/home')
-            // this.context.setLimitInUse('lol');
             this.context.setShowMenu('block');
         }, (res) => {
             this.setState({
-                errorMessageOpen: true
+                errorMessageOpen: true,
+                sendingLoginRequest: false
             })
         })
     }
@@ -78,36 +84,15 @@ export class LoginForm extends Component {
                      <p>Dashboard</p>
                 </div>
                 <div className="username-input">
-                    <FormControl fullWidth variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-amount">Username or Email</InputLabel>
-                        <OutlinedInput
-                            id="outlined-adornment-amount"
-                            startAdornment={<InputAdornment position="start"><PersonOutlineIcon/></InputAdornment>}
-                            labelWidth={150}
-                            onChange={this.handleIdentifierChange}
-                            value={this.state.identifier}
-                        />
-                    </FormControl>
+                    <UsernameInput onChange={this.handleIdentifierChange} value={this.state.identifier} name="Username or Email" labelWidth={150} />
                 </div>
                 <div className="password-input">
-                    <FormControl fullWidth variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-amount">Password</InputLabel>
-                        <OutlinedInput
-                            id="outlined-adornment-amount"
-                            startAdornment={<InputAdornment position="start"><LockIcon/></InputAdornment>}
-                            labelWidth={80}
-                            type="password"
-                            onChange={this.handlePasswordChange}
-                            value={this.state.password}
-                        />
-                    </FormControl>
+                    <PasswordInput onChange={this.handlePasswordChange} value={this.state.password} name="Password" labelWidth={80} />
                 </div>
                 <div className="forgot-password">
                     <p>Forgot your password ?</p>
                 </div>
-                <div class="button-login">
-                    <button onClick={this.handleConnectClick}>Login</button>
-                </div>
+                <BasicButton onClick={this.handleConnectClick} display={this.state.sendingLoginRequest} name="Login" loaderSize={50} />
                 <div class="tiers-service-connect">
                     <div class="title">
                         <p>Or with</p>
