@@ -114,11 +114,14 @@ class Information extends Component
             username: this.state.username
         };
 
+        const changedEmail = data.email !== this.service.getEmail();
+
         this.service.updateUserInfos(data,() => {
             this.setState({
                 sendingUpdateInfo: false,
                 successMessageOpen: true,
-                successMessageText: 'Infos updated !'
+                successMessageText: 'Infos updated !',
+                activateEmail: !changedEmail
             });
         }, () => {
             this.setState({
@@ -226,7 +229,7 @@ class Information extends Component
                             </FormControl>
                         </div>
                         <div className="update-button">
-                            <button onClick={this.onClickUpdateInfo}>Update</button>
+                            <button onClick={this.onClickUpdateInfo} disabled={this.state.sendingUpdateInfo} >Update</button>
                         </div>
                         <div className="loader"  style={{ display: (this.state.sendingUpdateInfo ? 'block' : 'none')}}>
                             <ClipLoader size="50"/>

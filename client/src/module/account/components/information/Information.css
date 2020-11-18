@@ -51,6 +51,7 @@
     text-align: center;
 }
 
+
 #information-account .element .second-column .update-button button
 {
     padding: 15px 60px;
@@ -81,7 +82,7 @@
     margin-left: 450px;
 }
 
-#information-account .element .second-column .update-button button:hover
+#information-account .element .second-column .update-button button:hover:enabled
 {
     background-color: #6892de;
 }
@@ -117,4 +118,9 @@
 {
     margin-left: 10px;
     margin-bottom: 0;
+}
+
+#information-account .element .second-column button:disabled
+{
+    background-color: grey;
 }
