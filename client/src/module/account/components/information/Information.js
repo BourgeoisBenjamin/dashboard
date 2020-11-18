@@ -9,6 +9,12 @@ import { AiFillCheckCircle } from 'react-icons/ai'
 import ClipLoader from "react-spinners/ClipLoader";
 import {Alert} from "@material-ui/lab";
 import Snackbar from "@material-ui/core/Snackbar";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
+import Button from "@material-ui/core/Button";
 
 class Information extends Component
 {
@@ -27,7 +33,10 @@ class Information extends Component
             sendingSendConfirmationEmail: false,
             sendingDeleteAccount: false,
             successMessageOpen: false,
-            successMessageText: 'Account registered !'
+            successMessageText: 'Account registered !',
+            errorMessageOpen: false,
+            errorMessageText: 'Account registered !',
+            isDialogOpen: false
         };
 
         this.props.parentState.setServicesIsSelected(false);
@@ -38,6 +47,11 @@ class Information extends Component
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.onClickUpdateInfo = this.onClickUpdateInfo.bind(this);
         this.handleSuccessMessageClose = this.handleSuccessMessageClose.bind(this);
+        this.handleDialogCloseNo = this.handleDialogCloseNo.bind(this);
+        this.handleDialogCloseYes = this.handleDialogCloseYes.bind(this);
+        this.handleCloseConfirmationDialog = this.handleCloseConfirmationDialog.bind(this);
+        this.handleDeleteAccount = this.handleDeleteAccount.bind(this);
+        this.handleErrorMessageClose = this.handleErrorMessageClose.bind(this);
         this.loadData();
     }
 
@@ -79,6 +93,11 @@ class Information extends Component
                 successMessageText: 'Confirmation email send !'
             });
         }, () => {
+            this.setState({
+                sendingSendConfirmationEmail: false,
+                errorMessageOpen: true,
+                errorMessageText: 'Error when sending confirmation email'
+            });
         });
     }
 
@@ -101,13 +120,67 @@ class Information extends Component
                 successMessageText: 'Infos updated !'
             });
         }, () => {
+            this.setState({
+                sendingUpdateInfo: false,
+                errorMessageOpen: true,
+                errorMessageText: 'Error when updated your infos'
+            });
         });
     }
+
+    handleErrorMessage
 
     handleSuccessMessageClose()
     {
         this.setState({
             successMessageOpen: false,
+        });
+    }
+
+    handleCloseConfirmationDialog()
+    {}
+
+    handleDeleteAccount()
+    {
+        this.setState({
+            isDialogOpen: true,
+            sendingDeleteAccount: true,
+        });
+    }
+
+    handleDialogCloseYes()
+    {
+        this.setState({
+            isDialogOpen: false,
+        });
+
+        this.service.deleteUser(() => {
+            this.setState({
+                sendingDeleteAccount: false,
+                successMessageOpen: true,
+                successMessageText: 'Account deleted'
+            });
+        }, () => {
+            this.setState({
+                sendingDeleteAccount: false,
+                errorMessageOpen: true,
+                errorMessageText: 'Error when delete your account'
+            });
+        });
+    }
+
+    handleDialogCloseNo()
+    {
+        this.setState({
+            isDialogOpen: false,
+            sendingDeleteAccount: false,
+        });
+    }
+
+    handleErrorMessageClose()
+    {
+        this.setState({
+            errorMessageOpen: false,
         });
     }
 
@@ -213,7 +286,7 @@ class Information extends Component
                     </div>
                     <div className="second-column">
                         <div className="delete-button">
-                            <button onClick={this.onClickRegister}>Delete your account</button>
+                            <button onClick={this.handleDeleteAccount}>Delete your account</button>
                         </div>
                         <div className="loader loader-confirmation-email" style={{ display: (this.state.sendingDeleteAccount ? 'block' : 'none')}}>
                             <ClipLoader size="50"/>
@@ -226,6 +299,35 @@ class Information extends Component
                         {this.state.successMessageText}
                     </Alert>
                 </Snackbar>
+
+                <Snackbar open={this.state.errorMessageOpen} onClose={this.handleErrorMessageClose} autoHideDuration={6000} anchorOrigin={{ vertical: 'top', horizontal: 'left' }}>
+                    <Alert onClose={this.handleErrorMessageClose} severity="error" variant="filled">
+                        {this.state.errorMessageText}
+                    </Alert>
+                </Snackbar>
+
+                <Dialog
+                    open={this.state.isDialogOpen}
+                    keepMounted
+                    onClose={this.handleCloseConfirmationDialog}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle id="alert-dialog-slide-title">{"Are you sure you want to delete your account ?"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-slide-description">
+                            Be careful this action is irreversible. This will delete your account forever.
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleDialogCloseNo} color="primary">
+                            No
+                        </Button>
+                        <Button onClick={this.handleDialogCloseYes} color="primary">
+                            Yes
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         );
     }

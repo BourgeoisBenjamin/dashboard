@@ -59,6 +59,22 @@ class AccountService
         });
     }
 
+    deleteUser(onSuccess, onFailure)
+    {
+        const header = {
+            headers: {
+                "Authorization" : `Bearer ${localStorage.getItem('JWTToken')}`
+            }
+        }
+
+        axios.delete(`http://localhost:8080/account/infos`, header)
+            .then(res => {
+                onSuccess();
+            }).catch(error => {
+                onFailure();
+        });
+    }
+
     getUsername()
     {
         return this.model.username;
