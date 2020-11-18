@@ -5,7 +5,7 @@
 -- Dumped from database version 12.4 (Debian 12.4-1.pgdg100+1)
 -- Dumped by pg_dump version 12.4
 
--- Started on 2020-11-17 18:47:09 UTC
+-- Started on 2020-11-18 08:20:18 UTC
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -188,7 +188,8 @@ ALTER SEQUENCE public.country_case_covid_id_seq OWNED BY public.country_case_cov
 
 CREATE TABLE public.covid_service (
     id bigint NOT NULL,
-    id_user bigint NOT NULL
+    id_user bigint NOT NULL,
+    activate boolean NOT NULL
 );
 
 
@@ -1028,7 +1029,7 @@ ALTER TABLE ONLY public.youtube_service
     ADD CONSTRAINT youtube_service_id_user_fkey FOREIGN KEY (id_user) REFERENCES public.users(id);
 
 
--- Completed on 2020-11-17 18:47:09 UTC
+-- Completed on 2020-11-18 08:20:19 UTC
 
 --
 -- PostgreSQL database dump complete
