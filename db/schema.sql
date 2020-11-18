@@ -5,7 +5,7 @@
 -- Dumped from database version 12.4 (Debian 12.4-1.pgdg100+1)
 -- Dumped by pg_dump version 12.4
 
--- Started on 2020-11-17 21:48:43 UTC
+-- Started on 2020-11-18 08:20:18 UTC
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -71,8 +71,8 @@ CREATE SEQUENCE public.channels_videos_youtube_id_seq
 ALTER TABLE public.channels_videos_youtube_id_seq OWNER TO dashboard;
 
 --
--- TOC entry 3108 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3072 (class 0 OID 0)
+-- Dependencies: 203
 -- Name: channels_videos_youtube_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dashboard
 --
 
@@ -205,7 +205,8 @@ ALTER SEQUENCE public.country_case_covid_id_seq OWNED BY public.country_case_cov
 
 CREATE TABLE public.covid_service (
     id bigint NOT NULL,
-    id_user bigint NOT NULL
+    id_user bigint NOT NULL,
+    activate boolean NOT NULL
 );
 
 
@@ -412,7 +413,11 @@ ALTER SEQUENCE public.summary_country_covid_id_seq OWNED BY public.summary_count
 
 CREATE TABLE public.twitter_service (
     id bigint NOT NULL,
-    id_user bigint NOT NULL
+    id_user bigint NOT NULL,
+    token character varying NOT NULL,
+    tokensecret character varying NOT NULL,
+    twitter_id character varying NOT NULL,
+    activate boolean DEFAULT false NOT NULL
 );
 
 
@@ -570,7 +575,14 @@ ALTER SEQUENCE public.weather_service_id_seq OWNED BY public.weather_service.id;
 
 CREATE TABLE public.youtube_service (
     id bigint NOT NULL,
-    id_user bigint NOT NULL
+    id_user bigint NOT NULL,
+    activate boolean NOT NULL,
+    access_token character varying NOT NULL,
+    expires_in bigint NOT NULL,
+    refresh_token character varying NOT NULL,
+    scope character varying NOT NULL,
+    token_type character varying NOT NULL,
+    id_token character varying NOT NULL
 );
 
 
