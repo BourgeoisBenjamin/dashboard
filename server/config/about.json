@@ -9,7 +9,7 @@
             "name":"weather",
             "widgets":[
                {
-                  "name":"city_meteo_weather",
+                  "name":"city_meteo",
                   "description":"Display weather for a given city (Celsius or Fahrenheit)",
                   "params":[
                      {
@@ -28,7 +28,7 @@
             "name":"twitter",
             "widgets":[
                {
-                  "name":"search_tweets_twitter",
+                  "name":"search_tweets",
                   "description":"Display last 10 tweets for the current search",
                   "params":[
                      {
@@ -53,7 +53,7 @@
             "name":"covid",
             "widgets":[
                {
-                  "name":"country_case_covid",
+                  "name":"country_case",
                   "description":"Display covid cases for the selected country",
                   "params":[
                      {
@@ -63,7 +63,7 @@
                   ]
                },
                {
-                  "name":"summary_country_covid",
+                  "name":"summary_country",
                   "description":"Display a summary of the covid for the selected country",
                   "params":[
                      {
@@ -78,7 +78,7 @@
             "name":"youtube",
             "widgets":[
                {
-                  "name":"channels_videos_youtube",
+                  "name":"channels_videos",
                   "description":"Display last N videos of channel V",
                   "params":[
                      {
@@ -92,7 +92,7 @@
                   ]
                },
                {
-                  "name":"subscribers_channels_youtube",
+                  "name":"subscribers_channels",
                   "description":"Display number of subscribers of channel C",
                   "params":[
                      {
@@ -102,7 +102,7 @@
                   ]
                },
                {
-                  "name":"views_video_youtube",
+                  "name":"views_video",
                   "description":"Display views of video B",
                   "params":[
                      {
@@ -112,7 +112,7 @@
                   ]
                },
                {
-                  "name":"comments_video_youtube",
+                  "name":"comments_video",
                   "description":"Display A last comments of video L",
                   "params":[
                      {
