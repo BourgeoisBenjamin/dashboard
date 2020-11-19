@@ -17,6 +17,7 @@
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "fs": "0.0.1-security",
     "google-id-token-verifier": "^0.2.3",
     "google-oauth-login": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
