@@ -35,6 +35,7 @@ router.get('/weather/city-meteo/:id_widget', JWTService.authenticateToken, funct
             res.json({message: "Service Unavailable"})
         } else {
             widgetInfos = result.rows[0];
+            const infos = {city: widgetInfos.city, celsius: widgetInfos.celsius}
             weather.setLang('en');
             weather.setCity(widgetInfos.city)
             if (widgetInfos.celsius)
@@ -47,6 +48,8 @@ router.get('/weather/city-meteo/:id_widget', JWTService.authenticateToken, funct
                     res.status(503);
                     res.json({message: "Service Unavailable"})
                 } else {
+                    smart.city = widgetInfos.city
+                    smart.celsius = widgetInfos.celsius
                     res.status(200);
                     res.json(smart);
                 }
