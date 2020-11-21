@@ -34,6 +34,8 @@ router.post('/register', function(req, res) {
             if (!result.rows.length) {
                 res.sendStatus(409)
             } else {
+                pool.getPool().query("INSERT INTO weather_service (id_user, api_key, activate) VALUES ($1, $2, $3) ON CONFLICT (id_user) DO UPDATE SET api_key = $2, activate = $3", [result.rows[0].id, KEYS.WEATHER_SERVICE.API_KEY, true], (err, result) => {})
+                pool.getPool().query("INSERT INTO covid_service (id_user, activate) VALUES ($1, $2) ON CONFLICT (id_user) DO UPDATE SET activate = $2", [result.rows[0].id, true], (err, result) => {})
                 console.log('http://localhost:3000/email/verify/' + token);
                 res.sendStatus(200);
             }

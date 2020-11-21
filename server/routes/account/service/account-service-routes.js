@@ -100,54 +100,6 @@ router.get('/', JWTService.authenticateToken, function(req, res) {
     })
 });
 
-// connect weather service
-router.post('/weather/connect', JWTService.authenticateToken, function(req, res) {
-    pool.getPool().query("INSERT INTO weather_service (id_user, api_key, activate) VALUES ($1, $2, $3) ON CONFLICT (id_user) DO UPDATE SET api_key = $2, activate = $3", [req.user.user_id, KEYS.WEATHER_SERVICE.API_KEY, true], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"})
-        } else {
-            res.sendStatus(200);
-        }
-    })
-});
-
-// disconnect weather service
-router.post('/weather/disconnect', JWTService.authenticateToken, function(req, res) {
-    pool.getPool().query("UPDATE weather_service SET activate = $2 WHERE id_user = $1", [req.user.user_id, false], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"})
-        } else {
-            res.sendStatus(200);
-        }
-    })
-});
-
-// connect covid service
-router.post('/covid/connect', JWTService.authenticateToken, function(req, res) {
-    pool.getPool().query("INSERT INTO covid_service (id_user, activate) VALUES ($1, $2) ON CONFLICT (id_user) DO UPDATE SET activate = $2", [req.user.user_id, true], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"})
-        } else {
-            res.sendStatus(200);
-        }
-    })
-});
-
-// disconnect weather service
-router.post('/covid/disconnect', JWTService.authenticateToken, function(req, res) {
-    pool.getPool().query("UPDATE covid_service SET activate = $2 WHERE id_user = $1", [req.user.user_id, false], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"})
-        } else {
-            res.sendStatus(200);
-        }
-    })
-});
-
 let services = Array();
 
 // init connection return uuid
