@@ -74,17 +74,8 @@ router.post('/twitter/last-tweets/', JWTService.authenticateToken, function (req
     })
 })
 
-
-
-
-
-
-
-
-
-
-router.delete('/covid/summary-country/:id_widget', JWTService.authenticateToken, function (req, res) {
-    pool.getPool().query("DELETE FROM summary_country_covid WHERE id = $1 AND id_covid_service IN (SELECT id FROM covid_service WHERE id_user = $2)", [req.params.id_widget, req.user.user_id], (err, result) => {
+router.delete('/twitter/search-tweets/:id_widget', JWTService.authenticateToken, function (req, res) {
+    pool.getPool().query("DELETE FROM search_tweets_twitter WHERE id = $1 AND id_twitter_service IN (SELECT id FROM twitter_service WHERE id_user = $2)", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -94,8 +85,15 @@ router.delete('/covid/summary-country/:id_widget', JWTService.authenticateToken,
     })
 })
 
-router.put('/covid/summary-country/:id_widget', JWTService.authenticateToken, function (req, res) {
-    pool.getPool().query("UPDATE summary_country_covid SET activate = $3, country = $4 WHERE id = $1 AND id_covid_service IN (SELECT id FROM covid_service WHERE id_user = $2)", [req.params.id_widget, req.user.user_id, req.query.activated, req.query.country], (err, result) => {
+router.put('/twitter/search-tweets/:id_widget', JWTService.authenticateToken, function (req, res) {
+
+    if (req.query.number_tweets > 100) {
+        res.status(503);
+        res.json({message: "Invalid configuration. Max number of tweets : 100"});
+        return;
+    }
+
+    pool.getPool().query("UPDATE search_tweets_twitter SET activate = $3, search = $4, number_tweets = $5 WHERE id = $1 AND id_twitter_service IN (SELECT id FROM twitter_service WHERE id_user = $2)", [req.params.id_widget, req.user.user_id, req.query.activated, req.query.number_tweets, req.query.search], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -105,36 +103,38 @@ router.put('/covid/summary-country/:id_widget', JWTService.authenticateToken, fu
     })
 })
 
-router.get('/covid/summary-country/:id_widget', JWTService.authenticateToken, function (req, res) {
+router.get('/twitter/search-tweets/:id_widget', JWTService.authenticateToken, function (req, res) {
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT c.country FROM summary_country_covid c INNER JOIN covid_service s ON c.id_covid_service = s.id WHERE c.id = $1", [req.params.id_widget], (err, result) => {
+    pool.getPool().query("SELECT l.number_tweets, l.search, s.token, s.tokensecret, s.twitter_id FROM search_tweets_twitter l INNER JOIN twitter_service s ON l.id_twitter_service = s.id WHERE l.id = $1", [req.params.id_widget], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
         } else {
             widgetInfos = result.rows[0];
-            axios.get('https://api.covid19api.com/summary')
-                .then(function (response) {
-                    const countrySummary = response.data.Countries.filter(function(item) {
-                        console.debug(item)
-                        return item.Country.toLowerCase() === widgetInfos.country.toLowerCase();
-                    });
+            oauth.getOAuth().get(
+                'https://api.twitter.com/1.1/search/tweets.json?q=' + widgetInfos.search + '&count=' + widgetInfos.number_tweets,
+                widgetInfos.token,
+                widgetInfos.tokensecret, (e, data) => {
+                    const tweets = JSON.parse(data);
                     res.status(200)
-                    res.json(countrySummary[0])
-                })
-                .catch(function (error) {
-                    res.status(503)
-                    res.json({message: "Service Unavailable"})
+                    res.json(tweets.statuses)
                 })
         }
     })
 
 })
 
-router.post('/covid/summary-country/', JWTService.authenticateToken, function (req, res) {
-    pool.getPool().query("INSERT INTO summary_country_covid (id_covid_service, activate, country) VALUES ((SELECT id FROM covid_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.query.activated, req.query.country], (err, result) => {
+router.post('/twitter/search-tweets/', JWTService.authenticateToken, function (req, res) {
+
+    if (req.query.number_tweets > 100) {
+        res.status(503);
+        res.json({message: "Invalid configuration. Max number of tweets : 100"});
+        return;
+    }
+
+    pool.getPool().query("INSERT INTO search_tweets_twitter (id_twitter_service, activate, number_tweets, search) VALUES ((SELECT id FROM twitter_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.query.activated, req.query.number_tweets, req.query.search], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"});

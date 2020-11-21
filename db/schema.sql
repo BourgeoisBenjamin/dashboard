@@ -5,7 +5,7 @@
 -- Dumped from database version 12.4 (Debian 12.4-1.pgdg100+1)
 -- Dumped by pg_dump version 12.4
 
--- Started on 2020-11-18 09:14:04 UTC
+-- Started on 2020-11-21 15:32:55 UTC
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -284,7 +284,8 @@ CREATE TABLE public.search_tweets_twitter (
     id bigint NOT NULL,
     id_twitter_service bigint NOT NULL,
     search character varying NOT NULL,
-    activate boolean NOT NULL
+    activate boolean NOT NULL,
+    number_tweets bigint NOT NULL
 );
 
 
@@ -1048,7 +1049,7 @@ ALTER TABLE ONLY public.youtube_service
     ADD CONSTRAINT youtube_service_id_user_fkey FOREIGN KEY (id_user) REFERENCES public.users(id);
 
 
--- Completed on 2020-11-18 09:14:04 UTC
+-- Completed on 2020-11-21 15:32:55 UTC
 
 --
 -- PostgreSQL database dump complete
