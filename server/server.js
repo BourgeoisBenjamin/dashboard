@@ -19,6 +19,7 @@ const accountServiceRoutes = require("./routes/account/service/account-service-r
 const weatherWidgetRoutes = require('./routes/service/weather-widget-routes')
 const covidWidgetRoutes = require('./routes/service/covid-widget-routes')
 const twitterWidgetRoutes = require('./routes/service/twitter-widget-routes')
+const JWTService = require("./services/JWTToken");
 
 app.use(bodyParser());
 
@@ -58,6 +59,30 @@ app.use("/service", twitterWidgetRoutes);
 app.get('/', (req, res) => {
     res.set('Content-Type', 'text/html');
     res.send('Hello world !!');
+});
+
+app.get('/user/widgets', JWTService.authenticateToken, (req, res) => {
+
+    const request = `
+        SELECT id, 'City meteo weather' AS NAME FROM city_meteo_weather WHERE activate=true AND id_weather_service=(SELECT id FROM weather_service WHERE id_user = $1) UNION
+        SELECT id, 'Country case covid' AS NAME FROM country_case_covid WHERE activate=true AND id_covid_service=(SELECT id FROM covid_service WHERE id_user = $1) UNION
+        SELECT id, 'Summary country covid' AS NAME FROM summary_country_covid WHERE activate=true AND id_covid_service=(SELECT id FROM covid_service WHERE id_user = $1) UNION
+        SELECT id, 'Search tweets twitter' AS NAME FROM search_tweets_twitter WHERE activate=true AND id_twitter_service=(SELECT id FROM twitter_service WHERE id_user = $1) UNION
+        SELECT id, 'Last tweets twitter' AS NAME FROM last_tweets_twitter WHERE activate=true AND id_twitter_service=(SELECT id FROM twitter_service WHERE id_user = $1) UNION
+        SELECT id, 'Channels videos youtube' AS NAME FROM channels_videos_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1) UNION
+        SELECT id, 'Comments video youtube' AS NAME FROM comments_video_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1) UNION
+        SELECT id, 'Views video youtube' AS NAME FROM views_video_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1) UNION
+        SELECT id, 'Subscribers channels' AS NAME FROM subscribers_channels_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1)
+    `;
+
+    pool.getPool().query(request, [req.user.user_id], (err, result) => {
+        if (err) {
+            res.sendStatus(503);
+        } else {
+            res.status(200);
+            res.json(result.rows);
+        }
+    });
 });
 
 // connect react to nodejs express server

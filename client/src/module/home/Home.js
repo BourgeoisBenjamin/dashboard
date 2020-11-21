@@ -5,6 +5,7 @@ import './Home.css'
 import WidgetForm from './components/WidgetForm'
 import {Route, Switch} from "react-router-dom";
 import {services} from "./services";
+import WidgetService from "../../core/services/widget/WidgetService";
 // import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 class Home extends Component {
@@ -14,11 +15,23 @@ class Home extends Component {
     constructor(props) {
         super(props);
 
+        this.widgetService = new WidgetService();
+
         if (localStorage.getItem('JWTToken') == null) {
             history.push('/');
         }
 
         this.handleNewWidgetClick = this.handleNewWidgetClick.bind(this);
+        this.getUserWidgets();
+    }
+
+    getUserWidgets()
+    {
+        this.widgetService.getUserWidgets(() => {
+
+        }, () => {
+
+        });
     }
 
     componentDidMount()
