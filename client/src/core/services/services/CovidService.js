@@ -12,8 +12,8 @@ class CovidService
         }
     }
 
-    urlCountryCase = 'http://localhost:8080/service/weather/city-meteo/'
-    urlSummaryCountry = 'http://localhost:8080/service/weather/city-meteo/'
+    urlCountryCase = 'http://localhost:8080/service/covid/country-case/'
+    urlSummaryCountry = 'http://localhost:8080/service/covid/summary-country/'
 
     constructor()
     {
