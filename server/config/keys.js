@@ -14,6 +14,10 @@ const POSTGRESQL = {
     POSTGRESQL_URI: `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`
 };
 
+const YOUTUBE_APP = {
+    APP_API_KEY: process.env.YOUTUBE_API_KEY
+}
+
 const TWITTER_APP = {
     APP_API_KEY: process.env.TWITTER_APP_API_KEY,
     APP_API_KEY_SECRET: process.env.TWITTER_APP_API_KEY_SECRET,
@@ -57,6 +61,7 @@ const KEYS = {
     TWITTER_APP,
     SESSION,
     GOOGLE_APP,
+    YOUTUBE_APP,
     WEATHER_SERVICE
 };
 

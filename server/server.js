@@ -19,6 +19,7 @@ const accountServiceRoutes = require("./routes/account/service/account-service-r
 const weatherWidgetRoutes = require('./routes/service/weather-widget-routes')
 const covidWidgetRoutes = require('./routes/service/covid-widget-routes')
 const twitterWidgetRoutes = require('./routes/service/twitter-widget-routes')
+const youtubeWidgetRoutes = require('./routes/service/youtube-widget-routes')
 
 app.use(bodyParser());
 
@@ -54,6 +55,7 @@ app.use("/account/service", accountServiceRoutes);
 app.use("/service", weatherWidgetRoutes);
 app.use("/service", covidWidgetRoutes);
 app.use("/service", twitterWidgetRoutes);
+app.use("/service", youtubeWidgetRoutes);
 
 app.get('/', (req, res) => {
     res.set('Content-Type', 'text/html');
