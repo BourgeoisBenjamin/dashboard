@@ -4,6 +4,7 @@ import MenuContext from "../../core/contexts/MenuContext";
 import './Home.css'
 import WidgetForm from './components/WidgetForm'
 import {Route, Switch} from "react-router-dom";
+import {services} from "./services";
 // import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 class Home extends Component {
@@ -31,6 +32,14 @@ class Home extends Component {
     }
 
     render() {
+        const routes = [];
+        services.map((service, i) => {
+            service.widgets.map((widget) => {
+                routes.push(<Route path={widget.urlClient} render={() => <WidgetForm name={service.name} widget={widget.name} />} />)
+            });
+            routes.push(<Route path={service.url} render={() => <WidgetForm name={service.name} />} />);
+        });
+
         return (
             <div id="home-module">
                 <div class="new-widgets-button">
@@ -42,10 +51,7 @@ class Home extends Component {
                 {/*<TransitionGroup component={null}>*/}
                 {/*    <CSSTransition timeout={{ enter: 300, exit: 300 }} classNames="fade" key={this.state.key}>*/}
                         <Switch location={this.props.location}>
-                            <Route path={'/home/widget/weather/city-weather/'} render={() => <WidgetForm name={'Weather'} widget={'City\'s Weather in Celsius or Fahrenheit'} />} />
-                            <Route path={'/home/widget/weather'} render={() => <WidgetForm name={'Weather'} />} />
-                            <Route path={'/home/widget/youtube/last-videos-of-a-channel/'} render={() => <WidgetForm name={'Youtube'} widget={'Last videos of a channel'} />} />
-                            <Route path={'/home/widget/youtube'} render={() => <WidgetForm name={'Youtube'} />} />
+                            { routes }
                             <Route path={'/home/widget/'} render={() => <WidgetForm />} />
                         </Switch>
                 {/*    </CSSTransition>*/}

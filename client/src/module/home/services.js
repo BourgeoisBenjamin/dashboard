@@ -41,5 +41,21 @@ export const services = [
                 urlRequest: '/service/weather/city-meteo/'
             }
         ]
+    },
+    {
+        name: 'Covid',
+        url: '/home/widget/covid/',
+        widgets: [
+            {
+                name: 'Case per country',
+                urlClient: '/home/widget/covid/country-case/',
+                urlRequest: '/service/covid/country-case/'
+            },
+            {
+                name: 'Summary case',
+                urlClient: '/home/widget/covid/summary-country/',
+                urlRequest: '/service/covid/summary-country/'
+            }
+        ]
     }
 ];
