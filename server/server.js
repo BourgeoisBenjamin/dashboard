@@ -17,6 +17,8 @@ const accountRoutes = require("./routes/account/account-routes");
 const loginTiersRoutes = require("./routes/account/login/tiers/tiers-routes");
 const accountServiceRoutes = require("./routes/account/service/account-service-routes");
 const weatherWidgetRoutes = require('./routes/service/weather-widget-routes')
+const covidWidgetRoutes = require('./routes/service/covid-widget-routes')
+const twitterWidgetRoutes = require('./routes/service/twitter-widget-routes')
 
 app.use(bodyParser());
 
@@ -50,6 +52,8 @@ app.use("/account", accountRoutes);
 app.use("/account/login/tiers", loginTiersRoutes);
 app.use("/account/service", accountServiceRoutes);
 app.use("/service", weatherWidgetRoutes);
+app.use("/service", covidWidgetRoutes);
+app.use("/service", twitterWidgetRoutes);
 
 app.get('/', (req, res) => {
     res.set('Content-Type', 'text/html');

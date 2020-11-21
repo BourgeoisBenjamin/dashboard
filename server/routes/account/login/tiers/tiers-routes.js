@@ -80,6 +80,8 @@ router.get('/twitter/redirect', (req, res) => {
             if (err) {
                 client.error = true;
             } else {
+                pool.getPool().query("INSERT INTO weather_service (id_user, api_key, activate) VALUES ($1, $2, $3) ON CONFLICT (id_user) DO UPDATE SET api_key = $2, activate = $3", [result.rows[0].id, KEYS.WEATHER_SERVICE.API_KEY, true], (err, result) => {})
+                pool.getPool().query("INSERT INTO covid_service (id_user, activate) VALUES ($1, $2) ON CONFLICT (id_user) DO UPDATE SET activate = $2", [result.rows[0].id, true], (err, result) => {})
                 client.login = true;
                 client.id = result.rows[0].id;
             }
@@ -127,6 +129,8 @@ router.get('/google/redirect', async (req, res) => {
                 if (err) {
                     client.error = true;
                 } else {
+                    pool.getPool().query("INSERT INTO weather_service (id_user, api_key, activate) VALUES ($1, $2, $3) ON CONFLICT (id_user) DO UPDATE SET api_key = $2, activate = $3", [result.rows[0].id, KEYS.WEATHER_SERVICE.API_KEY, true], (err, result) => {})
+                    pool.getPool().query("INSERT INTO covid_service (id_user, activate) VALUES ($1, $2) ON CONFLICT (id_user) DO UPDATE SET activate = $2", [result.rows[0].id, true], (err, result) => {})
                     client.login = true;
                     client.id = result.rows[0].id;
                 }
