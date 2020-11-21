@@ -1,10 +1,7 @@
 export const services = [
     {
-        name: 'Select a service',
-        widgets: []
-    },
-    {
         name: 'Twitter',
+        url: '/home/widget/twitter/',
         widgets: [
             {
                 name: 'Last tweets',
@@ -20,6 +17,7 @@ export const services = [
     },
     {
         name: 'Youtube',
+        url: '/home/widget/youtube/',
         widgets: [
             {
                 name: 'Last videos of a channel',
@@ -35,6 +33,7 @@ export const services = [
     },
     {
         name: 'Weather',
+        url: '/home/widget/weather/',
         widgets: [
             {
                 name: 'City\'s Weather in Celsius or Fahrenheit',

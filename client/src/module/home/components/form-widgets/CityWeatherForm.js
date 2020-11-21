@@ -4,6 +4,7 @@ import SelectInput from "../../../../shared/components/inputs/SelectInput";
 import WeatherService from "../../../../core/services/services/WeatherService";
 import CityWeatherModel from "../../../../core/models/services/weather/CityWeatherModel";
 import './CityWeatherForm.css'
+import history from "../../../../history";
 
 class CityWeatherForm extends Component
 {
@@ -26,15 +27,15 @@ class CityWeatherForm extends Component
             temperature: ''
         };
 
-        this.props.parentState.setOnClickAddWidget(() => {
-            this.onClickAddWidget();
+        this.props.parentState.setOnClickAddWidget((onSuccess, onFailure) => {
+            this.onClickAddWidget(onSuccess, onFailure);
         })
 
         this.handleCityChange = this.handleCityChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
     }
 
-    onClickAddWidget()
+    onClickAddWidget(onSuccess, onFailure)
     {
         let model = new CityWeatherModel();
 
@@ -45,8 +46,10 @@ class CityWeatherForm extends Component
 
         this.service.postCityWeatherWidget(model, () => {
             this.props.parentState.setDisplayLoader(false);
+            onSuccess();
         }, () => {
             this.props.parentState.setDisplayLoader(false);
+            onFailure();
         });
     }
 

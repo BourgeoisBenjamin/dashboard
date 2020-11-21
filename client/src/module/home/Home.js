@@ -42,9 +42,11 @@ class Home extends Component {
                 {/*<TransitionGroup component={null}>*/}
                 {/*    <CSSTransition timeout={{ enter: 300, exit: 300 }} classNames="fade" key={this.state.key}>*/}
                         <Switch location={this.props.location}>
-                            <Route path={'/home/widget/'}>
-                                <WidgetForm name={'Youtube'} widget={'Last tweets'} />
-                            </Route>
+                            <Route path={'/home/widget/weather/city-weather/'} render={() => <WidgetForm name={'Weather'} widget={'City\'s Weather in Celsius or Fahrenheit'} />} />
+                            <Route path={'/home/widget/weather'} render={() => <WidgetForm name={'Weather'} />} />
+                            <Route path={'/home/widget/youtube/last-videos-of-a-channel/'} render={() => <WidgetForm name={'Youtube'} widget={'Last videos of a channel'} />} />
+                            <Route path={'/home/widget/youtube'} render={() => <WidgetForm name={'Youtube'} />} />
+                            <Route path={'/home/widget/'} render={() => <WidgetForm />} />
                         </Switch>
                 {/*    </CSSTransition>*/}
                 {/*</TransitionGroup>*/}

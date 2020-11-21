@@ -10,6 +10,7 @@ import SelectInput from "../../../shared/components/inputs/SelectInput";
 import CityWeatherForm from "./form-widgets/CityWeatherForm";
 import ErrorDialog from "../../../shared/components/dialogs/ErrorDialog";
 import BasicButton from "../../../shared/components/buttons/BasicButton";
+import SuccessDialog from "../../../shared/components/dialogs/SuccessDialog";
 
 class WidgetForm extends Component {
 
@@ -17,8 +18,8 @@ class WidgetForm extends Component {
         super(props);
 
         this.state = {
-            'servicesSelected' : services.find(service => service.name === this.props.name),
-            'widgetSelected': '',
+            servicesSelected: this.props.name === undefined ? null : services.find(service => service.name === this.props.name),
+            widgetSelected: this.props.widget === undefined ? '' : this.props.widget,
             onClickAddWidget: null,
             successMessageOpen: false,
             errorMessageOpen: false,
@@ -49,6 +50,7 @@ class WidgetForm extends Component {
                 'widgetSelected': ''
             },
         );
+        history.push(services.find(service => service.name === e.target.value).url);
     }
 
     handleSelectWidgetsChanged(e)
@@ -67,7 +69,12 @@ class WidgetForm extends Component {
         if (this.state.onClickAddWidget === null) {
             this.setState({errorMessageOpen: true});
         } else {
-            this.state.onClickAddWidget();
+            this.state.onClickAddWidget(() => {
+                history.push('/home/widget');
+                this.setState({successMessageOpen: true});
+            }, () => {
+                this.setState({errorMessageOpen: true});
+            });
         }
     }
 
@@ -89,7 +96,7 @@ class WidgetForm extends Component {
                         </div>
                         <div class="service-input input">
                             <SelectInput
-                                label="Service" value={this.state.servicesSelected.name} onChange={this.handleSelectServicesChanged}
+                                label="Service" value={(this.state.servicesSelected === null ? '' : this.state.servicesSelected.name)} onChange={this.handleSelectServicesChanged}
                                 renderValue={(selected) => {
                                     if (selected.length === 0) {
                                         return <em>Select a service</em>;
@@ -101,14 +108,14 @@ class WidgetForm extends Component {
                         </div>
                         <div className="widget-input input">
                             <SelectInput
-                                label="widget" value={this.state.widgetSelected} onChange={this.handleSelectWidgetsChanged}
+                                label="Widget" value={this.state.widgetSelected} onChange={this.handleSelectWidgetsChanged}
                                 renderValue={(selected) => {
                                     if (selected.length === 0) {
                                         return <em>Select a widget</em>;
                                     }
                                     return selected;
                                 }}
-                                name="Select a widget" arrayKey="name" arrayValue="name" array={this.state.servicesSelected.widgets}
+                                name="Select a widget" arrayKey="name" arrayValue="name" array={(this.state.servicesSelected === null ? [] : this.state.servicesSelected.widgets)}
                             />
                         </div>
                         <div class="title-parameters">
@@ -124,6 +131,7 @@ class WidgetForm extends Component {
                         </div>
                     </div>
                 </div>
+                <SuccessDialog onClose={this.handleSuccessMessageClose} text="Widget created" open={this.state.successMessageOpen} />
                 <ErrorDialog onClose={this.handleErrorMessageClose} text="Failed to add widget" open={this.state.errorMessageOpen} />
             </div>
         );
