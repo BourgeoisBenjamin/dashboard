@@ -3,7 +3,7 @@ import CityInput from "../../../../shared/components/inputs/CityInput";
 import SelectInput from "../../../../shared/components/inputs/SelectInput";
 import WeatherService from "../../../../core/services/services/WeatherService";
 import CityWeatherModel from "../../../../core/models/services/weather/CityWeatherModel";
-import {services} from "../../services";
+import './CityWeatherForm.css'
 
 class CityWeatherForm extends Component
 {
@@ -41,27 +41,33 @@ class CityWeatherForm extends Component
         model.celsius = (this.state.temperature === 'Celsius');
         model.city = this.state.cityName;
 
+        this.props.parentState.setDisplayLoader(true);
+
         this.service.postCityWeatherWidget(model, () => {
-
+            this.props.parentState.setDisplayLoader(false);
         }, () => {
-
+            this.props.parentState.setDisplayLoader(false);
         });
     }
 
     render() {
         return (
             <div id="city-weather-form">
-                <CityInput name="City" value={this.state.cityName} onChange={this.handleCityChange} />
-                <SelectInput
-                    label="Temperature" onChange={this.handleSelectChange} value={this.state.temperature}
-                    renderValue={(selected) => {
-                        if (selected.length === 0) {
-                            return <em>Select a temperature</em>;
-                        }
-                        return selected;
-                    }}
-                    name="Select a temperature" arrayKey="name" arrayValue="name" array={this.state.temperatureOptions}
-                />
+                <div className="city-input">
+                    <CityInput name="City" value={this.state.cityName} onChange={this.handleCityChange} />
+                </div>
+                <div className="temperature-input">
+                    <SelectInput
+                        label="Temperature" onChange={this.handleSelectChange} value={this.state.temperature}
+                        renderValue={(selected) => {
+                            if (selected.length === 0) {
+                                return <em>Select a temperature</em>;
+                            }
+                            return selected;
+                        }}
+                        name="Select a temperature" arrayKey="name" arrayValue="name" array={this.state.temperatureOptions}
+                    />
+                </div>
             </div>
         );
     }

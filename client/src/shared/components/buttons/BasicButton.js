@@ -6,8 +6,8 @@ export default function(props) {
     return (
         <div className="basic-button">
             <div className="button">
-                <button onClick={props.onClick}>{props.name}</button>
-                <div className="loader" style={{ display: (props.display ? 'block' : 'none'), marginLeft: props.marginLeft}}>
+                <button onClick={props.onClick} style={{marginLeft: props.loaderSize + 20}}>{props.name}</button>
+                <div className="loader" style={{ opacity: (props.display ? '1' : '0'), marginLeft: props.marginLeft, visibility: (props.display ? 'visible' : 'hidden')}}>
                     <ClipLoader size={props.loaderSize} />
                 </div>
             </div>

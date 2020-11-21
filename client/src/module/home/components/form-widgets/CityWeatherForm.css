@@ -1,0 +1,17 @@
+#city-weather-form
+{
+    margin-top: 100px;
+}
+
+#city-weather-form .city-input
+{
+    text-align: center;
+    width: 300px;
+    margin-inline: auto;
+}
+
+#city-weather-form .temperature-input
+{
+    text-align: center;
+    margin-top: 50px;
+}

@@ -6,6 +6,7 @@
     height: 100vh;
     top: 0;
     transition: 0.5s;
+    overflow-y: auto;
 }
 
 #widget-form .form
@@ -16,6 +17,7 @@
     background-color: white;
     margin-top: 100px;
     border: 1px solid black;
+    margin-bottom: 100px;
 }
 
 #widget-form .form .header
@@ -67,27 +69,7 @@
     margin-top: 50px;
 }
 
-#widget-form .form .content .widget-button
+#widget-form .form .content .widget-button .basic-button
 {
-    margin-top: 70px;
-    color: white;
-    text-align: center;
-}
-
-#widget-form .form .content .widget-button button
-{
-    padding: 15px 100px;
-    background-color: #5C80BC;
-    color: white;
-    border: none;
-    border-radius: 100px;
-    font-size: 20px;
-    cursor: pointer;
-    transition: 0.5s;
-    outline: none;
-}
-
-#widget-form .form .content .widget-button button:hover
-{
-    background-color: #6892de;
+    margin-top: 100px;
 }

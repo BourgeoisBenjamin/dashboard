@@ -14,8 +14,9 @@
 
 .basic-button .loader
 {
-    position: fixed;
-    margin-left: 300px;
+    position: static;
+    opacity: 1;
+    margin-left: 20px;
 }
 
 .basic-button .button button

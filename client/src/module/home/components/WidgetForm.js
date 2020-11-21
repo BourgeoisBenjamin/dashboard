@@ -9,6 +9,7 @@ import { services } from '../services';
 import SelectInput from "../../../shared/components/inputs/SelectInput";
 import CityWeatherForm from "./form-widgets/CityWeatherForm";
 import ErrorDialog from "../../../shared/components/dialogs/ErrorDialog";
+import BasicButton from "../../../shared/components/buttons/BasicButton";
 
 class WidgetForm extends Component {
 
@@ -21,9 +22,14 @@ class WidgetForm extends Component {
             onClickAddWidget: null,
             successMessageOpen: false,
             errorMessageOpen: false,
+            displayLoader: false,
 
             setOnClickAddWidget: (newEvent) => {
                 this.setState({onClickAddWidget: newEvent});
+            },
+
+            setDisplayLoader: (displayLoader) => {
+                this.setState({displayLoader: displayLoader});
             }
         };
 
@@ -114,7 +120,7 @@ class WidgetForm extends Component {
                             <Route path={'/home/widget/youtube/display-channel-subscribers/'} render={() => <YoutubeDisplayChannelSubscribersForm />}/>
                         </Switch>
                         <div class="widget-button">
-                            <button onClick={this.handleAddWidgetClick}>Add widgets</button>
+                            <BasicButton onClick={this.handleAddWidgetClick} name="Add widgets" loaderSize={50} display={this.state.displayLoader}/>
                         </div>
                     </div>
                 </div>
