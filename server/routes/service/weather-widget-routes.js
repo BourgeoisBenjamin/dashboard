@@ -60,7 +60,8 @@ router.get('/weather/city-meteo/:id_widget', JWTService.authenticateToken, funct
 })
 
 router.post('/weather/city-meteo/', JWTService.authenticateToken, function (req, res) {
-    pool.getPool().query("INSERT INTO city_meteo_weather (id_weather_service, activate, city, celsius) VALUES ((SELECT id FROM weather_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.query.activated, req.query.city, req.query.celsius], (err, result) => {
+    console.log(req.body);
+    pool.getPool().query("INSERT INTO city_meteo_weather (id_weather_service, activate, city, celsius) VALUES ((SELECT id FROM weather_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.body.activated, req.body.city, req.body.celsius], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"});
