@@ -14,8 +14,8 @@ class CovidCountryCaseForm extends Component
 
     render() {
         return (
-            <div id="covid-country-case-form">
-                <div class="country-input">
+            <div id="covid-country-case-form" class="widget-form">
+                <div class="country-input input-parameters">
                     <CountryInput name="City" value={this.state.countryName} onChange={this.handleCountryChange} />
                 </div>
             </div>

@@ -3,8 +3,6 @@ import CityInput from "../../../../shared/components/inputs/CityInput";
 import SelectInput from "../../../../shared/components/inputs/SelectInput";
 import WeatherService from "../../../../core/services/services/WeatherService";
 import CityWeatherModel from "../../../../core/models/services/weather/CityWeatherModel";
-import './CityWeatherForm.css'
-import history from "../../../../history";
 
 class CityWeatherForm extends Component
 {
@@ -55,11 +53,11 @@ class CityWeatherForm extends Component
 
     render() {
         return (
-            <div id="city-weather-form">
-                <div className="city-input">
+            <div id="city-weather-form" class="widget-form">
+                <div className="city-input input-parameters">
                     <CityInput name="City" value={this.state.cityName} onChange={this.handleCityChange} />
                 </div>
-                <div className="temperature-input">
+                <div className="temperature-input select-input-parameters">
                     <SelectInput
                         label="Temperature" onChange={this.handleSelectChange} value={this.state.temperature}
                         renderValue={(selected) => {

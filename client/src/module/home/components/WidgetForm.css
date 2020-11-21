@@ -73,3 +73,22 @@
 {
     margin-top: 100px;
 }
+
+#widget-form .input-parameters
+{
+    text-align: center;
+    width: 300px;
+    margin-inline: auto;
+}
+
+#widget-form .select-input-parameters
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+#widget-form .widget-form
+{
+    margin-top: 100px;
+}
