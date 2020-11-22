@@ -1,7 +1,8 @@
-export const services = [
+export let services = [
     {
         name: 'Twitter',
         url: '/home/widget/twitter/',
+        connected: false,
         widgets: [
             {
                 name: 'Last tweets',
@@ -18,6 +19,7 @@ export const services = [
     {
         name: 'Youtube',
         url: '/home/widget/youtube/',
+        connected: false,
         widgets: [
             {
                 name: 'Last videos of a channel',
@@ -34,6 +36,7 @@ export const services = [
     {
         name: 'Weather',
         url: '/home/widget/weather/',
+        connected: true,
         widgets: [
             {
                 name: 'City\'s Weather in Celsius or Fahrenheit',
@@ -45,6 +48,7 @@ export const services = [
     {
         name: 'Covid',
         url: '/home/widget/covid/',
+        connected: true,
         widgets: [
             {
                 name: 'Case per country',

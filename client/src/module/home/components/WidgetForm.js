@@ -13,6 +13,7 @@ import BasicButton from "../../../shared/components/buttons/BasicButton";
 import SuccessDialog from "../../../shared/components/dialogs/SuccessDialog";
 import CovidCountryCaseForm from "./form-widgets/CovidCountryCaseForm";
 import CovidSummaryCountryForm from "./form-widgets/CovidSummaryCountryForm";
+import AccountService from "../../../core/services/account/AccountService";
 
 class WidgetForm extends Component {
 
@@ -27,7 +28,7 @@ class WidgetForm extends Component {
             successMessageOpen: false,
             errorMessageOpen: false,
             displayLoader: false,
-            title: props.isAnUpdate ? 'Update widget' : 'Create widget',
+            availableService: [],
 
             setOnClickAddWidget: (newEvent) => {
                 this.setState({onClickAddWidget: newEvent});
@@ -49,6 +50,33 @@ class WidgetForm extends Component {
         this.handleUpdateWidgetClick = this.handleUpdateWidgetClick.bind(this);
         this.handleSuccessMessageClose = this.handleSuccessMessageClose.bind(this);
         this.handleErrorMessageClose = this.handleErrorMessageClose.bind(this);
+
+        this.getUserServices();
+    }
+
+    getUserServices()
+    {
+        const accountService = new AccountService();
+
+        accountService.getUserServices(() => {
+            console.log(accountService.getUserServicesData())
+            let availableServices = [];
+            accountService.getUserServicesData().forEach((d) => {
+                let s = services.find(service => service.name.toLowerCase() === d.service_name);
+                if (s) {
+                    s.connected = d.connected;
+                    if (s.connected) {
+                        availableServices.push(s);
+                    }
+                }
+            });
+            this.setState({
+                availableService: availableServices
+            })
+
+        }, () => {
+
+        });
     }
 
     handleUpdateWidgetClick()
@@ -92,6 +120,10 @@ class WidgetForm extends Component {
             this.setState({errorMessageOpen: true});
         } else {
             this.state.onClickAddWidget(() => {
+                this.setState({
+                    servicesSelected: null,
+                    widgetSelected: ''
+                })
                 history.push('/home/widget');
                 this.setState({successMessageOpen: true});
             }, () => {
@@ -101,12 +133,14 @@ class WidgetForm extends Component {
     }
 
     render() {
+
+
         return (
             <div id="widget-form" className="switch-wrapper">
                 <div class="form">
                     <div class="header">
                         <div class="title">
-                            <p>{this.state.title}</p>
+                            <p>{this.props.isAnUpdate ? 'Update widget' : 'Create widget'}</p>
                         </div>
                         <div class="close-button">
                             <CgClose size={35} onClick={this.handleCloseClick} />
@@ -125,7 +159,7 @@ class WidgetForm extends Component {
                                     }
                                     return selected;
                                 }}
-                                name="Select a service" arrayKey="name" arrayValue="name" array={services}
+                                name="Select a service" arrayKey="name" arrayValue="name" array={this.state.availableService}
                             />
                         </div>
                         <div className="widget-input input">
