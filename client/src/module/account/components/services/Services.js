@@ -14,6 +14,11 @@ class Services extends Component
         this.props.parentState.setPasswordIsSelected(false);
     }
 
+    getUserServices()
+    {
+
+    }
+
     render() {
         return (
             <div id="services">

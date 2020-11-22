@@ -19,10 +19,10 @@ class CovidSummaryCountry extends Component
 
     getDataWidget()
     {
-        this.service.getCountryCase(this.props.id, () => {
-            console.log( this.service.getDataCountryCaseResponse());
+        this.service.getSummaryCountry(this.props.id, () => {
+            console.log( this.service.getDataSummaryCountryResponse());
             this.setState({
-                model: this.service.getDataCountryCaseResponse()
+                model: this.service.getDataSummaryCountryResponse()
             })
         }, () => {
 
@@ -45,6 +45,18 @@ class CovidSummaryCountry extends Component
                         </div>
                     </div>
                     <div className="content">
+                        <div className="description">
+                            <p>In {this.state.model.Country}, {new Date(this.state.model.Date).toLocaleString()}</p>
+                        </div>
+                        <div className="new-confirmed">
+                            <p>New confirmed : {this.state.model.NewConfirmed}</p>
+                        </div>
+                        <div className="new-deaths">
+                            <p>New deaths : {this.state.model.NewDeaths}</p>
+                        </div>
+                        <div className="new-recovered">
+                            <p>New recovered : {this.state.model.NewRecovered}</p>
+                        </div>
                     </div>
                 </div>
             </div>
