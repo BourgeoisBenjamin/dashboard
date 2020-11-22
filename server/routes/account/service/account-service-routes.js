@@ -113,7 +113,7 @@ router.get('/init', JWTService.authenticateToken, (req, res) => {
 })
 
 // auth with twitter
-router.post('/twitter/connect', (req, res) => {
+router.get('/twitter/connect', (req, res) => {
     tw.login((err, tokenSecret, url) => {
         if (err) {
             let service = services.find((elem) => {
@@ -168,16 +168,16 @@ router.post('/twitter/disconnect', JWTService.authenticateToken, (req, res) => {
 
     pool.getPool().query("UPDATE twitter_service SET activate = $1 WHERE id_user = $2", [false, req.user.user_id], (err, result) =>  {
         if (err) {
-            res.status(200);
-        } else {
             res.status(503);
             res.json({message: "Service Unavailable"})
+        } else {
+            res.sendStatus(200);
         }
     });
 });
 
 // auth with google
-router.post('/google/connect', async (req, res) => {
+router.get('/google/connect', async (req, res) => {
 
     // generate the URL that Google will use for login and consent dialog
     const result = await google.getGoogleOauthUrl();
@@ -216,10 +216,10 @@ router.post('/google/disconnect', JWTService.authenticateToken, (req, res) => {
 
     pool.getPool().query("UPDATE youtube_service SET activate = $1 WHERE id_user = $2", [false, req.user.user_id], (err, result) =>  {
         if (err) {
-            res.status(200);
-        } else {
             res.status(503);
             res.json({message: "Service Unavailable"})
+        } else {
+            res.sendStatus(200);
         }
     });
 });
@@ -240,7 +240,7 @@ router.get('/connect', JWTService.authenticateToken, (req, res) => {
     }, (result) => {
         if (result === true) {
             services.splice(services.indexOf(service), 1);
-            res.status(200)
+            res.sendStatus(200)
         } else {
             res.json({code: 401})
         }

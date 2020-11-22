@@ -3,6 +3,16 @@ import './Service.css'
 
 class Service extends Component
 {
+    handleConnectClick = () =>
+    {
+        this.props.onClickConnect(this.props.title);
+    }
+
+    handleDisconnectClick = () =>
+    {
+        this.props.onClickDisconnect(this.props.title);
+    }
+
     render() {
         return (
             <div class="service">
@@ -13,10 +23,10 @@ class Service extends Component
                     <p>{this.props.title}</p>
                 </div>
                 <div className={`button connect-button ${this.props.connected ? 'hide' : ''}`}>
-                    <button onClick={this.props.onClick}>Connect</button>
+                    <button onClick={this.handleConnectClick}>Connect</button>
                 </div>
                 <div className={`button disconnect-button ${this.props.connected ? '' : 'hide'}`}>
-                    <button onClick={this.props.onClick}>Disconnect</button>
+                    <button onClick={this.handleDisconnectClick}>Disconnect</button>
                 </div>
             </div>
         )

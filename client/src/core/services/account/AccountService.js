@@ -3,9 +3,16 @@ import axios from "axios";
 
 class AccountService
 {
+    header = {
+        headers: {
+            "Authorization" : `Bearer ${localStorage.getItem('JWTToken')}`
+        }
+    }
+
     constructor()
     {
         this.model = new AccountModel();
+        this.userServices = [];
     }
 
     getInfos(onSuccess, onFailure)
@@ -91,6 +98,72 @@ class AccountService
         });
     }
 
+    getUserServices(onSuccess, onFailure)
+    {
+        const header = {
+            headers: {
+                "Authorization" : `Bearer ${localStorage.getItem('JWTToken')}`
+            }
+        }
+
+        axios.get(`http://localhost:8080/account/service`, header)
+            .then(res => {
+                this.userServices = res.data.data;
+                onSuccess();
+            }).catch(error => {
+                onFailure();
+        });
+    }
+
+    init(onSuccess, onFailure)
+    {
+        axios.get(`http://localhost:8080/account/service/init`, this.header)
+            .then(res => {
+                onSuccess(res.data.uuid);
+            }).catch(error => {
+                onFailure();
+        });
+    }
+
+    getServiceConnect(uuid, onSuccess, onFailure) {
+        const header = {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('JWTToken')}`
+            },
+            params: {
+                uuid: uuid
+            }
+        }
+
+        axios.get(`http://localhost:8080/account/service/connect`, header)
+            .then(res => {
+                console.log(res);
+                onSuccess();
+            }).catch(error => {
+                onFailure();
+        });
+    }
+
+    disconnectTwitter(onSuccess, onFailure)
+    {
+        axios.post(`http://localhost:8080/account/service/twitter/disconnect`, null, this.header)
+            .then(res => {
+                onSuccess();
+            }).catch(error => {
+                onFailure();
+        });
+    }
+
+    disconnectGoogle(onSuccess, onFailure)
+    {
+        axios.post(`http://localhost:8080/account/service/google/disconnect`, null, this.header)
+            .then(res => {
+                onSuccess();
+            }).catch(error => {
+                onFailure();
+        });
+    }
+
     getUsername()
     {
         return this.model.username;
@@ -104,6 +177,11 @@ class AccountService
     getActivateEmail()
     {
         return this.model.activate_email;
+    }
+
+    getUserServicesData()
+    {
+        return this.userServices;
     }
 }
 
