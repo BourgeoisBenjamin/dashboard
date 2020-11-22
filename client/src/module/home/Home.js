@@ -6,6 +6,7 @@ import WidgetForm from './components/WidgetForm'
 import {Route, Switch} from "react-router-dom";
 import {services} from "./services";
 import WidgetService from "../../core/services/widget/WidgetService";
+import {widgets} from "./widgets";
 // import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 class Home extends Component {
@@ -16,6 +17,10 @@ class Home extends Component {
         super(props);
 
         this.widgetService = new WidgetService();
+
+        this.state = {
+            widgets: []
+        };
 
         if (localStorage.getItem('JWTToken') == null) {
             history.push('/');
@@ -28,7 +33,16 @@ class Home extends Component {
     getUserWidgets()
     {
         this.widgetService.getUserWidgets(() => {
+            let widgetsTmp = [];
 
+            this.widgetService.data.forEach((d) => {
+                if (widgets[d.name]) {
+                    widgetsTmp.push(widgets[d.name](d.id));
+                }
+            });
+            this.setState({
+                widgets: widgetsTmp
+            })
         }, () => {
 
         });
@@ -58,8 +72,8 @@ class Home extends Component {
                 <div class="new-widgets-button">
                     <button onClick={this.handleNewWidgetClick}>New widgets</button>
                 </div>
-                <div class="content">
-
+                <div class="home-content">
+                    { this.state.widgets }
                 </div>
                 {/*<TransitionGroup component={null}>*/}
                 {/*    <CSSTransition timeout={{ enter: 300, exit: 300 }} classNames="fade" key={this.state.key}>*/}

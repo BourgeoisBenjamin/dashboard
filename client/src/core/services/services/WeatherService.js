@@ -1,5 +1,6 @@
 import axios from 'axios';
-import CityWeatherModel from "../../models/services/weather/CityWeatherModel";
+import CityWeatherModelRequest from "../../models/services/weather/request/CityWeatherModel";
+import CityWeatherModelResponse from "../../models/services/weather/response/CityWeatherModel";
 
 class WeatherService
 {
@@ -13,7 +14,8 @@ class WeatherService
 
     constructor()
     {
-        this.model = new CityWeatherModel();
+        this.modelRequest = new CityWeatherModelRequest();
+        this.modelResponse = new CityWeatherModelResponse();
     }
 
     deleteCityWeatherWidget(idWidget, onSuccess, onFailure)
@@ -30,7 +32,7 @@ class WeatherService
     {
         axios.get(this.url + idWidget, this.header)
             .then(res => {
-                Object.assign(this.model, res.data);
+                Object.assign(this.modelResponse, res.data);
                 onSuccess();
             }).catch(error => {
                 onFailure();
@@ -51,16 +53,21 @@ class WeatherService
     {
         axios.post(this.url, data, this.header)
             .then(res => {
-                Object.assign(this.model, data);
+                Object.assign(this.modelRequest, data);
                 onSuccess();
             }).catch(error => {
                 onFailure();
         });
     }
 
-    getData()
+    getDataResponse()
     {
-        return this.model;
+        return this.modelResponse;
+    }
+
+    getDataRequest()
+    {
+        return this.modelRequest;
     }
 }
 

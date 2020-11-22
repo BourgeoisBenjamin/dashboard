@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import CityInput from "../../../../shared/components/inputs/CityInput";
 import SelectInput from "../../../../shared/components/inputs/SelectInput";
 import WeatherService from "../../../../core/services/services/WeatherService";
-import CityWeatherModel from "../../../../core/models/services/weather/CityWeatherModel";
+import CityWeatherModel from "../../../../core/models/services/weather/request/CityWeatherModel";
 
 class CityWeatherForm extends Component
 {
