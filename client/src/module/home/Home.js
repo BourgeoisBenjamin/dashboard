@@ -35,9 +35,11 @@ class Home extends Component {
         this.widgetService.getUserWidgets(() => {
             let widgetsTmp = [];
 
+            console.log(this.widgetService.data);
+
             this.widgetService.data.forEach((d) => {
                 if (widgets[d.name]) {
-                    widgetsTmp.push(widgets[d.name](d.id));
+                    widgetsTmp.unshift(widgets[d.name](d.id));
                 }
             });
             this.setState({

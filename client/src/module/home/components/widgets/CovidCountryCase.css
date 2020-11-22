@@ -1,0 +1,73 @@
+#covid-country-case
+{
+    margin-left: 100px;
+    height: 400px;
+    width: 400px;
+    box-shadow: 2px 2px 20px 5px grey;
+}
+
+#covid-country-case .header p
+{
+    margin-bottom: 0;
+}
+
+#covid-country-case .header
+{
+    display: flex;
+    height: 60px;
+    align-items: center;
+}
+
+#covid-country-case .covid-logo
+{
+    margin-left: 10px;
+}
+
+#covid-country-case .title
+{
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+#covid-country-case .covid-logo img
+{
+    height: 40px;
+}
+
+#covid-country-case .logo-parameters
+{
+    cursor: pointer;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 60px;
+    background-color: #5C80BC;
+}
+
+#covid-country-case .logo-parameters img
+{
+    height: 30px;
+}
+
+#covid-country-case .content .description
+{
+    font-style: italic;
+    margin-left: 20px;
+    margin-top: 50px;
+}
+
+#covid-country-case .content .total-deaths
+{
+    margin-left: 20px;
+    font-size: 20px;
+    margin-top: 70px;
+}
+
+#covid-country-case .content .total-recovered
+{
+    margin-left: 20px;
+    font-size: 20px;
+    margin-top: 70px;
+}

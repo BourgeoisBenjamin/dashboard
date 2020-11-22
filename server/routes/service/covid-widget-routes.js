@@ -51,7 +51,7 @@ router.get('/covid/country-case/:id_widget', JWTService.authenticateToken, funct
 })
 
 router.post('/covid/country-case/', JWTService.authenticateToken, function (req, res) {
-    pool.getPool().query("INSERT INTO country_case_covid (id_covid_service, activate, country) VALUES ((SELECT id FROM covid_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.query.activated, req.query.country], (err, result) => {
+    pool.getPool().query("INSERT INTO country_case_covid (id_covid_service, activate, country) VALUES ((SELECT id FROM covid_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.body.activated, req.body.country], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"});
