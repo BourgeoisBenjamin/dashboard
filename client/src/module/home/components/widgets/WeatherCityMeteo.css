@@ -5,3 +5,82 @@
     width: 400px;
     box-shadow: 2px 2px 20px 5px grey;
 }
+
+#weather-city-meteo .header p
+{
+    margin-bottom: 0;
+}
+
+#weather-city-meteo .header
+{
+    display: flex;
+    height: 60px;
+    align-items: center;
+}
+
+#weather-city-meteo .logo-location
+{
+    margin-left: 20px;
+}
+
+#weather-city-meteo .location
+{
+    margin-left: 20px;
+}
+
+#weather-city-meteo .logo-location img
+{
+    height: 30px;
+}
+
+#weather-city-meteo .logo-parameters
+{
+    cursor: pointer;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 60px;
+    background-color: #5C80BC;
+}
+
+#weather-city-meteo .logo-parameters img
+{
+    height: 30px;
+}
+
+#weather-city-meteo .content .weather
+{
+    margin-top: 30px;
+    text-align: center;
+}
+
+#weather-city-meteo .content .weather img
+{
+    height: 70px;
+}
+
+#weather-city-meteo .content .temperature
+{
+    margin-top: 10px;
+    text-align: center;
+    font-size: 40px;
+}
+
+#weather-city-meteo .content .humidity p
+{
+    margin-bottom: 0;
+}
+
+#weather-city-meteo .content .humidity
+{
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+#weather-city-meteo .content .humidity img
+{
+    height: 30px;
+}
