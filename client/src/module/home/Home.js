@@ -27,11 +27,13 @@ class Home extends Component {
         }
 
         this.handleNewWidgetClick = this.handleNewWidgetClick.bind(this);
+        this.getUserWidgets = this.getUserWidgets.bind(this);
         this.getUserWidgets();
     }
 
     getUserWidgets()
     {
+        console.log('lol');
         this.widgetService.getUserWidgets(() => {
             let widgetsTmp = [];
 
@@ -45,9 +47,7 @@ class Home extends Component {
             this.setState({
                 widgets: widgetsTmp
             })
-        }, () => {
-
-        });
+        }, () => {});
     }
 
     componentDidMount()
@@ -64,7 +64,7 @@ class Home extends Component {
         const routes = [];
         services.map((service, i) => {
             service.widgets.map((widget) => {
-                routes.push(<Route path={widget.urlClient} render={() => <WidgetForm name={service.name} widget={widget.name} />} />)
+                routes.push(<Route path={widget.urlClient} render={() => <WidgetForm name={service.name} widget={widget.name} onUpdateWidget={this.getUserWidgets} />} />)
             });
             routes.push(<Route path={service.url} render={() => <WidgetForm name={service.name} />} />);
         });

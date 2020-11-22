@@ -124,9 +124,9 @@ class WidgetForm extends Component {
                             <p>Parameters</p>
                         </div>
                         <Switch>
-                            <Route path={'/home/widget/covid/summary-country/'} render={() => <CovidSummaryCountryForm parentState={this.state} />}/>
-                            <Route path={'/home/widget/covid/country-case/'} render={() => <CovidCountryCaseForm parentState={this.state} />}/>
-                            <Route path={'/home/widget/weather/city-weather/'} render={() => <CityWeatherForm parentState={this.state} />}/>
+                            <Route path={'/home/widget/covid/summary-country/'} render={() => <CovidSummaryCountryForm parentState={this.state} onClickUpdate={this.props.onUpdateWidget} />}/>
+                            <Route path={'/home/widget/covid/country-case/'} render={() => <CovidCountryCaseForm parentState={this.state} onClickUpdate={this.props.onUpdateWidget} />}/>
+                            <Route path={'/home/widget/weather/city-weather/'} render={() => <CityWeatherForm parentState={this.state} onClickUpdate={this.props.onUpdateWidget} />}/>
                             <Route path={'/home/widget/youtube/last-videos-of-a-channel/'} render={() => <YoutubeWidgetLastVideosOfChannelForm />}/>
                             <Route path={'/home/widget/youtube/display-channel-subscribers/'} render={() => <YoutubeDisplayChannelSubscribersForm />}/>
                         </Switch>

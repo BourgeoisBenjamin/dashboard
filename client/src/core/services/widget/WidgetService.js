@@ -17,6 +17,7 @@ export default class WidgetService
         axios.get(this.url, this.header)
             .then(res => {
                 console.log(res);
+                this.data = [];
                 res.data.forEach((d) => {
                     this.data.push(d);
                 });

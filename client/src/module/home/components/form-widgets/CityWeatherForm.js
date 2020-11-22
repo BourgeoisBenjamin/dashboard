@@ -45,6 +45,7 @@ class CityWeatherForm extends Component
         this.service.postCityWeatherWidget(model, () => {
             this.props.parentState.setDisplayLoader(false);
             onSuccess();
+            this.props.onClickUpdate();
         }, () => {
             this.props.parentState.setDisplayLoader(false);
             onFailure();
