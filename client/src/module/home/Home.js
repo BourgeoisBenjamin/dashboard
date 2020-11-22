@@ -7,6 +7,7 @@ import {Route, Switch} from "react-router-dom";
 import {services} from "./services";
 import WidgetService from "../../core/services/widget/WidgetService";
 import {widgets} from "./widgets";
+import queryString from "query-string";
 // import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 class Home extends Component {
@@ -61,12 +62,14 @@ class Home extends Component {
     }
 
     render() {
+        const isAnUpdate = !!queryString.parse(window.location.search).id;
+
         const routes = [];
         services.map((service, i) => {
             service.widgets.map((widget) => {
-                routes.push(<Route path={widget.urlClient} render={() => <WidgetForm name={service.name} widget={widget.name} onUpdateWidget={this.getUserWidgets} />} />)
+                routes.push(<Route path={widget.urlClient} render={() => <WidgetForm isAnUpdate={isAnUpdate} name={service.name} widget={widget.name} onUpdateWidget={this.getUserWidgets} />} />)
             });
-            routes.push(<Route path={service.url} render={() => <WidgetForm name={service.name} />} />);
+            routes.push(<Route path={service.url} render={() => <WidgetForm isAnUpdate={isAnUpdate} name={service.name} />} />);
         });
 
         return (
@@ -81,7 +84,7 @@ class Home extends Component {
                 {/*    <CSSTransition timeout={{ enter: 300, exit: 300 }} classNames="fade" key={this.state.key}>*/}
                         <Switch location={this.props.location}>
                             { routes }
-                            <Route path={'/home/widget/'} render={() => <WidgetForm />} />
+                            <Route path={'/home/widget/'} render={() => <WidgetForm isAnUpdate={isAnUpdate} />} />
                         </Switch>
                 {/*    </CSSTransition>*/}
                 {/*</TransitionGroup>*/}

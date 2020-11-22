@@ -23,12 +23,18 @@ class WidgetForm extends Component {
             servicesSelected: this.props.name === undefined ? null : services.find(service => service.name === this.props.name),
             widgetSelected: this.props.widget === undefined ? '' : this.props.widget,
             onClickAddWidget: null,
+            onClickUpdateWidget: null,
             successMessageOpen: false,
             errorMessageOpen: false,
             displayLoader: false,
+            title: props.isAnUpdate ? 'Update widget' : 'Create widget',
 
             setOnClickAddWidget: (newEvent) => {
                 this.setState({onClickAddWidget: newEvent});
+            },
+
+            setOnClickUpdateWidget: (newEvent) => {
+                this.setState({onClickUpdateWidget: newEvent});
             },
 
             setDisplayLoader: (displayLoader) => {
@@ -40,8 +46,22 @@ class WidgetForm extends Component {
         this.handleSelectWidgetsChanged = this.handleSelectWidgetsChanged.bind(this);
         this.handleCloseClick = this.handleCloseClick.bind(this);
         this.handleAddWidgetClick = this.handleAddWidgetClick.bind(this);
+        this.handleUpdateWidgetClick = this.handleUpdateWidgetClick.bind(this);
         this.handleSuccessMessageClose = this.handleSuccessMessageClose.bind(this);
         this.handleErrorMessageClose = this.handleErrorMessageClose.bind(this);
+    }
+
+    handleUpdateWidgetClick()
+    {
+        if (this.state.onClickUpdateWidget === null) {
+            this.setState({errorMessageOpen: true});
+        } else {
+            this.state.onClickUpdateWidget(() => {
+                this.setState({successMessageOpen: true});
+            }, () => {
+                this.setState({errorMessageOpen: true});
+            });
+        }
     }
 
     handleSelectServicesChanged(e)
@@ -86,7 +106,7 @@ class WidgetForm extends Component {
                 <div class="form">
                     <div class="header">
                         <div class="title">
-                            <p>{this.props.title}</p>
+                            <p>{this.state.title}</p>
                         </div>
                         <div class="close-button">
                             <CgClose size={35} onClick={this.handleCloseClick} />
@@ -130,8 +150,11 @@ class WidgetForm extends Component {
                             <Route path={'/home/widget/youtube/last-videos-of-a-channel/'} render={() => <YoutubeWidgetLastVideosOfChannelForm />}/>
                             <Route path={'/home/widget/youtube/display-channel-subscribers/'} render={() => <YoutubeDisplayChannelSubscribersForm />}/>
                         </Switch>
-                        <div class="widget-button">
-                            <BasicButton onClick={this.handleAddWidgetClick} name="Add widgets" loaderSize={50} display={this.state.displayLoader}/>
+                        <div class="widget-button" style={{ display: this.props.isAnUpdate ? 'none' : 'block' }}>
+                            <BasicButton onClick={this.handleAddWidgetClick} name="Add widget" loaderSize={50} display={this.state.displayLoader}/>
+                        </div>
+                        <div className="widget-button" style={{display: this.props.isAnUpdate ? 'block' : 'none'}}>
+                            <BasicButton onClick={this.handleUpdateWidgetClick} name="Update widget" loaderSize={50} display={this.state.displayLoader}/>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import CountryInput from "../../../../shared/components/inputs/CountryInput";
 import CovidService from "../../../../core/services/services/CovidService";
 import CountryCaseModel from "../../../../core/models/services/covid/request/CountryCaseModel";
+import queryString from 'query-string';
 
 class CovidCountryCaseForm extends Component
 {
@@ -16,7 +17,47 @@ class CovidCountryCaseForm extends Component
         this.props.parentState.setOnClickAddWidget((onSuccess, onFailure) => {
             this.onClickAddWidget(onSuccess, onFailure);
         })
+
+        this.props.parentState.setOnClickUpdateWidget((onSuccess, onFailure) => {
+            this.onClickUpdateWidget(onSuccess, onFailure);
+        })
         this.handleCountryChange = this.handleCountryChange.bind(this);
+
+        this.getWidgetData();
+    }
+
+    getWidgetData()
+    {
+        let params = queryString.parse(window.location.search);
+
+        if (params.id) {
+            this.service.getCountryCase(params.id, () => {
+                console.log(this.service.getDataCountryCaseRequest().country)
+                this.setState({
+                    countryName: this.service.getDataCountryCaseRequest().country
+                })
+            }, () => {
+
+            });
+        }
+    }
+
+    onClickUpdateWidget(onSuccess, onFailure)
+    {
+        let model = new CountryCaseModel();
+
+        model.country = this.state.countryName;
+
+        this.props.parentState.setDisplayLoader(true);
+
+        this.service.putCountryCase(model, () => {
+            this.props.parentState.setDisplayLoader(false);
+            onSuccess();
+            this.props.onClickUpdate();
+        }, () => {
+            this.props.parentState.setDisplayLoader(false);
+            onFailure();
+        });
     }
 
     onClickAddWidget(onSuccess, onFailure)

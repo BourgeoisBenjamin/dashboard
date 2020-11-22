@@ -4,6 +4,7 @@ import CountryCaseModel from "../../../../core/models/services/covid/response/Co
 import CovidService from "../../../../core/services/services/CovidService";
 import './CovidCountryCase.css'
 import CovidImage from '../../../../assets/images/covid.png'
+import history from "../../../../history";
 
 class CovidCountryCase extends Component
 {
@@ -14,6 +15,9 @@ class CovidCountryCase extends Component
             model: new CountryCaseModel()
         }
         this.service = new CovidService();
+
+        this.onClickParameters = this.onClickParameters.bind(this);
+
         this.getDataWidget();
     }
 
@@ -29,6 +33,15 @@ class CovidCountryCase extends Component
         });
     }
 
+    onClickParameters()
+    {
+        // history.push('/home/widget/covid/country-case/' + this.props.id);
+        history.push({
+            pathname: '/home/widget/covid/country-case/',
+            search: '?id=' + this.props.id
+        })
+    }
+
     render() {
         return (
             <div id="covid-country-case">
@@ -40,7 +53,7 @@ class CovidCountryCase extends Component
                         <div className="title">
                             <p>Case per country</p>
                         </div>
-                        <div className="logo-parameters">
+                        <div className="logo-parameters" onClick={this.onClickParameters}>
                             <FiSettings color="white" size={30}/>
                         </div>
                     </div>
