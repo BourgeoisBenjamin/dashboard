@@ -34,6 +34,10 @@
                      {
                         "name":"search",
                         "type":"string"
+                     },
+                     {
+                        "name":"number_tweets",
+                        "type":"integer"
                      }
                   ]
                },
@@ -78,16 +82,12 @@
             "name":"youtube",
             "widgets":[
                {
-                  "name":"channels_videos",
-                  "description":"Display last N videos of channel V",
+                  "name":"statistics_channel",
+                  "description":"Display statistics of channel V",
                   "params":[
                      {
                         "name":"channel",
                         "type":"string"
-                     },
-                     {
-                        "name":"number_videos",
-                        "type":"integer"
                      }
                   ]
                },
@@ -102,11 +102,11 @@
                   ]
                },
                {
-                  "name":"views_video",
-                  "description":"Display views of video B",
+                  "name":"statistics_video",
+                  "description":"Display statistics of video B",
                   "params":[
                      {
-                        "name":"video",
+                        "name":"video_id",
                         "type":"string"
                      }
                   ]
