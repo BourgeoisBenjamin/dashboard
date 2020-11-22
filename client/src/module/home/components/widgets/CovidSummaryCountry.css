@@ -1,0 +1,52 @@
+#covid-summary-country
+{
+    margin-left: 100px;
+    height: 400px;
+    width: 400px;
+    box-shadow: 2px 2px 20px 5px grey;
+}
+
+#covid-summary-country .header p
+{
+    margin-bottom: 0;
+}
+
+#covid-summary-country .header
+{
+    display: flex;
+    height: 60px;
+    align-items: center;
+}
+
+#covid-summary-country .covid-logo
+{
+    margin-left: 10px;
+}
+
+#covid-summary-country .title
+{
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+#covid-summary-country .covid-logo img
+{
+    height: 40px;
+}
+
+#covid-summary-country .logo-parameters
+{
+    cursor: pointer;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 60px;
+    background-color: #5C80BC;
+}
+
+#covid-summary-country .logo-parameters img
+{
+    height: 30px;
+}

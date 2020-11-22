@@ -73,8 +73,8 @@ app.get('/user/widgets', JWTService.authenticateToken, (req, res) => {
         SELECT id, 'Last tweets twitter' AS NAME FROM last_tweets_twitter WHERE activate=true AND id_twitter_service=(SELECT id FROM twitter_service WHERE id_user = $1) UNION
         SELECT id, 'Channels videos youtube' AS NAME FROM channels_videos_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1) UNION
         SELECT id, 'Comments video youtube' AS NAME FROM comments_video_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1) UNION
-        SELECT id, 'Views video youtube' AS NAME FROM views_video_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1) UNION
-        SELECT id, 'Subscribers channels' AS NAME FROM subscribers_channels_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1)
+        SELECT id, 'Statistics video youtube' AS NAME FROM statistics_video_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1) UNION
+        SELECT id, 'Statistics channel youtube' AS NAME FROM statistics_channel_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1)
     `;
 
     pool.getPool().query(request, [req.user.user_id], (err, result) => {
