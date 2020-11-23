@@ -39,10 +39,22 @@ class WeatherService
             });
     }
 
-    putCityWeatherWidget(idWidget, onSuccess, onFailure)
+    getCityWeatherWidgetParams(idWidget, onSuccess, onFailure)
     {
-        axios.put(this.url + idWidget, this.header)
+        axios.get(this.url + idWidget + '/params', this.header)
             .then(res => {
+                Object.assign(this.modelRequest, res.data);
+                onSuccess();
+            }).catch(error => {
+                onFailure();
+        });
+    }
+
+    putCityWeatherWidget(data, idWidget, onSuccess, onFailure)
+    {
+        axios.put(this.url + idWidget, data, this.header)
+            .then(res => {
+                Object.assign(this.modelRequest, data);
                 onSuccess();
             }).catch(error => {
                 onFailure();

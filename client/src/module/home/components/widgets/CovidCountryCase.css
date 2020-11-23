@@ -2,8 +2,9 @@
 {
     margin-left: 100px;
     height: 400px;
-    width: 400px;
-    box-shadow: 2px 2px 20px 5px grey;
+    width: 500px;
+    box-shadow: 2px 2px 5px 2px grey;
+    margin-top: 100px;
 }
 
 #covid-country-case .header p
@@ -16,6 +17,7 @@
     display: flex;
     height: 60px;
     align-items: center;
+    background-color: #ffbebe;
 }
 
 #covid-country-case .covid-logo
@@ -25,13 +27,14 @@
 
 #covid-country-case .title
 {
-    margin-left: 10px;
-    font-size: 20px;
+    margin-left: 20px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 #covid-country-case .covid-logo img
 {
-    height: 40px;
+    height: 30px;
 }
 
 #covid-country-case .logo-parameters
@@ -43,7 +46,7 @@
     justify-content: center;
     height: 100%;
     width: 60px;
-    background-color: #5C80BC;
+    background-color: #000000;
 }
 
 #covid-country-case .logo-parameters img

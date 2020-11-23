@@ -30,7 +30,7 @@ router.put('/weather/city-meteo/:id_widget', JWTService.authenticateToken, funct
                 res.json({message: "Unauthorized"});
                 return;
             }
-            res.status(200);
+            res.sendStatus(200);
         }
     })
 })

@@ -3,6 +3,8 @@ import CityInput from "../../../../shared/components/inputs/CityInput";
 import SelectInput from "../../../../shared/components/inputs/SelectInput";
 import WeatherService from "../../../../core/services/services/WeatherService";
 import CityWeatherModel from "../../../../core/models/services/weather/request/CityWeatherModel";
+import queryString from "query-string";
+import CountryCaseModel from "../../../../core/models/services/covid/request/CountryCaseModel";
 
 class CityWeatherForm extends Component
 {
@@ -28,9 +30,50 @@ class CityWeatherForm extends Component
         this.props.parentState.setOnClickAddWidget((onSuccess, onFailure) => {
             this.onClickAddWidget(onSuccess, onFailure);
         })
+        this.props.parentState.setOnClickUpdateWidget((onSuccess, onFailure) => {
+            this.onClickUpdateWidget(onSuccess, onFailure);
+        })
 
         this.handleCityChange = this.handleCityChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
+
+        this.getWidgetData();
+    }
+
+    getWidgetData()
+    {
+        let params = queryString.parse(window.location.search);
+
+        if (params.id) {
+            this.service.getCityWeatherWidgetParams(params.id, () => {
+                this.setState({
+                    cityName: this.service.getDataRequest().city,
+                    temperature: this.service.getDataRequest().celsius ? 'Celsius' : 'Fahrenheit'
+                })
+            }, () => {
+
+            });
+        }
+    }
+
+    onClickUpdateWidget(onSuccess, onFailure)
+    {
+        let model = new CityWeatherModel();
+        let params = queryString.parse(window.location.search);
+
+        model.celsius = (this.state.temperature === 'Celsius');
+        model.city = this.state.cityName;
+
+        this.props.parentState.setDisplayLoader(true);
+
+        this.service.putCityWeatherWidget(model, params.id, () => {
+            this.props.parentState.setDisplayLoader(false);
+            onSuccess();
+            this.props.onClickUpdate();
+        }, () => {
+            this.props.parentState.setDisplayLoader(false);
+            onFailure();
+        });
     }
 
     onClickAddWidget(onSuccess, onFailure)

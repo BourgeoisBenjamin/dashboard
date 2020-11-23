@@ -7,16 +7,28 @@ import {FiSettings} from "react-icons/fi";
 import HumidityImage from '../../../../assets/images/humidity.png'
 import SunImage from '../../../../assets/images/sun.png'
 import {Draggable} from "react-beautiful-dnd";
+import history from "../../../../history";
 
 class WeatherCityMeteo extends Component
 {
     constructor(props) {
         super(props);
 
+        this.service = new WeatherService();
+
         this.state = {
             model: new CityWeatherModel()
         }
-        this.service = new WeatherService();
+
+        let getWidgetsData = this.props.parentState.getWidgetData;
+
+        getWidgetsData.push(() => {
+            this.getDataWidget();
+        });
+        this.props.parentState.setGetWidgetData(getWidgetsData);
+
+        this.onClickParameters = this.onClickParameters.bind(this);
+
         this.getDataWidget();
     }
 
@@ -54,7 +66,7 @@ class WeatherCityMeteo extends Component
                         <div class="location">
                             <p>{this.state.model.city}</p>
                         </div>
-                        <div class="logo-parameters">
+                        <div class="logo-parameters" onClick={this.onClickParameters}>
                             <FiSettings color="white" size={30} />
                         </div>
                     </div>
@@ -73,6 +85,15 @@ class WeatherCityMeteo extends Component
                 </div>
             </div>
         );
+    }
+
+    onClickParameters()
+    {
+        // history.push('/home/widget/covid/country-case/' + this.props.id);
+        history.push({
+            pathname: '/home/widget/weather/city-weather/',
+            search: '?id=' + this.props.id
+        })
     }
 }
 
