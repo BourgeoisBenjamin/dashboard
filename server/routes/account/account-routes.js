@@ -54,6 +54,7 @@ router.post('/login', function (req, res) {
                 res.json({message: "User not found."})
             } else {
                 const token = JWTService.generateAccessToken({user_id: result.rows[0].id})
+                console.debug(token)
                 res.json({JWTToken: token})
             }
         }
