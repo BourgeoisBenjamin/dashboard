@@ -2,7 +2,7 @@ import axios from "axios";
 import StatisticsChannelModelRequest from "../../../models/services/youtube/request/StatisticsChannelModel";
 import StatisticsChannelModelResponse from "../../../models/services/youtube/response/StatisticsChannelModel";
 
-export default class YoutubeStatisticsChannelVideoService
+export default class YoutubeStatisticsChannelService
 {
     header = {
         headers: {

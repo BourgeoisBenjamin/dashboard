@@ -4,6 +4,10 @@ import CovidCountryCase from "./components/widgets/CovidCountryCase";
 import CovidSummaryCountry from "./components/widgets/CovidSummaryCountry";
 import TwitterLastTweets from "./components/widgets/TwitterLastTweets";
 import TwitterSearchTweets from "./components/widgets/TwitterSearchTweets";
+import YoutubeChannelVideo from "./components/widgets/YoutubeChannelVideo";
+import YoutubeCommentsVideo from "./components/widgets/YoutubeCommentsVideo";
+import YoutubeStatisticsVideo from "./components/widgets/YoutubeStatisticsVideo";
+import YoutubeStatisticsChannel from "./components/widgets/YoutubeStatisticsChannel";
 
 export const widgets = {
     'City meteo weather': function (id, index, parentState) { return (
@@ -20,5 +24,17 @@ export const widgets = {
     )},
     'Search tweets twitter': function (id, index, parentState) { return (
         <TwitterSearchTweets id={id} parentState={parentState}/>
+    )},
+    'Channels videos youtube': function (id, index, parentState) { return (
+        <YoutubeChannelVideo id={id} parentState={parentState}/>
+    )},
+    'Comments video youtube': function (id, index, parentState) { return (
+        <YoutubeCommentsVideo id={id} parentState={parentState}/>
+    )},
+    'Statistics video youtube': function (id, index, parentState) { return (
+        <YoutubeStatisticsVideo id={id} parentState={parentState}/>
+    )},
+    'Statistics channel youtube': function (id, index, parentState) { return (
+        <YoutubeStatisticsChannel id={id} parentState={parentState}/>
     )},
 };
