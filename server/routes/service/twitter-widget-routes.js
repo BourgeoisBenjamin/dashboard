@@ -209,7 +209,7 @@ router.get('/twitter/search-tweets/:id_widget/params', JWTService.authenticateTo
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT l.number_tweets, l.search FROM search_tweets_twitter l INNER JOIN twitter_service s ON l.id_twitter_service = s.id WHERE l.id = $1 AND s.user_id = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT l.number_tweets, l.search, l.activate FROM search_tweets_twitter l INNER JOIN twitter_service s ON l.id_twitter_service = s.id WHERE l.id = $1 AND s.user_id = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
