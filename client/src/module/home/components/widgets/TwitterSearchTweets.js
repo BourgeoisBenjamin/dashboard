@@ -29,11 +29,14 @@ class TwitterSearchTweets extends Component
 
     getDataWidget()
     {
+        console.log('yeah');
         this.service.getSearchTweets(this.props.id, () => {
-            console.log( this.service.getDataCountryCaseResponse());
-            this.setState({
-                model: this.service.getDataCountryCaseResponse()
-            })
+
+            // GET RESPONSE HERE
+            console.log( this.service.getSearchTweetResponse());
+            // this.setState({
+            //     model: this.service.getDataCountryCaseResponse()
+            // })
         }, () => {
 
         });
@@ -49,14 +52,14 @@ class TwitterSearchTweets extends Component
 
     render() {
         return (
-            <div id="covid-country-case">
+            <div id="twitter-search-tweets">
                 <div className="content">
                     <div className="header">
                         <div className="covid-logo">
                             <img  />
                         </div>
                         <div className="title">
-                            <p>Last tweets</p>
+                            <p>Search tweets</p>
                         </div>
                         <div className="logo-parameters" onClick={this.onClickParameters}>
                             <FiSettings color="white" size={30}/>

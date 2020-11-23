@@ -76,6 +76,7 @@
 
 #widget-form .input-parameters
 {
+    margin-top: 50px;
     text-align: center;
     width: 300px;
     margin-inline: auto;

@@ -4,6 +4,9 @@ import SummaryCountryModel from "../../../../core/models/services/covid/request/
 import queryString from "query-string";
 import LastTweetsModel from "../../../../core/models/services/twitter/request/LastTweetsModel";
 import TwitterService from "../../../../core/services/services/TwitterService";
+import NumberInput from "../../../../shared/components/inputs/NumberInput";
+import SearchInput from "../../../../shared/components/inputs/SearchInput";
+import SearchTweetsModel from "../../../../core/models/services/twitter/request/SearchTweetsModel";
 
 class TwitterSearchTweetsForm extends Component
 {
@@ -13,7 +16,8 @@ class TwitterSearchTweetsForm extends Component
         this.service = new TwitterService();
 
         this.state = {
-            countryName: ''
+            search: '',
+            numberTweets: ''
         }
         this.props.parentState.setOnClickAddWidget((onSuccess, onFailure) => {
             this.onClickAddWidget(onSuccess, onFailure);
@@ -21,7 +25,9 @@ class TwitterSearchTweetsForm extends Component
         this.props.parentState.setOnClickUpdateWidget((onSuccess, onFailure) => {
             this.onClickUpdateWidget(onSuccess, onFailure);
         })
-        // this.handleCountryChange = this.handleCountryChange.bind(this);
+
+        this.handleNumberTweetsChange = this.handleNumberTweetsChange.bind(this);
+        this.handleSearchChange = this.handleSearchChange.bind(this);
 
         this.getWidgetData();
     }
@@ -33,7 +39,8 @@ class TwitterSearchTweetsForm extends Component
         if (params.id) {
             this.service.getSearchTweetsParams(params.id, () => {
                 this.setState({
-                    countryName: this.service.getDataSummaryCountryRequest().country
+                    search: this.service.getSearchTweetRequest().search,
+                    numberTweets: this.service.getSearchTweetRequest().number_tweets
                 })
             }, () => {
 
@@ -43,10 +50,11 @@ class TwitterSearchTweetsForm extends Component
 
     onClickUpdateWidget(onSuccess, onFailure)
     {
-        let model = new SummaryCountryModel();
         let params = queryString.parse(window.location.search);
+        let model = new SearchTweetsModel();
 
-        model.country = this.state.countryName;
+        model.number_tweets = parseInt(this.state.numberTweets);
+        model.search = this.state.search;
 
         this.props.parentState.setDisplayLoader(true);
 
@@ -62,9 +70,10 @@ class TwitterSearchTweetsForm extends Component
 
     onClickAddWidget(onSuccess, onFailure)
     {
-        let model = new LastTweetsModel();
+        let model = new SearchTweetsModel();
 
-        // model.country = this.state.countryName;
+        model.number_tweets = parseInt(this.state.numberTweets);
+        model.search = this.state.search;
 
         this.props.parentState.setDisplayLoader(true);
 
@@ -82,18 +91,30 @@ class TwitterSearchTweetsForm extends Component
         return (
             <div class="widget-form">
                 <div className="input-parameters">
-                    <CountryInput name="Country" value={this.state.countryName} onChange={this.handleCountryChange}/>
+                    <NumberInput name="Number tweets" value={this.state.numberTweets} onChange={this.handleNumberTweetsChange} />
+                </div>
+                <div className="input-parameters">
+                    <SearchInput name="Search" value={this.state.search} onChange={this.handleSearchChange} />
                 </div>
             </div>
         );
     }
 
-    // handleCountryChange(e)
-    // {
-    //     this.setState({
-    //         countryName: e.target.value
-    //     });
-    // }
+    handleSearchChange(e)
+    {
+        this.setState({
+            search: e.target.value
+        });
+    }
+
+    handleNumberTweetsChange(e)
+    {
+        if (!isNaN(e.target.value)) {
+            this.setState({
+                numberTweets: e.target.value
+            });
+        }
+    }
 }
 
 export default TwitterSearchTweetsForm;

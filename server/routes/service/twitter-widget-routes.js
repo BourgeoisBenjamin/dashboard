@@ -133,13 +133,13 @@ router.delete('/twitter/search-tweets/:id_widget', JWTService.authenticateToken,
 
 router.put('/twitter/search-tweets/:id_widget', JWTService.authenticateToken, function (req, res) {
 
-    if (req.query.number_tweets > 100) {
+    if (req.body.number_tweets > 100) {
         res.status(503);
         res.json({message: "Invalid configuration. Max number of tweets : 100"});
         return;
     }
 
-    pool.getPool().query("UPDATE search_tweets_twitter SET activate = $3, search = $4, number_tweets = $5 WHERE id = $1 AND id_twitter_service IN (SELECT id FROM twitter_service WHERE id_user = $2) RETURNING id", [req.params.id_widget, req.user.user_id, req.body.activated, req.body.number_tweets, req.body.search], (err, result) => {
+    pool.getPool().query("UPDATE search_tweets_twitter SET activate = $3, search = $5, number_tweets = $4 WHERE id = $1 AND id_twitter_service IN (SELECT id FROM twitter_service WHERE id_user = $2) RETURNING id", [req.params.id_widget, req.user.user_id, req.body.activated, req.body.number_tweets, req.body.search], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -148,7 +148,7 @@ router.put('/twitter/search-tweets/:id_widget', JWTService.authenticateToken, fu
                 res.status(401)
                 res.json({message: "Unauthorized"});
             } else {
-                res.status(200);
+                res.sendStatus(200);
             }
         }
     })
