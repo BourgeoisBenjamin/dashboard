@@ -7,6 +7,7 @@ import youtubeImage from '../../../assets/images/youtube.png';
 import twitterImage from '../../../assets/images/twitter.png';
 import history from '../../../history';
 import LoginService from "../../../core/services/login/LoginService";
+import OAuthService from "../../../core/services/login/OAuthService";
 import {Alert} from "@material-ui/lab";
 import Snackbar from "@material-ui/core/Snackbar";
 import MenuContext from "../../../core/contexts/MenuContext";
@@ -22,6 +23,7 @@ export class LoginForm extends Component {
         super(props);
 
         this.loginService = new LoginService();
+        this.OAuthService = new OAuthService();
 
         this.state = {
             identifier: '',
@@ -72,6 +74,44 @@ export class LoginForm extends Component {
         history.push('/sign-up')
     }
 
+    handleSignInTwitter = () =>
+    {
+        this.setState({
+            sendingLoginRequest: true
+        })
+        this.OAuthService.connectOAuth((uuid) => {
+            this.OAuthService.connectTwitter(uuid)
+        }, (res) => {
+            sessionStorage.setItem('menu', 'block');
+            history.push('/home')
+            this.context.setShowMenu('block');
+        }, (res) => {
+            this.setState({
+                errorMessageOpen: true,
+                sendingLoginRequest: false
+            })
+        })
+    }
+
+    handleSignInGoogle = () =>
+    {
+        this.setState({
+            sendingLoginRequest: true
+        })
+        this.OAuthService.connectOAuth((uuid) => {
+            this.OAuthService.connectGoogle(uuid)
+        }, (res) => {
+            sessionStorage.setItem('menu', 'block');
+            history.push('/home')
+            this.context.setShowMenu('block');
+        }, (res) => {
+            this.setState({
+                errorMessageOpen: true,
+                sendingLoginRequest: false
+            })
+        })
+    }
+
     render() {
         return (
             <div id="login-form">
@@ -98,10 +138,10 @@ export class LoginForm extends Component {
                         <p>Or with</p>
                     </div>
                     <div class="logos">
-                        <div className="twitter logo">
+                        <div onClick={this.handleSignInTwitter} className="twitter logo">
                             <img src={twitterImage} alt=""/>
                         </div>
-                        <div className="youtube logo">
+                        <div onClick={this.handleSignInGoogle} className="youtube logo">
                             <img src={youtubeImage} alt=""/>
                         </div>
                     </div>
