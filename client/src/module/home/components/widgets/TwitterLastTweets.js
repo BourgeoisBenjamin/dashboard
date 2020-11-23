@@ -32,13 +32,13 @@ class TwitterLastTweets extends Component
 
     getDataWidget()
     {
+        console.log('hey');
         this.service.getLastTweets(this.props.id, () => {
-            console.log( this.service.getDataCountryCaseResponse());
+            console.log( this.service.getLastTweetModelResponse());
             this.setState({
                 model: this.service.getDataCountryCaseResponse()
             })
         }, () => {
-
         });
     }
 

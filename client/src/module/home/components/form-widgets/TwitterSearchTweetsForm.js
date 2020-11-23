@@ -21,7 +21,7 @@ class TwitterSearchTweetsForm extends Component
         this.props.parentState.setOnClickUpdateWidget((onSuccess, onFailure) => {
             this.onClickUpdateWidget(onSuccess, onFailure);
         })
-        this.handleCountryChange = this.handleCountryChange.bind(this);
+        // this.handleCountryChange = this.handleCountryChange.bind(this);
 
         this.getWidgetData();
     }

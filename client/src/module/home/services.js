@@ -10,9 +10,9 @@ export let services = [
                 urlRequest: '/service/twitter/last-tweets/'
             },
             {
-                name: 'Search',
-                urlClient: '/home/widget/twitter/search/',
-                urlRequest: '/service/twitter/search/'
+                name: 'Search tweets',
+                urlClient: '/home/widget/twitter/search-tweets/',
+                urlRequest: '/service/twitter/search-tweets/'
             }
         ]
     },

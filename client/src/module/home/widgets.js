@@ -2,6 +2,7 @@ import React from "react";
 import WeatherCityMeteo from "./components/widgets/WeatherCityMeteo";
 import CovidCountryCase from "./components/widgets/CovidCountryCase";
 import CovidSummaryCountry from "./components/widgets/CovidSummaryCountry";
+import TwitterLastTweets from "./components/widgets/TwitterLastTweets";
 
 export const widgets = {
     'City meteo weather': function (id, index, parentState) { return (
@@ -12,5 +13,8 @@ export const widgets = {
     )},
     'Summary country covid': function (id, index, parentState) { return (
         <CovidSummaryCountry id={id} parentState={parentState}/>
+    )},
+    'Last tweets twitter': function (id, index, parentState) { return (
+        <TwitterLastTweets id={id} parentState={parentState}/>
     )},
 };

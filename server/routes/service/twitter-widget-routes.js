@@ -27,7 +27,7 @@ router.put('/twitter/last-tweets/:id_widget', JWTService.authenticateToken, func
         return;
     }
 
-    pool.getPool().query("UPDATE last_tweets_twitter SET activate = $3, number_tweets = $4 WHERE id = $1 AND id_twitter_service IN (SELECT id FROM twitter_service WHERE id_user = $2) RETURNING id", [req.params.id_widget, req.user.user_id, req.query.activated, req.query.number_tweets], (err, result) => {
+    pool.getPool().query("UPDATE last_tweets_twitter SET activate = $3, number_tweets = $4 WHERE id = $1 AND id_twitter_service IN (SELECT id FROM twitter_service WHERE id_user = $2) RETURNING id", [req.params.id_widget, req.user.user_id, req.body.activated, req.body.number_tweets], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -46,7 +46,7 @@ router.get('/twitter/last-tweets/:id_widget', JWTService.authenticateToken, func
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT l.number_tweets, s.token, s.tokensecret, s.twitter_id FROM last_tweets_twitter l INNER JOIN twitter_service s ON l.id_twitter_service = s.id WHERE l.id = $1  AND s.user_id = $2", [req.params.id_widget], (err, result) => {
+    pool.getPool().query("SELECT l.number_tweets, s.token, s.tokensecret, s.twitter_id FROM last_tweets_twitter l INNER JOIN twitter_service s ON l.id_twitter_service = s.id WHERE l.id = $1  AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -71,13 +71,13 @@ router.get('/twitter/last-tweets/:id_widget', JWTService.authenticateToken, func
 
 router.post('/twitter/last-tweets/', JWTService.authenticateToken, function (req, res) {
 
-    if (req.query.number_tweets > 200) {
+    if (req.body.number_tweets > 200) {
         res.status(503);
         res.json({message: "Invalid configuration. Max number of tweets : 200"});
         return;
     }
 
-    pool.getPool().query("INSERT INTO last_tweets_twitter (id_twitter_service, activate, number_tweets) VALUES ((SELECT id FROM twitter_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.query.activated, req.query.number_tweets], (err, result) => {
+    pool.getPool().query("INSERT INTO last_tweets_twitter (id_twitter_service, activate, number_tweets) VALUES ((SELECT id FROM twitter_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.body.activated, req.body.number_tweets], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"});
@@ -97,7 +97,7 @@ router.get('/twitter/last-tweets/:id_widget/params', JWTService.authenticateToke
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT l.number_tweets, l.activate FROM last_tweets_twitter l INNER JOIN twitter_service s ON l.id_twitter_service = s.id WHERE l.id = $1 AND s.user_id = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT l.number_tweets, l.activate FROM last_tweets_twitter l INNER JOIN twitter_service s ON l.id_twitter_service = s.id WHERE l.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -139,7 +139,7 @@ router.put('/twitter/search-tweets/:id_widget', JWTService.authenticateToken, fu
         return;
     }
 
-    pool.getPool().query("UPDATE search_tweets_twitter SET activate = $3, search = $4, number_tweets = $5 WHERE id = $1 AND id_twitter_service IN (SELECT id FROM twitter_service WHERE id_user = $2) RETURNING id", [req.params.id_widget, req.user.user_id, req.query.activated, req.query.number_tweets, req.query.search], (err, result) => {
+    pool.getPool().query("UPDATE search_tweets_twitter SET activate = $3, search = $4, number_tweets = $5 WHERE id = $1 AND id_twitter_service IN (SELECT id FROM twitter_service WHERE id_user = $2) RETURNING id", [req.params.id_widget, req.user.user_id, req.body.activated, req.body.number_tweets, req.body.search], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -189,7 +189,7 @@ router.post('/twitter/search-tweets/', JWTService.authenticateToken, function (r
         return;
     }
 
-    pool.getPool().query("INSERT INTO search_tweets_twitter (id_twitter_service, activate, number_tweets, search) VALUES ((SELECT id FROM twitter_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.query.activated, req.query.number_tweets, req.query.search], (err, result) => {
+    pool.getPool().query("INSERT INTO search_tweets_twitter (id_twitter_service, activate, number_tweets, search) VALUES ((SELECT id FROM twitter_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.body.activated, req.body.number_tweets, req.body.search], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"});
@@ -209,7 +209,7 @@ router.get('/twitter/search-tweets/:id_widget/params', JWTService.authenticateTo
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT l.number_tweets, l.search, l.activate FROM search_tweets_twitter l INNER JOIN twitter_service s ON l.id_twitter_service = s.id WHERE l.id = $1 AND s.user_id = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT l.number_tweets, l.search, l.activate FROM search_tweets_twitter l INNER JOIN twitter_service s ON l.id_twitter_service = s.id WHERE l.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})

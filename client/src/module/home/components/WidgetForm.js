@@ -14,6 +14,8 @@ import SuccessDialog from "../../../shared/components/dialogs/SuccessDialog";
 import CovidCountryCaseForm from "./form-widgets/CovidCountryCaseForm";
 import CovidSummaryCountryForm from "./form-widgets/CovidSummaryCountryForm";
 import AccountService from "../../../core/services/account/AccountService";
+import TwitterSearchTweetsForm from "./form-widgets/TwitterSearchTweetsForm";
+import TwitterLastTweetsForm from "./form-widgets/TwitterLastTweetsForm";
 
 class WidgetForm extends Component {
 
@@ -183,6 +185,8 @@ class WidgetForm extends Component {
                             <Route path={'/home/widget/weather/city-weather/'} render={() => <CityWeatherForm parentState={this.state} onClickUpdate={this.props.onUpdateWidget} />}/>
                             <Route path={'/home/widget/youtube/last-videos-of-a-channel/'} render={() => <YoutubeWidgetLastVideosOfChannelForm />}/>
                             <Route path={'/home/widget/youtube/display-channel-subscribers/'} render={() => <YoutubeDisplayChannelSubscribersForm />}/>
+                            <Route path={'/home/widget/twitter/search-tweets/'} render={() => <TwitterSearchTweetsForm parentState={this.state} onClickUpdate={this.props.onUpdateWidget}  />}/>
+                            <Route path={'/home/widget/twitter/last-tweets/'} render={() => <TwitterLastTweetsForm parentState={this.state} onClickUpdate={this.props.onUpdateWidget}  />}/>
                         </Switch>
                         <div class="widget-button" style={{ display: this.props.isAnUpdate ? 'none' : 'block' }}>
                             <BasicButton onClick={this.handleAddWidgetClick} name="Add widget" loaderSize={50} display={this.state.displayLoader}/>

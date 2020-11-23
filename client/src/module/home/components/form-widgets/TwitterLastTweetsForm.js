@@ -4,6 +4,7 @@ import SummaryCountryModel from "../../../../core/models/services/covid/request/
 import queryString from "query-string";
 import LastTweetsModel from "../../../../core/models/services/twitter/request/LastTweetsModel";
 import TwitterService from "../../../../core/services/services/TwitterService";
+import NumberInput from "../../../../shared/components/inputs/NumberInput";
 
 class TwitterLastTweetsForm extends Component
 {
@@ -13,7 +14,7 @@ class TwitterLastTweetsForm extends Component
         this.service = new TwitterService();
 
         this.state = {
-            countryName: ''
+            numberTweets: ''
         }
         this.props.parentState.setOnClickAddWidget((onSuccess, onFailure) => {
             this.onClickAddWidget(onSuccess, onFailure);
@@ -21,7 +22,7 @@ class TwitterLastTweetsForm extends Component
         this.props.parentState.setOnClickUpdateWidget((onSuccess, onFailure) => {
             this.onClickUpdateWidget(onSuccess, onFailure);
         })
-        this.handleCountryChange = this.handleCountryChange.bind(this);
+        this.handleNumberTweetsChange = this.handleNumberTweetsChange.bind(this);
 
         this.getWidgetData();
     }
@@ -32,9 +33,10 @@ class TwitterLastTweetsForm extends Component
 
         if (params.id) {
             this.service.getLastTweetsParams(params.id, () => {
-                this.setState({
-                    countryName: this.service.getDataSummaryCountryRequest().country
-                })
+                console.log(this.service.getLastTweetModelResponse());
+                // this.setState({
+                //     countryName: this.service.getLastTweetModelResponse().country
+                // })
             }, () => {
 
             });
@@ -64,7 +66,7 @@ class TwitterLastTweetsForm extends Component
     {
         let model = new LastTweetsModel();
 
-        // model.country = this.state.countryName;
+        model.number_tweets = parseInt(this.state.numberTweets);
 
         this.props.parentState.setDisplayLoader(true);
 
@@ -82,18 +84,20 @@ class TwitterLastTweetsForm extends Component
         return (
             <div class="widget-form">
                 <div className="input-parameters">
-                    <CountryInput name="Country" value={this.state.countryName} onChange={this.handleCountryChange}/>
+                    <NumberInput name="Number tweets" value={this.state.numberTweets} onChange={this.handleNumberTweetsChange} />
                 </div>
             </div>
         );
     }
 
-    // handleCountryChange(e)
-    // {
-    //     this.setState({
-    //         countryName: e.target.value
-    //     });
-    // }
+    handleNumberTweetsChange(e)
+    {
+        if (!isNaN(e.target.value)) {
+            this.setState({
+                numberTweets: e.target.value
+            });
+        }
+    }
 }
 
 export default TwitterLastTweetsForm;
