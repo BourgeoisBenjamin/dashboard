@@ -86,17 +86,7 @@
                   "description":"Display statistics of channel V",
                   "params":[
                      {
-                        "name":"channel",
-                        "type":"string"
-                     }
-                  ]
-               },
-               {
-                  "name":"subscribers_channels",
-                  "description":"Display number of subscribers of channel C",
-                  "params":[
-                     {
-                        "name":"channel",
+                        "name":"id_channel",
                         "type":"string"
                      }
                   ]
@@ -106,21 +96,35 @@
                   "description":"Display statistics of video B",
                   "params":[
                      {
-                        "name":"video_id",
+                        "name":"id_video",
                         "type":"string"
                      }
                   ]
                },
                {
                   "name":"comments_video",
-                  "description":"Display A last comments of video L",
+                  "description":"Display last N comments of video B",
                   "params":[
                      {
-                        "name":"video",
+                        "name":"id_video",
                         "type":"string"
                      },
                      {
-                        "name":"number_of_comments",
+                        "name":"number_comments",
+                        "type":"integer"
+                     }
+                  ]
+               },
+               {
+                  "name":"channel_videos",
+                  "description":"Display last N videos of channel V",
+                  "params":[
+                     {
+                        "name":"id_channel",
+                        "type":"string"
+                     },
+                     {
+                        "name":"number_of_videos",
                         "type":"integer"
                      }
                   ]
