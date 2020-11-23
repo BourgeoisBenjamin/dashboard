@@ -1,4 +1,4 @@
-export default class CityWeatherModel
+export default class SummaryCountryModel
 {
     Country;
     CountryCode;

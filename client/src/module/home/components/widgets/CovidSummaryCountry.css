@@ -2,9 +2,16 @@
 {
     margin-left: 100px;
     height: 400px;
-    width: 500px;
-    box-shadow: 2px 2px 5px 2px grey;
+    width: 400px;
+    box-shadow: 2px 2px 4px 3px grey;
     margin-top: 100px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+#covid-summary-country:hover
+{
+    box-shadow: 2px 2px 10px 3px grey;
 }
 
 #covid-summary-country .header p
@@ -17,22 +24,30 @@
     display: flex;
     height: 60px;
     align-items: center;
+    background-color: #B5BDC9;
+    transition: 0.5s;
+    color: white;
 }
 
-#covid-summary-country .covid-logo
+#covid-summary-country:hover .header
 {
-    margin-left: 10px;
+    background-color: #86280D;
 }
 
 #covid-summary-country .title
 {
-    margin-left: 10px;
-    font-size: 20px;
+    margin-left: 20px;
 }
 
-#covid-summary-country .covid-logo img
+#covid-summary-country .title .main-title
 {
-    height: 40px;
+    font-weight: bold;
+}
+
+#covid-summary-country .title .second-title
+{
+    font-size: 10px;
+    font-style: italic;
 }
 
 #covid-summary-country .logo-parameters
@@ -44,10 +59,72 @@
     justify-content: center;
     height: 100%;
     width: 60px;
-    background-color: #5C80BC;
 }
 
 #covid-summary-country .logo-parameters img
 {
     height: 30px;
+}
+
+#covid-summary-country .content .header-content .description
+{
+    margin-top: 20px;
+    align-items: center;
+    display: flex;
+    margin-left: 20px;
+}
+
+#covid-summary-country .content .description .logo img
+{
+    height: 30px;
+}
+
+#covid-summary-country .content .description .text
+{
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+#covid-summary-country .content .stat-wrap
+{
+    margin-top: 70px;
+}
+
+#covid-summary-country .content .stat
+{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+#covid-summary-country .content .stat .image
+{
+    text-align: center;
+    width: 100px;
+}
+
+#covid-summary-country .content .stat .image .description
+{
+    margin-top: 5px;
+    font-size: 10px;
+}
+
+#covid-summary-country .content .stat .image .logo
+{
+}
+
+#covid-summary-country .content .stat .image .logo img
+{
+    height: 30px;
+}
+
+#covid-summary-country .content .stat .value
+{
+    margin-left: 30px;
+    font-weight: bold;
+}
+
+#covid-summary-country p
+{
+    margin-bottom: 0;
 }
