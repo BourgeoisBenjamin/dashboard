@@ -257,7 +257,7 @@ router.get('/youtube/comments-video/:id_widget', JWTService.authenticateToken, f
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT y.id_video, s.access_token FROM comments_video_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT y.id_video, y.number_comments, s.access_token FROM comments_video_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -267,7 +267,7 @@ router.get('/youtube/comments-video/:id_widget', JWTService.authenticateToken, f
                 res.json({message: "Unauthorized"});
             } else {
                 widgetInfos = result.rows[0];
-                axios.get('https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=' + widgetInfos.number_comments + '&videoId=' + widgetInfos.id_video + '&key=' + KEYS.YOUTUBE_APP.APP_API_KEY)
+                axios.get('https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&order=time&maxResults=' + widgetInfos.number_comments + '&videoId=' + widgetInfos.id_video + '&key=' + KEYS.YOUTUBE_APP.APP_API_KEY)
                     .then(function (response) {
                         if (!response.data.items.length) {
                             res.status(200)
@@ -376,7 +376,7 @@ router.get('/youtube/channel-videos/:id_widget', JWTService.authenticateToken, f
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT y.id_channel, s.access_token FROM channel_videos_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT y.id_channel, y.number_videos, s.access_token FROM channel_videos_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -386,7 +386,7 @@ router.get('/youtube/channel-videos/:id_widget', JWTService.authenticateToken, f
                 res.json({message: "Unauthorized"});
             } else {
                 widgetInfos = result.rows[0];
-                axios.get('https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=' + widgetInfos.id_channel + '&maxResults=' + widgetInfos.number_videos + '&key=' + KEYS.YOUTUBE_APP.APP_API_KEY)
+                axios.get('https://youtube.googleapis.com/youtube/v3/search?part=snippet&order=date&channelId=' + widgetInfos.id_channel + '&maxResults=' + widgetInfos.number_videos + '&key=' + KEYS.YOUTUBE_APP.APP_API_KEY)
                     .then(function (response) {
                         if (!response.data.items.length) {
                             res.status(200)
