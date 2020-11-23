@@ -36,7 +36,6 @@ router.post('/register', function(req, res) {
             } else {
                 pool.getPool().query("INSERT INTO weather_service (id_user, api_key, activate) VALUES ($1, $2, $3) ON CONFLICT (id_user) DO UPDATE SET api_key = $2, activate = $3", [result.rows[0].id, KEYS.WEATHER_SERVICE.API_KEY, true], (err, result) => {})
                 pool.getPool().query("INSERT INTO covid_service (id_user, activate) VALUES ($1, $2) ON CONFLICT (id_user) DO UPDATE SET activate = $2", [result.rows[0].id, true], (err, result) => {})
-                console.log('http://localhost:3000/email/verify/' + token);
                 res.sendStatus(200);
             }
         }
@@ -44,7 +43,19 @@ router.post('/register', function(req, res) {
 });
 
 router.post('/login', function (req, res) {
-    pool.getPool().query("SELECT id FROM users WHERE (username = $1 OR email = $1) AND password = crypt($2, password)", [req.body.identifier, req.body.password], (err, result) => {
+
+    let identifier = req.body.identifier;
+    let password = req.body.password;
+
+    if (!identifier || !password) {
+        res.sendStatus(404);
+        return;
+    }
+    // Removed trailing space
+    identifier = identifier.trim();
+    password = password.trim();
+
+    pool.getPool().query("SELECT id FROM users WHERE (username = $1 OR email = $1) AND password = crypt($2, password)", [identifier, password], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -54,7 +65,7 @@ router.post('/login', function (req, res) {
                 res.json({message: "User not found."})
             } else {
                 const token = JWTService.generateAccessToken({user_id: result.rows[0].id})
-                console.debug(token)
+                console.debug('JWT TOKEN : ' + token)
                 res.json({JWTToken: token})
             }
         }
