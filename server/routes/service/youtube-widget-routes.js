@@ -214,4 +214,123 @@ router.get('/youtube/statistics-video/:id_widget/params', JWTService.authenticat
     })
 })
 
+router.delete('/youtube/comments-video/:id_widget', JWTService.authenticateToken, function (req, res) {
+    pool.getPool().query("DELETE FROM comments_video_youtube WHERE id = $1 AND id_youtube_service IN (SELECT id FROM youtube_service WHERE id_user = $2) RETURNING *", [req.params.id_widget, req.user.user_id], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"})
+        } else {
+            if (!result.rows.length) {
+                res.status(401)
+                res.json({message: "Unauthorized"});
+            } else {
+                res.status(200);
+            }
+        }
+    })
+})
+
+router.put('/youtube/comments-video/:id_widget', JWTService.authenticateToken, function (req, res) {
+
+    if (req.query.number_comments > 100) {
+        res.status(503);
+        res.json({message: "Invalid configuration. Max number of comments : 100"});
+        return;
+    }
+
+    pool.getPool().query("UPDATE comments_video_youtube SET activate = $3, number_comments = $4, id_video = $5 WHERE id = $1 AND id_youtube_service IN (SELECT id FROM youtube_service WHERE id_user = $2) RETURNING id", [req.params.id_widget, req.user.user_id, req.query.activated, req.query.number_comments, req.query.video_id], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"})
+        } else {
+            if (!result.rows.length) {
+                res.status(401)
+                res.json({message: "Unauthorized"});
+            } else {
+                res.status(200);
+            }
+        }
+    })
+})
+
+router.get('/youtube/comments-video/:id_widget', JWTService.authenticateToken, function (req, res) {
+
+    let widgetInfos;
+
+    pool.getPool().query("SELECT y.id_video, s.access_token FROM statistics_video_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"})
+        } else {
+            if (!result.rows.length) {
+                res.status(401)
+                res.json({message: "Unauthorized"});
+            } else {
+                widgetInfos = result.rows[0];
+                axios.get('https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=' + widgetInfos.number_comments + '&videoId=' + widgetInfos.id_video + '&key=' + KEYS.YOUTUBE_APP.APP_API_KEY)
+                    .then(function (response) {
+                        if (!response.data.items.length) {
+                            res.status(200)
+                            res.json({})
+                        } else {
+                            const videoStatistics = response.data.items
+                            res.status(200)
+                            res.json(videoStatistics)
+                        }
+                    })
+                    .catch(function (error) {
+                        res.status(503)
+                        res.json({message: "Service Unavailable"})
+                    })
+            }
+        }
+    })
+})
+
+router.post('/youtube/comments-video/', JWTService.authenticateToken, function (req, res) {
+
+    if (req.query.number_comments > 100) {
+        res.status(503);
+        res.json({message: "Invalid configuration. Max number of comments : 100"});
+        return;
+    }
+
+    pool.getPool().query("INSERT INTO comments_video_youtube (id_youtube_service, activate, number_comments, id_video) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.query.activated, req.query.number_comments, req.query.video_id], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"});
+        } else {
+            if (!result.rows.length) {
+                res.status(401)
+                res.json({message: "Unauthorized"});
+            } else {
+                res.status(200);
+                res.json({id: result.rows[0].id});
+            }
+        }
+    })
+})
+
+router.get('/youtube/comments-video/:id_widget/params', JWTService.authenticateToken, function (req, res) {
+
+    let widgetInfos;
+
+    pool.getPool().query("SELECT y.id_video, y.activate, y.number_comments FROM comments_video_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"})
+        } else {
+            if (!result.rows.length) {
+                res.status(401)
+                res.json({message: "Unauthorized"});
+            } else {
+                widgetInfos = result.rows[0];
+                const infos = {activate: widgetInfos.activate, number_comments: widgetInfos.number_comments, id_video: widgetInfos.id_video}
+                res.status(200)
+                res.json(infos)
+            }
+        }
+    })
+})
+
 module.exports = router;
