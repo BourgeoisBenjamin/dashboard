@@ -2,9 +2,16 @@
 {
     margin-left: 100px;
     height: 400px;
-    width: 500px;
-    box-shadow: 2px 2px 5px 2px grey;
+    width: 400px;
+    box-shadow: 2px 2px 4px 3px grey;
     margin-top: 100px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+#weather-city-meteo:hover
+{
+    box-shadow: 2px 2px 10px 3px grey;
 }
 
 #weather-city-meteo .header p
@@ -17,12 +24,15 @@
     display: flex;
     height: 60px;
     align-items: center;
-    background-color: #fff9be;
+    color: white;
+    font-weight: bold;
+    background-color: #B5BDC9;
+    transition: 0.5s;
 }
 
-#weather-city-meteo .logo-location
+#weather-city-meteo:hover .header
 {
-    margin-left: 20px;
+    background-color: #F1C232;
 }
 
 #weather-city-meteo .location
@@ -44,7 +54,6 @@
     justify-content: center;
     height: 100%;
     width: 60px;
-    background-color: #5C80BC;
 }
 
 #weather-city-meteo .logo-parameters img
@@ -52,37 +61,62 @@
     height: 30px;
 }
 
-#weather-city-meteo .content .weather
+#weather-city-meteo .content .temperature
 {
     margin-top: 30px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    align-items: flex-end;
 }
 
-#weather-city-meteo .content .weather img
+#weather-city-meteo .content .temperature .weather
+{
+}
+
+#weather-city-meteo .content .temperature .weather img
 {
     height: 70px;
 }
 
-#weather-city-meteo .content .temperature
+#weather-city-meteo .content .temperature .degree
 {
-    margin-top: 10px;
-    text-align: center;
-    font-size: 40px;
+    font-size: 50px;
+    margin-left: 20px;
 }
 
-#weather-city-meteo .content .humidity p
+#weather-city-meteo p
 {
     margin-bottom: 0;
 }
 
-#weather-city-meteo .content .humidity
+#weather-city-meteo .content .temperature .type-degree
 {
-    display: flex;
-    align-items: center;
-    height: 40px;
+    margin-bottom: 15px;
 }
 
-#weather-city-meteo .content .humidity img
+#weather-city-meteo .content .element
+{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+#weather-city-meteo .content .element .icon img
 {
     height: 30px;
+}
+
+#weather-city-meteo .content .element .description
+{
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+#weather-city-meteo .content .element .value
+{
+    margin-left: auto;
+    color: grey;
 }
