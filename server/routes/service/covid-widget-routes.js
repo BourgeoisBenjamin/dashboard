@@ -131,7 +131,7 @@ router.put('/covid/summary-country/:id_widget', JWTService.authenticateToken, fu
                 res.status(401);
                 res.json({message: "Unauthorized"});
             } else {
-                res.status(200);
+                res.sendStatus(200);
             }
         }
     })
@@ -190,7 +190,7 @@ router.get('/covid/summary-country/:id_widget/params', JWTService.authenticateTo
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT c.country c.activate FROM summary_country_covid c INNER JOIN covid_service s ON c.id_covid_service = s.id WHERE c.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT c.country, c.activate FROM summary_country_covid c INNER JOIN covid_service s ON c.id_covid_service = s.id WHERE c.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})

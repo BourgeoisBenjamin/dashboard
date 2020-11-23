@@ -5,6 +5,7 @@ import CovidService from "../../../../core/services/services/CovidService";
 import './CovidSummaryCountry.css'
 import CovidImage from '../../../../assets/images/covid.png'
 import {Draggable} from "react-beautiful-dnd";
+import history from "../../../../history";
 
 class CovidSummaryCountry extends Component
 {
@@ -15,6 +16,15 @@ class CovidSummaryCountry extends Component
             model: new CountryCaseModel()
         }
         this.service = new CovidService();
+
+        let getWidgetsData = this.props.parentState.getWidgetData;
+
+        getWidgetsData.push(() => {
+            this.getDataWidget();
+        });
+        this.props.parentState.setGetWidgetData(getWidgetsData);
+
+        this.onClickParameters  = this.onClickParameters.bind(this);
         this.getDataWidget();
     }
 
@@ -42,7 +52,7 @@ class CovidSummaryCountry extends Component
                         <div className="title">
                             <p>Summary country</p>
                         </div>
-                        <div className="logo-parameters">
+                        <div className="logo-parameters"  onClick={this.onClickParameters}>
                             <FiSettings color="white" size={30}/>
                         </div>
                     </div>
@@ -63,6 +73,15 @@ class CovidSummaryCountry extends Component
                 </div>
             </div>
         );
+    }
+
+    onClickParameters()
+    {
+        // history.push('/home/widget/covid/country-case/' + this.props.id);
+        history.push({
+            pathname: '/home/widget/covid/summary-country/',
+            search: '?id=' + this.props.id
+        })
     }
 }
 

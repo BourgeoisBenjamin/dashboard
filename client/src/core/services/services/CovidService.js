@@ -88,6 +88,17 @@ class CovidService
         })
     }
 
+    getSummaryCountryParams(idWidget, onSuccess, onFailure)
+    {
+        axios.get(this.urlSummaryCountry + idWidget + '/params', this.header)
+            .then(res => {
+                Object.assign(this.summaryCountryModelRequest, res.data);
+                onSuccess();
+            }).catch(error => {
+            onFailure();
+        })
+    }
+
     postSummaryCountry(data, onSuccess, onFailure)
     {
         axios.post(this.urlSummaryCountry, data, this.header)
