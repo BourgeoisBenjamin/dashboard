@@ -145,7 +145,7 @@ router.get('/youtube/statistics-video/:id_widget', JWTService.authenticateToken,
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT y.id_video, s.access_token FROM statistics_video_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget], (err, result) => {
+    pool.getPool().query("SELECT y.id_video, s.access_token FROM statistics_video_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -257,7 +257,7 @@ router.get('/youtube/comments-video/:id_widget', JWTService.authenticateToken, f
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT y.id_video, s.access_token FROM statistics_video_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget], (err, result) => {
+    pool.getPool().query("SELECT y.id_video, s.access_token FROM comments_video_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -289,7 +289,7 @@ router.get('/youtube/comments-video/:id_widget', JWTService.authenticateToken, f
 
 router.post('/youtube/comments-video/', JWTService.authenticateToken, function (req, res) {
 
-    if (req.query.number_comments > 100) {
+    if (req.body.number_comments > 100) {
         res.status(503);
         res.json({message: "Invalid configuration. Max number of comments : 100"});
         return;
@@ -376,7 +376,7 @@ router.get('/youtube/channel-videos/:id_widget', JWTService.authenticateToken, f
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT y.id_channel, s.access_token FROM statistics_video_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget], (err, result) => {
+    pool.getPool().query("SELECT y.id_channel, s.access_token FROM channel_videos_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})

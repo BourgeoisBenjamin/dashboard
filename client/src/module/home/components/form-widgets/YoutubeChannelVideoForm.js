@@ -34,7 +34,7 @@ class YoutubeChannelVideoForm extends Component
         let params = queryString.parse(window.location.search);
 
         if (params.id) {
-            this.service.get(params.id, () => {
+            this.service.getParams(params.id, () => {
                 this.setState({
                     idChannel: this.service.getRequestModel().id_channel,
                     numberVideos: this.service.getRequestModel().number_videos
@@ -51,7 +51,7 @@ class YoutubeChannelVideoForm extends Component
         let model = new ChannelVideosModel();
 
         model.number_videos = parseInt(this.state.numberVideos);
-        model.id_channel = parseInt(this.state.idChannel);
+        model.id_channel = this.state.idChannel;
 
         this.props.parentState.setDisplayLoader(true);
 
@@ -70,7 +70,7 @@ class YoutubeChannelVideoForm extends Component
         let model = new ChannelVideosModel();
 
         model.number_videos = parseInt(this.state.numberVideos);
-        model.id_channel = parseInt(this.state.idChannel);
+        model.id_channel = this.state.idChannel;
 
         this.props.parentState.setDisplayLoader(true);
 
@@ -99,11 +99,9 @@ class YoutubeChannelVideoForm extends Component
 
     handleIdChannelChange(e)
     {
-        if (!isNaN(e.target.value)) {
-            this.setState({
-                idChannel: e.target.value
-            });
-        }
+        this.setState({
+            idChannel: e.target.value
+        });
     }
 
     handleNumberVideosChange(e)

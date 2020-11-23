@@ -10,7 +10,7 @@ export default class YoutubeCommentsVideoService
         }
     }
 
-    url = 'http://localhost:8080/service/youtube/comments-videos/'
+    url = 'http://localhost:8080/service/youtube/comments-video/'
 
     constructor()
     {

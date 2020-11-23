@@ -1,15 +1,15 @@
 import React, {Component} from "react";
 import queryString from "query-string";
 import NumberInput from "../../../../shared/components/inputs/NumberInput";
-import YoutubeStatisticsChannelService from "../../../../core/services/services/youtube/YoutubeStatisticsChannelService";
 import StatisticsVideoModel from "../../../../core/models/services/youtube/request/StatisticsVideoModel";
+import YoutubeStatisticsVideoService from "../../../../core/services/services/youtube/YoutubeStatisticsVideoService";
 
 class YoutubeStatisticsVideoForm extends Component
 {
     constructor(props) {
         super(props);
 
-        this.service = new YoutubeStatisticsChannelService();
+        this.service = new YoutubeStatisticsVideoService();
 
         this.state = {
             idVideo: ''
@@ -32,7 +32,8 @@ class YoutubeStatisticsVideoForm extends Component
         let params = queryString.parse(window.location.search);
 
         if (params.id) {
-            this.service.get(params.id, () => {
+            this.service.getParams(params.id, () => {
+                console.log(this.service.getRequestModel().id_video);
                 this.setState({
                     idVideo: this.service.getRequestModel().id_video,
                 })
@@ -47,7 +48,7 @@ class YoutubeStatisticsVideoForm extends Component
         let params = queryString.parse(window.location.search);
         let model = new StatisticsVideoModel();
 
-        model.id_video = parseInt(this.state.idVideo);
+        model.id_video = this.state.idVideo;
 
         this.props.parentState.setDisplayLoader(true);
 
@@ -65,7 +66,7 @@ class YoutubeStatisticsVideoForm extends Component
     {
         let model = new StatisticsVideoModel();
 
-        model.id_video = parseInt(this.state.idVideo);
+        model.id_video = this.state.idVideo;
 
         this.props.parentState.setDisplayLoader(true);
 
@@ -91,11 +92,9 @@ class YoutubeStatisticsVideoForm extends Component
 
     handleIdVideoChange(e)
     {
-        if (!isNaN(e.target.value)) {
-            this.setState({
-                idVideo: e.target.value
-            });
-        }
+        this.setState({
+            idVideo: e.target.value
+        });
     }
 }
 

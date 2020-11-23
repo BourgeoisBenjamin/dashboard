@@ -34,7 +34,7 @@ class YoutubeCommentsVideoForm extends Component
         let params = queryString.parse(window.location.search);
 
         if (params.id) {
-            this.service.get(params.id, () => {
+            this.service.getParams(params.id, () => {
                 this.setState({
                     idVideo: this.service.getRequestModel().id_video,
                     numberComments: this.service.getRequestModel().number_comments
@@ -51,7 +51,7 @@ class YoutubeCommentsVideoForm extends Component
         let model = new CommentsVideoModel();
 
         model.number_comments = parseInt(this.state.numberComments);
-        model.id_video = parseInt(this.state.idVideo);
+        model.id_video = this.state.idVideo;
 
         this.props.parentState.setDisplayLoader(true);
 
@@ -70,7 +70,7 @@ class YoutubeCommentsVideoForm extends Component
         let model = new CommentsVideoModel();
 
         model.number_comments = parseInt(this.state.numberComments);
-        model.id_video = parseInt(this.state.idVideo);
+        model.id_video = this.state.idVideo;
 
         this.props.parentState.setDisplayLoader(true);
 
@@ -99,11 +99,9 @@ class YoutubeCommentsVideoForm extends Component
 
     handleIdVideoChange(e)
     {
-        if (!isNaN(e.target.value)) {
-            this.setState({
-                idVideo: e.target.value
-            });
-        }
+        this.setState({
+            idVideo: e.target.value
+        });
     }
 
     handleNumberCommentsChange(e)
