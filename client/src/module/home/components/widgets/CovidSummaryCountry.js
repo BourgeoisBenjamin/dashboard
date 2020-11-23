@@ -4,6 +4,7 @@ import CountryCaseModel from "../../../../core/models/services/covid/response/Co
 import CovidService from "../../../../core/services/services/CovidService";
 import './CovidSummaryCountry.css'
 import CovidImage from '../../../../assets/images/covid.png'
+import {Draggable} from "react-beautiful-dnd";
 
 class CovidSummaryCountry extends Component
 {
@@ -31,7 +32,8 @@ class CovidSummaryCountry extends Component
 
     render() {
         return (
-            <div id="covid-summary-country">
+            <div id="covid-summary-country"
+            >
                 <div className="content">
                     <div className="header">
                         <div className="covid-logo">

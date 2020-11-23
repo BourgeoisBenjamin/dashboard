@@ -18,6 +18,13 @@ class CovidCountryCase extends Component
 
         this.onClickParameters = this.onClickParameters.bind(this);
 
+        let getWidgetsData = this.props.parentState.getWidgetData;
+
+        getWidgetsData.push(() => {
+            this.getDataWidget();
+        });
+        this.props.parentState.setGetWidgetData(getWidgetsData);
+
         this.getDataWidget();
     }
 

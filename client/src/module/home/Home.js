@@ -20,7 +20,14 @@ class Home extends Component {
         this.widgetService = new WidgetService();
 
         this.state = {
-            widgets: []
+            widgets: [],
+            getWidgetData: [],
+
+            setGetWidgetData: (newArray) => {
+                this.setState({
+                    getWidgetData: newArray
+                })
+            }
         };
 
         if (localStorage.getItem('JWTToken') == null) {
@@ -34,20 +41,25 @@ class Home extends Component {
 
     getUserWidgets()
     {
-        console.log('lol');
         this.widgetService.getUserWidgets(() => {
             let widgetsTmp = [];
 
             console.log(this.widgetService.data);
 
+            let i = 1
+
             this.widgetService.data.forEach((d) => {
                 if (widgets[d.name]) {
-                    widgetsTmp.unshift(widgets[d.name](d.id));
+                    widgetsTmp.unshift(widgets[d.name](d.id, i, this.state));
+                    i++;
                 }
             });
             this.setState({
                 widgets: widgetsTmp
             })
+            this.state.getWidgetData.forEach((w) => {
+                w();
+            });
         }, () => {});
     }
 
@@ -77,9 +89,9 @@ class Home extends Component {
                 <div class="new-widgets-button">
                     <button onClick={this.handleNewWidgetClick}>New widgets</button>
                 </div>
-                <div class="home-content">
-                    { this.state.widgets }
-                </div>
+                    <div class="home-content">
+                        { this.state.widgets }
+                    </div>
                 {/*<TransitionGroup component={null}>*/}
                 {/*    <CSSTransition timeout={{ enter: 300, exit: 300 }} classNames="fade" key={this.state.key}>*/}
                         <Switch location={this.props.location}>

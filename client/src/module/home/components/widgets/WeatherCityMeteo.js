@@ -6,6 +6,7 @@ import LocationImage from '../../../../assets/images/placeholder.png';
 import {FiSettings} from "react-icons/fi";
 import HumidityImage from '../../../../assets/images/humidity.png'
 import SunImage from '../../../../assets/images/sun.png'
+import {Draggable} from "react-beautiful-dnd";
 
 class WeatherCityMeteo extends Component
 {
@@ -43,7 +44,8 @@ class WeatherCityMeteo extends Component
         const imageWeather = this.initImageWeather();
 
         return (
-            <div class="widget" id="weather-city-meteo">
+            <div id="weather-city-meteo"
+            >
                 <div class="content">
                     <div class="header">
                         <div class="logo-location">

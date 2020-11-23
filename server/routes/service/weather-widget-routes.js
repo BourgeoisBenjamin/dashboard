@@ -20,7 +20,7 @@ router.delete('/weather/city-meteo/:id_widget', JWTService.authenticateToken, fu
 })
 
 router.put('/weather/city-meteo/:id_widget', JWTService.authenticateToken, function (req, res) {
-    pool.getPool().query("UPDATE city_meteo_weather SET activate = $3, city = $4, celsius = $5 WHERE id = $1 AND id_weather_service IN (SELECT id FROM weather_service WHERE id_user = $2) RETURNING id", [req.params.id_widget, req.user.user_id, req.query.activated, req.query.city, req.query.celsius], (err, result) => {
+    pool.getPool().query("UPDATE city_meteo_weather SET activate = $3, city = $4, celsius = $5 WHERE id = $1 AND id_weather_service IN (SELECT id FROM weather_service WHERE id_user = $2) RETURNING id", [req.params.id_widget, req.user.user_id, req.body.activated, req.body.city, req.body.celsius], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})

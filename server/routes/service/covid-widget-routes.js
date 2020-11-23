@@ -20,7 +20,7 @@ router.delete('/covid/country-case/:id_widget', JWTService.authenticateToken, fu
 })
 
 router.put('/covid/country-case/:id_widget', JWTService.authenticateToken, function (req, res) {
-    pool.getPool().query("UPDATE country_case_covid SET activate = $3, country = $4 WHERE id = $1 AND id_covid_service IN (SELECT id FROM covid_service WHERE id_user = $2) RETURNING id", [req.params.id_widget, req.user.user_id, req.query.activated, req.query.country], (err, result) => {
+    pool.getPool().query("UPDATE country_case_covid SET activate = $3, country = $4 WHERE id = $1 AND id_covid_service IN (SELECT id FROM covid_service WHERE id_user = $2) RETURNING id", [req.params.id_widget, req.user.user_id, req.body.activated, req.body.country], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -29,7 +29,7 @@ router.put('/covid/country-case/:id_widget', JWTService.authenticateToken, funct
                 res.status(401)
                 res.json({message: "Unauthorized"});
             } else {
-                res.status(200);
+                res.sendStatus(200);
             }
         }
     })
@@ -122,7 +122,7 @@ router.delete('/covid/summary-country/:id_widget', JWTService.authenticateToken,
 })
 
 router.put('/covid/summary-country/:id_widget', JWTService.authenticateToken, function (req, res) {
-    pool.getPool().query("UPDATE summary_country_covid SET activate = $3, country = $4 WHERE id = $1 AND id_covid_service IN (SELECT id FROM covid_service WHERE id_user = $2) RETURNING id", [req.params.id_widget, req.user.user_id, req.query.activated, req.query.country], (err, result) => {
+    pool.getPool().query("UPDATE summary_country_covid SET activate = $3, country = $4 WHERE id = $1 AND id_covid_service IN (SELECT id FROM covid_service WHERE id_user = $2) RETURNING id", [req.params.id_widget, req.user.user_id, req.body.activated, req.body.country], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})

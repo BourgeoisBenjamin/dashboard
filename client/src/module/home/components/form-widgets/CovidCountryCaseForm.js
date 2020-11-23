@@ -31,8 +31,7 @@ class CovidCountryCaseForm extends Component
         let params = queryString.parse(window.location.search);
 
         if (params.id) {
-            this.service.getCountryCase(params.id, () => {
-                console.log(this.service.getDataCountryCaseRequest().country)
+            this.service.getCountryCaseParams(params.id, () => {
                 this.setState({
                     countryName: this.service.getDataCountryCaseRequest().country
                 })
@@ -45,12 +44,13 @@ class CovidCountryCaseForm extends Component
     onClickUpdateWidget(onSuccess, onFailure)
     {
         let model = new CountryCaseModel();
+        let params = queryString.parse(window.location.search);
 
         model.country = this.state.countryName;
 
         this.props.parentState.setDisplayLoader(true);
 
-        this.service.putCountryCase(model, () => {
+        this.service.putCountryCase(model, params.id, () => {
             this.props.parentState.setDisplayLoader(false);
             onSuccess();
             this.props.onClickUpdate();

@@ -34,6 +34,17 @@ class CovidService
         })
     }
 
+    getCountryCaseParams(idWidget, onSuccess, onFailure)
+    {
+        axios.get(this.urlCountryCase + idWidget + '/params', this.header)
+            .then(res => {
+                Object.assign(this.countryCaseModelRequest, res.data);
+                onSuccess();
+            }).catch(error => {
+                onFailure();
+        })
+    }
+
     postCountryCase(data, onSuccess, onFailure)
     {
         axios.post(this.urlCountryCase, data, this.header)
