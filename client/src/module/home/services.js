@@ -22,14 +22,24 @@ export let services = [
         connected: false,
         widgets: [
             {
-                name: 'Last videos of a channel',
-                urlClient: '/home/widget/youtube/last-videos-of-a-channel/',
-                urlRequest: '/service/youtube/last-videos-channel/'
+                name: 'Statistics channel',
+                urlClient: '/home/widget/youtube/statistics-channel/',
+                urlRequest: '/service/youtube/statistics-channel/'
             },
             {
-                name: 'Display channel subscribers',
-                urlClient: '/home/widget/youtube/display-channel-subscribers/',
-                urlRequest: '/service/youtube/channel-subscribers/'
+                name: 'Statistics video',
+                urlClient: '/home/widget/youtube/statistics-video/',
+                urlRequest: '/service/youtube/statistics-video/'
+            },
+            {
+                name: 'Comments video',
+                urlClient: '/home/widget/youtube/comments-video/',
+                urlRequest: '/service/youtube/comments-video/'
+            },
+            {
+                name: 'Channel videos',
+                urlClient: '/home/widget/youtube/channel-videos/',
+                urlRequest: '/service/youtube/channel-videos/'
             }
         ]
     },
