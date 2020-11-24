@@ -5,7 +5,7 @@ const https = require('https');
 const emailValidator = require('email-validator');
 const cryptoRandomString = require('crypto-random-string');
 const { v4: uuidv4 } = require('uuid');
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer');
 
 router.post('/lost', function(req, res) {
 
