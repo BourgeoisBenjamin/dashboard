@@ -1,0 +1,188 @@
+#youtube-statistics-video
+{
+    margin-left: 100px;
+    height: 450px;
+    width: 400px;
+    box-shadow: 2px 2px 4px 3px grey;
+    margin-top: 100px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+#youtube-statistics-video:hover
+{
+    box-shadow: 2px 2px 10px 3px grey;
+}
+
+#youtube-statistics-video .header p
+{
+    margin-bottom: 0;
+}
+
+#youtube-statistics-video .header
+{
+    display: flex;
+    height: 60px;
+    align-items: center;
+    background-color: #B5BDC9;
+    transition: 0.5s;
+    color: white;
+}
+
+#youtube-statistics-video:hover .header
+{
+    background-color: #ED4E20;
+}
+
+#youtube-statistics-video .title
+{
+    margin-left: 20px;
+}
+
+#youtube-statistics-video .title .main-title
+{
+    font-weight: bold;
+}
+
+#youtube-statistics-video .title .second-title
+{
+    font-size: 10px;
+    font-style: italic;
+}
+
+#youtube-statistics-video .logo-parameters
+{
+    cursor: pointer;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 60px;
+}
+
+#youtube-statistics-video .logo-parameters img
+{
+    height: 30px;
+}
+
+#youtube-statistics-video .content .core .video-description
+{
+    margin-top: 20px;
+}
+
+#youtube-statistics-video .content .core .video-description .image
+{
+    text-align: center;
+}
+
+#youtube-statistics-video .content .core .video-description .image img
+{
+    width: 250px;
+}
+
+#youtube-statistics-video .content .core .video-description .name-video
+{
+    width: 250px;
+    margin-inline: auto;
+}
+
+#youtube-statistics-video .content .core .channel-stats .up-stat
+{
+    display: flex;
+    margin-top: 10px;
+}
+
+#youtube-statistics-video .content .core .channel-stats .up-stat .date
+{
+    font-size: 13px;
+    font-style: italic;
+    margin-left: 73px;
+}
+
+#youtube-statistics-video .content .core .channel-stats .view-count
+{
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    margin-right: 80px;
+}
+
+#youtube-statistics-video .content .core .channel-stats .view-count .logo
+{
+    margin-right: 10px;
+}
+
+#youtube-statistics-video .content .core .channel-stats .view-count img
+{
+    height: 25px;
+}
+
+#youtube-statistics-video .content .core .channel-stats .view-count .value
+{
+    font-size: 13px;
+}
+
+#youtube-statistics-video .content .core .channel-stats img
+{
+    height: 40px;
+}
+
+#youtube-statistics-video .content .core .channel-stats .down-stat
+{
+    display: flex;
+    margin-top: 10px;
+    align-items: flex-end;
+}
+
+#youtube-statistics-video .content .core .channel-stats .down-stat .like-dislike img
+{
+    height: 20px;
+}
+
+#youtube-statistics-video .content .core .channel-stats .down-stat .like-dislike
+{
+    font-size: 13px;
+    margin-left: 73px;
+}
+
+#youtube-statistics-video .content .core .channel-stats .down-stat .like-dislike .logo
+{
+    margin-right: 10px;
+}
+
+#youtube-statistics-video .content .core .channel-stats .down-stat .like-dislike .like
+{
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+#youtube-statistics-video .content .core .channel-stats .down-stat .like-dislike .dislike
+{
+    display: flex;
+    align-items: center;
+}
+
+#youtube-statistics-video .content .core .channel-stats .down-stat .comment
+{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 80px;
+}
+
+#youtube-statistics-video .content .core .channel-stats .down-stat .comment .logo
+{
+    margin-right: 10px;
+}
+
+#youtube-statistics-video .content .core .channel-stats .down-stat .comment .logo img
+{
+    height: 20px;
+}
+
+#youtube-statistics-video p
+{
+    margin-bottom: 0;
+}

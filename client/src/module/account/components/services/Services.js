@@ -40,9 +40,9 @@ class Services extends Component
             }, () => {
             });
             if (title === 'Twitter') {
-                window.open('http://localhost:8080/account/service/twitter/connect?uuid=' + uuid, 'Login to Twitter', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=550,height=150');
+                window.open('http://localhost:8080/account/service/twitter/connect?uuid=' + uuid, 'Login to Twitter', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=550,height=500');
             } else if (title === 'Youtube') {
-                window.open('http://localhost:8080/account/service/google/connect?uuid=' + uuid, 'Login to google', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=550,height=150');
+                window.open('http://localhost:8080/account/service/google/connect?uuid=' + uuid, 'Login to google', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=550,height=500');
             }
         }, () => {
         });
