@@ -5,6 +5,7 @@ const https = require('https');
 const JWTService = require("../../services/JWTToken");
 const emailValidator = require('email-validator');
 const cryptoRandomString = require('crypto-random-string');
+const nodemailer = require('nodemailer');
 
 // register a user
 router.post('/register', function(req, res) {
@@ -26,7 +27,7 @@ router.post('/register', function(req, res) {
     }
 
     const token = cryptoRandomString({length: 250, type: 'alphanumeric'});
-    pool.getPool().query("INSERT INTO users (username, password, email, token_email) VALUES ($1, crypt($2, gen_salt('bf')), $3, $4) ON CONFLICT DO NOTHING RETURNING id", [username, password, email, token], (err, result) => {
+    pool.getPool().query("INSERT INTO users (username, password, email, token_email) VALUES ($1, crypt($2, gen_salt('bf')), $3, $4) ON CONFLICT DO NOTHING RETURNING email", [username, password, email, token], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -34,6 +35,25 @@ router.post('/register', function(req, res) {
             if (!result.rows.length) {
                 res.sendStatus(409)
             } else {
+                let transporter = nodemailer.createTransport({
+                    host: KEYS.MAIL.SMTP,
+                    port: KEYS.MAIL.PORT,
+                    secure: true,
+                    auth: {
+                        user: KEYS.MAIL.EMAIL,
+                        pass: KEYS.MAIL.PASSWORD,
+                    },
+                });
+
+                let info = transporter.sendMail({
+                    from: '"Dashboard 👻" <' + KEYS.MAIL.EMAIL + '>',
+                    to: result.rows[0].email,
+                    subject: "✔ Confirm your account",
+                    text: "Welcome to your dashboard ! Confirm your account here : " + KEYS.SERVER.CLIENT_HOME_PAGE_URL + "/verify/" + token, // plain text body
+                    html: "Welcome to your dashboard,<br>Click <a href='" + KEYS.SERVER.CLIENT_HOME_PAGE_URL + "/verify/" + token + "'>here</a> to confirm your account." +
+                        " Or, copy this link in your browser : " + KEYS.SERVER.CLIENT_HOME_PAGE_URL + "/verify/" + token +
+                        "<br>See you soon !", // html body
+                });
                 pool.getPool().query("INSERT INTO weather_service (id_user, api_key, activate) VALUES ($1, $2, $3) ON CONFLICT (id_user) DO UPDATE SET api_key = $2, activate = $3", [result.rows[0].id, KEYS.WEATHER_SERVICE.API_KEY, true], (err, result) => {})
                 pool.getPool().query("INSERT INTO covid_service (id_user, activate) VALUES ($1, $2) ON CONFLICT (id_user) DO UPDATE SET activate = $2", [result.rows[0].id, true], (err, result) => {})
                 res.sendStatus(200);
@@ -231,8 +251,25 @@ router.post('/infos', JWTService.authenticateToken, function (req, res) {
                         res.status(503);
                         res.json({message: "Service Unavailable"})
                     } else {
-                        console.log('http://localhost:3000/email/verify/' + token);
+                        let transporter = nodemailer.createTransport({
+                            host: KEYS.MAIL.SMTP,
+                            port: KEYS.MAIL.PORT,
+                            secure: true,
+                            auth: {
+                                user: KEYS.MAIL.EMAIL,
+                                pass: KEYS.MAIL.PASSWORD,
+                            },
+                        });
 
+                        let info = transporter.sendMail({
+                            from: '"Dashboard 👻" <' + KEYS.MAIL.EMAIL + '>',
+                            to: email,
+                            subject: "✔ Confirm your email",
+                            text: "Hello, Confirm your email here : " + KEYS.SERVER.CLIENT_HOME_PAGE_URL + "/email/verify/" + token, // plain text body
+                            html: "Hello,<br>Click <a href='" + KEYS.SERVER.CLIENT_HOME_PAGE_URL + "/email/verify/" + token + "'>here</a> to confirm your email." +
+                                " Or, copy this link in your browser : " + KEYS.SERVER.CLIENT_HOME_PAGE_URL + "/email/verify/" + token +
+                                "<br>See you soon !", // html body
+                        });
                         res.sendStatus(200)
                     }
                 })
@@ -251,13 +288,36 @@ router.post('/infos', JWTService.authenticateToken, function (req, res) {
 })
 
 router.post('/email/send', JWTService.authenticateToken, function (req, res) {
-    pool.getPool().query("SELECT token_email FROM users WHERE id = $1", [req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT token_email, email FROM users WHERE id = $1", [req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
         } else {
-            console.log('http://localhost:3000/email/verify/' + result.rows[0].token_email);
-            res.sendStatus(200);
+            if (!result.rows.length) {
+                res.status(401);
+                res.json({message: "User not found."})
+            } else {
+                let transporter = nodemailer.createTransport({
+                    host: KEYS.MAIL.SMTP,
+                    port: KEYS.MAIL.PORT,
+                    secure: true,
+                    auth: {
+                        user: KEYS.MAIL.EMAIL,
+                        pass: KEYS.MAIL.PASSWORD,
+                    },
+                });
+
+                let info = transporter.sendMail({
+                    from: '"Dashboard 👻" <' + KEYS.MAIL.EMAIL + '>',
+                    to: result.rows[0].email,
+                    subject: "✔ Confirm your email",
+                    text: "Hello, Confirm your email here : " + KEYS.SERVER.CLIENT_HOME_PAGE_URL + "/email/verify/" + result.rows[0].token_email, // plain text body
+                    html: "Hello,<br>Click <a href='" + KEYS.SERVER.CLIENT_HOME_PAGE_URL + "/email/verify/" + result.rows[0].token_email + "'>here</a> to confirm your email." +
+                        " Or, copy this link in your browser : " + KEYS.SERVER.CLIENT_HOME_PAGE_URL + "/email/verify/" + result.rows[0].token_email +
+                        "<br>See you soon !", // html body
+                });
+                res.sendStatus(200);
+            }
         }
     })
 });
