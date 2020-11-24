@@ -14,6 +14,13 @@ const POSTGRESQL = {
     POSTGRESQL_URI: `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`
 };
 
+const MAIL = {
+    SMTP: process.env.MAIL_SMTP,
+    PORT: process.env.MAIL_PORT,
+    EMAIL: process.env.MAIL_EMAIL,
+    PASSWORD: process.env.MAIL_PASSWORD
+}
+
 const YOUTUBE_APP = {
     APP_API_KEY: process.env.YOUTUBE_API_KEY
 }
@@ -62,7 +69,8 @@ const KEYS = {
     SESSION,
     GOOGLE_APP,
     YOUTUBE_APP,
-    WEATHER_SERVICE
+    WEATHER_SERVICE,
+    MAIL
 };
 
 module.exports = KEYS;

@@ -9,6 +9,7 @@ import SuccessDialog from "../../shared/components/dialogs/SuccessDialog";
 import ErrorDialog from "../../shared/components/dialogs/ErrorDialog";
 import {Error} from "@material-ui/icons";
 import ForgotPasswordService from "../../core/services/forgot-password/ForgotPassword";
+import queryString from "query-string";
 
 class ResetPassword extends Component {
 
@@ -37,10 +38,13 @@ class ResetPassword extends Component {
 
     onClickReset = () =>
     {
+        let params = queryString.parse(window.location.search);
+
         this.setState({
             sendingRequest: true
         });
         this.forgotPassword.reset({
+            uuid: params.uuid,
             password: this.state.password
         }, (res) => {
             this.setState({
@@ -60,8 +64,8 @@ class ResetPassword extends Component {
     render() {
         return (
             <div id="reset-password-module">
-                <SuccessDialog onClose={this.handleSuccessMessageClose} text="Account registered !" open={this.state.successMessageOpen} />
-                <ErrorDialog onClose={this.handleErrorMessageClose} text="Cannot registered your account" open={this.state.errorMessageOpen} />
+                <SuccessDialog onClose={this.handleSuccessMessageClose} text="Password reset !" open={this.state.successMessageOpen} />
+                <ErrorDialog onClose={this.handleErrorMessageClose} text="Cannot reset your password" open={this.state.errorMessageOpen} />
                 <div class="title">
                     <p>Reset your password</p>
                 </div>
@@ -75,6 +79,9 @@ class ResetPassword extends Component {
                     </div>
                 </div>
                 <BasicButton onClick={this.onClickReset} name="Reset" display={this.state.sendingRequest} loaderSize={50} />
+                <div className="back-home">
+                    <p><strong onClick={this.returnToHome}>Back to home</strong></p>
+                </div>
             </div>
         );
     }
@@ -89,7 +96,7 @@ class ResetPassword extends Component {
 
     handleSuccessMessageClose(e) {
         this.setState({successMessageOpen: false});
-        this.returnToHomeClick()
+        this.returnToHome()
     }
 
     handleErrorMessageClose(e) {
