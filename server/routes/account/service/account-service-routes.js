@@ -1,12 +1,19 @@
 const JWTService = require("../../../services/JWTToken");
 const LoginWithTwitter = require('login-with-twitter');
+const SpotifyWebApi = require('spotify-web-api-node');
 const pool = require('../../../services/postgresql');
 const verifier = require('google-id-token-verifier');
 const GoogleLogin = require('google-oauth-login');
 const KEYS = require('../../../config/keys');
 const router = require('express').Router();
 const waitUntil = require('wait-until');
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid')
+
+const spotifyApi = new SpotifyWebApi({
+    clientId: KEYS.SPOTIFY.CLIENT_ID,
+    clientSecret: KEYS.SPOTIFY.CLIENT_SECRET,
+    redirectUri: KEYS.SPOTIFY.REDIRECT_URL
+});
 
 const tw = new LoginWithTwitter({
     consumerKey: KEYS.TWITTER_APP.APP_API_KEY,
@@ -110,6 +117,16 @@ router.get('/init', JWTService.authenticateToken, (req, res) => {
 
     res.status(200);
     res.json({ uuid: newService.uuid });
+})
+
+// auth spotify
+router.get('/spotify/connect', (req, res) => {
+
+    const authorizeURL = spotifyApi.createAuthorizeURL(state, state);
+
+    req.session.uuid = req.query.uuid;
+
+    res.redirect(url)
 })
 
 // auth with twitter
