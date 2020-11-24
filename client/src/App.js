@@ -9,6 +9,7 @@ import history from './history';
 import MenuContext from "./core/contexts/MenuContext";
 import EmailVerify from "./module/email-verify/EmailVerify";
 import ForgotPassword from "./module/forgot-password/ForgotPassword";
+import ResetPassword from "./module/reset-password/ResetPassword";
 
 class App extends Component {
 
@@ -33,6 +34,7 @@ class App extends Component {
                             <Route exact path='/' component={Login} />
                             <Route exact path='/sign-up' component={SignUp} />
                             <Route exact path='/forgot-password' component={ForgotPassword} />
+                            <Route exact path='/reset-password' component={ResetPassword} />
                             <Route path='/account' component={Account} />
                             <Route path='/home' component={Home} />
                             <Route path='/email/verify/:token' component={EmailVerify} />
