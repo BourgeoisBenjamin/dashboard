@@ -62,7 +62,7 @@ class CovidCountryCase extends Component
                                 <p>COVID 19</p>
                             </div>
                             <div className="second-title">
-                                <p>Summary per country</p>
+                                <p>Country case</p>
                             </div>
                         </div>
                         <div className="logo-parameters" onClick={this.onClickParameters}>
