@@ -82,7 +82,7 @@ class TwitterService
     {
         axios.get(this.urlSearchTweets + idWidget, this.header)
             .then(res => {
-                Object.assign(this.searchTweetsModelResponse, res.data);
+                Object.assign(this.searchTweetsModelResponse.data, res.data);
                 onSuccess();
             }).catch(error => {
             onFailure();
