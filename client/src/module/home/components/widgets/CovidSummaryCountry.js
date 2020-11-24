@@ -3,9 +3,12 @@ import {FiSettings} from "react-icons/fi";
 import CountryCaseModel from "../../../../core/models/services/covid/response/CountryCaseModel";
 import CovidService from "../../../../core/services/services/CovidService";
 import './CovidSummaryCountry.css'
-import CovidImage from '../../../../assets/images/covid.png'
-import {Draggable} from "react-beautiful-dnd";
+import LocationImage from '../../../../assets/images/placeholder.png'
 import history from "../../../../history";
+import DeathImage from '../../../../assets/images/death.png'
+import RecoveryImage from '../../../../assets/images/recovery.png'
+import ConfirmedImage from '../../../../assets/images/confirmed.png'
+import SummaryCountryModel from "../../../../core/models/services/covid/response/SummaryCountryModel";
 
 class CovidSummaryCountry extends Component
 {
@@ -13,7 +16,7 @@ class CovidSummaryCountry extends Component
         super(props);
 
         this.state = {
-            model: new CountryCaseModel()
+            model: new SummaryCountryModel()
         }
         this.service = new CovidService();
 
@@ -31,7 +34,7 @@ class CovidSummaryCountry extends Component
     getDataWidget()
     {
         this.service.getSummaryCountry(this.props.id, () => {
-            console.log( this.service.getDataSummaryCountryResponse());
+            // console.log( this.service.getDataSummaryCountryResponse());
             this.setState({
                 model: this.service.getDataSummaryCountryResponse()
             })
@@ -46,28 +49,69 @@ class CovidSummaryCountry extends Component
             >
                 <div className="content">
                     <div className="header">
-                        <div className="covid-logo">
-                            <img src={CovidImage} />
-                        </div>
                         <div className="title">
-                            <p>Summary country</p>
+                            <div class="main-title">
+                                <p>COVID 19</p>
+                            </div>
+                            <div class="second-title">
+                                <p>Summary per country</p>
+                            </div>
                         </div>
                         <div className="logo-parameters"  onClick={this.onClickParameters}>
                             <FiSettings color="white" size={30}/>
                         </div>
                     </div>
                     <div className="content">
-                        <div className="description">
-                            <p>In {this.state.model.Country}, {new Date(this.state.model.Date).toLocaleString()}</p>
+                        <div class="header-content">
+                            <div className="description">
+                                <div class="logo">
+                                    <img src={LocationImage} />
+                                </div>
+                                <div class="text">
+                                    <p>In {this.state.model.Country}, {new Date(this.state.model.Date).toLocaleString()}</p>
+                                </div>
+                            </div>
                         </div>
-                        <div className="new-confirmed">
-                            <p>New confirmed : {this.state.model.NewConfirmed}</p>
-                        </div>
-                        <div className="new-deaths">
-                            <p>New deaths : {this.state.model.NewDeaths}</p>
-                        </div>
-                        <div className="new-recovered">
-                            <p>New recovered : {this.state.model.NewRecovered}</p>
+                        <div class="stat-wrap">
+                            <div className="stat">
+                                <div class="image">
+                                    <div class="logo">
+                                        <img alt="" src={ConfirmedImage} />
+                                    </div>
+                                    <div class="description">
+                                        <p>New confirmed</p>
+                                    </div>
+                                </div>
+                                <div className="value">
+                                    <p>{this.state.model.NewConfirmed}</p>
+                                </div>
+                            </div>
+                            <div className="stat">
+                                <div className="image">
+                                    <div className="logo">
+                                        <img alt="" src={RecoveryImage}/>
+                                    </div>
+                                    <div className="description">
+                                        <p>New recovered</p>
+                                    </div>
+                                </div>
+                                <div class="value">
+                                    <p>{this.state.model.NewRecovered}</p>
+                                </div>
+                            </div>
+                            <div className="stat">
+                                <div className="image">
+                                    <div className="logo">
+                                        <img alt="" src={DeathImage}/>
+                                    </div>
+                                    <div className="description">
+                                        <p>New deaths</p>
+                                    </div>
+                                </div>
+                                <div className="value">
+                                    <p>{this.state.model.NewDeaths}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

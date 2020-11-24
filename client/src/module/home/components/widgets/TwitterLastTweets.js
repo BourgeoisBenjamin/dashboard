@@ -1,12 +1,13 @@
 import React, {Component} from "react";
 import {FiSettings} from "react-icons/fi";
-import CountryCaseModel from "../../../../core/models/services/covid/response/CountryCaseModel";
-import CovidService from "../../../../core/services/services/CovidService";
 import './CovidCountryCase.css'
-import CovidImage from '../../../../assets/images/covid.png'
 import history from "../../../../history";
 import LastTweetsModel from "../../../../core/models/services/twitter/response/LastTweetsModel";
 import TwitterService from "../../../../core/services/services/TwitterService";
+import CommentImage from '../../../../assets/images/comment.png'
+import LikeImage from '../../../../assets/images/like.png'
+import RetweetImage from '../../../../assets/images/retweet.png'
+import './TwitterLastTweets.css'
 
 class TwitterLastTweets extends Component
 {
@@ -32,11 +33,10 @@ class TwitterLastTweets extends Component
 
     getDataWidget()
     {
-        console.log('hey');
+        // console.log('hey');
         this.service.getLastTweets(this.props.id, () => {
-            console.log( this.service.getLastTweetModelResponse());
             this.setState({
-                model: this.service.getDataCountryCaseResponse()
+                model: this.service.getLastTweetModelResponse()
             })
         }, () => {
         });
@@ -52,25 +52,76 @@ class TwitterLastTweets extends Component
     }
 
     render() {
+        const tweets = this.initTweets();
+
         return (
-            <div id="covid-country-case">
+            <div id="twitter-last-tweets">
                 <div className="content">
                     <div className="header">
-                        <div className="covid-logo">
-                            <img  />
-                        </div>
                         <div className="title">
-                            <p>Last tweets</p>
+                            <div className="main-title">
+                                <p>Twitter</p>
+                            </div>
+                            <div className="second-title">
+                                <p>Last tweets</p>
+                            </div>
                         </div>
                         <div className="logo-parameters" onClick={this.onClickParameters}>
                             <FiSettings color="white" size={30}/>
                         </div>
                     </div>
-                    <div className="content">
-                    </div>
+                </div>
+                <div className="core">
+                    { tweets }
                 </div>
             </div>
         );
+    }
+
+    initTweets()
+    {
+        let tweets = [];
+
+        this.state.model.data.forEach((d) => {
+            tweets.push(
+                <div className="tweet">
+                    <div className="text">
+                        <p>{d.text}</p>
+                    </div>
+                    <div className="date">
+                        <p>{new Date(d.created_at).toLocaleString()}</p>
+                    </div>
+                    <div className="stats">
+                        {/*<div className="comments stat">*/}
+                        {/*    <div className="logo">*/}
+                        {/*        <img alt="" src={CommentImage} />*/}
+                        {/*    </div>*/}
+                        {/*    <div className="value">*/}
+                        {/*        <p>1</p>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
+                        <div className="retweet stat">
+                            <div className="logo">
+                                <img alt="" src={RetweetImage} />
+                            </div>
+                            <div className="value">
+                                <p>{d.retweet_count}</p>
+                            </div>
+                        </div>
+                        <div className="like stat">
+                            <div className="logo">
+                                <img alt="" src={LikeImage} />
+                            </div>
+                            <div className="value">
+                                <p>{d.favorite_count}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+            )
+        })
+        return (tweets);
     }
 }
 

@@ -28,7 +28,7 @@ class TwitterService
     {
         axios.get(this.urlLastTweets + idWidget, this.header)
             .then(res => {
-                Object.assign(this.lastTweetsModelResponse, res.data);
+                Object.assign(this.lastTweetsModelResponse.data, res.data);
                 onSuccess();
             }).catch(error => {
             onFailure();
@@ -82,7 +82,7 @@ class TwitterService
     {
         axios.get(this.urlSearchTweets + idWidget, this.header)
             .then(res => {
-                Object.assign(this.searchTweetsModelResponse, res.data);
+                Object.assign(this.searchTweetsModelResponse.data, res.data);
                 onSuccess();
             }).catch(error => {
             onFailure();
