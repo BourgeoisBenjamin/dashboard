@@ -33,9 +33,8 @@ class TwitterLastTweets extends Component
 
     getDataWidget()
     {
-        console.log('hey');
+        // console.log('hey');
         this.service.getLastTweets(this.props.id, () => {
-            console.log( this.service.getLastTweetModelResponse());
             this.setState({
                 model: this.service.getLastTweetModelResponse()
             })
@@ -84,7 +83,6 @@ class TwitterLastTweets extends Component
         let tweets = [];
 
         this.state.model.data.forEach((d) => {
-            console.log(d);
             tweets.push(
                 <div className="tweet">
                     <div className="text">

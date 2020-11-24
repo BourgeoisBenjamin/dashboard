@@ -35,7 +35,7 @@ class CovidCountryCase extends Component
     getDataWidget()
     {
         this.service.getCountryCase(this.props.id, () => {
-            console.log( this.service.getDataCountryCaseResponse());
+            // console.log( this.service.getDataCountryCaseResponse());
             this.setState({
                 model: this.service.getDataCountryCaseResponse()
             })

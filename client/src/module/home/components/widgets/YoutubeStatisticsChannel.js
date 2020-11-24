@@ -2,11 +2,12 @@ import React, {Component} from "react";
 import './WeatherCityMeteo.css'
 import {FiSettings} from "react-icons/fi";
 import history from "../../../../history";
-import YoutubeCommentsVideoService from "../../../../core/services/services/youtube/YoutubeCommentsVideoService";
-import CommentsVideoModel from "../../../../core/models/services/youtube/response/CommentsVideoModel";
-import YoutubeStatisticsChannelService
-    from "../../../../core/services/services/youtube/YoutubeStatisticsChannelService";
+import YoutubeStatisticsChannelService from "../../../../core/services/services/youtube/YoutubeStatisticsChannelService";
 import StatisticsChannelModel from "../../../../core/models/services/youtube/response/StatisticsChannelModel";
+import ViewImage from '../../../../assets/images/view.png'
+import SubscriberImage from '../../../../assets/images/subscriber.png'
+import VideosImage from '../../../../assets/images/videos.png'
+import "./YoutubeStatisticsChannel.css"
 
 class YoutubeStatisticsChannel extends Component
 {
@@ -45,17 +46,65 @@ class YoutubeStatisticsChannel extends Component
 
     render() {
         return (
-            <div id="youtube-channel-videos">
+            <div id="youtube-statistics-channel">
                 <div class="content">
-                    <div class="header">
-                        <div class="title">
-                            <p>Statistics channels</p>
+                    <div className="header">
+                        <div className="title">
+                            <div className="main-title">
+                                <p>Youtube</p>
+                            </div>
+                            <div className="second-title">
+                                <p>Statistics of a channel</p>
+                            </div>
                         </div>
-                        <div class="logo-parameters" onClick={this.onClickParameters}>
-                            <FiSettings color="black" size={30} />
+                        <div className="logo-parameters" onClick={this.onClickParameters}>
+                            <FiSettings color="white" size={30}/>
                         </div>
                     </div>
-                    <div class="content">
+                </div>
+                <div className="core">
+                    <div className="channel-description">
+                        <div className="logo">
+                            <img src={this.state.model.snippet?.thumbnails.default.url} />
+                        </div>
+                        <div className="name-channel">
+                            <p>{this.state.model.snippet?.title}</p>
+                        </div>
+                    </div>
+                    <div className="channel-stats">
+                        <div className="stat">
+                            <div className="logo">
+                                <img src={SubscriberImage} />
+                            </div>
+                            <div className="title">
+                                <p>Subscribers</p>
+                            </div>
+                            <div className="value">
+                                <p>{this.state.model.statistics?.subscriberCount}</p>
+                            </div>
+                        </div>
+                        <div className="stat">
+                            <div className="logo">
+                                <img src={VideosImage} />
+                            </div>
+                            <div className="title">
+                                <p>Videos count</p>
+                            </div>
+                            <div className="value">
+                                <p>{this.state.model.statistics?.videoCount}</p>
+                            </div>
+                        </div>
+                        <div className="stat">
+                            <div className="logo">
+                                <img src={ViewImage} />
+                            </div>
+                            <div className="title">
+                                <p>Views count</p>
+                            </div>
+                            <div className="value">
+                                <p>{this.state.model.statistics?.viewCount}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -31,10 +31,10 @@ class TwitterSearchTweets extends Component
 
     getDataWidget()
     {
-        console.log('yeah');
+        // console.log('yeah');
         this.service.getSearchTweets(this.props.id, () => {
             // GET RESPONSE HERE
-            console.log(this.service.getSearchTweetResponse());
+            // console.log(this.service.getSearchTweetResponse());
             this.setState({
                 model: this.service.getSearchTweetResponse()
             })
@@ -83,7 +83,6 @@ class TwitterSearchTweets extends Component
         let tweets = [];
 
         this.state.model.data.forEach((d) => {
-            console.log(d);
             tweets.push(
                 <div className="tweet">
                     <div className="text">

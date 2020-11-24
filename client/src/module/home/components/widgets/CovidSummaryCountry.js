@@ -34,7 +34,7 @@ class CovidSummaryCountry extends Component
     getDataWidget()
     {
         this.service.getSummaryCountry(this.props.id, () => {
-            console.log( this.service.getDataSummaryCountryResponse());
+            // console.log( this.service.getDataSummaryCountryResponse());
             this.setState({
                 model: this.service.getDataSummaryCountryResponse()
             })
