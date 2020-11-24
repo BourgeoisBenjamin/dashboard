@@ -122,12 +122,66 @@ router.get('/init', JWTService.authenticateToken, (req, res) => {
 // auth spotify
 router.get('/spotify/connect', (req, res) => {
 
-    const authorizeURL = spotifyApi.createAuthorizeURL(state, state);
+    const scopes = ['user-read-private', 'user-read-email'];
+    const state = 'dashboard';
+
+    const authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
 
     req.session.uuid = req.query.uuid;
 
-    res.redirect(url)
+    res.redirect(authorizeURL)
 })
+
+// confirm oauth spotify
+router.get('/spotify/connect/redirect', (req, res) => {
+
+    let code = req.query.code
+
+    if (!code) {
+        let service = services.find((elem) => {
+            return (elem.uuid === req.session.uuid);
+        });
+        service.error = true;
+        res.send("<script>window.close();</script>");
+    }
+
+    spotifyApi.authorizationCodeGrant(code).then((data) => {
+
+            let service = services.find((elem) => {
+                return (elem.uuid === req.session.uuid);
+            });
+
+            pool.getPool().query("INSERT INTO spotify_service (id_user, activate, access_token, expires_in, refresh_token, token_type) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (id_user) DO UPDATE SET access_token = $3, expires_in = $4, refresh_token = $5, token_type = $6", [service.id, true, data.body['access_token'], data.body['expires_in'], data.body['refresh_token'], 'Bearer'], (err, result) =>  {
+                if (err) {
+                    service.error = true;
+                } else {
+                    service.connect = true;
+                }
+                delete req.session.uuid;
+                res.send("<script>window.close();</script>");
+            });
+        },
+        (err) => {
+            let service = services.find((elem) => {
+                return (elem.uuid === req.session.uuid);
+            });
+            service.error = true;
+            res.send("<script>window.close();</script>");
+        }
+    );
+});
+
+router.post('/spotify/disconnect', JWTService.authenticateToken, (req, res) => {
+
+    pool.getPool().query("UPDATE spotify_service SET activate = $1 WHERE id_user = $2", [false, req.user.user_id], (err, result) =>  {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"})
+        } else {
+            res.sendStatus(200);
+        }
+    });
+});
 
 // auth with twitter
 router.get('/twitter/connect', (req, res) => {
