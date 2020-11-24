@@ -74,6 +74,11 @@ export class LoginForm extends Component {
         history.push('/sign-up')
     }
 
+    handleForgotPasswordClick = () =>
+    {
+        history.push('/forgot-password')
+    }
+
     handleSignInTwitter = () =>
     {
         this.setState({
@@ -130,7 +135,7 @@ export class LoginForm extends Component {
                     <PasswordInput onChange={this.handlePasswordChange} value={this.state.password} name="Password" labelWidth={80} />
                 </div>
                 <div className="forgot-password">
-                    <p>Forgot your password ?</p>
+                    <p onClick={this.handleForgotPasswordClick}>Forgot your password ?</p>
                 </div>
                 <BasicButton onClick={this.handleConnectClick} display={this.state.sendingLoginRequest} name="Login" loaderSize={50} />
                 <div class="tiers-service-connect">
