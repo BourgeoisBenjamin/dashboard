@@ -49,9 +49,9 @@ router.post('/register', function(req, res) {
                     from: '"Dashboard 👻" <' + KEYS.MAIL.EMAIL + '>',
                     to: result.rows[0].email,
                     subject: "✔ Confirm your account",
-                    text: "Welcome to your dashboard ! Confirm your account here : " + KEYS.SERVER.CLIENT_HOME_PAGE_URL + "/verify/" + token, // plain text body
-                    html: "Welcome to your dashboard,<br>Click <a href='" + KEYS.SERVER.CLIENT_HOME_PAGE_URL + "/verify/" + token + "'>here</a> to confirm your account." +
-                        " Or, copy this link in your browser : " + KEYS.SERVER.CLIENT_HOME_PAGE_URL + "/verify/" + token +
+                    text: "Welcome to your dashboard ! Confirm your account here : " + KEYS.SERVER.CLIENT_HOME_PAGE_URL + "/email/verify/" + token, // plain text body
+                    html: "Welcome to your dashboard,<br>Click <a href='" + KEYS.SERVER.CLIENT_HOME_PAGE_URL + "/email/verify/" + token + "'>here</a> to confirm your account." +
+                        " Or, copy this link in your browser : " + KEYS.SERVER.CLIENT_HOME_PAGE_URL + "/email/verify/" + token +
                         "<br>See you soon !", // html body
                 });
                 pool.getPool().query("INSERT INTO weather_service (id_user, api_key, activate) VALUES ($1, $2, $3) ON CONFLICT (id_user) DO UPDATE SET api_key = $2, activate = $3", [result.rows[0].id, KEYS.WEATHER_SERVICE.API_KEY, true], (err, result) => {})
