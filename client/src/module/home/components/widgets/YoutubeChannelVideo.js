@@ -5,6 +5,8 @@ import history from "../../../../history";
 import YoutubeChannelVideoService from "../../../../core/services/services/youtube/YoutubeChannelVideoService";
 import ChannelVideosModel from "../../../../core/models/services/youtube/response/ChannelVideosModel";
 import './YoutubeChannelVideo.css'
+import ClipLoader from "react-spinners/ClipLoader";
+import {VscRefresh} from "react-icons/vsc";
 
 class YoutubeChannelVideo extends Component
 {
@@ -14,7 +16,8 @@ class YoutubeChannelVideo extends Component
         this.service = new YoutubeChannelVideoService();
 
         this.state = {
-            model: new ChannelVideosModel()
+            model: new ChannelVideosModel(),
+            isLoading: false
         }
 
         let getWidgetsData = this.props.parentState.getWidgetData;
@@ -25,16 +28,20 @@ class YoutubeChannelVideo extends Component
         this.props.parentState.setGetWidgetData(getWidgetsData);
 
         this.onClickParameters = this.onClickParameters.bind(this);
+        this.getDataWidget = this.getDataWidget.bind(this);
 
         this.getDataWidget();
     }
 
     getDataWidget()
     {
+        this.setState({
+            isLoading: true
+        })
         this.service.get(this.props.id, () => {
-            console.log( this.service.getResponseModel());
             this.setState({
-                model: this.service.getResponseModel()
+                model: this.service.getResponseModel(),
+                isLoading: false
             })
         }, () => {
 
@@ -56,12 +63,20 @@ class YoutubeChannelVideo extends Component
                                 <p>Channels videos</p>
                             </div>
                         </div>
-                        <div className="logo-parameters" onClick={this.onClickParameters}>
-                            <FiSettings color="white" size={30}/>
+                        <div className="options">
+                            <div className="logo-refresh" onClick={this.getDataWidget}>
+                                <VscRefresh color="white" size={30} />
+                            </div>
+                            <div className="logo-parameters" onClick={this.onClickParameters}>
+                                <FiSettings color="white" size={30}/>
+                            </div>
                         </div>
                     </div>
-                    <div class="core">
+                    <div class="core" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
                         { videos }
+                    </div>
+                    <div className="loader" style={{ display: (this.state.isLoading ? 'block' : 'none' ) }}>
+                        <ClipLoader size={50} />
                     </div>
                 </div>
             </div>

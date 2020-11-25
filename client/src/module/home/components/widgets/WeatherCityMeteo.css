@@ -61,6 +61,13 @@
     height: 30px;
 }
 
+#weather-city-meteo .header .options
+{
+    display: flex;
+    margin-left: auto;
+}
+
+
 #weather-city-meteo .content .temperature
 {
     margin-top: 30px;
@@ -119,4 +126,10 @@
 {
     margin-left: auto;
     color: grey;
+}
+
+#weather-city-meteo .loader
+{
+    text-align: center;
+    margin-top: 120px;
 }

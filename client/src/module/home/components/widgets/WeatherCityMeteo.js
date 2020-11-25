@@ -8,6 +8,8 @@ import SunImage from '../../../../assets/images/sun.png'
 import PressureImage from '../../../../assets/images/pressure.png';
 import RainImage from '../../../../assets/images/rain.png';
 import history from "../../../../history";
+import ClipLoader from "react-spinners/ClipLoader";
+import {VscRefresh} from "react-icons/vsc";
 
 class WeatherCityMeteo extends Component
 {
@@ -17,7 +19,8 @@ class WeatherCityMeteo extends Component
         this.service = new WeatherService();
 
         this.state = {
-            model: new CityWeatherModel()
+            model: new CityWeatherModel(),
+            isLoading: false
         }
 
         let getWidgetsData = this.props.parentState.getWidgetData;
@@ -28,16 +31,20 @@ class WeatherCityMeteo extends Component
         this.props.parentState.setGetWidgetData(getWidgetsData);
 
         this.onClickParameters = this.onClickParameters.bind(this);
+        this.getDataWidget = this.getDataWidget.bind(this);
 
         this.getDataWidget();
     }
 
     getDataWidget()
     {
+        this.setState({
+            isLoading: true
+        })
         this.service.getCityWeatherWidget(this.props.id, () => {
-            console.log( this.service.getDataResponse());
             this.setState({
-                model: this.service.getDataResponse()
+                model: this.service.getDataResponse(),
+                isLoading: false
             })
         }, () => {
 
@@ -56,18 +63,22 @@ class WeatherCityMeteo extends Component
         const imageWeather = this.initImageWeather();
 
         return (
-            <div id="weather-city-meteo"
-            >
+            <div id="weather-city-meteo">
                 <div class="content">
                     <div class="header">
                         <div class="location">
                             <p>Weather</p>
                         </div>
-                        <div class="logo-parameters" onClick={this.onClickParameters}>
-                            <FiSettings color="white" size={30} />
+                        <div className="options">
+                            <div className="logo-refresh" onClick={this.getDataWidget}>
+                                <VscRefresh color="white" size={30} />
+                            </div>
+                            <div className="logo-parameters" onClick={this.onClickParameters}>
+                                <FiSettings color="white" size={30}/>
+                            </div>
                         </div>
                     </div>
-                    <div class="content">
+                    <div class="content" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
                         <div class="temperature">
                             <div className="weather">
                                 <img src={imageWeather} alt="" />
@@ -112,6 +123,9 @@ class WeatherCityMeteo extends Component
                                 <p>{this.state.model.rain}%</p>
                             </div>
                         </div>
+                    </div>
+                    <div className="loader" style={{ display: (this.state.isLoading ? 'block' : 'none' ) }}>
+                        <ClipLoader size={50} />
                     </div>
                 </div>
             </div>

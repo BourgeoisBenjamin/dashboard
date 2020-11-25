@@ -6,6 +6,8 @@ import TwitterService from "../../../../core/services/services/TwitterService";
 import SearchTweetsModel from "../../../../core/models/services/twitter/response/SearchTweetsModel";
 import RetweetImage from "../../../../assets/images/retweet.png";
 import LikeImage from "../../../../assets/images/like.png";
+import ClipLoader from "react-spinners/ClipLoader";
+import {VscRefresh} from "react-icons/vsc";
 
 class TwitterSearchTweets extends Component
 {
@@ -13,7 +15,8 @@ class TwitterSearchTweets extends Component
         super(props);
 
         this.state = {
-            model: new SearchTweetsModel()
+            model: new SearchTweetsModel(),
+            isLoading: false
         }
         this.service = new TwitterService();
 
@@ -25,18 +28,20 @@ class TwitterSearchTweets extends Component
             this.getDataWidget();
         });
         this.props.parentState.setGetWidgetData(getWidgetsData);
+        this.getDataWidget = this.getDataWidget.bind(this);
 
         this.getDataWidget();
     }
 
     getDataWidget()
     {
-        // console.log('yeah');
+        this.setState({
+            isLoading: true
+        })
         this.service.getSearchTweets(this.props.id, () => {
-            // GET RESPONSE HERE
-            // console.log(this.service.getSearchTweetResponse());
             this.setState({
-                model: this.service.getSearchTweetResponse()
+                model: this.service.getSearchTweetResponse(),
+                isLoading: false
             })
         }, () => {
 
@@ -66,13 +71,21 @@ class TwitterSearchTweets extends Component
                                 <p>Search tweets</p>
                             </div>
                         </div>
-                        <div className="logo-parameters" onClick={this.onClickParameters}>
-                            <FiSettings color="white" size={30}/>
+                        <div className="options">
+                            <div className="logo-refresh" onClick={this.getDataWidget}>
+                                <VscRefresh color="white" size={30} />
+                            </div>
+                            <div className="logo-parameters" onClick={this.onClickParameters}>
+                                <FiSettings color="white" size={30}/>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="core">
+                <div className="core" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
                     { tweets }
+                </div>
+                <div className="loader" style={{ display: (this.state.isLoading ? 'block' : 'none' ) }}>
+                    <ClipLoader size={50} />
                 </div>
             </div>
         );

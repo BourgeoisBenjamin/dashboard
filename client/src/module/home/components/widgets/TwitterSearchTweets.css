@@ -66,6 +66,13 @@
     height: 30px;
 }
 
+#twitter-search-tweets .header .options
+{
+    display: flex;
+    margin-left: auto;
+}
+
+
 #twitter-search-tweets .core
 {
     overflow-y: auto;
@@ -122,4 +129,10 @@
 #twitter-search-tweets p
 {
     margin-bottom: 0;
+}
+
+#twitter-search-tweets .loader
+{
+    text-align: center;
+    margin-top: 120px;
 }

@@ -66,6 +66,13 @@
     height: 30px;
 }
 
+#youtube-statistics-video .header .options
+{
+    display: flex;
+    margin-left: auto;
+}
+
+
 #youtube-statistics-video .content .core .video-description
 {
     margin-top: 20px;
@@ -185,4 +192,10 @@
 #youtube-statistics-video p
 {
     margin-bottom: 0;
+}
+
+#youtube-statistics-video .loader
+{
+    text-align: center;
+    margin-top: 120px;
 }

@@ -66,6 +66,13 @@
     height: 30px;
 }
 
+#youtube-statistics-channel .header .options
+{
+    display: flex;
+    margin-left: auto;
+}
+
+
 #youtube-statistics-channel .core .channel-description
 {
     margin-top: 30px;
@@ -124,4 +131,10 @@
 #youtube-statistics-channel p
 {
     margin-bottom: 0;
+}
+
+#youtube-statistics-channel .loader
+{
+    text-align: center;
+    margin-top: 120px;
 }

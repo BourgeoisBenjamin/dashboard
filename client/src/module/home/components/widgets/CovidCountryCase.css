@@ -67,6 +67,12 @@
     height: 30px;
 }
 
+#covid-country-case .header .options
+{
+    display: flex;
+    margin-left: auto;
+}
+
 #covid-country-case .content .header-content .description
 {
     margin-top: 20px;
@@ -120,4 +126,10 @@
 #covid-country-case p
 {
     margin-bottom: 0;
+}
+
+#covid-country-case .loader
+{
+    text-align: center;
+    margin-top: 120px;
 }

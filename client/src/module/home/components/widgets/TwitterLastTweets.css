@@ -136,3 +136,9 @@
     align-items: center;
     margin-top: 120px;
 }
+
+#twitter-last-tweets .loader
+{
+    text-align: center;
+    margin-top: 120px;
+}

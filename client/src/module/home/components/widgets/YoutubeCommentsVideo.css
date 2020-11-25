@@ -1,0 +1,11 @@
+#youtube-comments-video .loader
+{
+    text-align: center;
+    margin-top: 120px;
+}
+
+#youtube-comments-video .header .options
+{
+    display: flex;
+    margin-left: auto;
+}

@@ -9,6 +9,8 @@ import DislikeImage from '../../../../assets/images/dislike.png'
 import CommentImage from '../../../../assets/images/comment.png'
 import ViewImage from '../../../../assets/images/view.png'
 import './YoutubeStatisticsVideo.css'
+import ClipLoader from "react-spinners/ClipLoader";
+import {VscRefresh} from "react-icons/vsc";
 
 class YoutubeStatisticsVideo extends Component
 {
@@ -18,7 +20,8 @@ class YoutubeStatisticsVideo extends Component
         this.service = new YoutubeStatisticsVideoService();
 
         this.state = {
-            model: new StatisticsVideoModel()
+            model: new StatisticsVideoModel(),
+            isLoading: false
         }
 
         let getWidgetsData = this.props.parentState.getWidgetData;
@@ -29,15 +32,20 @@ class YoutubeStatisticsVideo extends Component
         this.props.parentState.setGetWidgetData(getWidgetsData);
 
         this.onClickParameters = this.onClickParameters.bind(this);
+        this.getDataWidget = this.getDataWidget.bind(this);
 
         this.getDataWidget();
     }
 
     getDataWidget()
     {
+        this.setState({
+            isLoading: true
+        })
         this.service.get(this.props.id, () => {
             this.setState({
-                model: this.service.getResponseModel()
+                model: this.service.getResponseModel(),
+                isLoading: false
             })
         }, () => {
 
@@ -57,11 +65,16 @@ class YoutubeStatisticsVideo extends Component
                                 <p>Statistics of a video</p>
                             </div>
                         </div>
-                        <div className="logo-parameters" onClick={this.onClickParameters}>
-                            <FiSettings color="white" size={30}/>
+                        <div className="options">
+                            <div className="logo-refresh" onClick={this.getDataWidget}>
+                                <VscRefresh color="white" size={30} />
+                            </div>
+                            <div className="logo-parameters" onClick={this.onClickParameters}>
+                                <FiSettings color="white" size={30}/>
+                            </div>
                         </div>
                     </div>
-                    <div className="core">
+                    <div className="core" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
                         <div className="video-description">
                             <div className="image">
                                 <img src={this.state.model.snippet?.thumbnails.standard.url} />
@@ -113,6 +126,9 @@ class YoutubeStatisticsVideo extends Component
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="loader" style={{ display: (this.state.isLoading ? 'block' : 'none' ) }}>
+                        <ClipLoader size={50} />
                     </div>
                 </div>
             </div>

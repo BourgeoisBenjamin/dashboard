@@ -9,6 +9,8 @@ import DeathImage from '../../../../assets/images/death.png'
 import RecoveryImage from '../../../../assets/images/recovery.png'
 import ConfirmedImage from '../../../../assets/images/confirmed.png'
 import SummaryCountryModel from "../../../../core/models/services/covid/response/SummaryCountryModel";
+import ClipLoader from "react-spinners/ClipLoader";
+import {VscRefresh} from "react-icons/vsc";
 
 class CovidSummaryCountry extends Component
 {
@@ -16,7 +18,8 @@ class CovidSummaryCountry extends Component
         super(props);
 
         this.state = {
-            model: new SummaryCountryModel()
+            model: new SummaryCountryModel(),
+            isLoading: false
         }
         this.service = new CovidService();
 
@@ -28,15 +31,20 @@ class CovidSummaryCountry extends Component
         this.props.parentState.setGetWidgetData(getWidgetsData);
 
         this.onClickParameters  = this.onClickParameters.bind(this);
+        this.getDataWidget = this.getDataWidget.bind(this);
         this.getDataWidget();
     }
 
     getDataWidget()
     {
+        this.setState({
+            isLoading: true
+        })
         this.service.getSummaryCountry(this.props.id, () => {
             // console.log( this.service.getDataSummaryCountryResponse());
             this.setState({
-                model: this.service.getDataSummaryCountryResponse()
+                model: this.service.getDataSummaryCountryResponse(),
+                isLoading: false
             })
         }, () => {
 
@@ -45,8 +53,7 @@ class CovidSummaryCountry extends Component
 
     render() {
         return (
-            <div id="covid-summary-country"
-            >
+            <div id="covid-summary-country">
                 <div className="content">
                     <div className="header">
                         <div className="title">
@@ -57,11 +64,16 @@ class CovidSummaryCountry extends Component
                                 <p>Summary of the day per country</p>
                             </div>
                         </div>
-                        <div className="logo-parameters"  onClick={this.onClickParameters}>
-                            <FiSettings color="white" size={30}/>
+                        <div className="options">
+                            <div className="logo-refresh" onClick={this.getDataWidget}>
+                                <VscRefresh color="white" size={30} />
+                            </div>
+                            <div className="logo-parameters" onClick={this.onClickParameters}>
+                                <FiSettings color="white" size={30}/>
+                            </div>
                         </div>
                     </div>
-                    <div className="content">
+                    <div className="content" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
                         <div class="header-content">
                             <div className="description">
                                 <div class="logo">
@@ -113,6 +125,9 @@ class CovidSummaryCountry extends Component
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="loader" style={{ display: (this.state.isLoading ? 'block' : 'none' ) }}>
+                        <ClipLoader size={50} />
                     </div>
                 </div>
             </div>

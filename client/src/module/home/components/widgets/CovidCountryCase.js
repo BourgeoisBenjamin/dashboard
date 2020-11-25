@@ -8,8 +8,8 @@ import DeathImage from '../../../../assets/images/death.png'
 import RecoveryImage from '../../../../assets/images/recovery.png'
 import ConfirmedImage from '../../../../assets/images/confirmed.png'
 import history from "../../../../history";
-import HumidityImage from "../../../../assets/images/humidity.png";
 import {VscRefresh} from "react-icons/vsc";
+import ClipLoader from "react-spinners/ClipLoader";
 
 class CovidCountryCase extends Component
 {
@@ -17,11 +17,13 @@ class CovidCountryCase extends Component
         super(props);
 
         this.state = {
-            model: new CountryCaseModel()
+            model: new CountryCaseModel(),
+            isLoading: false
         }
         this.service = new CovidService();
 
         this.onClickParameters = this.onClickParameters.bind(this);
+        this.getDataWidget = this.getDataWidget.bind(this);
 
         let getWidgetsData = this.props.parentState.getWidgetData;
 
@@ -35,10 +37,14 @@ class CovidCountryCase extends Component
 
     getDataWidget()
     {
+        this.setState({
+            isLoading: true
+        })
         this.service.getCountryCase(this.props.id, () => {
             // console.log( this.service.getDataCountryCaseResponse());
             this.setState({
-                model: this.service.getDataCountryCaseResponse()
+                model: this.service.getDataCountryCaseResponse(),
+                isLoading: false
             })
         }, () => {
 
@@ -66,14 +72,16 @@ class CovidCountryCase extends Component
                                 <p>Country case</p>
                             </div>
                         </div>
-                        <div className="logo-refresh">
-                            <VscRefresh color="white" size={30} />
-                        </div>
-                        <div className="logo-parameters" onClick={this.onClickParameters}>
-                            <FiSettings color="white" size={30}/>
+                        <div className="options">
+                            <div className="logo-refresh" onClick={this.getDataWidget}>
+                                <VscRefresh color="white" size={30} />
+                            </div>
+                            <div className="logo-parameters" onClick={this.onClickParameters}>
+                                <FiSettings color="white" size={30}/>
+                            </div>
                         </div>
                     </div>
-                    <div className="content">
+                    <div className="content" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
                         <div className="header-content">
                             <div className="description">
                                 <div className="logo">
@@ -119,6 +127,9 @@ class CovidCountryCase extends Component
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="loader" style={{ display: (this.state.isLoading ? 'block' : 'none' ) }}>
+                        <ClipLoader size={50} />
                     </div>
                 </div>
             </div>
