@@ -122,7 +122,7 @@ router.get('/init', JWTService.authenticateToken, (req, res) => {
 // auth spotify
 router.get('/spotify/connect', (req, res) => {
 
-    const scopes = ['user-read-private', 'user-read-email'];
+    const scopes = ['user-read-private', 'user-read-email', 'user-top-read'];
     const state = 'dashboard';
 
     const authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);

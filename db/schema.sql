@@ -5,7 +5,7 @@
 -- Dumped from database version 12.4 (Debian 12.4-1.pgdg100+1)
 -- Dumped by pg_dump version 12.4
 
--- Started on 2020-11-25 15:57:10 UTC
+-- Started on 2020-11-25 17:21:43 UTC
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -473,7 +473,7 @@ CREATE TABLE public.top_artists_user_spotify (
     id bigint NOT NULL,
     id_spotify_service bigint NOT NULL,
     activate boolean NOT NULL,
-    "limit" bigint NOT NULL,
+    limit_artists bigint NOT NULL,
     time_range character varying NOT NULL
 );
 
@@ -513,7 +513,7 @@ CREATE TABLE public.top_tracks_user_spotify (
     id bigint NOT NULL,
     id_spotify_service bigint NOT NULL,
     activate boolean NOT NULL,
-    "limit" bigint NOT NULL,
+    limit_tracks bigint NOT NULL,
     time_range character varying NOT NULL
 );
 
@@ -1259,7 +1259,7 @@ ALTER TABLE ONLY public.youtube_service
     ADD CONSTRAINT youtube_service_id_user_fkey FOREIGN KEY (id_user) REFERENCES public.users(id);
 
 
--- Completed on 2020-11-25 15:57:10 UTC
+-- Completed on 2020-11-25 17:21:43 UTC
 
 --
 -- PostgreSQL database dump complete
