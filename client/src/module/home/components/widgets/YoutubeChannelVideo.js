@@ -85,6 +85,7 @@ class YoutubeChannelVideo extends Component
                     <div className="date">
                         <p>{new Date(d.snippet.publishedAt).toLocaleDateString()}</p>
                     </div>
+                    <hr/>
                 </div>
             );
         });
