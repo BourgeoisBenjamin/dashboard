@@ -27,7 +27,7 @@ router.post('/register', function(req, res) {
     }
 
     const token = cryptoRandomString({length: 250, type: 'alphanumeric'});
-    pool.getPool().query("INSERT INTO users (username, password, email, token_email) VALUES ($1, crypt($2, gen_salt('bf')), $3, $4) ON CONFLICT DO NOTHING RETURNING email", [username, password, email, token], (err, result) => {
+    pool.getPool().query("INSERT INTO users (username, password, email, token_email) VALUES ($1, crypt($2, gen_salt('bf')), $3, $4) ON CONFLICT DO NOTHING RETURNING id, email", [username, password, email, token], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
