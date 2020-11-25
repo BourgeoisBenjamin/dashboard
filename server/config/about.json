@@ -130,6 +130,39 @@
                   ]
                }
             ]
+         },
+         {
+            "name":"spotify",
+            "widgets":[
+               {
+                  "name":"top-tracks-user",
+                  "description":"Display N top tracks of the authenticated user for a given period",
+                  "params":[
+                     {
+                        "name":"limit_tracks",
+                        "type":"integer"
+                     },
+                     {
+                        "name":"time_range",
+                        "type":"string"
+                     }
+                  ]
+               },
+               {
+                  "name":"top-artists-user",
+                  "description":"Display N top artists of the authenticated user for a given period",
+                  "params":[
+                     {
+                        "name":"limit_artists",
+                        "type":"integer"
+                     },
+                     {
+                        "name":"time_range",
+                        "type":"string"
+                     }
+                  ]
+               }
+            ]
          }
       ]
    }
