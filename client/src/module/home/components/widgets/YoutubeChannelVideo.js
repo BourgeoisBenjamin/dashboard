@@ -4,6 +4,7 @@ import {FiSettings} from "react-icons/fi";
 import history from "../../../../history";
 import YoutubeChannelVideoService from "../../../../core/services/services/youtube/YoutubeChannelVideoService";
 import ChannelVideosModel from "../../../../core/models/services/youtube/response/ChannelVideosModel";
+import './YoutubeChannelVideo.css'
 
 class YoutubeChannelVideo extends Component
 {
@@ -41,22 +42,53 @@ class YoutubeChannelVideo extends Component
     }
 
     render() {
+        const videos = this.initVideos();
+
         return (
             <div id="youtube-channel-videos">
                 <div class="content">
-                    <div class="header">
-                        <div class="title">
-                            <p>Channel videos</p>
+                    <div className="header">
+                        <div className="title">
+                            <div className="main-title">
+                                <p>Youtube</p>
+                            </div>
+                            <div className="second-title">
+                                <p>Channels videos</p>
+                            </div>
                         </div>
-                        <div class="logo-parameters" onClick={this.onClickParameters}>
-                            <FiSettings color="white" size={30} />
+                        <div className="logo-parameters" onClick={this.onClickParameters}>
+                            <FiSettings color="white" size={30}/>
                         </div>
                     </div>
-                    <div class="content">
+                    <div class="core">
+                        { videos }
                     </div>
                 </div>
             </div>
         );
+    }
+
+    initVideos()
+    {
+        let videos = [];
+
+        this.state.model.data.forEach((d) => {
+
+            videos.push(
+                <div className="video">
+                    <div className="image">
+                        <img src={d.snippet?.thumbnails.high.url} alt="" />
+                    </div>
+                    <div className="title">
+                        <p>{d.snippet.title}</p>
+                    </div>
+                    <div className="date">
+                        <p>{new Date(d.snippet.publishedAt).toLocaleDateString()}</p>
+                    </div>
+                </div>
+            );
+        });
+        return videos;
     }
 
     onClickParameters()

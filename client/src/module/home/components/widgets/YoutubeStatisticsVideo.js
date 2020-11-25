@@ -36,7 +36,6 @@ class YoutubeStatisticsVideo extends Component
     getDataWidget()
     {
         this.service.get(this.props.id, () => {
-            console.log(this.service.getResponseModel());
             this.setState({
                 model: this.service.getResponseModel()
             })

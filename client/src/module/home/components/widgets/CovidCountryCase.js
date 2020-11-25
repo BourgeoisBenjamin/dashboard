@@ -9,6 +9,7 @@ import RecoveryImage from '../../../../assets/images/recovery.png'
 import ConfirmedImage from '../../../../assets/images/confirmed.png'
 import history from "../../../../history";
 import HumidityImage from "../../../../assets/images/humidity.png";
+import {VscRefresh} from "react-icons/vsc";
 
 class CovidCountryCase extends Component
 {
@@ -64,6 +65,9 @@ class CovidCountryCase extends Component
                             <div className="second-title">
                                 <p>Country case</p>
                             </div>
+                        </div>
+                        <div className="logo-refresh">
+                            <VscRefresh color="white" size={30} />
                         </div>
                         <div className="logo-parameters" onClick={this.onClickParameters}>
                             <FiSettings color="white" size={30}/>

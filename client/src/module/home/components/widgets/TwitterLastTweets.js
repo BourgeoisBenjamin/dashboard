@@ -8,6 +8,8 @@ import CommentImage from '../../../../assets/images/comment.png'
 import LikeImage from '../../../../assets/images/like.png'
 import RetweetImage from '../../../../assets/images/retweet.png'
 import './TwitterLastTweets.css'
+import {VscRefresh} from "react-icons/vsc";
+import ClipLoader from "react-spinners/ClipLoader";
 
 class TwitterLastTweets extends Component
 {
@@ -15,11 +17,13 @@ class TwitterLastTweets extends Component
         super(props);
 
         this.state = {
-            model: new LastTweetsModel()
+            model: new LastTweetsModel(),
+            isLoading: false
         }
         this.service = new TwitterService();
 
         this.onClickParameters = this.onClickParameters.bind(this);
+        this.onClickRefresh = this.onClickRefresh.bind(this);
 
         let getWidgetsData = this.props.parentState.getWidgetData;
 
@@ -33,10 +37,13 @@ class TwitterLastTweets extends Component
 
     getDataWidget()
     {
-        // console.log('hey');
+        this.setState({
+            isLoading: true
+        });
         this.service.getLastTweets(this.props.id, () => {
             this.setState({
-                model: this.service.getLastTweetModelResponse()
+                model: this.service.getLastTweetModelResponse(),
+                isLoading: false
             })
         }, () => {
         });
@@ -66,16 +73,29 @@ class TwitterLastTweets extends Component
                                 <p>Last tweets</p>
                             </div>
                         </div>
-                        <div className="logo-parameters" onClick={this.onClickParameters}>
-                            <FiSettings color="white" size={30}/>
+                        <div className="logo">
+                            <div className="logo-refresh" onClick={this.onClickRefresh}>
+                                <VscRefresh color="white" size={30} />
+                            </div>
+                            <div className="logo-parameters" onClick={this.onClickParameters}>
+                                <FiSettings color="white" size={30}/>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="core">
+                <div className="core" style={{ display: (this.state.isLoading ? 'none' : 'block' ) }}>
                     { tweets }
+                </div>
+                <div className="loader" style={{ display: (this.state.isLoading ? 'block' : 'none' ) }}>
+                    <ClipLoader size={50} />
                 </div>
             </div>
         );
+    }
+
+    onClickRefresh()
+    {
+        this.getDataWidget();
     }
 
     initTweets()

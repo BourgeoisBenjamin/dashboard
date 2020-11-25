@@ -22,7 +22,7 @@ export default class YoutubeChannelVideoService
     {
         axios.get(this.url + idWidget, this.header)
             .then(res => {
-                Object.assign(this.responseModel, res.data);
+                Object.assign(this.responseModel.data, res.data);
                 onSuccess();
             }).catch(error => {
             onFailure();

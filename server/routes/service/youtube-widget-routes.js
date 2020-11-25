@@ -386,6 +386,7 @@ router.get('/youtube/channel-videos/:id_widget', JWTService.authenticateToken, f
                 res.json({message: "Unauthorized"});
             } else {
                 widgetInfos = result.rows[0];
+                console.log(widgetInfos);
                 axios.get('https://youtube.googleapis.com/youtube/v3/search?part=snippet&order=date&channelId=' + widgetInfos.id_channel + '&maxResults=' + widgetInfos.number_videos + '&key=' + KEYS.YOUTUBE_APP.APP_API_KEY)
                     .then(function (response) {
                         if (!response.data.items.length) {
@@ -398,6 +399,7 @@ router.get('/youtube/channel-videos/:id_widget', JWTService.authenticateToken, f
                         }
                     })
                     .catch(function (error) {
+                        console.log("oh shit");
                         res.status(503)
                         res.json({message: "Service Unavailable"})
                     })
