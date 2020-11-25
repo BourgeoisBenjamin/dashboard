@@ -42,6 +42,12 @@ const GOOGLE_APP = {
     APP_API_PROMPT: process.env.GOOGLE_APP_API_PROMPT,
 }
 
+const SPOTIFY = {
+    CLIENT_ID: process.env.SPOTIFY_CLIENT_ID,
+    CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET,
+    REDIRECT_URL: process.env.SPOTIFY_REDIRECT_URL
+}
+
 // OTHERS
 const SERVER = {
     CLIENT_HOME_PAGE_URL: process.env.CLIENT_HOME_PAGE_URL
@@ -70,7 +76,8 @@ const KEYS = {
     GOOGLE_APP,
     YOUTUBE_APP,
     WEATHER_SERVICE,
-    MAIL
+    MAIL,
+    SPOTIFY
 };
 
 module.exports = KEYS;
