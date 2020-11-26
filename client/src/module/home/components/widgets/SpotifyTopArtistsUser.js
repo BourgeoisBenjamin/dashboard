@@ -64,6 +64,8 @@ class SpotifyTopArtistsUser extends Component
     }
 
     render() {
+        const artists = this.initArtists();
+
         return (
             <div id="spotify-top-artists-user">
                 <div className="content">
@@ -76,12 +78,63 @@ class SpotifyTopArtistsUser extends Component
                     />
                 </div>
                 <div className="core" style={{ display: (this.state.isLoading || this.state.errorAppear ? 'none' : 'block' ) }}>
-
+                    {artists}
                 </div>
                 <WidgetLoader isLoading={this.state.isLoading} />
                 <WidgetError appear={this.state.errorAppear} message={this.state.errorMessage} />
             </div>
         );
+    }
+
+    initArtists()
+    {
+        let artists = [];
+        let i = 1;
+
+        this.state.model.data.forEach((d) => {
+            const genres = this.initGenres(d.genres);
+
+            artists.push(
+                <div className="artist">
+                    <div className="first-content">
+                        <div className="position">
+                            <p>{i}</p>
+                        </div>
+                        <div className="image-profile">
+                            <img alt="" src={d.images[0].url} />
+                        </div>
+                        <div className="name">
+                            <p>{d.name}</p>
+                        </div>
+                        <div className="followers">
+                            <p>{d.followers.total} followers</p>
+                        </div>
+                    </div>
+                    <div className="genres">
+                        {genres}
+                    </div>
+                    <hr/>
+                </div>
+            );
+            i++;
+        });
+        return artists;
+    }
+
+    initGenres(gnr)
+    {
+        let genres = [];
+
+        gnr.forEach((g) => {
+            genres.push(
+                <div className="genre">
+                    <div className="text">
+                        <p>{g}</p>
+                    </div>
+                </div>
+            );
+        });
+        return genres;
     }
 
     onClickDelete()
