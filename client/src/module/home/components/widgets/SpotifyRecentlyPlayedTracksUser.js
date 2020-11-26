@@ -42,6 +42,7 @@ class SpotifyRecentlyPlayedTracksUser extends Component
             errorAppear: false
         });
         this.service.get(this.props.id, () => {
+            console.log(this.service.getResponseModel())
             this.setState({
                 model: this.service.getResponseModel(),
                 isLoading: false
@@ -95,7 +96,7 @@ class SpotifyRecentlyPlayedTracksUser extends Component
                 <div className="track">
                     <div className="song">
                         <iframe
-                            src={"https://open.spotify.com/embed/album/" + d.track.album.id} width="300" height="151"
+                            src={"https://open.spotify.com/embed/track/" + d.track.id} width="300" height="90"
                                 frameBorder="0" allowTransparency="true" allow="encrypted-media">
                         </iframe>
                     </div>
