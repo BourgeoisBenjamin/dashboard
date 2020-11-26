@@ -49,6 +49,10 @@ router.get('/', JWTService.authenticateToken, function(req, res) {
         service_name : 'covid',
         connected : false
     }
+    const spotify_service = {
+        service_name : 'spotify',
+        connected : false
+    }
 
     pool.getPool().query("SELECT activate FROM twitter_service WHERE id_user = $1", [req.user.user_id], (err, result) => {
         if (err) {
@@ -86,6 +90,18 @@ router.get('/', JWTService.authenticateToken, function(req, res) {
             }
         }
     })
+    pool.getPool().query("SELECT activate FROM spotify_service WHERE id_user = $1", [req.user.user_id], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"})
+        } else {
+            if (!result.rows.length)
+                spotify_service.connected = false;
+            else {
+                spotify_service.connected = result.rows[0].activate
+            }
+        }
+    })
     pool.getPool().query("SELECT activate FROM covid_service WHERE id_user = $1", [req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
@@ -102,6 +118,7 @@ router.get('/', JWTService.authenticateToken, function(req, res) {
             response.push(youtube_service)
             response.push(weather_service)
             response.push(covid_service)
+            response.push(spotify_service)
             res.json({data: response})
         }
     })
