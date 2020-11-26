@@ -124,7 +124,10 @@ class YoutubeChannelVideo extends Component
 
     onClickDelete()
     {
-
+        this.service.delete(this.props.id, () => {
+            this.props.onClickDelete();
+        }, () => {
+        });
     }
 }
 

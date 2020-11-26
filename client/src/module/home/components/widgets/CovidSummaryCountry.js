@@ -135,7 +135,10 @@ class CovidSummaryCountry extends Component
 
     onClickDelete()
     {
-
+        this.service.deleteSummaryCountry(this.props.id, () => {
+            this.props.onClickDelete();
+        }, () => {
+        });
     }
 
     onClickParameters()

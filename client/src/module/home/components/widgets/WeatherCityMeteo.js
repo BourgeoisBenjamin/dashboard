@@ -72,7 +72,10 @@ class WeatherCityMeteo extends Component
 
     onClickDelete()
     {
-
+        this.service.deleteCityWeatherWidget(this.props.id, () => {
+            this.props.onClickDelete();
+        }, () => {
+        });
     }
 
     render() {

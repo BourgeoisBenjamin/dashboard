@@ -13,7 +13,7 @@ router.delete('/weather/city-meteo/:id_widget', JWTService.authenticateToken, fu
                 res.status(401)
                 res.json({message: "Unauthorized"});
             } else {
-                res.status(200);
+                res.sendStatus(200);
             }
         }
     })

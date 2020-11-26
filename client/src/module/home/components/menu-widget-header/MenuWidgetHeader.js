@@ -17,7 +17,7 @@ export default function(props) {
 
     const onClickDelete = () => {
         setAnchorEl(null);
-        // props.onClickDelete();
+        props.onClickDelete();
     };
 
     const onClickSettings = () => {

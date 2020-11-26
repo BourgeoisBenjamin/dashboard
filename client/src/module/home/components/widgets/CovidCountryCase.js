@@ -69,7 +69,10 @@ class CovidCountryCase extends Component
 
     onClickDelete()
     {
-
+        this.service.deleteCountryCase(this.props.id, () => {
+            this.props.onClickDelete();
+        }, () => {
+        });
     }
 
     render() {

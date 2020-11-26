@@ -69,7 +69,7 @@ class CovidService
 
     deleteCountryCase(idWidget, onSuccess, onFailure)
     {
-        axios.put(this.urlCountryCase + idWidget, this.header)
+        axios.delete(this.urlCountryCase + idWidget, this.header)
             .then(res => {
                 onSuccess();
             }).catch(error => {

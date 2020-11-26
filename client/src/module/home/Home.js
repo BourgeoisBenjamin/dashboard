@@ -8,8 +8,6 @@ import {services} from "./services";
 import WidgetService from "../../core/services/widget/WidgetService";
 import {widgets} from "./widgets";
 import queryString from "query-string";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 // import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 class Home extends Component {
@@ -43,6 +41,7 @@ class Home extends Component {
 
     getUserWidgets()
     {
+        console.log('coucou')
         this.widgetService.getUserWidgets(() => {
             let widgetsTmp = [];
 
@@ -52,7 +51,7 @@ class Home extends Component {
 
             this.widgetService.data.forEach((d) => {
                 if (widgets[d.name]) {
-                    widgetsTmp.unshift(widgets[d.name](d.id, i, this.state));
+                    widgetsTmp.unshift(widgets[d.name](d.id, i, this.state, this.getUserWidgets));
                     i++;
                 }
             });

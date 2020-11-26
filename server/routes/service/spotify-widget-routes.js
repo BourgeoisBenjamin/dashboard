@@ -21,7 +21,7 @@ router.delete('/spotify/top-tracks-user/:id_widget', JWTService.authenticateToke
                 res.status(401)
                 res.json({message: "Unauthorized"});
             } else {
-                res.status(200);
+                res.sendStatus(200);
             }
         }
     })
@@ -44,7 +44,7 @@ router.put('/spotify/top-tracks-user/:id_widget', JWTService.authenticateToken, 
                 res.status(401)
                 res.json({message: "Unauthorized"});
             } else {
-                res.status(200);
+                res.sendStatus(200);
             }
         }
     })
@@ -138,7 +138,7 @@ router.delete('/spotify/top-artists-user/:id_widget', JWTService.authenticateTok
                 res.status(401)
                 res.json({message: "Unauthorized"});
             } else {
-                res.status(200);
+                res.sendStatus(200);
             }
         }
     })
@@ -161,7 +161,7 @@ router.put('/spotify/top-artists-user/:id_widget', JWTService.authenticateToken,
                 res.status(401)
                 res.json({message: "Unauthorized"});
             } else {
-                res.status(200);
+                res.sendStatus(200);
             }
         }
     })
@@ -255,7 +255,7 @@ router.delete('/spotify/recently-played-tracks-user/:id_widget', JWTService.auth
                 res.status(401)
                 res.json({message: "Unauthorized"});
             } else {
-                res.status(200);
+                res.sendStatus(200);
             }
         }
     })
@@ -278,7 +278,7 @@ router.put('/spotify/recently-played-tracks-user/:id_widget', JWTService.authent
                 res.status(401)
                 res.json({message: "Unauthorized"});
             } else {
-                res.status(200);
+                res.sendStatus(200);
             }
         }
     })

@@ -93,7 +93,10 @@ class TwitterLastTweets extends Component
 
     onClickDelete()
     {
-
+        this.service.deleteLastTweet(this.props.id, () => {
+            this.props.onClickDelete();
+        }, () => {
+        });
     }
 
     onClickRefresh()

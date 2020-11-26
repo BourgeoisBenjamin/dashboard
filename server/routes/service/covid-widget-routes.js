@@ -13,7 +13,7 @@ router.delete('/covid/country-case/:id_widget', JWTService.authenticateToken, fu
                 res.status(401)
                 res.json({message: "Unauthorized"});
             } else {
-                res.status(200);
+                res.sendStatus(200);
             }
         }
     })
@@ -115,7 +115,7 @@ router.delete('/covid/summary-country/:id_widget', JWTService.authenticateToken,
                 res.status(401);
                 res.json({message: "Unauthorized"});
             } else {
-                res.status(200);
+                res.sendStatus(200);
             }
         }
     })

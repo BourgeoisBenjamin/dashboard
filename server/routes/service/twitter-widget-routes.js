@@ -13,7 +13,7 @@ router.delete('/twitter/last-tweets/:id_widget', JWTService.authenticateToken, f
                 res.status(401)
                 res.json({message: "Unauthorized"});
             } else {
-                res.status(200);
+                res.sendStatus(200);
             }
         }
     })
@@ -36,7 +36,7 @@ router.put('/twitter/last-tweets/:id_widget', JWTService.authenticateToken, func
                 res.status(401)
                 res.json({message: "Unauthorized"});
             } else {
-                res.status(200);
+                res.sendStatus(200);
             }
         }
     })
@@ -125,7 +125,7 @@ router.delete('/twitter/search-tweets/:id_widget', JWTService.authenticateToken,
                 res.status(401)
                 res.json({message: "Unauthorized"});
             } else {
-                res.status(200);
+                res.sendStatus(200);
             }
         }
     })

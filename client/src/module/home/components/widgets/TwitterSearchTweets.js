@@ -69,7 +69,10 @@ class TwitterSearchTweets extends Component
 
     onClickDelete()
     {
-
+        this.service.deleteSearchTweet(this.props.id, () => {
+            this.props.onClickDelete();
+        }, () => {
+        });
     }
 
     render() {

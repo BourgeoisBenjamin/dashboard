@@ -21,7 +21,7 @@ class WidgetHeader extends Component
                         <VscRefresh color="white" size={30} />
                     </div>
                     <div className="logo-parameters">
-                        <MenuWidgetHeader onClickSettings={this.props.onClickSettings} />
+                        <MenuWidgetHeader onClickSettings={this.props.onClickSettings} onClickDelete={this.props.onClickDelete} />
                     </div>
                 </div>
             </div>
