@@ -45,7 +45,8 @@ class WeatherCityMeteo extends Component
     getDataWidget()
     {
         this.setState({
-            isLoading: true
+            isLoading: true,
+            errorAppear: false
         })
         this.service.getCityWeatherWidget(this.props.id, () => {
             this.setState({
@@ -53,7 +54,11 @@ class WeatherCityMeteo extends Component
                 isLoading: false
             })
         }, () => {
-
+            this.setState({
+                isLoading: false,
+                errorMessage: 'Could not load data',
+                errorAppear: true
+            })
         });
     }
 

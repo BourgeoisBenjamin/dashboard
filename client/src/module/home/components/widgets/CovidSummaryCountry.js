@@ -44,7 +44,8 @@ class CovidSummaryCountry extends Component
     getDataWidget()
     {
         this.setState({
-            isLoading: true
+            isLoading: true,
+            errorAppear: false
         })
         this.service.getSummaryCountry(this.props.id, () => {
             // console.log( this.service.getDataSummaryCountryResponse());
@@ -53,7 +54,11 @@ class CovidSummaryCountry extends Component
                 isLoading: false
             })
         }, () => {
-
+            this.setState({
+                isLoading: false,
+                errorMessage: 'Could not load data',
+                errorAppear: true
+            })
         });
     }
 

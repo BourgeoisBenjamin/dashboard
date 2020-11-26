@@ -42,7 +42,8 @@ class TwitterLastTweets extends Component
     getDataWidget()
     {
         this.setState({
-            isLoading: true
+            isLoading: true,
+            errorAppear: false
         });
         this.service.getLastTweets(this.props.id, () => {
             this.setState({
@@ -50,6 +51,11 @@ class TwitterLastTweets extends Component
                 isLoading: false
             })
         }, () => {
+            this.setState({
+                isLoading: false,
+                errorMessage: 'Could not load data',
+                errorAppear: true
+            })
         });
     }
 

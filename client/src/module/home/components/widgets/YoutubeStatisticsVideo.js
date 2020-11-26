@@ -46,7 +46,8 @@ class YoutubeStatisticsVideo extends Component
     getDataWidget()
     {
         this.setState({
-            isLoading: true
+            isLoading: true,
+            errorAppear: false
         })
         this.service.get(this.props.id, () => {
             this.setState({
@@ -54,7 +55,11 @@ class YoutubeStatisticsVideo extends Component
                 isLoading: false
             })
         }, () => {
-
+            this.setState({
+                isLoading: false,
+                errorMessage: 'Could not load data',
+                errorAppear: true
+            })
         });
     }
 
