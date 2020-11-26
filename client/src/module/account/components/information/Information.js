@@ -16,9 +16,13 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import history from "../../../../history";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class Information extends Component
 {
+
+    static contextType = MenuContext;
+
     service = new AccountService();
     model = new AccountModel();
 
@@ -77,7 +81,21 @@ class Information extends Component
     {
         this.service.getInfos(() => {
             this.updateData();
-        }, () => {
+        }, (error) => {
+            if (error.response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                this.setState({
+                    styleMenu: {
+                        'margin-left': '-300px'
+                    },
+                    menuIsOpen: false,
+                    title: 'Home',
+                    visibilityBackground: 'hidden',
+                    opacityBackground: '0'
+                })
+                history.push('/');
+            }
         });
     }
 
