@@ -90,7 +90,7 @@ class AccountService
             }
         }
 
-        axios.post(`http://localhost:8080/account/password`, data, header)
+        axios.put(`http://localhost:8080/account/password/update`, data, header)
             .then(res => {
                 onSuccess();
             }).catch(error => {

@@ -53,7 +53,7 @@ class Password extends Component
 
         this.service.changePassword(data, () => {
             this.displayLoaderButtonUpdate(false);
-            this.displayDialog('success', 'Password change');
+            this.displayDialog('success', 'Password updated');
             this.resetInput();
         }, (error) => {
             if (error.response.status === 403) {
@@ -127,7 +127,7 @@ class Password extends Component
         } else {
             this.setState({
                 displaySuccessDialog: true,
-                textErrorDialog: text
+                textSuccessDialog: text
             });
         }
     }

@@ -122,7 +122,7 @@ export class LoginForm extends Component {
             <div id="login-form">
                 <Snackbar open={this.state.errorMessageOpen} autoHideDuration={6000} onClose={this.handleErrorMessageClose} anchorOrigin={{ vertical: 'top', horizontal: 'left' }}>
                     <Alert onClose={this.handleErrorMessageClose} severity="error" variant="filled">
-                        Failed to register
+                        Wrong username/password.
                     </Alert>
                 </Snackbar>
                 <div class="title">
