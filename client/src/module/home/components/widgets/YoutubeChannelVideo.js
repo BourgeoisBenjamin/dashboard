@@ -7,6 +7,9 @@ import ChannelVideosModel from "../../../../core/models/services/youtube/respons
 import './YoutubeChannelVideo.css'
 import ClipLoader from "react-spinners/ClipLoader";
 import {VscRefresh} from "react-icons/vsc";
+import WidgetLoader from "../widget-loader/WidgetLoader";
+import WidgetError from "../widget-error/WidgetError";
+import WidgetHeader from "../widget-header/WidgetHeader";
 
 class YoutubeChannelVideo extends Component
 {
@@ -17,7 +20,9 @@ class YoutubeChannelVideo extends Component
 
         this.state = {
             model: new ChannelVideosModel(),
-            isLoading: false
+            isLoading: false,
+            errorMessage: '',
+            errorAppear: false
         }
 
         let getWidgetsData = this.props.parentState.getWidgetData;
@@ -29,6 +34,7 @@ class YoutubeChannelVideo extends Component
 
         this.onClickParameters = this.onClickParameters.bind(this);
         this.getDataWidget = this.getDataWidget.bind(this);
+        this.onClickDelete = this.onClickDelete.bind(this);
 
         this.getDataWidget();
     }
@@ -54,30 +60,18 @@ class YoutubeChannelVideo extends Component
         return (
             <div id="youtube-channel-videos">
                 <div class="content">
-                    <div className="header">
-                        <div className="title">
-                            <div className="main-title">
-                                <p>Youtube</p>
-                            </div>
-                            <div className="second-title">
-                                <p>Channels videos</p>
-                            </div>
-                        </div>
-                        <div className="options">
-                            <div className="logo-refresh" onClick={this.getDataWidget}>
-                                <VscRefresh color="white" size={30} />
-                            </div>
-                            <div className="logo-parameters" onClick={this.onClickParameters}>
-                                <FiSettings color="white" size={30}/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="core" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
+                    <WidgetHeader
+                        mainTitle="Youtube"
+                        secondTitle="Channels videos"
+                        onClickRefresh={this.getDataWidget}
+                        onClickDelete={this.onClickDelete}
+                        onClickSettings={this.onClickParameters}
+                    />
+                    <div class="core" style={{ display: this.state.isLoading || this.state.errorAppear ? 'none' : 'block' }}>
                         { videos }
                     </div>
-                    <div className="loader" style={{ display: (this.state.isLoading ? 'block' : 'none' ) }}>
-                        <ClipLoader size={50} />
-                    </div>
+                    <WidgetLoader isLoading={this.state.isLoading} />
+                    <WidgetError appear={this.state.errorAppear} message={this.state.errorMessage} />
                 </div>
             </div>
         );
@@ -113,6 +107,11 @@ class YoutubeChannelVideo extends Component
             pathname: '/home/widget/youtube/channel-videos/',
             search: '?id=' + this.props.id
         })
+    }
+
+    onClickDelete()
+    {
+
     }
 }
 

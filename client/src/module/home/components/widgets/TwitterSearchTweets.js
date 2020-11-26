@@ -8,6 +8,9 @@ import RetweetImage from "../../../../assets/images/retweet.png";
 import LikeImage from "../../../../assets/images/like.png";
 import ClipLoader from "react-spinners/ClipLoader";
 import {VscRefresh} from "react-icons/vsc";
+import WidgetLoader from "../widget-loader/WidgetLoader";
+import WidgetError from "../widget-error/WidgetError";
+import WidgetHeader from "../widget-header/WidgetHeader";
 
 class TwitterSearchTweets extends Component
 {
@@ -16,11 +19,14 @@ class TwitterSearchTweets extends Component
 
         this.state = {
             model: new SearchTweetsModel(),
-            isLoading: false
+            isLoading: false,
+            errorMessage: '',
+            errorAppear: false
         }
         this.service = new TwitterService();
 
         this.onClickParameters = this.onClickParameters.bind(this);
+        this.onClickDelete = this.onClickDelete.bind(this);
 
         let getWidgetsData = this.props.parentState.getWidgetData;
 
@@ -56,37 +62,30 @@ class TwitterSearchTweets extends Component
         })
     }
 
+    onClickDelete()
+    {
+
+    }
+
     render() {
         const tweets = this.initTweets();
 
         return (
             <div id="twitter-search-tweets">
                 <div className="content">
-                    <div className="header">
-                        <div className="title">
-                            <div className="main-title">
-                                <p>Twitter</p>
-                            </div>
-                            <div className="second-title">
-                                <p>Search tweets</p>
-                            </div>
-                        </div>
-                        <div className="options">
-                            <div className="logo-refresh" onClick={this.getDataWidget}>
-                                <VscRefresh color="white" size={30} />
-                            </div>
-                            <div className="logo-parameters" onClick={this.onClickParameters}>
-                                <FiSettings color="white" size={30}/>
-                            </div>
-                        </div>
-                    </div>
+                    <WidgetHeader
+                        mainTitle="Twitter"
+                        secondTitle="Search tweets"
+                        onClickRefresh={this.getDataWidget}
+                        onClickDelete={this.onClickDelete}
+                        onClickSettings={this.onClickParameters}
+                    />
                 </div>
-                <div className="core" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
+                <div className="core" style={{ display: this.state.isLoading || this.state.errorAppear ? 'none' : 'block' }}>
                     { tweets }
                 </div>
-                <div className="loader" style={{ display: (this.state.isLoading ? 'block' : 'none' ) }}>
-                    <ClipLoader size={50} />
-                </div>
+                <WidgetLoader isLoading={this.state.isLoading} />
+                <WidgetError appear={this.state.errorAppear} message={this.state.errorMessage} />
             </div>
         );
     }

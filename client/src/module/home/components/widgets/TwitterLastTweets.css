@@ -14,62 +14,9 @@
     box-shadow: 2px 2px 10px 3px grey;
 }
 
-#twitter-last-tweets .header p
-{
-    margin-bottom: 0;
-}
-
-#twitter-last-tweets .header
-{
-    display: flex;
-    height: 60px;
-    align-items: center;
-    background-color: #B5BDC9;
-    transition: 0.5s;
-    color: white;
-}
-
-#twitter-last-tweets:hover .header
+#twitter-last-tweets:hover .widget-header
 {
     background-color: #2791DA;
-}
-
-#twitter-last-tweets .title
-{
-    margin-left: 20px;
-}
-
-#twitter-last-tweets .title .main-title
-{
-    font-weight: bold;
-}
-
-#twitter-last-tweets .title .second-title
-{
-    font-size: 10px;
-    font-style: italic;
-}
-
-#twitter-last-tweets .logo
-{
-    display: flex;
-    margin-left: auto;
-}
-
-#twitter-last-tweets .logo-parameters
-{
-    cursor: pointer;
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 60px;
-}
-
-#twitter-last-tweets .logo-parameters img
-{
-    height: 30px;
 }
 
 #twitter-last-tweets .core
@@ -128,17 +75,4 @@
 #twitter-last-tweets p
 {
     margin-bottom: 0;
-}
-
-#twitter-last-tweets .loader
-{
-    text-align: center;
-    align-items: center;
-    margin-top: 120px;
-}
-
-#twitter-last-tweets .loader
-{
-    text-align: center;
-    margin-top: 120px;
 }

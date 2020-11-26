@@ -10,6 +10,9 @@ import VideosImage from '../../../../assets/images/videos.png'
 import "./YoutubeStatisticsChannel.css"
 import ClipLoader from "react-spinners/ClipLoader";
 import {VscRefresh} from "react-icons/vsc";
+import WidgetLoader from "../widget-loader/WidgetLoader";
+import WidgetError from "../widget-error/WidgetError";
+import WidgetHeader from "../widget-header/WidgetHeader";
 
 class YoutubeStatisticsChannel extends Component
 {
@@ -20,7 +23,9 @@ class YoutubeStatisticsChannel extends Component
 
         this.state = {
             model: new StatisticsChannelModel(),
-            isLoading: false
+            isLoading: false,
+            errorMessage: '',
+            errorAppear: false
         }
 
         let getWidgetsData = this.props.parentState.getWidgetData;
@@ -32,6 +37,7 @@ class YoutubeStatisticsChannel extends Component
 
         this.onClickParameters = this.onClickParameters.bind(this);
         this.getDataWidget = this.getDataWidget.bind(this);
+        this.onClickDelete = this.onClickDelete.bind(this);
 
         this.getDataWidget();
     }
@@ -54,27 +60,14 @@ class YoutubeStatisticsChannel extends Component
     render() {
         return (
             <div id="youtube-statistics-channel">
-                <div class="content">
-                    <div className="header">
-                        <div className="title">
-                            <div className="main-title">
-                                <p>Youtube</p>
-                            </div>
-                            <div className="second-title">
-                                <p>Statistics of a channel</p>
-                            </div>
-                        </div>
-                        <div className="options">
-                            <div className="logo-refresh" onClick={this.getDataWidget}>
-                                <VscRefresh color="white" size={30} />
-                            </div>
-                            <div className="logo-parameters" onClick={this.onClickParameters}>
-                                <FiSettings color="white" size={30}/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="core" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
+                <WidgetHeader
+                    mainTitle="Youtube"
+                    secondTitle="Statistics of a channel"
+                    onClickRefresh={this.getDataWidget}
+                    onClickDelete={this.onClickDelete}
+                    onClickSettings={this.onClickParameters}
+                />
+                <div className="core" style={{ display: this.state.isLoading || this.state.errorAppear ? 'none' : 'block' }}>
                     <div className="channel-description">
                         <div className="logo">
                             <img src={this.state.model.snippet?.thumbnails.default.url} />
@@ -119,9 +112,8 @@ class YoutubeStatisticsChannel extends Component
                         </div>
                     </div>
                 </div>
-                <div className="loader" style={{ display: (this.state.isLoading ? 'block' : 'none' ) }}>
-                    <ClipLoader size={50} />
-                </div>
+                <WidgetLoader isLoading={this.state.isLoading} />
+                <WidgetError appear={this.state.errorAppear} message={this.state.errorMessage} />
             </div>
         );
     }
@@ -132,6 +124,11 @@ class YoutubeStatisticsChannel extends Component
             pathname: '/home/widget/youtube/statistics-channel/',
             search: '?id=' + this.props.id
         })
+    }
+
+    onClickDelete()
+    {
+
     }
 }
 

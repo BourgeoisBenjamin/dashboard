@@ -4,12 +4,13 @@ import './CovidCountryCase.css'
 import history from "../../../../history";
 import LastTweetsModel from "../../../../core/models/services/twitter/response/LastTweetsModel";
 import TwitterService from "../../../../core/services/services/TwitterService";
-import CommentImage from '../../../../assets/images/comment.png'
 import LikeImage from '../../../../assets/images/like.png'
 import RetweetImage from '../../../../assets/images/retweet.png'
 import './TwitterLastTweets.css'
 import {VscRefresh} from "react-icons/vsc";
-import ClipLoader from "react-spinners/ClipLoader";
+import WidgetLoader from "../widget-loader/WidgetLoader";
+import WidgetError from "../widget-error/WidgetError";
+import WidgetHeader from "../widget-header/WidgetHeader";
 
 class TwitterLastTweets extends Component
 {
@@ -18,12 +19,15 @@ class TwitterLastTweets extends Component
 
         this.state = {
             model: new LastTweetsModel(),
-            isLoading: false
+            isLoading: false,
+            errorMessage: '',
+            errorAppear: false
         }
         this.service = new TwitterService();
 
         this.onClickParameters = this.onClickParameters.bind(this);
         this.onClickRefresh = this.onClickRefresh.bind(this);
+        this.onClickDelete = this.onClickDelete.bind(this);
 
         let getWidgetsData = this.props.parentState.getWidgetData;
 
@@ -64,33 +68,26 @@ class TwitterLastTweets extends Component
         return (
             <div id="twitter-last-tweets">
                 <div className="content">
-                    <div className="header">
-                        <div className="title">
-                            <div className="main-title">
-                                <p>Twitter</p>
-                            </div>
-                            <div className="second-title">
-                                <p>Last tweets</p>
-                            </div>
-                        </div>
-                        <div className="logo">
-                            <div className="logo-refresh" onClick={this.onClickRefresh}>
-                                <VscRefresh color="white" size={30} />
-                            </div>
-                            <div className="logo-parameters" onClick={this.onClickParameters}>
-                                <FiSettings color="white" size={30}/>
-                            </div>
-                        </div>
-                    </div>
+                    <WidgetHeader
+                        mainTitle="Twitter"
+                        secondTitle="Last tweets"
+                        onClickRefresh={this.onClickRefresh}
+                        onClickDelete={this.onClickDelete}
+                        onClickSettings={this.onClickParameters}
+                    />
                 </div>
-                <div className="core" style={{ display: (this.state.isLoading ? 'none' : 'block' ) }}>
+                <div className="core" style={{ display: (this.state.isLoading || this.state.errorAppear ? 'none' : 'block' ) }}>
                     { tweets }
                 </div>
-                <div className="loader" style={{ display: (this.state.isLoading ? 'block' : 'none' ) }}>
-                    <ClipLoader size={50} />
-                </div>
+                <WidgetLoader isLoading={this.state.isLoading} />
+                <WidgetError appear={this.state.errorAppear} message={this.state.errorMessage} />
             </div>
         );
+    }
+
+    onClickDelete()
+    {
+
     }
 
     onClickRefresh()

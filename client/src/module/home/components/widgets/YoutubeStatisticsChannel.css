@@ -14,64 +14,10 @@
     box-shadow: 2px 2px 10px 3px grey;
 }
 
-#youtube-statistics-channel .header p
-{
-    margin-bottom: 0;
-}
-
-#youtube-statistics-channel .header
-{
-    display: flex;
-    height: 60px;
-    align-items: center;
-    background-color: #B5BDC9;
-    transition: 0.5s;
-    color: white;
-}
-
-#youtube-statistics-channel:hover .header
+#youtube-statistics-channel:hover .widget-header
 {
     background-color: #ED4E20;
 }
-
-#youtube-statistics-channel .title
-{
-    margin-left: 20px;
-}
-
-#youtube-statistics-channel .title .main-title
-{
-    font-weight: bold;
-}
-
-#youtube-statistics-channel .title .second-title
-{
-    font-size: 10px;
-    font-style: italic;
-}
-
-#youtube-statistics-channel .logo-parameters
-{
-    cursor: pointer;
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 60px;
-}
-
-#youtube-statistics-channel .logo-parameters img
-{
-    height: 30px;
-}
-
-#youtube-statistics-channel .header .options
-{
-    display: flex;
-    margin-left: auto;
-}
-
 
 #youtube-statistics-channel .core .channel-description
 {
@@ -131,10 +77,4 @@
 #youtube-statistics-channel p
 {
     margin-bottom: 0;
-}
-
-#youtube-statistics-channel .loader
-{
-    text-align: center;
-    margin-top: 120px;
 }

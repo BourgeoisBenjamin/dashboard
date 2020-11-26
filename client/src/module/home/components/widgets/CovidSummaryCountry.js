@@ -11,6 +11,9 @@ import ConfirmedImage from '../../../../assets/images/confirmed.png'
 import SummaryCountryModel from "../../../../core/models/services/covid/response/SummaryCountryModel";
 import ClipLoader from "react-spinners/ClipLoader";
 import {VscRefresh} from "react-icons/vsc";
+import WidgetLoader from "../widget-loader/WidgetLoader";
+import WidgetError from "../widget-error/WidgetError";
+import WidgetHeader from "../widget-header/WidgetHeader";
 
 class CovidSummaryCountry extends Component
 {
@@ -19,7 +22,9 @@ class CovidSummaryCountry extends Component
 
         this.state = {
             model: new SummaryCountryModel(),
-            isLoading: false
+            isLoading: false,
+            errorMessage: '',
+            errorAppear: false
         }
         this.service = new CovidService();
 
@@ -32,6 +37,7 @@ class CovidSummaryCountry extends Component
 
         this.onClickParameters  = this.onClickParameters.bind(this);
         this.getDataWidget = this.getDataWidget.bind(this);
+        this.onClickDelete = this.onClickDelete.bind(this);
         this.getDataWidget();
     }
 
@@ -55,25 +61,14 @@ class CovidSummaryCountry extends Component
         return (
             <div id="covid-summary-country">
                 <div className="content">
-                    <div className="header">
-                        <div className="title">
-                            <div class="main-title">
-                                <p>COVID 19</p>
-                            </div>
-                            <div class="second-title">
-                                <p>Summary of the day per country</p>
-                            </div>
-                        </div>
-                        <div className="options">
-                            <div className="logo-refresh" onClick={this.getDataWidget}>
-                                <VscRefresh color="white" size={30} />
-                            </div>
-                            <div className="logo-parameters" onClick={this.onClickParameters}>
-                                <FiSettings color="white" size={30}/>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="content" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
+                    <WidgetHeader
+                        mainTitle="COVID 19"
+                        secondTitle="Summary of the day per country"
+                        onClickRefresh={this.getDataWidget}
+                        onClickDelete={this.onClickDelete}
+                        onClickSettings={this.onClickParameters}
+                    />
+                    <div className="content" style={{ display: this.state.isLoading || this.state.errorAppear ? 'none' : 'block' }}>
                         <div class="header-content">
                             <div className="description">
                                 <div class="logo">
@@ -126,12 +121,16 @@ class CovidSummaryCountry extends Component
                             </div>
                         </div>
                     </div>
-                    <div className="loader" style={{ display: (this.state.isLoading ? 'block' : 'none' ) }}>
-                        <ClipLoader size={50} />
-                    </div>
+                    <WidgetLoader isLoading={this.state.isLoading} />
+                    <WidgetError appear={this.state.errorAppear} message={this.state.errorMessage} />
                 </div>
             </div>
         );
+    }
+
+    onClickDelete()
+    {
+
     }
 
     onClickParameters()

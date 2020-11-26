@@ -1,0 +1,53 @@
+.widget-header p
+{
+    margin-bottom: 0;
+}
+
+.widget-header
+{
+    display: flex;
+    height: 60px;
+    align-items: center;
+    background-color: #B5BDC9;
+    transition: 0.5s;
+    color: white;
+}
+
+.widget-header .title
+{
+    margin-left: 20px;
+}
+
+.widget-header .title .main-title
+{
+    font-weight: bold;
+}
+
+.widget-header .title .second-title
+{
+    font-size: 10px;
+    font-style: italic;
+}
+
+
+.widget-header .logo-parameters
+{
+    cursor: pointer;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 60px;
+}
+
+.widget-header .logo-parameters img
+{
+    height: 30px;
+}
+
+.widget-header .options
+{
+    display: flex;
+    margin-left: auto;
+}

@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {FiSettings} from "react-icons/fi";
 import CountryCaseModel from "../../../../core/models/services/covid/response/CountryCaseModel";
 import CovidService from "../../../../core/services/services/CovidService";
 import './CovidCountryCase.css'
@@ -8,8 +7,9 @@ import DeathImage from '../../../../assets/images/death.png'
 import RecoveryImage from '../../../../assets/images/recovery.png'
 import ConfirmedImage from '../../../../assets/images/confirmed.png'
 import history from "../../../../history";
-import {VscRefresh} from "react-icons/vsc";
-import ClipLoader from "react-spinners/ClipLoader";
+import WidgetHeader from "../widget-header/WidgetHeader";
+import WidgetLoader from "../widget-loader/WidgetLoader";
+import WidgetError from "../widget-error/WidgetError";
 
 class CovidCountryCase extends Component
 {
@@ -18,11 +18,14 @@ class CovidCountryCase extends Component
 
         this.state = {
             model: new CountryCaseModel(),
-            isLoading: false
+            isLoading: false,
+            errorMessage: '',
+            errorAppear: false
         }
         this.service = new CovidService();
 
-        this.onClickParameters = this.onClickParameters.bind(this);
+        this.onClickSettings = this.onClickSettings.bind(this);
+        this.onClickDelete = this.onClickDelete.bind(this);
         this.getDataWidget = this.getDataWidget.bind(this);
 
         let getWidgetsData = this.props.parentState.getWidgetData;
@@ -38,7 +41,8 @@ class CovidCountryCase extends Component
     getDataWidget()
     {
         this.setState({
-            isLoading: true
+            isLoading: true,
+            errorAppear: false
         })
         this.service.getCountryCase(this.props.id, () => {
             // console.log( this.service.getDataCountryCaseResponse());
@@ -47,41 +51,33 @@ class CovidCountryCase extends Component
                 isLoading: false
             })
         }, () => {
-
+            this.setState({
+                isLoading: false,
+                errorMessage: 'Could not load data',
+                errorAppear: true
+            })
         });
     }
 
-    onClickParameters()
+    onClickSettings(event)
     {
         history.push({
             pathname: '/home/widget/covid/country-case/',
             search: '?id=' + this.props.id
-        })
+        });
+    }
+
+    onClickDelete()
+    {
+
     }
 
     render() {
         return (
             <div id="covid-country-case">
                 <div className="content">
-                    <div className="header">
-                        <div className="title">
-                            <div className="main-title">
-                                <p>COVID 19</p>
-                            </div>
-                            <div className="second-title">
-                                <p>Country case</p>
-                            </div>
-                        </div>
-                        <div className="options">
-                            <div className="logo-refresh" onClick={this.getDataWidget}>
-                                <VscRefresh color="white" size={30} />
-                            </div>
-                            <div className="logo-parameters" onClick={this.onClickParameters}>
-                                <FiSettings color="white" size={30}/>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="content" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
+                    <WidgetHeader mainTitle="COVID 19" secondTitle="Country case" onClickRefresh={this.getDataWidget} onClickDelete={this.onClickDelete} onClickSettings={this.onClickSettings} />
+                    <div className="content" style={{ display: this.state.isLoading || this.state.errorAppear ? 'none' : 'block' }}>
                         <div className="header-content">
                             <div className="description">
                                 <div className="logo">
@@ -128,9 +124,8 @@ class CovidCountryCase extends Component
                             </div>
                         </div>
                     </div>
-                    <div className="loader" style={{ display: (this.state.isLoading ? 'block' : 'none' ) }}>
-                        <ClipLoader size={50} />
-                    </div>
+                    <WidgetLoader isLoading={this.state.isLoading} />
+                    <WidgetError appear={this.state.errorAppear} message={this.state.errorMessage} />
                 </div>
             </div>
         );

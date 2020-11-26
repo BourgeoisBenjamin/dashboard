@@ -10,6 +10,8 @@ import ErrorDialog from "../../shared/components/dialogs/ErrorDialog";
 import {Error} from "@material-ui/icons";
 import ForgotPasswordService from "../../core/services/forgot-password/ForgotPassword";
 import queryString from "query-string";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 class ResetPassword extends Component {
 

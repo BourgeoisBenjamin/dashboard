@@ -14,59 +14,10 @@
     box-shadow: 2px 2px 10px 3px grey;
 }
 
-#weather-city-meteo .header p
-{
-    margin-bottom: 0;
-}
-
-#weather-city-meteo .header
-{
-    display: flex;
-    height: 60px;
-    align-items: center;
-    color: white;
-    font-weight: bold;
-    background-color: #B5BDC9;
-    transition: 0.5s;
-}
-
-#weather-city-meteo:hover .header
+#weather-city-meteo:hover .widget-header
 {
     background-color: #F1C232;
 }
-
-#weather-city-meteo .location
-{
-    margin-left: 20px;
-}
-
-#weather-city-meteo .logo-location img
-{
-    height: 30px;
-}
-
-#weather-city-meteo .logo-parameters
-{
-    cursor: pointer;
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 60px;
-}
-
-#weather-city-meteo .logo-parameters img
-{
-    height: 30px;
-}
-
-#weather-city-meteo .header .options
-{
-    display: flex;
-    margin-left: auto;
-}
-
 
 #weather-city-meteo .content .temperature
 {
@@ -126,10 +77,4 @@
 {
     margin-left: auto;
     color: grey;
-}
-
-#weather-city-meteo .loader
-{
-    text-align: center;
-    margin-top: 120px;
 }

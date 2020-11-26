@@ -14,64 +14,10 @@
     box-shadow: 2px 2px 10px 3px grey;
 }
 
-#covid-summary-country .header p
-{
-    margin-bottom: 0;
-}
-
-#covid-summary-country .header
-{
-    display: flex;
-    height: 60px;
-    align-items: center;
-    background-color: #B5BDC9;
-    transition: 0.5s;
-    color: white;
-}
-
-#covid-summary-country:hover .header
+#covid-summary-country:hover .widget-header
 {
     background-color: #86280D;
 }
-
-#covid-summary-country .title
-{
-    margin-left: 20px;
-}
-
-#covid-summary-country .title .main-title
-{
-    font-weight: bold;
-}
-
-#covid-summary-country .title .second-title
-{
-    font-size: 10px;
-    font-style: italic;
-}
-
-#covid-summary-country .logo-parameters
-{
-    cursor: pointer;
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 60px;
-}
-
-#covid-summary-country .logo-parameters img
-{
-    height: 30px;
-}
-
-#covid-summary-country .header .options
-{
-    display: flex;
-    margin-left: auto;
-}
-
 
 #covid-summary-country .content .header-content .description
 {
@@ -134,10 +80,4 @@
 #covid-summary-country p
 {
     margin-bottom: 0;
-}
-
-#covid-summary-country .loader
-{
-    text-align: center;
-    margin-top: 120px;
 }

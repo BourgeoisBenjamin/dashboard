@@ -10,6 +10,9 @@ import RainImage from '../../../../assets/images/rain.png';
 import history from "../../../../history";
 import ClipLoader from "react-spinners/ClipLoader";
 import {VscRefresh} from "react-icons/vsc";
+import WidgetLoader from "../widget-loader/WidgetLoader";
+import WidgetError from "../widget-error/WidgetError";
+import WidgetHeader from "../widget-header/WidgetHeader";
 
 class WeatherCityMeteo extends Component
 {
@@ -20,7 +23,9 @@ class WeatherCityMeteo extends Component
 
         this.state = {
             model: new CityWeatherModel(),
-            isLoading: false
+            isLoading: false,
+            errorMessage: '',
+            errorAppear: false
         }
 
         let getWidgetsData = this.props.parentState.getWidgetData;
@@ -32,6 +37,7 @@ class WeatherCityMeteo extends Component
 
         this.onClickParameters = this.onClickParameters.bind(this);
         this.getDataWidget = this.getDataWidget.bind(this);
+        this.onClickDelete = this.onClickDelete.bind(this);
 
         this.getDataWidget();
     }
@@ -59,26 +65,25 @@ class WeatherCityMeteo extends Component
         return null;
     }
 
+    onClickDelete()
+    {
+
+    }
+
     render() {
         const imageWeather = this.initImageWeather();
 
         return (
             <div id="weather-city-meteo">
                 <div class="content">
-                    <div class="header">
-                        <div class="location">
-                            <p>Weather</p>
-                        </div>
-                        <div className="options">
-                            <div className="logo-refresh" onClick={this.getDataWidget}>
-                                <VscRefresh color="white" size={30} />
-                            </div>
-                            <div className="logo-parameters" onClick={this.onClickParameters}>
-                                <FiSettings color="white" size={30}/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
+                    <WidgetHeader
+                        mainTitle="Weather"
+                        secondTitle="City weather"
+                        onClickRefresh={this.getDataWidget}
+                        onClickDelete={this.onClickDelete}
+                        onClickSettings={this.onClickParameters}
+                    />
+                    <div class="content" style={{ display: this.state.isLoading || this.state.errorAppear ? 'none' : 'block' }}>
                         <div class="temperature">
                             <div className="weather">
                                 <img src={imageWeather} alt="" />
@@ -124,9 +129,8 @@ class WeatherCityMeteo extends Component
                             </div>
                         </div>
                     </div>
-                    <div className="loader" style={{ display: (this.state.isLoading ? 'block' : 'none' ) }}>
-                        <ClipLoader size={50} />
-                    </div>
+                    <WidgetLoader isLoading={this.state.isLoading} />
+                    <WidgetError appear={this.state.errorAppear} message={this.state.errorMessage} />
                 </div>
             </div>
         );
@@ -134,7 +138,6 @@ class WeatherCityMeteo extends Component
 
     onClickParameters()
     {
-        // history.push('/home/widget/covid/country-case/' + this.props.id);
         history.push({
             pathname: '/home/widget/weather/city-weather/',
             search: '?id=' + this.props.id

@@ -14,64 +14,10 @@
     box-shadow: 2px 2px 10px 3px grey;
 }
 
-#twitter-search-tweets .header p
-{
-    margin-bottom: 0;
-}
-
-#twitter-search-tweets .header
-{
-    display: flex;
-    height: 60px;
-    align-items: center;
-    background-color: #B5BDC9;
-    transition: 0.5s;
-    color: white;
-}
-
-#twitter-search-tweets:hover .header
+#twitter-search-tweets:hover .widget-header
 {
     background-color: #2791DA;
 }
-
-#twitter-search-tweets .title
-{
-    margin-left: 20px;
-}
-
-#twitter-search-tweets .title .main-title
-{
-    font-weight: bold;
-}
-
-#twitter-search-tweets .title .second-title
-{
-    font-size: 10px;
-    font-style: italic;
-}
-
-#twitter-search-tweets .logo-parameters
-{
-    cursor: pointer;
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 60px;
-}
-
-#twitter-search-tweets .logo-parameters img
-{
-    height: 30px;
-}
-
-#twitter-search-tweets .header .options
-{
-    display: flex;
-    margin-left: auto;
-}
-
 
 #twitter-search-tweets .core
 {
@@ -129,10 +75,4 @@
 #twitter-search-tweets p
 {
     margin-bottom: 0;
-}
-
-#twitter-search-tweets .loader
-{
-    text-align: center;
-    margin-top: 120px;
 }

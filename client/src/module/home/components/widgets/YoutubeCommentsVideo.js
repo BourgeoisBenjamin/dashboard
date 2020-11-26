@@ -6,6 +6,9 @@ import YoutubeCommentsVideoService from "../../../../core/services/services/yout
 import CommentsVideoModel from "../../../../core/models/services/youtube/response/CommentsVideoModel";
 import ClipLoader from "react-spinners/ClipLoader";
 import {VscRefresh} from "react-icons/vsc";
+import WidgetLoader from "../widget-loader/WidgetLoader";
+import WidgetError from "../widget-error/WidgetError";
+import WidgetHeader from "../widget-header/WidgetHeader";
 
 class YoutubeCommentsVideo extends Component
 {
@@ -16,7 +19,9 @@ class YoutubeCommentsVideo extends Component
 
         this.state = {
             model: new CommentsVideoModel(),
-            isLoading: false
+            isLoading: false,
+            errorMessage: '',
+            errorAppear: false
         }
 
         let getWidgetsData = this.props.parentState.getWidgetData;
@@ -28,6 +33,7 @@ class YoutubeCommentsVideo extends Component
 
         this.onClickParameters = this.onClickParameters.bind(this);
         this.getDataWidget = this.getDataWidget.bind(this);
+        this.onClickDelete = this.onClickDelete.bind(this);
 
         this.getDataWidget();
     }
@@ -51,24 +57,17 @@ class YoutubeCommentsVideo extends Component
         return (
             <div id="youtube-channel-videos">
                 <div class="content">
-                    <div class="header">
-                        <div class="title">
-                            <p>Comments videos</p>
-                        </div>
-                        <div className="options">
-                            <div className="logo-refresh" onClick={this.getDataWidget}>
-                                <VscRefresh color="white" size={30} />
-                            </div>
-                            <div className="logo-parameters" onClick={this.onClickParameters}>
-                                <FiSettings color="white" size={30}/>
-                            </div>
-                        </div>
+                    <WidgetHeader
+                        mainTitle="Youtube"
+                        secondTitle="Comments videos"
+                        onClickRefresh={this.getDataWidget}
+                        onClickDelete={this.onClickDelete}
+                        onClickSettings={this.onClickParameters}
+                    />
+                    <div class="content" style={{ display: this.state.isLoading || this.state.errorAppear ? 'none' : 'block' }}>
                     </div>
-                    <div class="content" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
-                    </div>
-                    <div className="loader" style={{ display: (this.state.isLoading ? 'block' : 'none' ) }}>
-                        <ClipLoader size={50} />
-                    </div>
+                    <WidgetLoader isLoading={this.state.isLoading} />
+                    <WidgetError appear={this.state.errorAppear} message={this.state.errorMessage} />
                 </div>
             </div>
         );
@@ -80,6 +79,11 @@ class YoutubeCommentsVideo extends Component
             pathname: '/home/widget/youtube/comments-video/',
             search: '?id=' + this.props.id
         })
+    }
+
+    onClickDelete()
+    {
+
     }
 }
 

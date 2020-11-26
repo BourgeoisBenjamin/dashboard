@@ -14,63 +14,9 @@
     box-shadow: 2px 2px 10px 3px grey;
 }
 
-#covid-country-case .header p
-{
-    margin-bottom: 0;
-}
-
-#covid-country-case .header
-{
-    display: flex;
-    height: 60px;
-    align-items: center;
-    background-color: #B5BDC9;
-    transition: 0.5s;
-    color: white;
-}
-
-#covid-country-case:hover .header
+#covid-country-case:hover .widget-header
 {
     background-color: #86280D;
-}
-
-#covid-country-case .title
-{
-    margin-left: 20px;
-}
-
-#covid-country-case .title .main-title
-{
-    font-weight: bold;
-}
-
-#covid-country-case .title .second-title
-{
-    font-size: 10px;
-    font-style: italic;
-}
-
-
-#covid-country-case .logo-parameters
-{
-    cursor: pointer;
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 60px;
-}
-
-#covid-country-case .logo-parameters img
-{
-    height: 30px;
-}
-
-#covid-country-case .header .options
-{
-    display: flex;
-    margin-left: auto;
 }
 
 #covid-country-case .content .header-content .description
@@ -126,10 +72,4 @@
 #covid-country-case p
 {
     margin-bottom: 0;
-}
-
-#covid-country-case .loader
-{
-    text-align: center;
-    margin-top: 120px;
 }

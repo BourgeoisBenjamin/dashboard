@@ -8,6 +8,8 @@ import {services} from "./services";
 import WidgetService from "../../core/services/widget/WidgetService";
 import {widgets} from "./widgets";
 import queryString from "query-string";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 // import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 class Home extends Component {
