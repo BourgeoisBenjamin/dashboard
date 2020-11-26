@@ -18,8 +18,11 @@ import TwitterSearchTweetsForm from "./form-widgets/TwitterSearchTweetsForm";
 import TwitterLastTweetsForm from "./form-widgets/TwitterLastTweetsForm";
 import YoutubeStatisticsChannelForm from "./form-widgets/YoutubeStatisticsChannelForm";
 import YoutubeStatisticsVideoForm from "./form-widgets/YoutubeStatisticsVideoForm";
+import MenuContext from "../../../core/contexts/MenuContext";
 
 class WidgetForm extends Component {
+
+    static contextType = MenuContext;
 
     constructor(props) {
         super(props);
@@ -78,8 +81,21 @@ class WidgetForm extends Component {
                 availableService: availableServices
             })
 
-        }, () => {
-
+        }, (error) => {
+            if (error.response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                this.setState({
+                    styleMenu: {
+                        'margin-left': '-300px'
+                    },
+                    menuIsOpen: false,
+                    title: 'Home',
+                    visibilityBackground: 'hidden',
+                    opacityBackground: '0'
+                })
+                history.push('/');
+            }
         });
     }
 

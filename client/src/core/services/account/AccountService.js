@@ -111,7 +111,7 @@ class AccountService
                 this.userServices = res.data.data;
                 onSuccess();
             }).catch(error => {
-                onFailure();
+                onFailure(error);
         });
     }
 

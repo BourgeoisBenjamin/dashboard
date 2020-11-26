@@ -23,8 +23,7 @@ export default class WidgetService
                 });
                 onSuccess();
             }).catch(error => {
-                console.log(error);
-                onFailure();
+                onFailure(error);
         })
     }
 }
