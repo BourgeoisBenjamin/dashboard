@@ -4,12 +4,21 @@ import history from "../../../../history";
 import Service from './components/Service'
 import TwitterImage from '../../../../assets/images/twitter.png';
 import YoutubeImage from '../../../../assets/images/youtube.png';
+import SpotifyImage from '../../../../assets/images/spotify.png';
 import AccountService from "../../../../core/services/account/AccountService";
 import MenuContext from "../../../../core/contexts/MenuContext";
 
 const services = {
-    'twitter': function(connected, onClickConnect, onClickDisconnect) { return <Service onClickConnect={onClickConnect} onClickDisconnect={onClickDisconnect} connected={ connected } title="Twitter" logo={ TwitterImage }/> },
-    'youtube': function(connected, onClickConnect, onClickDisconnect) { return <Service onClickConnect={onClickConnect} onClickDisconnect={onClickDisconnect} connected={ connected } title="Youtube" logo={ YoutubeImage }/> }
+    'twitter': function(connected, onClickConnect, onClickDisconnect) {
+        return <Service onClickConnect={onClickConnect} onClickDisconnect={onClickDisconnect} connected={ connected } title="Twitter" logo={ TwitterImage }/>
+        },
+    'youtube': function(connected, onClickConnect, onClickDisconnect) {
+        return <Service onClickConnect={onClickConnect} onClickDisconnect={onClickDisconnect} connected={ connected } title="Youtube" logo={ YoutubeImage }/>
+        },
+    'spotify': function(connected, onClickConnect, onClickDisconnect) {
+        return <Service onClickConnect={onClickConnect} onClickDisconnect={onClickDisconnect} connected={connected}
+                        title="Spotify" logo={SpotifyImage}/>
+    }
 };
 
 class Services extends Component

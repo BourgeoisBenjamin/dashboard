@@ -1,7 +1,6 @@
 import {FormControl, InputAdornment, InputLabel, OutlinedInput} from "@material-ui/core";
 import React from "react";
 import DialpadIcon from '@material-ui/icons/Dialpad';
-import FormHelperText from "@material-ui/core/FormHelperText";
 
 export default function(props) {
     return (

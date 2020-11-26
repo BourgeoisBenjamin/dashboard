@@ -71,5 +71,11 @@ export let services = [
                 urlRequest: '/service/covid/summary-country/'
             }
         ]
+    },
+    {
+        name: 'Spotify',
+        url: '/home/widget/spotify/',
+        connected: true,
+        widgets: []
     }
 ];
