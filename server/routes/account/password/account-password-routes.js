@@ -1,11 +1,12 @@
-const router = require('express').Router();
-const pool = require('../../../services/postgresql');
-const KEYS = require('../../../config/keys');
-const https = require('https');
-const emailValidator = require('email-validator');
 const cryptoRandomString = require('crypto-random-string');
-const { v4: uuidv4 } = require('uuid');
+const JWTService = require('../../../services/JWTToken');
+const pool = require('../../../services/postgresql');
+const emailValidator = require('email-validator');
+const KEYS = require('../../../config/keys');
+const router = require('express').Router();
 const nodemailer = require('nodemailer');
+const { v4: uuidv4 } = require('uuid');
+const https = require('https');
 
 router.post('/lost', function(req, res) {
 
@@ -76,6 +77,33 @@ router.post('/reset', function(req, res) {
     password = password.trim();
 
     pool.getPool().query("UPDATE users SET reset_password = null, password = crypt($2, gen_salt('bf')) WHERE reset_password = $1 RETURNING id", [uuid_user, password], (err, result) => {
+        if (err) {
+            res.status(503);
+            res.json({message: "Service Unavailable"});
+            return;
+        } else if (result.rowCount === 0) {
+            res.status(400)
+            res.json({message: "User not found"});
+            return;
+        }
+        res.sendStatus(200);
+    });
+});
+
+router.put('/update', JWTService.authenticateToken, function(req, res) {
+
+    let old_password = req.body.old_password;
+    let new_password = req.body.new_password;
+
+    if (!new_password || !old_password) {
+        res.sendStatus(400);
+        return;
+    }
+    // Removed trailing space
+    old_password = old_password.trim();
+    new_password = new_password.trim();
+
+    pool.getPool().query("UPDATE users SET password = crypt($3, gen_salt('bf')) WHERE id = $1 AND password = crypt($2, password) RETURNING id", [req.user.user_id, old_password, new_password], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"});
