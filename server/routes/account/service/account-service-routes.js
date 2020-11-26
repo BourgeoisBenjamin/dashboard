@@ -59,68 +59,68 @@ router.get('/', JWTService.authenticateToken, function(req, res) {
             res.status(503);
             res.json({message: "Service Unavailable"})
         } else {
-            if (!result.rows.length)
+            if (result.rows.length === 0)
                 twitter_service.connected = false;
             else {
                 twitter_service.connected = result.rows[0].activate
             }
         }
-    })
-    pool.getPool().query("SELECT activate FROM youtube_service WHERE id_user = $1", [req.user.user_id], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"})
-        } else {
-            if (!result.rows.length)
-                youtube_service.connected = false;
-            else {
-                youtube_service.connected = result.rows[0].activate
+        pool.getPool().query("SELECT activate FROM youtube_service WHERE id_user = $1", [req.user.user_id], (err, result) => {
+            if (err) {
+                res.status(503);
+                res.json({message: "Service Unavailable"})
+            } else {
+                if (result.rows.length === 0)
+                    youtube_service.connected = false;
+                else {
+                    youtube_service.connected = result.rows[0].activate
+                }
             }
-        }
-    })
-    pool.getPool().query("SELECT activate FROM weather_service WHERE id_user = $1", [req.user.user_id], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"})
-        } else {
-            if (!result.rows.length)
-                weather_service.connected = false;
-            else {
-                weather_service.connected = result.rows[0].activate
-            }
-        }
-    })
-    pool.getPool().query("SELECT activate FROM spotify_service WHERE id_user = $1", [req.user.user_id], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"})
-        } else {
-            if (!result.rows.length)
-                spotify_service.connected = false;
-            else {
-                spotify_service.connected = result.rows[0].activate
-            }
-        }
-    })
-    pool.getPool().query("SELECT activate FROM covid_service WHERE id_user = $1", [req.user.user_id], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"})
-        } else {
-            if (!result.rows.length)
-                covid_service.connected = false;
-            else {
-                covid_service.connected = result.rows[0].activate
-            }
-            res.status(200)
-            const response = []
-            response.push(twitter_service)
-            response.push(youtube_service)
-            response.push(weather_service)
-            response.push(covid_service)
-            response.push(spotify_service)
-            res.json({data: response})
-        }
+            pool.getPool().query("SELECT activate FROM weather_service WHERE id_user = $1", [req.user.user_id], (err, result) => {
+                if (err) {
+                    res.status(503);
+                    res.json({message: "Service Unavailable"})
+                } else {
+                    if (result.rows.length === 0)
+                        weather_service.connected = false;
+                    else {
+                        weather_service.connected = result.rows[0].activate
+                    }
+                }
+                pool.getPool().query("SELECT activate FROM spotify_service WHERE id_user = $1", [req.user.user_id], (err, result) => {
+                    if (err) {
+                        res.status(503);
+                        res.json({message: "Service Unavailable"})
+                    } else {
+                        if (result.rows.length === 0)
+                            spotify_service.connected = false;
+                        else {
+                            spotify_service.connected = result.rows[0].activate
+                        }
+                    }
+                    pool.getPool().query("SELECT activate FROM covid_service WHERE id_user = $1", [req.user.user_id], (err, result) => {
+                        if (err) {
+                            res.status(503);
+                            res.json({message: "Service Unavailable"})
+                        } else {
+                            if (result.rows.length === 0)
+                                covid_service.connected = false;
+                            else {
+                                covid_service.connected = result.rows[0].activate
+                            }
+                            res.status(200)
+                            const response = []
+                            response.push(twitter_service)
+                            response.push(youtube_service)
+                            response.push(weather_service)
+                            response.push(covid_service)
+                            response.push(spotify_service)
+                            res.json({data: response})
+                        }
+                    })
+                })
+            })
+        })
     })
 });
 

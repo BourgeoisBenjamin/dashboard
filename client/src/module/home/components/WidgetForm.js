@@ -19,6 +19,9 @@ import TwitterLastTweetsForm from "./form-widgets/TwitterLastTweetsForm";
 import YoutubeStatisticsChannelForm from "./form-widgets/YoutubeStatisticsChannelForm";
 import YoutubeStatisticsVideoForm from "./form-widgets/YoutubeStatisticsVideoForm";
 import MenuContext from "../../../core/contexts/MenuContext";
+import SpotifyTopTracksUserForm from "./form-widgets/SpotifyTopTracksUserForm";
+import SpotifyTopArtistsUserForm from "./form-widgets/SpotifyTopArtistsUserForm";
+import SpotifyRecentlyPlayedTracksUserForm from "./form-widgets/SpotifyRecentlyPlayedTracksUserForm";
 
 class WidgetForm extends Component {
 
@@ -206,6 +209,9 @@ class WidgetForm extends Component {
                             <Route path={'/home/widget/youtube/statistics-video/'} render={() => <YoutubeStatisticsVideoForm parentState={this.state} onClickUpdate={this.props.onUpdateWidget}  />}/>
                             <Route path={'/home/widget/youtube/comments-video/'} render={() => <YoutubeCommentsVideoForm parentState={this.state} onClickUpdate={this.props.onUpdateWidget}  />}/>
                             <Route path={'/home/widget/youtube/channel-videos/'} render={() => <YoutubeChannelVideoForm parentState={this.state} onClickUpdate={this.props.onUpdateWidget}  />}/>
+                            <Route path={'/home/widget/spotify/top-tracks-user/'} render={() => <SpotifyTopTracksUserForm parentState={this.state} onClickUpdate={this.props.onUpdateWidget}  />}/>
+                            <Route path={'/home/widget/spotify/top-artists-user/'} render={() => <SpotifyTopArtistsUserForm parentState={this.state} onClickUpdate={this.props.onUpdateWidget}  />}/>
+                            <Route path={'/home/widget/spotify/recently-played-tracks-user/'} render={() => <SpotifyRecentlyPlayedTracksUserForm parentState={this.state} onClickUpdate={this.props.onUpdateWidget}  />}/>
                         </Switch>
                         <div class="widget-button" style={{ display: this.props.isAnUpdate ? 'none' : 'block' }}>
                             <BasicButton onClick={this.handleAddWidgetClick} name="Add widget" loaderSize={50} display={this.state.displayLoader}/>

@@ -12,16 +12,18 @@
 #services .content
 {
     display: flex;
-    margin-top: 100px;
+    flex-wrap: wrap;
     justify-content: center;
+    margin-top: 100px;
 }
 
 #services .service
 {
+    margin-bottom: 100px;
     margin-left: 50px;
     margin-right: 50px;
     padding-top: 40px;
-    width: 400px;
+    min-width: 400px;
     padding-bottom: 40px;
     box-shadow: 5px 5px 20px 5px grey;
 }

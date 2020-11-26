@@ -1,5 +1,3 @@
-import ChannelVideosModelRequest from "../../../models/services/youtube/request/ChannelVideosModel";
-import ChannelVideosModelResponse from "../../../models/services/youtube/response/ChannelVideosModel";
 import axios from "axios";
 import TopTracksUserModelRequest from "../../../models/services/spotify/request/TopTracksUserModel";
 import TopTracksUserModelResponse from "../../../models/services/spotify/response/TopTracksUserModel";
@@ -12,7 +10,7 @@ export default class SpotifyTopTracksUserService
         }
     }
 
-    url = 'http://localhost:8080/service/service/top-tracks-user/'
+    url = 'http://localhost:8080/service/spotify/top-tracks-user/'
 
     constructor()
     {

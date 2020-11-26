@@ -93,3 +93,9 @@
 {
     margin-top: 100px;
 }
+
+#widget-form .widget-form .MuiSelect-select
+{
+    text-align: left;
+    padding: 15px;
+}

@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {FiSettings} from "react-icons/fi";
 import './CovidCountryCase.css'
 import history from "../../../../history";
 import LastTweetsModel from "../../../../core/models/services/twitter/response/LastTweetsModel";
@@ -7,7 +6,6 @@ import TwitterService from "../../../../core/services/services/TwitterService";
 import LikeImage from '../../../../assets/images/like.png'
 import RetweetImage from '../../../../assets/images/retweet.png'
 import './TwitterLastTweets.css'
-import {VscRefresh} from "react-icons/vsc";
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";

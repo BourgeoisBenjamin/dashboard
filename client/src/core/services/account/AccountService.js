@@ -164,6 +164,16 @@ class AccountService
         });
     }
 
+    disconnectSpotify(onSuccess, onFailure)
+    {
+        axios.post(`http://localhost:8080/account/service/spotify/disconnect`, null, this.header)
+            .then(res => {
+                onSuccess();
+            }).catch(error => {
+            onFailure();
+        });
+    }
+
     getUsername()
     {
         return this.model.username;

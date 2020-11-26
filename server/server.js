@@ -78,7 +78,10 @@ app.get('/user/widgets', JWTService.authenticateToken, (req, res) => {
         SELECT id, 'Channels videos youtube' AS NAME FROM channel_videos_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1) UNION
         SELECT id, 'Comments video youtube' AS NAME FROM comments_video_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1) UNION
         SELECT id, 'Statistics video youtube' AS NAME FROM statistics_video_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1) UNION
-        SELECT id, 'Statistics channel youtube' AS NAME FROM statistics_channel_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1)
+        SELECT id, 'Statistics channel youtube' AS NAME FROM statistics_channel_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1) UNION
+        SELECT id, 'Top tracks user spotify' AS NAME FROM top_tracks_user_spotify WHERE activate=true AND id_spotify_service=(SELECT id FROM spotify_service WHERE id_user = $1) UNION
+        SELECT id, 'Top artists user spotify' AS NAME FROM top_artists_user_spotify WHERE activate=true AND id_spotify_service=(SELECT id FROM spotify_service WHERE id_user = $1) UNION
+        SELECT id, 'Recently played tracks user spotify' AS NAME FROM recently_played_tracks_user_spotify WHERE activate=true AND id_spotify_service=(SELECT id FROM spotify_service WHERE id_user = $1)
     `;
 
     pool.getPool().query(request, [req.user.user_id], (err, result) => {

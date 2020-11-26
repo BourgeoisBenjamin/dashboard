@@ -10,7 +10,7 @@ export default class SpotifyTopArtistsUserService
         }
     }
 
-    url = 'http://localhost:8080/service/service/top-artists-user/'
+    url = 'http://localhost:8080/service/spotify/top-artists-user/'
 
     constructor()
     {

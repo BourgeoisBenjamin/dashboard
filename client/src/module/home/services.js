@@ -76,6 +76,19 @@ export let services = [
         name: 'Spotify',
         url: '/home/widget/spotify/',
         connected: true,
-        widgets: []
+        widgets: [
+            {
+                name: 'Top tracks user',
+                urlClient: '/home/widget/spotify/top-tracks-user/',
+            },
+            {
+                name: 'Top artists user',
+                urlClient: '/home/widget/spotify/top-artists-user/',
+            },
+            {
+                name: 'Recently played tracks user',
+                urlClient: '/home/widget/spotify/recently-played-tracks-user/',
+            }
+        ]
     }
 ];
