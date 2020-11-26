@@ -42,7 +42,6 @@ class SpotifyRecentlyPlayedTracksUser extends Component
             errorAppear: false
         });
         this.service.get(this.props.id, () => {
-            console.log(this.service.getResponseModel())
             this.setState({
                 model: this.service.getResponseModel(),
                 isLoading: false
@@ -65,6 +64,8 @@ class SpotifyRecentlyPlayedTracksUser extends Component
     }
 
     render() {
+        const tracks = this.initTracks();
+
         return (
             <div id="spotify-recently-played-tracks-user">
                 <div className="content">
@@ -77,12 +78,31 @@ class SpotifyRecentlyPlayedTracksUser extends Component
                     />
                 </div>
                 <div className="core" style={{ display: (this.state.isLoading || this.state.errorAppear ? 'none' : 'block' ) }}>
-
+                    {tracks}
                 </div>
                 <WidgetLoader isLoading={this.state.isLoading} />
                 <WidgetError appear={this.state.errorAppear} message={this.state.errorMessage} />
             </div>
         );
+    }
+
+    initTracks()
+    {
+        let tracks = [];
+
+        this.state.model.data.forEach((d) => {
+            tracks.push(
+                <div className="track">
+                    <div className="song">
+                        <iframe
+                            src={"https://open.spotify.com/embed/album/" + d.track.album.id} width="300" height="151"
+                                frameBorder="0" allowTransparency="true" allow="encrypted-media">
+                        </iframe>
+                    </div>
+                </div>
+            );
+        });
+        return tracks;
     }
 
     onClickDelete()

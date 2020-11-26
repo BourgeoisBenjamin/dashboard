@@ -18,3 +18,16 @@
 {
     background-color: #7AD768;
 }
+
+#spotify-recently-played-tracks-user .core
+{
+    text-align: center;
+    padding-bottom: 50px;
+    height: 340px;
+    overflow-y: auto;
+}
+
+#spotify-recently-played-tracks-user .core iframe
+{
+    margin-top: 50px;
+}

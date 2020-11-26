@@ -308,6 +308,7 @@ router.get('/spotify/recently-played-tracks-user/:id_widget', JWTService.authent
                         res.status(200);
                         res.json(recentlyPlayedTracks)
                     }, function(err) {
+                        console.log(err);
                         res.status(503)
                         res.json({message: "Service Unavailable"});
                     });
