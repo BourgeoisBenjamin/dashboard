@@ -29,7 +29,7 @@ class AccountService
                 Object.assign(this.model, res.data);
                 onSuccess();
             }).catch(error => {
-                onFailure();
+                onFailure(error);
         })
     }
 
@@ -94,7 +94,7 @@ class AccountService
             .then(res => {
                 onSuccess();
             }).catch(error => {
-                onFailure();
+                onFailure(error);
         });
     }
 
@@ -111,7 +111,7 @@ class AccountService
                 this.userServices = res.data.data;
                 onSuccess();
             }).catch(error => {
-                onFailure();
+                onFailure(error);
         });
     }
 

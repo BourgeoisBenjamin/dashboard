@@ -1,9 +1,11 @@
 import React, {Component} from "react";
 import './Services.css'
+import history from "../../../../history";
 import Service from './components/Service'
 import TwitterImage from '../../../../assets/images/twitter.png';
 import YoutubeImage from '../../../../assets/images/youtube.png';
 import AccountService from "../../../../core/services/account/AccountService";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 const services = {
     'twitter': function(connected, onClickConnect, onClickDisconnect) { return <Service onClickConnect={onClickConnect} onClickDisconnect={onClickDisconnect} connected={ connected } title="Twitter" logo={ TwitterImage }/> },
@@ -12,6 +14,9 @@ const services = {
 
 class Services extends Component
 {
+
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 
@@ -73,8 +78,21 @@ class Services extends Component
                 data: this.service.getUserServicesData()
             });
             console.log(this.service.getUserServicesData());
-        }, () => {
-
+        }, (error) => {
+            if (error.response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                this.setState({
+                    styleMenu: {
+                        'margin-left': '-300px'
+                    },
+                    menuIsOpen: false,
+                    title: 'Home',
+                    visibilityBackground: 'hidden',
+                    opacityBackground: '0'
+                })
+                history.push('/');
+            }
         });
     }
 

@@ -62,7 +62,22 @@ class Home extends Component {
             this.state.getWidgetData.forEach((w) => {
                 w();
             });
-        }, () => {});
+        }, (error) => {
+            if (error.response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                this.setState({
+                    styleMenu: {
+                        'margin-left': '-300px'
+                    },
+                    menuIsOpen: false,
+                    title: 'Home',
+                    visibilityBackground: 'hidden',
+                    opacityBackground: '0'
+                })
+                history.push('/');
+            }
+        });
     }
 
     componentDidMount()

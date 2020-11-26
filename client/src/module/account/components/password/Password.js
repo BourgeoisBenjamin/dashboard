@@ -1,13 +1,18 @@
 import React, {Component} from "react";
 import './Password.css'
+import history from "../../../../history";
 import BasicButton from "../../../../shared/components/buttons/BasicButton";
 import PasswordInput from "../../../../shared/components/inputs/PasswordInput";
 import SuccessDialog from "../../../../shared/components/dialogs/SuccessDialog";
 import ErrorDialog from "../../../../shared/components/dialogs/ErrorDialog";
 import AccountService from "../../../../core/services/account/AccountService";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class Password extends Component
 {
+
+    static contextType = MenuContext;
+
     constructor(props)
     {
         super(props);
@@ -50,7 +55,21 @@ class Password extends Component
             this.displayLoaderButtonUpdate(false);
             this.displayDialog('success', 'Password change');
             this.resetInput();
-        }, () => {
+        }, (error) => {
+            if (error.response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                this.setState({
+                    styleMenu: {
+                        'margin-left': '-300px'
+                    },
+                    menuIsOpen: false,
+                    title: 'Home',
+                    visibilityBackground: 'hidden',
+                    opacityBackground: '0'
+                })
+                history.push('/');
+            }
             this.displayLoaderButtonUpdate(false);
             this.displayDialog('error', 'Error when changing password');
         })
