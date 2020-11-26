@@ -1,24 +1,25 @@
 import React, {Component} from "react";
+import TopTracksUserModel from "../../../../core/models/services/spotify/response/TopTracksUserModel";
+import SpotifyTopTracksUserService from "../../../../core/services/services/spotify/SpotifyTopTracksUserService";
 import history from "../../../../history";
 import WidgetHeader from "../widget-header/WidgetHeader";
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
-import SpotifyTopTracksUserService from "../../../../core/services/services/spotify/SpotifyTopTracksUserService";
-import TopTracksUserModel from "../../../../core/models/services/spotify/response/TopTracksUserModel";
-import './SpotifyTopTracksUser.css'
+import TopArtistsUserModel from "../../../../core/models/services/spotify/response/TopArtistsUserModel";
+import SpotifyTopArtistsUserService from "../../../../core/services/services/spotify/SpotifyTopArtistsUserService";
 
-class SpotifyTopTracksUser extends Component
+class SpotifyTopArtistsUser extends Component
 {
     constructor(props) {
         super(props);
 
         this.state = {
-            model: new TopTracksUserModel(),
+            model: new TopArtistsUserModel(),
             isLoading: false,
             errorMessage: '',
             errorAppear: false
         }
-        this.service = new SpotifyTopTracksUserService();
+        this.service = new SpotifyTopArtistsUserService();
 
         this.onClickParameters = this.onClickParameters.bind(this);
         this.onClickRefresh = this.onClickRefresh.bind(this);
@@ -58,7 +59,7 @@ class SpotifyTopTracksUser extends Component
     onClickParameters()
     {
         history.push({
-            pathname: '/home/widget/spotify/top-tracks-user/',
+            pathname: '/home/widget/spotify/top-artists-user/',
             search: '?id=' + this.props.id
         })
     }
@@ -69,7 +70,7 @@ class SpotifyTopTracksUser extends Component
                 <div className="content">
                     <WidgetHeader
                         mainTitle="Spotify"
-                        secondTitle="Top tracks user"
+                        secondTitle="Top artists user"
                         onClickRefresh={this.onClickRefresh}
                         onClickDelete={this.onClickDelete}
                         onClickSettings={this.onClickParameters}
@@ -98,4 +99,4 @@ class SpotifyTopTracksUser extends Component
     }
 }
 
-export default SpotifyTopTracksUser;
+export default SpotifyTopArtistsUser;

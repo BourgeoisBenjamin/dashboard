@@ -80,7 +80,7 @@ class Services extends Component
 
             });
         } else if (title === 'Spotify') {
-            this.service.disconnectGoogle(() => {
+            this.service.disconnectSpotify(() => {
                 this.getUserServices();
             }, () => {
 
