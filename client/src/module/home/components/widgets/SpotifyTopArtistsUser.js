@@ -1,12 +1,11 @@
 import React, {Component} from "react";
-import TopTracksUserModel from "../../../../core/models/services/spotify/response/TopTracksUserModel";
-import SpotifyTopTracksUserService from "../../../../core/services/services/spotify/SpotifyTopTracksUserService";
 import history from "../../../../history";
 import WidgetHeader from "../widget-header/WidgetHeader";
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import TopArtistsUserModel from "../../../../core/models/services/spotify/response/TopArtistsUserModel";
 import SpotifyTopArtistsUserService from "../../../../core/services/services/spotify/SpotifyTopArtistsUserService";
+import './SpotifyTopArtistsUser.css'
 
 class SpotifyTopArtistsUser extends Component
 {
@@ -66,7 +65,7 @@ class SpotifyTopArtistsUser extends Component
 
     render() {
         return (
-            <div id="spotify-top-tracks-user">
+            <div id="spotify-top-artists-user">
                 <div className="content">
                     <WidgetHeader
                         mainTitle="Spotify"
