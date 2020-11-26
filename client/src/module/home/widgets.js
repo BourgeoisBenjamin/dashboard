@@ -10,6 +10,7 @@ import YoutubeStatisticsVideo from "./components/widgets/YoutubeStatisticsVideo"
 import YoutubeStatisticsChannel from "./components/widgets/YoutubeStatisticsChannel";
 import SpotifyTopTracksUser from "./components/widgets/SpotifyTopTracksUser";
 import SpotifyTopArtistsUser from "./components/widgets/SpotifyTopArtistsUser";
+import SpotifyRecentlyPlayedTracksUser from "./components/widgets/SpotifyRecentlyPlayedTracksUser";
 
 export const widgets = {
     'City meteo weather': function (id, index, parentState, onClickDelete) { return (
@@ -46,6 +47,6 @@ export const widgets = {
         <SpotifyTopArtistsUser id={id} parentState={parentState} onClickDelete={onClickDelete}/>
     )},
     'Recently played tracks user spotify': function (id, index, parentState, onClickDelete) { return (
-        <SpotifyTopTracksUser id={id} parentState={parentState} onClickDelete={onClickDelete}/>
+        <SpotifyRecentlyPlayedTracksUser id={id} parentState={parentState} onClickDelete={onClickDelete}/>
     )}
 };

@@ -22,6 +22,7 @@ export default class SpotifyRecentlyPlayedTracksUserService
     {
         axios.get(this.url + idWidget, this.header)
             .then(res => {
+                this.responseModel.data = [];
                 Object.assign(this.responseModel.data, res.data);
                 onSuccess();
             }).catch(error => {

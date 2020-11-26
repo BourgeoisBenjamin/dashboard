@@ -1,16 +1,103 @@
 import React, {Component} from "react";
 import NumberInput from "../../../../shared/components/inputs/NumberInput";
+import queryString from "query-string";
+import RecentlyPlayedTracksUserModel
+    from "../../../../core/models/services/spotify/request/RecentlyPlayedTracksUserModel";
+import SpotifyRecentlyPlayedTracksUserService
+    from "../../../../core/services/services/spotify/SpotifyRecentlyPlayedTracksUserService";
 
 class SpotifyRecentlyPlayedTracksUserForm extends Component
 {
+    constructor(props) {
+        super(props);
+
+        this.service = new SpotifyRecentlyPlayedTracksUserService();
+
+        this.state = {
+            limitTracks: ''
+        }
+        this.props.parentState.setOnClickAddWidget((onSuccess, onFailure) => {
+            this.onClickAddWidget(onSuccess, onFailure);
+        })
+        this.props.parentState.setOnClickUpdateWidget((onSuccess, onFailure) => {
+            this.onClickUpdateWidget(onSuccess, onFailure);
+        })
+
+        this.handleLimitTracksChange = this.handleLimitTracksChange.bind(this);
+
+        this.getWidgetData();
+    }
+
+    onClickUpdateWidget(onSuccess, onFailure)
+    {
+        let params = queryString.parse(window.location.search);
+        let model = new RecentlyPlayedTracksUserModel();
+
+        model.limit_tracks = parseInt(this.state.limitTracks);
+
+        this.props.parentState.setDisplayLoader(true);
+
+        this.service.put(model, params.id, () => {
+            this.props.parentState.setDisplayLoader(false);
+            onSuccess();
+            this.props.onClickUpdate();
+        }, () => {
+            this.props.parentState.setDisplayLoader(false);
+            onFailure();
+        });
+    }
+
+    onClickAddWidget(onSuccess, onFailure)
+    {
+        let model = new RecentlyPlayedTracksUserModel();
+
+        model.limit_tracks = parseInt(this.state.limitTracks);
+
+        this.props.parentState.setDisplayLoader(true);
+
+        this.service.post(model, () => {
+            this.props.parentState.setDisplayLoader(false);
+            onSuccess();
+            this.props.onClickUpdate();
+        }, () => {
+            this.props.parentState.setDisplayLoader(false);
+            onFailure();
+        });
+    }
+
+    getWidgetData()
+    {
+        let params = queryString.parse(window.location.search);
+
+        if (params.id) {
+            this.service.getParams(params.id, () => {
+                this.setState({
+                    limitTracks: this.service.getRequestModel().limit_tracks
+                })
+            }, () => {
+
+            });
+        }
+    }
+
     render() {
         return (
-            <div class="widget-form">
+            <div className="widget-form">
                 <div className="input-parameters">
-                    <NumberInput name="Number tweets" value={this.state.numberTweets} onChange={this.handleNumberTweetsChange} />
+                    <NumberInput name="Limit tracks" value={this.state.limitTracks}
+                                 onChange={this.handleLimitTracksChange}/>
                 </div>
             </div>
         );
+    }
+
+    handleLimitTracksChange(e)
+    {
+        if (!isNaN(e.target.value)) {
+            this.setState({
+                limitTracks: e.target.value
+            })
+        }
     }
 }
 

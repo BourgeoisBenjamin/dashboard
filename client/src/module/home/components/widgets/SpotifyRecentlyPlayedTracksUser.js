@@ -3,22 +3,23 @@ import history from "../../../../history";
 import WidgetHeader from "../widget-header/WidgetHeader";
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
-import TopArtistsUserModel from "../../../../core/models/services/spotify/response/TopArtistsUserModel";
-import SpotifyTopArtistsUserService from "../../../../core/services/services/spotify/SpotifyTopArtistsUserService";
-import './SpotifyTopArtistsUser.css'
+import './SpotifyRecentlyPlayedTracksUser.css'
+import RecentlyPlayedTracksUserModel from "../../../../core/models/services/spotify/response/RecentlyPlayedTracksUserModel";
+import SpotifyRecentlyPlayedTracksUserService
+    from "../../../../core/services/services/spotify/SpotifyRecentlyPlayedTracksUserService";
 
-class SpotifyTopArtistsUser extends Component
+class SpotifyRecentlyPlayedTracksUser extends Component
 {
     constructor(props) {
         super(props);
 
         this.state = {
-            model: new TopArtistsUserModel(),
+            model: new RecentlyPlayedTracksUserModel(),
             isLoading: false,
             errorMessage: '',
             errorAppear: false
         }
-        this.service = new SpotifyTopArtistsUserService();
+        this.service = new SpotifyRecentlyPlayedTracksUserService();
 
         this.onClickParameters = this.onClickParameters.bind(this);
         this.onClickRefresh = this.onClickRefresh.bind(this);
@@ -58,27 +59,27 @@ class SpotifyTopArtistsUser extends Component
     onClickParameters()
     {
         history.push({
-            pathname: '/home/widget/spotify/top-artists-user/',
+            pathname: '/home/widget/spotify/recently-played-tracks-user/',
             search: '?id=' + this.props.id
         })
     }
 
     render() {
-        const artists = this.initArtists();
+        const tracks = this.initTracks();
 
         return (
-            <div id="spotify-top-artists-user">
+            <div id="spotify-recently-played-tracks-user">
                 <div className="content">
                     <WidgetHeader
                         mainTitle="Spotify"
-                        secondTitle="Top artists user"
+                        secondTitle="Recently played tracks"
                         onClickRefresh={this.onClickRefresh}
                         onClickDelete={this.onClickDelete}
                         onClickSettings={this.onClickParameters}
                     />
                 </div>
                 <div className="core" style={{ display: (this.state.isLoading || this.state.errorAppear ? 'none' : 'block' ) }}>
-                    {artists}
+                    {tracks}
                 </div>
                 <WidgetLoader isLoading={this.state.isLoading} />
                 <WidgetError appear={this.state.errorAppear} message={this.state.errorMessage} />
@@ -86,55 +87,23 @@ class SpotifyTopArtistsUser extends Component
         );
     }
 
-    initArtists()
+    initTracks()
     {
-        let artists = [];
-        let i = 1;
+        let tracks = [];
 
         this.state.model.data.forEach((d) => {
-            const genres = this.initGenres(d.genres);
-
-            artists.push(
-                <div className="artist">
-                    <div className="first-content">
-                        <div className="position">
-                            <p>{i}</p>
-                        </div>
-                        <div className="image-profile">
-                            <img alt="" src={d.images[0].url} />
-                        </div>
-                        <div className="name">
-                            <p>{d.name}</p>
-                        </div>
-                        <div className="followers">
-                            <p>{d.followers.total} followers</p>
-                        </div>
-                    </div>
-                    <div className="genres">
-                        {genres}
-                    </div>
-                    <hr/>
-                </div>
-            );
-            i++;
-        });
-        return artists;
-    }
-
-    initGenres(gnr)
-    {
-        let genres = [];
-
-        gnr.forEach((g) => {
-            genres.push(
-                <div className="genre">
-                    <div className="text">
-                        <p>{g}</p>
+            tracks.push(
+                <div className="track">
+                    <div className="song">
+                        <iframe
+                            src={"https://open.spotify.com/embed/track/" + d.track.id} width="300" height="90"
+                                frameBorder="0" allowTransparency="true" allow="encrypted-media">
+                        </iframe>
                     </div>
                 </div>
             );
         });
-        return genres;
+        return tracks;
     }
 
     onClickDelete()
@@ -151,4 +120,4 @@ class SpotifyTopArtistsUser extends Component
     }
 }
 
-export default SpotifyTopArtistsUser;
+export default SpotifyRecentlyPlayedTracksUser;

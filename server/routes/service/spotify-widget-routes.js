@@ -308,6 +308,7 @@ router.get('/spotify/recently-played-tracks-user/:id_widget', JWTService.authent
                         res.status(200);
                         res.json(recentlyPlayedTracks)
                     }, function(err) {
+                        console.log(err);
                         res.status(503)
                         res.json({message: "Service Unavailable"});
                     });
@@ -324,7 +325,7 @@ router.post('/spotify/recently-played-tracks-user/', JWTService.authenticateToke
         return;
     }
 
-    pool.getPool().query("INSERT INTO recently_played_tracks_user_spotify (id_spotify_service, activate, limit_tracks) VALUES ((SELECT id FROM spotify_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.body.activated, req.body.limit_artists], (err, result) => {
+    pool.getPool().query("INSERT INTO recently_played_tracks_user_spotify (id_spotify_service, activate, limit_tracks) VALUES ((SELECT id FROM spotify_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.body.activated, req.body.limit_tracks], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"});

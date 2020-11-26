@@ -18,3 +18,43 @@
 {
     background-color: #7AD768;
 }
+
+#spotify-top-tracks-user .core
+{
+    height: 340px;
+    overflow-y: auto;
+}
+
+#spotify-top-tracks-user .core .track
+{
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    transition: 0.5s;
+}
+
+#spotify-top-tracks-user .core .track:hover
+{
+    background-color: #9fe791;
+}
+
+#spotify-top-tracks-user .core .track .position
+{
+    margin-inline: 10px;
+}
+
+#spotify-top-tracks-user .core .track .name
+{
+    margin-inline: 10px;
+}
+
+#spotify-top-tracks-user .core .track img
+{
+    height: 40px;
+}
+
+#spotify-top-tracks-user .core .track p
+{
+    margin-bottom: 0;
+}

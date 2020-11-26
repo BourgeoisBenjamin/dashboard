@@ -64,6 +64,8 @@ class SpotifyTopTracksUser extends Component
     }
 
     render() {
+        const tracks = this.initTracks();
+
         return (
             <div id="spotify-top-tracks-user">
                 <div className="content">
@@ -76,12 +78,36 @@ class SpotifyTopTracksUser extends Component
                     />
                 </div>
                 <div className="core" style={{ display: (this.state.isLoading || this.state.errorAppear ? 'none' : 'block' ) }}>
-
+                    {tracks}
                 </div>
                 <WidgetLoader isLoading={this.state.isLoading} />
                 <WidgetError appear={this.state.errorAppear} message={this.state.errorMessage} />
             </div>
         );
+    }
+
+    initTracks()
+    {
+        let tracks = [];
+        let i = 1;
+
+        this.state.model.data.forEach((d) => {
+            tracks.push(
+                <div className="track" onClick={() => {window.open(d.external_urls.spotify, "_blank")}}>
+                    <div className="position">
+                        <p>{i}</p>
+                    </div>
+                    <div className="album-image">
+                        <img alt="" src={d.album.images[0].url} />
+                    </div>
+                    <div className="name">
+                        <p>{d.name} - {d.artists[0].name}</p>
+                    </div>
+                </div>
+            );
+            i++;
+        });
+        return tracks;
     }
 
     onClickDelete()
