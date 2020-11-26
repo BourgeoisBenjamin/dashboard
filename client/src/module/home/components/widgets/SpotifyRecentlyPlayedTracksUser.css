@@ -1,0 +1,20 @@
+#spotify-recently-played-tracks-user
+{
+    margin-left: 100px;
+    height: 400px;
+    width: 400px;
+    box-shadow: 2px 2px 4px 3px grey;
+    margin-top: 100px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+#spotify-recently-played-tracks-user:hover
+{
+    box-shadow: 2px 2px 10px 3px grey;
+}
+
+#spotify-recently-played-tracks-user:hover .widget-header
+{
+    background-color: #7AD768;
+}

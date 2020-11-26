@@ -62,7 +62,7 @@ class Home extends Component {
                 w();
             });
         }, (error) => {
-            if (error.response.status === 403) {
+            if (error.response?.status === 403) {
                 localStorage.removeItem('JWTToken');
                 this.context.setShowMenu('none');
                 this.setState({
