@@ -91,7 +91,15 @@ class YoutubeChannelVideo extends Component
             videos.push(
                 <div className="video">
                     <div className="image">
-                        <img src={d.snippet?.thumbnails.high.url} alt="" />
+                        <iframe
+                            width="260"
+                            height="200"
+                            src={"https://www.youtube.com/embed/" + d.id.videoId}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        >
+                        </iframe>
                     </div>
                     <div className="title">
                         <p>{d.snippet.title}</p>

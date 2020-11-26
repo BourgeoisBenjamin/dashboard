@@ -1,0 +1,95 @@
+#youtube-comments-video
+{
+    margin-left: 100px;
+    height: 400px;
+    width: 400px;
+    box-shadow: 2px 2px 4px 3px grey;
+    margin-top: 100px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+#youtube-comments-video:hover
+{
+    box-shadow: 2px 2px 10px 3px grey;
+}
+
+#youtube-comments-video:hover .widget-header
+{
+    background-color: #ED4E20;
+}
+
+#youtube-comments-video .core
+{
+    height: 340px;
+    overflow-y: auto;
+}
+
+#youtube-comments-video .comment
+{
+    margin-top: 40px;
+    padding-inline: 20px;
+}
+
+#youtube-comments-video .comment .comment-content
+{
+    display: flex;
+}
+
+#youtube-comments-video .comment .comment-content .image-profile img
+{
+    border-radius: 100px;
+}
+
+#youtube-comments-video .comment .comment-content .text-date
+{
+    margin-left: 15px;
+}
+
+#youtube-comments-video .comment .comment-content .text-date .date
+{
+    font-size: 12px;
+    color: grey;
+    font-style: italic;
+}
+
+#youtube-comments-video .comment .stats img
+{
+    height: 25px;
+}
+
+#youtube-comments-video .comment .core-stats
+{
+    display: flex;
+    margin-left: auto;
+    justify-content: flex-end;
+}
+
+#youtube-comments-video .comment .core-stats p
+{
+    margin-bottom: 0;
+}
+
+#youtube-comments-video .comment .core-stats .comment-count
+{
+    display: flex;
+    align-items: center;
+    margin-right: 50px;
+}
+
+#youtube-comments-video .comment .core-stats .comment-count .logo
+{
+    margin-right: 10px;
+}
+
+#youtube-comments-video .comment .core-stats .like-count
+{
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+#youtube-comments-video .comment .core-stats .like-count .logo
+{
+    margin-right: 10px;
+}
