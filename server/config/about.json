@@ -161,6 +161,16 @@
                         "type":"string"
                      }
                   ]
+               },
+               {
+                  "name":"recently-played-tracks-user",
+                  "description":"Display N recently played tracks by the user",
+                  "params":[
+                     {
+                        "name":"limit_tracks",
+                        "type":"integer"
+                     }
+                  ]
                }
             ]
          }
