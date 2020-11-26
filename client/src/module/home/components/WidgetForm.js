@@ -72,9 +72,7 @@ class WidgetForm extends Component {
                 let s = services.find(service => service.name.toLowerCase() === d.service_name);
                 if (s) {
                     s.connected = d.connected;
-                    if (s.connected) {
-                        availableServices.push(s);
-                    }
+                    availableServices.push(s);
                 }
             });
             this.setState({
@@ -179,7 +177,8 @@ class WidgetForm extends Component {
                                     }
                                     return selected;
                                 }}
-                                name="Select a service" arrayKey="name" arrayValue="name" array={this.state.availableService}
+                                name="Select a service" arrayKey="name" arrayValue="name" arrayValueNotDisabled="connected" array={this.state.availableService}
+                                messageOnValueDisabled="Connect this service in your account settings to use it"
                             />
                         </div>
                         <div className="widget-input input">
