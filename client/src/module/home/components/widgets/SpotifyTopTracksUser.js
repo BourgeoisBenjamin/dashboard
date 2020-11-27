@@ -14,7 +14,7 @@ class SpotifyTopTracksUser extends Component
 
         this.state = {
             model: new TopTracksUserModel(),
-            isLoading: false,
+            isLoading: true,
             errorMessage: '',
             errorAppear: false
         }

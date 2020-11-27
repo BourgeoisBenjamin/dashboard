@@ -18,7 +18,7 @@ class CovidCountryCase extends Component
 
         this.state = {
             model: new CountryCaseModel(),
-            isLoading: false,
+            isLoading: true,
             errorMessage: '',
             errorAppear: false
         }

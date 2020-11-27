@@ -22,7 +22,7 @@ class CovidSummaryCountry extends Component
 
         this.state = {
             model: new SummaryCountryModel(),
-            isLoading: false,
+            isLoading: true,
             errorMessage: '',
             errorAppear: false
         }

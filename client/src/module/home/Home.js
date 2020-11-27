@@ -8,7 +8,31 @@ import {services} from "./services";
 import WidgetService from "../../core/services/widget/WidgetService";
 import {widgets} from "./widgets";
 import queryString from "query-string";
+import {Draggable, DragDropContext} from "react-beautiful-dnd";
+import {Droppable} from "react-beautiful-dnd";
 // import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
+const move = (source, destination, droppableSource, droppableDestination) => {
+    const sourceClone = Array.from(source);
+    const destClone = Array.from(destination);
+    const [removed] = sourceClone.splice(droppableSource.index, 1);
+
+    destClone.splice(droppableDestination.index, 0, removed);
+
+    const result = {};
+    result[droppableSource.droppableId] = sourceClone;
+    result[droppableDestination.droppableId] = destClone;
+
+    return result;
+};
+
+const reorder = (list, startIndex, endIndex) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
+};
 
 class Home extends Component {
 
@@ -20,7 +44,7 @@ class Home extends Component {
         this.widgetService = new WidgetService();
 
         this.state = {
-            widgets: [],
+            widgets: [[]],
             getWidgetData: [],
 
             setGetWidgetData: (newArray) => {
@@ -36,25 +60,39 @@ class Home extends Component {
 
         this.handleNewWidgetClick = this.handleNewWidgetClick.bind(this);
         this.getUserWidgets = this.getUserWidgets.bind(this);
+        this.onDragEnd = this.onDragEnd.bind(this);
         this.getUserWidgets();
     }
 
     getUserWidgets()
     {
-        console.log('coucou')
         this.widgetService.getUserWidgets(() => {
             let widgetsTmp = [];
 
+            widgetsTmp[0] = [];
+            widgetsTmp[1] = [];
+            widgetsTmp[2] = [];
+            widgetsTmp[3] = [];
+
             console.log(this.widgetService.data);
 
-            let i = 1
+            let i = 1;
 
             this.widgetService.data.forEach((d) => {
                 if (widgets[d.name]) {
-                    widgetsTmp.unshift(widgets[d.name](d.id, i, this.state, this.getUserWidgets));
+                    // widgetsTmp[i - 1] = [];
+                    widgetsTmp[i - 1].unshift({
+                        id: `item-${i -1}-${new Date().getTime()}`,
+                        content: widgets[d.name](d.id, i, this.state, this.getUserWidgets)
+                    });
+                    console.log(widgetsTmp);
                     i++;
                 }
             });
+            widgetsTmp.forEach((d) => {
+                console.log(d);
+            })
+            // console.log(widgetsTmp)
             this.setState({
                 widgets: widgetsTmp
             })
@@ -89,6 +127,34 @@ class Home extends Component {
         history.push('/home/widget/')
     }
 
+    onDragEnd(result) {
+        const { source, destination } = result;
+
+        // dropped outside the list
+        if (!destination) {
+            return;
+        }
+        const sInd = +source.droppableId;
+        const dInd = +destination.droppableId;
+
+        if (sInd === dInd) {
+            const items = reorder(this.state.widgets[sInd], source.index, destination.index);
+            const newState = [...this.state.widgets];
+            newState[sInd] = items;
+            this.setState({
+                widgets: newState
+            });
+        } else {
+            const result = move(this.state.widgets[sInd], this.state.widgets[dInd], source, destination);
+            const newState = [...this.state.widgets];
+            newState[sInd] = result[sInd];
+            newState[dInd] = result[dInd];
+            console.log(newState);
+
+            this.setState({widgets: newState});
+        }
+    }
+
     render() {
         const isAnUpdate = !!queryString.parse(window.location.search).id;
 
@@ -106,7 +172,44 @@ class Home extends Component {
                     <button onClick={this.handleNewWidgetClick}>New widgets</button>
                 </div>
                     <div class="home-content">
-                        { this.state.widgets }
+                        <DragDropContext onDragEnd={this.onDragEnd} >
+                            {this.state.widgets.map((el, ind) => (
+                                <Droppable key={ind} droppableId={`${ind}`}>
+                                    {(provided, snapshot) => (
+                                        <div
+                                            ref={provided.innerRef}
+                                            // style={getListStyle(snapshot.isDraggingOver)}
+                                            {...provided.droppableProps}
+                                            style={{ width: '450px' }}
+                                        >
+                                            {el.map((item, index) => (
+                                                <Draggable
+                                                    key={item.id}
+                                                    draggableId={item.id}
+                                                    index={index}
+                                                >
+                                                    {(provided, snapshot) => (
+                                                        <div
+                                                            ref={provided.innerRef}
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps}
+                                                            style={{
+                                                                marginTop: '100px',
+                                                                ...provided.draggableProps.style
+                                                            }}
+                                                        >
+                                                            {item.content}
+                                                        </div>
+                                                    )}
+                                                </Draggable>
+                                            ))}
+                                            {provided.placeholder}
+                                        </div>
+                                    )}
+                                </Droppable>
+                            ))}
+                        </DragDropContext>
+                        {/*{ this.state.widgets }*/}
                     </div>
                 {/*<TransitionGroup component={null}>*/}
                 {/*    <CSSTransition timeout={{ enter: 300, exit: 300 }} classNames="fade" key={this.state.key}>*/}

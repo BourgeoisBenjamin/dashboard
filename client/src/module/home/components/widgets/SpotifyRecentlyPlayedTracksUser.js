@@ -15,7 +15,7 @@ class SpotifyRecentlyPlayedTracksUser extends Component
 
         this.state = {
             model: new RecentlyPlayedTracksUserModel(),
-            isLoading: false,
+            isLoading: true,
             errorMessage: '',
             errorAppear: false
         }
