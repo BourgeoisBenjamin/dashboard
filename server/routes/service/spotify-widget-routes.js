@@ -54,7 +54,7 @@ router.get('/spotify/top-tracks-user/:id_widget', JWTService.authenticateToken, 
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT w.limit_tracks, w.time_range, s.access_token, s.refresh_token, s.expires_in FROM top_tracks_user_spotify w INNER JOIN spotify_service s ON w.id_spotify_service = s.id WHERE w.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT w.limit_tracks, w.time_range, s.access_token, s.refresh_token, s.expires_in, s.activate FROM top_tracks_user_spotify w INNER JOIN spotify_service s ON w.id_spotify_service = s.id WHERE w.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -65,6 +65,11 @@ router.get('/spotify/top-tracks-user/:id_widget', JWTService.authenticateToken, 
             } else {
                 widgetInfos = result.rows[0];
                 const params = {limit: widgetInfos.limit_tracks, time_range: widgetInfos.time_range}
+
+                if (!widgetInfos.activate) {
+                    res.sendStatus(418);
+                    return;
+                }
 
                 spotifyApi.setAccessToken(widgetInfos.access_token)
                 spotifyApi.setRefreshToken(widgetInfos.refresh_token)
@@ -203,7 +208,7 @@ router.get('/spotify/top-artists-user/:id_widget', JWTService.authenticateToken,
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT w.limit_artists, w.time_range, s.access_token, s.refresh_token, s.expires_in FROM top_artists_user_spotify w INNER JOIN spotify_service s ON w.id_spotify_service = s.id WHERE w.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT w.limit_artists, w.time_range, s.access_token, s.refresh_token, s.expires_in, s.activate FROM top_artists_user_spotify w INNER JOIN spotify_service s ON w.id_spotify_service = s.id WHERE w.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -215,6 +220,12 @@ router.get('/spotify/top-artists-user/:id_widget', JWTService.authenticateToken,
 
                 widgetInfos = result.rows[0];
                 const params = {limit: widgetInfos.limit_artists, time_range: widgetInfos.time_range}
+
+                if (!widgetInfos.activate) {
+                    res.sendStatus(418);
+                    return;
+                }
+
                 spotifyApi.setAccessToken(widgetInfos.access_token)
                 spotifyApi.setRefreshToken(widgetInfos.refresh_token)
 
@@ -354,7 +365,7 @@ router.get('/spotify/recently-played-tracks-user/:id_widget', JWTService.authent
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT w.limit_tracks, s.access_token, s.refresh_token, s.expires_in FROM recently_played_tracks_user_spotify w INNER JOIN spotify_service s ON w.id_spotify_service = s.id WHERE w.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT w.limit_tracks, s.access_token, s.refresh_token, s.expires_in, s.activate FROM recently_played_tracks_user_spotify w INNER JOIN spotify_service s ON w.id_spotify_service = s.id WHERE w.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -365,6 +376,12 @@ router.get('/spotify/recently-played-tracks-user/:id_widget', JWTService.authent
             } else {
                 widgetInfos = result.rows[0];
                 const params = {limit: widgetInfos.limit_tracks}
+
+                if (!widgetInfos.activate) {
+                    res.sendStatus(418);
+                    return;
+                }
+
                 spotifyApi.setAccessToken(widgetInfos.access_token)
                 spotifyApi.setRefreshToken(widgetInfos.refresh_token)
 

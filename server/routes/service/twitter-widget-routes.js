@@ -46,7 +46,7 @@ router.get('/twitter/last-tweets/:id_widget', JWTService.authenticateToken, func
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT l.number_tweets, s.token, s.tokensecret, s.twitter_id FROM last_tweets_twitter l INNER JOIN twitter_service s ON l.id_twitter_service = s.id WHERE l.id = $1  AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT l.number_tweets, s.token, s.tokensecret, s.twitter_id, s.activate FROM last_tweets_twitter l INNER JOIN twitter_service s ON l.id_twitter_service = s.id WHERE l.id = $1  AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -56,6 +56,12 @@ router.get('/twitter/last-tweets/:id_widget', JWTService.authenticateToken, func
                 res.json({message: "Unauthorized"});
             } else {
                 widgetInfos = result.rows[0];
+
+                if (!widgetInfos.activate) {
+                    res.sendStatus(418);
+                    return;
+                }
+
                 oauth.getOAuth().get(
                     'https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=' + widgetInfos.twitter_id + '&count=' + widgetInfos.number_tweets,
                     widgetInfos.token,
@@ -158,7 +164,7 @@ router.get('/twitter/search-tweets/:id_widget', JWTService.authenticateToken, fu
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT l.number_tweets, l.search, s.token, s.tokensecret, s.twitter_id FROM search_tweets_twitter l INNER JOIN twitter_service s ON l.id_twitter_service = s.id WHERE l.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT l.number_tweets, l.search, s.token, s.tokensecret, s.twitter_id, s.activate FROM search_tweets_twitter l INNER JOIN twitter_service s ON l.id_twitter_service = s.id WHERE l.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -168,6 +174,12 @@ router.get('/twitter/search-tweets/:id_widget', JWTService.authenticateToken, fu
                 res.json({message: "Unauthorized"});
             } else {
                 widgetInfos = result.rows[0];
+
+                if (!widgetInfos.activate) {
+                    res.sendStatus(418);
+                    return;
+                }
+
                 oauth.getOAuth().get(
                     'https://api.twitter.com/1.1/search/tweets.json?q=' + widgetInfos.search + '&count=' + widgetInfos.number_tweets,
                     widgetInfos.token,

@@ -40,7 +40,7 @@ router.get('/youtube/statistics-channel/:id_widget', JWTService.authenticateToke
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT y.id_channel, s.access_token FROM statistics_channel_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT y.id_channel, s.access_token, s.activate FROM statistics_channel_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -50,6 +50,12 @@ router.get('/youtube/statistics-channel/:id_widget', JWTService.authenticateToke
                 res.json({message: "Unauthorized"});
             } else {
                 widgetInfos = result.rows[0];
+
+                if (!widgetInfos.activate) {
+                    res.sendStatus(418);
+                    return;
+                }
+
                 axios.get('https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=' + widgetInfos.id_channel + '&key=' + KEYS.YOUTUBE_APP.APP_API_KEY)
                     .then(function (response) {
                         if (!response.data.items.length) {
@@ -145,7 +151,7 @@ router.get('/youtube/statistics-video/:id_widget', JWTService.authenticateToken,
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT y.id_video, s.access_token FROM statistics_video_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT y.id_video, s.access_token, s.activate FROM statistics_video_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -155,6 +161,12 @@ router.get('/youtube/statistics-video/:id_widget', JWTService.authenticateToken,
                 res.json({message: "Unauthorized"});
             } else {
                 widgetInfos = result.rows[0];
+
+                if (!widgetInfos.activate) {
+                    res.sendStatus(418);
+                    return;
+                }
+
                 axios.get('https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=' + widgetInfos.id_video + '&key=' + KEYS.YOUTUBE_APP.APP_API_KEY)
                     .then(function (response) {
                         if (!response.data.items.length) {
@@ -257,7 +269,7 @@ router.get('/youtube/comments-video/:id_widget', JWTService.authenticateToken, f
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT y.id_video, y.number_comments, s.access_token FROM comments_video_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT y.id_video, y.number_comments, s.access_token, s.activate FROM comments_video_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -267,6 +279,12 @@ router.get('/youtube/comments-video/:id_widget', JWTService.authenticateToken, f
                 res.json({message: "Unauthorized"});
             } else {
                 widgetInfos = result.rows[0];
+
+                if (!widgetInfos.activate) {
+                    res.sendStatus(418);
+                    return;
+                }
+
                 axios.get('https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&order=time&maxResults=' + widgetInfos.number_comments + '&videoId=' + widgetInfos.id_video + '&key=' + KEYS.YOUTUBE_APP.APP_API_KEY)
                     .then(function (response) {
                         if (!response.data.items.length) {
@@ -376,7 +394,7 @@ router.get('/youtube/channel-videos/:id_widget', JWTService.authenticateToken, f
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT y.id_channel, y.number_videos, s.access_token FROM channel_videos_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT y.id_channel, y.number_videos, s.access_token, s.activate FROM channel_videos_youtube y INNER JOIN youtube_service s ON y.id_youtube_service = s.id WHERE y.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -386,7 +404,12 @@ router.get('/youtube/channel-videos/:id_widget', JWTService.authenticateToken, f
                 res.json({message: "Unauthorized"});
             } else {
                 widgetInfos = result.rows[0];
-                console.log(widgetInfos);
+
+                if (!widgetInfos.activate) {
+                    res.sendStatus(418);
+                    return;
+                }
+
                 axios.get('https://youtube.googleapis.com/youtube/v3/search?part=snippet&order=date&channelId=' + widgetInfos.id_channel + '&maxResults=' + widgetInfos.number_videos + '&key=' + KEYS.YOUTUBE_APP.APP_API_KEY)
                     .then(function (response) {
                         if (!response.data.items.length) {
