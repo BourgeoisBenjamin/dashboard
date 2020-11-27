@@ -175,12 +175,12 @@ class Information extends Component
         });
 
         this.service.deleteUser(() => {
+            localStorage.removeItem('JWTToken');
             this.setState({
                 sendingDeleteAccount: false,
                 successMessageOpen: true,
                 successMessageText: 'Account deleted'
             });
-            localStorage.removeItem('JWTToken');
             history.push('/');
         }, () => {
             this.setState({

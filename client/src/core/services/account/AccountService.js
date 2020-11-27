@@ -74,7 +74,7 @@ class AccountService
             }
         }
 
-        axios.delete(`http://localhost:8080/account/infos`, header)
+        axios.delete(`http://localhost:8080/account/delete`, header)
             .then(res => {
                 onSuccess();
             }).catch(error => {
