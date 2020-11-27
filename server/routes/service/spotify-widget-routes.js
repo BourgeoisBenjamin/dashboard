@@ -50,11 +50,11 @@ router.put('/spotify/top-tracks-user/:id_widget', JWTService.authenticateToken, 
     })
 })
 
-router.get('/spotify/top-tracks-user/:id_widget', JWTService.authenticateToken, function (req, res) {
+router.get('/spotify/top-tracks-user/:id_widget', JWTService.authenticateToken, async function (req, res) {
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT w.limit_tracks, w.time_range, s.access_token, s.refresh_token FROM top_tracks_user_spotify w INNER JOIN spotify_service s ON w.id_spotify_service = s.id WHERE w.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT w.limit_tracks, w.time_range, s.access_token, s.refresh_token, s.expires_in FROM top_tracks_user_spotify w INNER JOIN spotify_service s ON w.id_spotify_service = s.id WHERE w.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -65,15 +65,43 @@ router.get('/spotify/top-tracks-user/:id_widget', JWTService.authenticateToken, 
             } else {
                 widgetInfos = result.rows[0];
                 const params = {limit: widgetInfos.limit_tracks, time_range: widgetInfos.time_range}
+
                 spotifyApi.setAccessToken(widgetInfos.access_token)
                 spotifyApi.setRefreshToken(widgetInfos.refresh_token)
 
-                spotifyApi.getMyTopTracks(params)
-                .then(function(data) {
+                const t = new Date()
+                if (t > widgetInfos.expires_in) {
+                    spotifyApi.refreshAccessToken().then(async (data) => {
+
+                        const new_t = new Date();
+                        new_t.setSeconds(new_t.getSeconds() + data.body['expires_in']);
+
+                        await pool.getPool().query("UPDATE spotify_service SET access_token = $2, expires_in = $3 WHERE id_user = $1", [req.user.user_id, data.body['access_token'], new_t], (err, result) => {
+                            if (err) {
+                                res.status(418)
+                                res.json({message: "Service Unavailable"});
+                                return;
+                            } else {
+                                widgetInfos.access_token = data.body['access_token']
+                                spotifyApi.setAccessToken(widgetInfos.access_token)
+                            }
+                        });
+                        }, (err) => {
+                            res.status(418)
+                            res.json({message: "Service Unavailable"});
+                            return;
+                        }
+                    );
+                }
+                spotifyApi.getMyTopTracks(params).then(function (data) {
                     const topTracks = data.body.items;
+                    spotifyApi.resetAccessToken()
+                    spotifyApi.resetRefreshToken()
                     res.status(200);
                     res.json(topTracks)
-                }, function(err) {
+                }, function (err) {
+                    spotifyApi.resetAccessToken()
+                    spotifyApi.resetRefreshToken()
                     res.status(503)
                     res.json({message: "Service Unavailable"});
                 });
@@ -120,7 +148,11 @@ router.get('/spotify/top-tracks-user/:id_widget/params', JWTService.authenticate
                 res.json({message: "Unauthorized"});
             } else {
                 widgetInfos = result.rows[0];
-                const infos = {activate: widgetInfos.activate, limit_tracks: widgetInfos.limit_tracks, time_range: widgetInfos.time_range}
+                const infos = {
+                    activate: widgetInfos.activate,
+                    limit_tracks: widgetInfos.limit_tracks,
+                    time_range: widgetInfos.time_range
+                }
                 res.status(200)
                 res.json(infos)
             }
@@ -167,11 +199,11 @@ router.put('/spotify/top-artists-user/:id_widget', JWTService.authenticateToken,
     })
 })
 
-router.get('/spotify/top-artists-user/:id_widget', JWTService.authenticateToken, function (req, res) {
+router.get('/spotify/top-artists-user/:id_widget', JWTService.authenticateToken, async function (req, res) {
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT w.limit_artists, w.time_range, s.access_token, s.refresh_token FROM top_artists_user_spotify w INNER JOIN spotify_service s ON w.id_spotify_service = s.id WHERE w.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT w.limit_artists, w.time_range, s.access_token, s.refresh_token, s.expires_in FROM top_artists_user_spotify w INNER JOIN spotify_service s ON w.id_spotify_service = s.id WHERE w.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -180,20 +212,50 @@ router.get('/spotify/top-artists-user/:id_widget', JWTService.authenticateToken,
                 res.status(401)
                 res.json({message: "Unauthorized"});
             } else {
+
                 widgetInfos = result.rows[0];
                 const params = {limit: widgetInfos.limit_artists, time_range: widgetInfos.time_range}
                 spotifyApi.setAccessToken(widgetInfos.access_token)
                 spotifyApi.setRefreshToken(widgetInfos.refresh_token)
 
+                const t = new Date()
+                if (t > widgetInfos.expires_in) {
+                    spotifyApi.refreshAccessToken().then(async (data) => {
+
+                            const new_t = new Date();
+                            new_t.setSeconds(new_t.getSeconds() + data.body['expires_in']);
+
+                            await pool.getPool().query("UPDATE spotify_service SET access_token = $2, expires_in = $3 WHERE id_user = $1", [req.user.user_id, data.body['access_token'], new_t], (err, result) => {
+                                if (err) {
+                                    res.status(418)
+                                    res.json({message: "Service Unavailable"});
+                                    return;
+                                } else {
+                                    widgetInfos.access_token = data.body['access_token']
+                                    spotifyApi.setAccessToken(widgetInfos.access_token)
+                                }
+                            });
+                        }, (err) => {
+                            res.status(418)
+                            res.json({message: "Service Unavailable"});
+                            return;
+                        }
+                    );
+                }
+
                 spotifyApi.getMyTopArtists(params)
-                    .then(function(data) {
-                        const topArtists = data.body.items;
-                        res.status(200);
-                        res.json(topArtists)
-                    }, function(err) {
-                        res.status(503)
-                        res.json({message: "Service Unavailable"});
-                    });
+                .then(function (data) {
+                    const topArtists = data.body.items;
+                    spotifyApi.resetAccessToken()
+                    spotifyApi.resetRefreshToken()
+                    res.status(200);
+                    res.json(topArtists)
+                }, function (err) {
+                    spotifyApi.resetAccessToken()
+                    spotifyApi.resetRefreshToken()
+                    res.status(503)
+                    res.json({message: "Service Unavailable"});
+                });
             }
         }
     })
@@ -237,7 +299,11 @@ router.get('/spotify/top-artists-user/:id_widget/params', JWTService.authenticat
                 res.json({message: "Unauthorized"});
             } else {
                 widgetInfos = result.rows[0];
-                const infos = {activate: widgetInfos.activate, limit_artists: widgetInfos.limit_artists, time_range: widgetInfos.time_range}
+                const infos = {
+                    activate: widgetInfos.activate,
+                    limit_artists: widgetInfos.limit_artists,
+                    time_range: widgetInfos.time_range
+                }
                 res.status(200)
                 res.json(infos)
             }
@@ -284,11 +350,11 @@ router.put('/spotify/recently-played-tracks-user/:id_widget', JWTService.authent
     })
 })
 
-router.get('/spotify/recently-played-tracks-user/:id_widget', JWTService.authenticateToken, function (req, res) {
+router.get('/spotify/recently-played-tracks-user/:id_widget', JWTService.authenticateToken, async function (req, res) {
 
     let widgetInfos;
 
-    pool.getPool().query("SELECT w.limit_tracks, s.access_token, s.refresh_token FROM recently_played_tracks_user_spotify w INNER JOIN spotify_service s ON w.id_spotify_service = s.id WHERE w.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
+    pool.getPool().query("SELECT w.limit_tracks, s.access_token, s.refresh_token, s.expires_in FROM recently_played_tracks_user_spotify w INNER JOIN spotify_service s ON w.id_spotify_service = s.id WHERE w.id = $1 AND s.id_user = $2", [req.params.id_widget, req.user.user_id], (err, result) => {
         if (err) {
             res.status(503);
             res.json({message: "Service Unavailable"})
@@ -302,16 +368,44 @@ router.get('/spotify/recently-played-tracks-user/:id_widget', JWTService.authent
                 spotifyApi.setAccessToken(widgetInfos.access_token)
                 spotifyApi.setRefreshToken(widgetInfos.refresh_token)
 
+                const t = new Date()
+                if (t > widgetInfos.expires_in) {
+                    spotifyApi.refreshAccessToken().then(async (data) => {
+
+                            const new_t = new Date();
+                            new_t.setSeconds(new_t.getSeconds() + data.body['expires_in']);
+
+                            await pool.getPool().query("UPDATE spotify_service SET access_token = $2, expires_in = $3 WHERE id_user = $1", [req.user.user_id, data.body['access_token'], new_t], (err, result) => {
+                                if (err) {
+                                    res.status(418)
+                                    res.json({message: "Service Unavailable"});
+                                    return;
+                                } else {
+                                    widgetInfos.access_token = data.body['access_token']
+                                    spotifyApi.setAccessToken(widgetInfos.access_token)
+                                }
+                            });
+                        }, (err) => {
+                            res.status(418)
+                            res.json({message: "Service Unavailable"});
+                            return;
+                        }
+                    );
+                }
+
                 spotifyApi.getMyRecentlyPlayedTracks(params)
-                    .then(function(data) {
-                        const recentlyPlayedTracks = data.body.items;
-                        res.status(200);
-                        res.json(recentlyPlayedTracks)
-                    }, function(err) {
-                        console.log(err);
-                        res.status(503)
-                        res.json({message: "Service Unavailable"});
-                    });
+                .then(function (data) {
+                    const recentlyPlayedTracks = data.body.items;
+                    spotifyApi.resetAccessToken()
+                    spotifyApi.resetRefreshToken()
+                    res.status(200);
+                    res.json(recentlyPlayedTracks)
+                }, function (err) {
+                    spotifyApi.resetAccessToken()
+                    spotifyApi.resetRefreshToken()
+                    res.status(503)
+                    res.json({message: "Service Unavailable"});
+                });
             }
         }
     })

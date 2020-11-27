@@ -154,31 +154,30 @@ router.get('/spotify/connect/redirect', (req, res) => {
 
     let code = req.query.code
 
+    let service = services.find((elem) => {
+        return (elem.uuid === req.session.uuid);
+    });
+
     if (!code) {
-        let service = services.find((elem) => {
-            return (elem.uuid === req.session.uuid);
-        });
         service.error = true;
         res.send("<script>window.close();</script>");
     }
 
     spotifyApi.authorizationCodeGrant(code).then((data) => {
 
-            let service = services.find((elem) => {
-                return (elem.uuid === req.session.uuid);
-            });
+        const t = new Date();
+        t.setSeconds(t.getSeconds() + data.body['expires_in']);
 
-            pool.getPool().query("INSERT INTO spotify_service (id_user, activate, access_token, expires_in, refresh_token, token_type) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (id_user) DO UPDATE SET access_token = $3, expires_in = $4, refresh_token = $5, token_type = $6", [service.id, true, data.body['access_token'], data.body['expires_in'], data.body['refresh_token'], 'Bearer'], (err, result) =>  {
-                if (err) {
-                    service.error = true;
-                } else {
-                    service.connect = true;
-                }
-                delete req.session.uuid;
-                res.send("<script>window.close();</script>");
-            });
-        },
-        (err) => {
+        pool.getPool().query("INSERT INTO spotify_service (id_user, activate, access_token, expires_in, refresh_token, token_type) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (id_user) DO UPDATE SET activate = $2, access_token = $3, expires_in = $4, refresh_token = $5, token_type = $6", [service.id, true, data.body['access_token'], t, data.body['refresh_token'], 'Bearer'], (err, result) =>  {
+            if (err) {
+                service.error = true;
+            } else {
+                service.connect = true;
+            }
+            delete req.session.uuid;
+            res.send("<script>window.close();</script>");
+        });
+        }, (err) => {
             let service = services.find((elem) => {
                 return (elem.uuid === req.session.uuid);
             });
