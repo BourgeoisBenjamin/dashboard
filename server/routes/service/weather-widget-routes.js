@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const pool = require('../../services/postgresql');
+const findPosition = require('../../utils/findPosition');
 const JWTService = require("../../services/JWTToken");
 const weather = require('openweather-apis');
 
@@ -75,20 +76,23 @@ router.get('/weather/city-meteo/:id_widget', JWTService.authenticateToken, funct
 })
 
 router.post('/weather/city-meteo/', JWTService.authenticateToken, function (req, res) {
-    pool.getPool().query("INSERT INTO city_meteo_weather (id_weather_service, activate, city, celsius) VALUES ((SELECT id FROM weather_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.body.activated, req.body.city, req.body.celsius], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"});
-        } else {
-            if (!result.rows.length) {
-                res.status(401);
-                res.json({message: "Unauthorized"});
-                return;
+
+    findPosition.findPosition(req, (position) => {
+        pool.getPool().query("INSERT INTO city_meteo_weather (id_weather_service, activate, city, celsius, position_x, position_y) VALUES ((SELECT id FROM weather_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.body.activated, req.body.city, req.body.celsius, position.x, position.y], (err, result) => {
+            if (err) {
+                res.status(503);
+                res.json({message: "Service Unavailable"});
+            } else {
+                if (!result.rows.length) {
+                    res.status(401);
+                    res.json({message: "Unauthorized"});
+                    return;
+                }
+                res.status(200);
+                res.json({id: result.rows[0].id});
             }
-            res.status(200);
-            res.json({id: result.rows[0].id});
-        }
-    })
+        })
+    });
 })
 
 router.get('/weather/city-meteo/:id_widget/params', JWTService.authenticateToken, function (req, res) {

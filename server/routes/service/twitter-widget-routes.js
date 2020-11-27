@@ -1,4 +1,5 @@
 const JWTService = require("../../services/JWTToken");
+const findPosition = require('../../utils/findPosition');
 const pool = require('../../services/postgresql');
 const oauth = require('../../services/oauth');
 const router = require('express').Router();
@@ -77,20 +78,22 @@ router.post('/twitter/last-tweets/', JWTService.authenticateToken, function (req
         return;
     }
 
-    pool.getPool().query("INSERT INTO last_tweets_twitter (id_twitter_service, activate, number_tweets) VALUES ((SELECT id FROM twitter_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.body.activated, req.body.number_tweets], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"});
-        } else {
-            if (!result.rows.length) {
-                res.status(401)
-                res.json({message: "Unauthorized"});
+    findPosition.findPosition(req, (position) => {
+        pool.getPool().query("INSERT INTO last_tweets_twitter (id_twitter_service, activate, number_tweets, position_x, position_y) VALUES ((SELECT id FROM twitter_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.body.activated, req.body.number_tweets, position.x, position.y], (err, result) => {
+            if (err) {
+                res.status(503);
+                res.json({message: "Service Unavailable"});
             } else {
-                res.status(200);
-                res.json({id: result.rows[0].id});
+                if (!result.rows.length) {
+                    res.status(401)
+                    res.json({message: "Unauthorized"});
+                } else {
+                    res.status(200);
+                    res.json({id: result.rows[0].id});
+                }
             }
-        }
-    })
+        })
+    });
 })
 
 router.get('/twitter/last-tweets/:id_widget/params', JWTService.authenticateToken, function (req, res) {
@@ -189,20 +192,22 @@ router.post('/twitter/search-tweets/', JWTService.authenticateToken, function (r
         return;
     }
 
-    pool.getPool().query("INSERT INTO search_tweets_twitter (id_twitter_service, activate, number_tweets, search) VALUES ((SELECT id FROM twitter_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.body.activated, req.body.number_tweets, req.body.search], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"});
-        } else {
-            if (!result.rows.length) {
-                res.status(401)
-                res.json({message: "Unauthorized"});
+    findPosition.findPosition(req, (position) => {
+        pool.getPool().query("INSERT INTO search_tweets_twitter (id_twitter_service, activate, number_tweets, search, position_x, position_y) VALUES ((SELECT id FROM twitter_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.body.activated, req.body.number_tweets, req.body.search, position.x, position.y], (err, result) => {
+            if (err) {
+                res.status(503);
+                res.json({message: "Service Unavailable"});
             } else {
-                res.status(200);
-                res.json({id: result.rows[0].id});
+                if (!result.rows.length) {
+                    res.status(401)
+                    res.json({message: "Unauthorized"});
+                } else {
+                    res.status(200);
+                    res.json({id: result.rows[0].id});
+                }
             }
-        }
-    })
+        })
+    });
 })
 
 router.get('/twitter/search-tweets/:id_widget/params', JWTService.authenticateToken, function (req, res) {

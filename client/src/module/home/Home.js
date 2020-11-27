@@ -74,25 +74,24 @@ class Home extends Component {
             widgetsTmp[2] = [];
             widgetsTmp[3] = [];
 
-            console.log(this.widgetService.data);
-
             let i = 1;
 
             this.widgetService.data.forEach((d) => {
                 if (widgets[d.name]) {
-                    // widgetsTmp[i - 1] = [];
-                    widgetsTmp[i - 1].unshift({
+                    widgetsTmp[d.position_y].push({
+                        position_x: d.position_x,
                         id: `item-${i -1}-${new Date().getTime()}`,
                         content: widgets[d.name](d.id, i, this.state, this.getUserWidgets)
                     });
-                    console.log(widgetsTmp);
                     i++;
                 }
             });
             widgetsTmp.forEach((d) => {
+                d.sort((a, b) => {
+                    return (a.position_x > b.position_x);
+                });
                 console.log(d);
             })
-            // console.log(widgetsTmp)
             this.setState({
                 widgets: widgetsTmp
             })

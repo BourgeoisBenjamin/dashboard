@@ -67,7 +67,34 @@ app.get('/', (req, res) => {
     res.send('Hello world !!');
 });
 
-app.get('/user/widgets', JWTService.authenticateToken, (req, res) => {
+app.get('/widgets', JWTService.authenticateToken, (req, res) => {
+
+    const request = `
+        SELECT id, 'City meteo weather' AS NAME, position_x, position_y FROM city_meteo_weather WHERE activate=true AND id_weather_service=(SELECT id FROM weather_service WHERE id_user = $1) UNION
+        SELECT id, 'Country case covid' AS NAME, position_x, position_y FROM country_case_covid WHERE activate=true AND id_covid_service=(SELECT id FROM covid_service WHERE id_user = $1) UNION
+        SELECT id, 'Summary country covid' AS NAME, position_x, position_y FROM summary_country_covid WHERE activate=true AND id_covid_service=(SELECT id FROM covid_service WHERE id_user = $1) UNION
+        SELECT id, 'Search tweets twitter' AS NAME, position_x, position_y FROM search_tweets_twitter WHERE activate=true AND id_twitter_service=(SELECT id FROM twitter_service WHERE id_user = $1) UNION
+        SELECT id, 'Last tweets twitter' AS NAME, position_x, position_y FROM last_tweets_twitter WHERE activate=true AND id_twitter_service=(SELECT id FROM twitter_service WHERE id_user = $1) UNION
+        SELECT id, 'Channels videos youtube' AS NAME, position_x, position_y FROM channel_videos_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1) UNION
+        SELECT id, 'Comments video youtube' AS NAME, position_x, position_y FROM comments_video_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1) UNION
+        SELECT id, 'Statistics video youtube' AS NAME, position_x, position_y FROM statistics_video_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1) UNION
+        SELECT id, 'Statistics channel youtube' AS NAME, position_x, position_y FROM statistics_channel_youtube WHERE activate=true AND id_youtube_service=(SELECT id FROM youtube_service WHERE id_user = $1) UNION
+        SELECT id, 'Top tracks user spotify' AS NAME, position_x, position_y FROM top_tracks_user_spotify WHERE activate=true AND id_spotify_service=(SELECT id FROM spotify_service WHERE id_user = $1) UNION
+        SELECT id, 'Top artists user spotify' AS NAME, position_x, position_y FROM top_artists_user_spotify WHERE activate=true AND id_spotify_service=(SELECT id FROM spotify_service WHERE id_user = $1) UNION
+        SELECT id, 'Recently played tracks user spotify' AS NAME, position_x, position_y FROM recently_played_tracks_user_spotify WHERE activate=true AND id_spotify_service=(SELECT id FROM spotify_service WHERE id_user = $1)
+    `;
+
+    pool.getPool().query(request, [req.user.user_id], (err, result) => {
+        if (err) {
+            res.sendStatus(503);
+        } else {
+            res.status(200);
+            res.json(result.rows);
+        }
+    });
+});
+
+app.put('/widgets', JWTService.authenticateToken, (req, res) => {
 
     const request = `
         SELECT id, 'City meteo weather' AS NAME FROM city_meteo_weather WHERE activate=true AND id_weather_service=(SELECT id FROM weather_service WHERE id_user = $1) UNION
