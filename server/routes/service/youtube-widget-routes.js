@@ -74,7 +74,7 @@ router.get('/youtube/statistics-channel/:id_widget', JWTService.authenticateToke
 router.post('/youtube/statistics-channel/', JWTService.authenticateToken, function (req, res) {
 
     findPosition.findPosition(req, (position) => {
-        pool.getPool().query("INSERT INTO statistics_channel_youtube (id_youtube_service, activate, id_channel, position_x, position_y) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.body.activated, req.body.id_channel, position.x, position.y], (err, result) => {
+        pool.getPool().query("INSERT INTO statistics_channel_youtube (id_youtube_service, activate, id_channel, position_x, position_y) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3, $4, $5) RETURNING id", [req.user.user_id, req.body.activated, req.body.id_channel, position.x, position.y], (err, result) => {
             if (err) {
                 res.status(503);
                 res.json({message: "Service Unavailable"});
@@ -182,7 +182,7 @@ router.get('/youtube/statistics-video/:id_widget', JWTService.authenticateToken,
 router.post('/youtube/statistics-video/', JWTService.authenticateToken, function (req, res) {
 
     findPosition.findPosition(req, (position) => {
-        pool.getPool().query("INSERT INTO statistics_video_youtube (id_youtube_service, activate, id_video, position_x, position_y) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.body.activated, req.body.id_video, position.x, position.y], (err, result) => {
+        pool.getPool().query("INSERT INTO statistics_video_youtube (id_youtube_service, activate, id_video, position_x, position_y) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3, $4, $5) RETURNING id", [req.user.user_id, req.body.activated, req.body.id_video, position.x, position.y], (err, result) => {
             if (err) {
                 res.status(503);
                 res.json({message: "Service Unavailable"});
@@ -303,7 +303,7 @@ router.post('/youtube/comments-video/', JWTService.authenticateToken, function (
     }
 
     findPosition.findPosition(req, (position) => {
-        pool.getPool().query("INSERT INTO comments_video_youtube (id_youtube_service, activate, number_comments, id_video, position_x, position_y) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.body.activated, req.body.number_comments, req.body.id_video, position.x, position.y], (err, result) => {
+        pool.getPool().query("INSERT INTO comments_video_youtube (id_youtube_service, activate, number_comments, id_video, position_x, position_y) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3, $4, $5, $6) RETURNING id", [req.user.user_id, req.body.activated, req.body.number_comments, req.body.id_video, position.x, position.y], (err, result) => {
             if (err) {
                 res.status(503);
                 res.json({message: "Service Unavailable"});
@@ -426,7 +426,7 @@ router.post('/youtube/channel-videos/', JWTService.authenticateToken, function (
     }
 
     findPosition.findPosition(req, (position) => {
-        pool.getPool().query("INSERT INTO channel_videos_youtube (id_youtube_service, activate, id_channel, number_videos, position_x, position_y) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.body.activated, req.body.id_channel, req.body.number_videos, position.x, position.y], (err, result) => {
+        pool.getPool().query("INSERT INTO channel_videos_youtube (id_youtube_service, activate, id_channel, number_videos, position_x, position_y) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3, $4, $5, $6) RETURNING id", [req.user.user_id, req.body.activated, req.body.id_channel, req.body.number_videos, position.x, position.y], (err, result) => {
             if (err) {
                 res.status(503);
                 res.json({message: "Service Unavailable"});

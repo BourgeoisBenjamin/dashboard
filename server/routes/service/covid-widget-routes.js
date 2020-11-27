@@ -175,7 +175,7 @@ router.get('/covid/summary-country/:id_widget', JWTService.authenticateToken, fu
 
 router.post('/covid/summary-country/', JWTService.authenticateToken, function (req, res) {
     findPosition.findPosition(req, (position) => {
-        pool.getPool().query("INSERT INTO summary_country_covid (id_covid_service, activate, country, position_x, position_y) VALUES ((SELECT id FROM covid_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.body.activated, req.body.country, position.x, position.y], (err, result) => {
+        pool.getPool().query("INSERT INTO summary_country_covid (id_covid_service, activate, country, position_x, position_y) VALUES ((SELECT id FROM covid_service WHERE id_user = $1), $2, $3, $4, $5) RETURNING id", [req.user.user_id, req.body.activated, req.body.country, position.x, position.y], (err, result) => {
             if (err) {
                 res.status(503);
                 res.json({message: "Service Unavailable"});

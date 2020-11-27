@@ -79,7 +79,7 @@ router.post('/twitter/last-tweets/', JWTService.authenticateToken, function (req
     }
 
     findPosition.findPosition(req, (position) => {
-        pool.getPool().query("INSERT INTO last_tweets_twitter (id_twitter_service, activate, number_tweets, position_x, position_y) VALUES ((SELECT id FROM twitter_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.body.activated, req.body.number_tweets, position.x, position.y], (err, result) => {
+        pool.getPool().query("INSERT INTO last_tweets_twitter (id_twitter_service, activate, number_tweets, position_x, position_y) VALUES ((SELECT id FROM twitter_service WHERE id_user = $1), $2, $3, $4, $5) RETURNING id", [req.user.user_id, req.body.activated, req.body.number_tweets, position.x, position.y], (err, result) => {
             if (err) {
                 res.status(503);
                 res.json({message: "Service Unavailable"});
@@ -193,7 +193,7 @@ router.post('/twitter/search-tweets/', JWTService.authenticateToken, function (r
     }
 
     findPosition.findPosition(req, (position) => {
-        pool.getPool().query("INSERT INTO search_tweets_twitter (id_twitter_service, activate, number_tweets, search, position_x, position_y) VALUES ((SELECT id FROM twitter_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.body.activated, req.body.number_tweets, req.body.search, position.x, position.y], (err, result) => {
+        pool.getPool().query("INSERT INTO search_tweets_twitter (id_twitter_service, activate, number_tweets, search, position_x, position_y) VALUES ((SELECT id FROM twitter_service WHERE id_user = $1), $2, $3, $4, $5, $6) RETURNING id", [req.user.user_id, req.body.activated, req.body.number_tweets, req.body.search, position.x, position.y], (err, result) => {
             if (err) {
                 res.status(503);
                 res.json({message: "Service Unavailable"});

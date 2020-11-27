@@ -79,6 +79,8 @@ class Home extends Component {
             this.widgetService.data.forEach((d) => {
                 if (widgets[d.name]) {
                     widgetsTmp[d.position_y].push({
+                        name: d.name,
+                        id_widget: d.id,
                         position_x: d.position_x,
                         id: `item-${i -1}-${new Date().getTime()}`,
                         content: widgets[d.name](d.id, i, this.state, this.getUserWidgets)
@@ -88,7 +90,7 @@ class Home extends Component {
             });
             widgetsTmp.forEach((d) => {
                 d.sort((a, b) => {
-                    return (a.position_x > b.position_x);
+                    return (a.position_x - b.position_x);
                 });
                 console.log(d);
             })
@@ -140,18 +142,61 @@ class Home extends Component {
             const items = reorder(this.state.widgets[sInd], source.index, destination.index);
             const newState = [...this.state.widgets];
             newState[sInd] = items;
+            this.updateWidgetsState(newState);
             this.setState({
                 widgets: newState
             });
+            console.log(newState);
         } else {
             const result = move(this.state.widgets[sInd], this.state.widgets[dInd], source, destination);
             const newState = [...this.state.widgets];
             newState[sInd] = result[sInd];
             newState[dInd] = result[dInd];
-            console.log(newState);
-
+            this.updateWidgetsState(newState);
             this.setState({widgets: newState});
+            console.log(newState);
         }
+    }
+
+    updateWidgetsState(newState)
+    {
+        let data = {
+            data: []
+        };
+
+        let posY = 0;
+        newState.forEach((s) => {
+            let posX = 0;
+            s.forEach((widget) => {
+                data.data.push({
+                    id: widget.id_widget,
+                    name: widget.name,
+                    position_x: posX,
+                    position_y: posY
+                });
+                posX++;
+            });
+            posY++;
+        })
+        console.log(data);
+        this.widgetService.putUserWidgets(data, () => {
+            console.log('update !')
+        }, (error) => {
+            if (error.response?.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                this.setState({
+                    styleMenu: {
+                        'margin-left': '-300px'
+                    },
+                    menuIsOpen: false,
+                    title: 'Home',
+                    visibilityBackground: 'hidden',
+                    opacityBackground: '0'
+                })
+                history.push('/');
+            }
+        });
     }
 
     render() {
