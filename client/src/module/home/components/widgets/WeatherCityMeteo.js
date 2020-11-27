@@ -2,14 +2,11 @@ import React, {Component} from "react";
 import WeatherService from "../../../../core/services/services/WeatherService";
 import CityWeatherModel from "../../../../core/models/services/weather/response/CityWeatherModel";
 import './WeatherCityMeteo.css'
-import {FiSettings} from "react-icons/fi";
 import HumidityImage from '../../../../assets/images/humidity.png'
 import SunImage from '../../../../assets/images/sun.png'
 import PressureImage from '../../../../assets/images/pressure.png';
 import RainImage from '../../../../assets/images/rain.png';
 import history from "../../../../history";
-import ClipLoader from "react-spinners/ClipLoader";
-import {VscRefresh} from "react-icons/vsc";
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
@@ -23,7 +20,7 @@ class WeatherCityMeteo extends Component
 
         this.state = {
             model: new CityWeatherModel(),
-            isLoading: false,
+            isLoading: true,
             errorMessage: '',
             errorAppear: false
         }

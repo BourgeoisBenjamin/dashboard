@@ -1,4 +1,5 @@
 const SpotifyWebApi = require('spotify-web-api-node');
+const findPosition = require('../../utils/findPosition');
 const JWTService = require("../../services/JWTToken");
 const pool = require('../../services/postgresql');
 const oauth = require('../../services/oauth');
@@ -123,20 +124,22 @@ router.post('/spotify/top-tracks-user/', JWTService.authenticateToken, function 
         return;
     }
 
-    pool.getPool().query("INSERT INTO top_tracks_user_spotify (id_spotify_service, activate, limit_tracks, time_range) VALUES ((SELECT id FROM spotify_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.body.activated, req.body.limit_tracks, req.body.time_range], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"});
-        } else {
-            if (!result.rows.length) {
-                res.status(401)
-                res.json({message: "Unauthorized"});
+    findPosition.findPosition(req, (position) => {
+        pool.getPool().query("INSERT INTO top_tracks_user_spotify (id_spotify_service, activate, limit_tracks, time_range, position_x, position_y) VALUES ((SELECT id FROM spotify_service WHERE id_user = $1), $2, $3, $4, $5, $6) RETURNING id", [req.user.user_id, req.body.activated, req.body.limit_tracks, req.body.time_range, position.x, position.y], (err, result) => {
+            if (err) {
+                res.status(503);
+                res.json({message: "Service Unavailable"});
             } else {
-                res.status(200);
-                res.json({id: result.rows[0].id});
+                if (!result.rows.length) {
+                    res.status(401)
+                    res.json({message: "Unauthorized"});
+                } else {
+                    res.status(200);
+                    res.json({id: result.rows[0].id});
+                }
             }
-        }
-    })
+        })
+    });
 })
 
 router.get('/spotify/top-tracks-user/:id_widget/params', JWTService.authenticateToken, function (req, res) {
@@ -280,20 +283,22 @@ router.post('/spotify/top-artists-user/', JWTService.authenticateToken, function
         return;
     }
 
-    pool.getPool().query("INSERT INTO top_artists_user_spotify (id_spotify_service, activate, limit_artists, time_range) VALUES ((SELECT id FROM spotify_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.body.activated, req.body.limit_artists, req.body.time_range], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"});
-        } else {
-            if (!result.rows.length) {
-                res.status(401)
-                res.json({message: "Unauthorized"});
+    findPosition.findPosition(req, (position) => {
+        pool.getPool().query("INSERT INTO top_artists_user_spotify (id_spotify_service, activate, limit_artists, time_range, position_x, position_y) VALUES ((SELECT id FROM spotify_service WHERE id_user = $1), $2, $3, $4, $5, $6) RETURNING id", [req.user.user_id, req.body.activated, req.body.limit_artists, req.body.time_range, position.x, position.y], (err, result) => {
+            if (err) {
+                res.status(503);
+                res.json({message: "Service Unavailable"});
             } else {
-                res.status(200);
-                res.json({id: result.rows[0].id});
+                if (!result.rows.length) {
+                    res.status(401)
+                    res.json({message: "Unauthorized"});
+                } else {
+                    res.status(200);
+                    res.json({id: result.rows[0].id});
+                }
             }
-        }
-    })
+        })
+    });
 })
 
 router.get('/spotify/top-artists-user/:id_widget/params', JWTService.authenticateToken, function (req, res) {
@@ -436,20 +441,22 @@ router.post('/spotify/recently-played-tracks-user/', JWTService.authenticateToke
         return;
     }
 
-    pool.getPool().query("INSERT INTO recently_played_tracks_user_spotify (id_spotify_service, activate, limit_tracks) VALUES ((SELECT id FROM spotify_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.body.activated, req.body.limit_tracks], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"});
-        } else {
-            if (!result.rows.length) {
-                res.status(401)
-                res.json({message: "Unauthorized"});
+    findPosition.findPosition(req, (position) => {
+        pool.getPool().query("INSERT INTO recently_played_tracks_user_spotify (id_spotify_service, activate, limit_tracks, position_x, position_y) VALUES ((SELECT id FROM spotify_service WHERE id_user = $1), $2, $3, $4, $5) RETURNING id", [req.user.user_id, req.body.activated, req.body.limit_tracks, position.x, position.y], (err, result) => {
+            if (err) {
+                res.status(503);
+                res.json({message: "Service Unavailable"});
             } else {
-                res.status(200);
-                res.json({id: result.rows[0].id});
+                if (!result.rows.length) {
+                    res.status(401)
+                    res.json({message: "Unauthorized"});
+                } else {
+                    res.status(200);
+                    res.json({id: result.rows[0].id});
+                }
             }
-        }
-    })
+        })
+    });
 })
 
 router.get('/spotify/recently-played-tracks-user/:id_widget/params', JWTService.authenticateToken, function (req, res) {

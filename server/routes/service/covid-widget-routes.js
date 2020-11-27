@@ -1,3 +1,4 @@
+const findPosition = require('../../utils/findPosition');
 const JWTService = require("../../services/JWTToken");
 const pool = require('../../services/postgresql');
 const router = require('express').Router();
@@ -65,19 +66,22 @@ router.get('/covid/country-case/:id_widget', JWTService.authenticateToken, funct
 })
 
 router.post('/covid/country-case/', JWTService.authenticateToken, function (req, res) {
-    pool.getPool().query("INSERT INTO country_case_covid (id_covid_service, activate, country) VALUES ((SELECT id FROM covid_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.body.activated, req.body.country], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"});
-        } else {
-            if (!result.rows.length) {
-                res.status(401)
-                res.json({message: "Unauthorized"});
+
+    findPosition.findPosition(req, (position) => {
+        pool.getPool().query("INSERT INTO country_case_covid (id_covid_service, activate, country, position_x, position_y) VALUES ((SELECT id FROM covid_service WHERE id_user = $1), $2, $3, $4, $5) RETURNING id", [req.user.user_id, req.body.activated, req.body.country, position.x, position.y], (err, result) => {
+            if (err) {
+                res.status(503);
+                res.json({message: "Service Unavailable"});
             } else {
-                res.status(200);
-                res.json({id: result.rows[0].id});
+                if (!result.rows.length) {
+                    res.status(401)
+                    res.json({message: "Unauthorized"});
+                } else {
+                    res.status(200);
+                    res.json({id: result.rows[0].id});
+                }
             }
-        }
+        })
     })
 })
 
@@ -170,20 +174,22 @@ router.get('/covid/summary-country/:id_widget', JWTService.authenticateToken, fu
 })
 
 router.post('/covid/summary-country/', JWTService.authenticateToken, function (req, res) {
-    pool.getPool().query("INSERT INTO summary_country_covid (id_covid_service, activate, country) VALUES ((SELECT id FROM covid_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.body.activated, req.body.country], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"});
-        } else {
-            if (!result.rows.length) {
-                res.status(401);
-                res.json({message: "Unauthorized"});
+    findPosition.findPosition(req, (position) => {
+        pool.getPool().query("INSERT INTO summary_country_covid (id_covid_service, activate, country, position_x, position_y) VALUES ((SELECT id FROM covid_service WHERE id_user = $1), $2, $3, $4, $5) RETURNING id", [req.user.user_id, req.body.activated, req.body.country, position.x, position.y], (err, result) => {
+            if (err) {
+                res.status(503);
+                res.json({message: "Service Unavailable"});
             } else {
-                res.status(200);
-                res.json({id: result.rows[0].id});
+                if (!result.rows.length) {
+                    res.status(401);
+                    res.json({message: "Unauthorized"});
+                } else {
+                    res.status(200);
+                    res.json({id: result.rows[0].id});
+                }
             }
-        }
-    })
+        })
+    });
 })
 
 router.get('/covid/summary-country/:id_widget/params', JWTService.authenticateToken, function (req, res) {

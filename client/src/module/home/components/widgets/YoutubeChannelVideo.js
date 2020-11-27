@@ -1,12 +1,9 @@
 import React, {Component} from "react";
 import './WeatherCityMeteo.css'
-import {FiSettings} from "react-icons/fi";
 import history from "../../../../history";
 import YoutubeChannelVideoService from "../../../../core/services/services/youtube/YoutubeChannelVideoService";
 import ChannelVideosModel from "../../../../core/models/services/youtube/response/ChannelVideosModel";
 import './YoutubeChannelVideo.css'
-import ClipLoader from "react-spinners/ClipLoader";
-import {VscRefresh} from "react-icons/vsc";
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
@@ -20,7 +17,7 @@ class YoutubeChannelVideo extends Component
 
         this.state = {
             model: new ChannelVideosModel(),
-            isLoading: false,
+            isLoading: true,
             errorMessage: '',
             errorAppear: false
         }

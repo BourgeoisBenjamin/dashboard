@@ -1,5 +1,6 @@
 const JWTService = require("../../services/JWTToken");
 const pool = require('../../services/postgresql');
+const findPosition = require('../../utils/findPosition');
 const router = require('express').Router();
 const KEYS = require("../../config/keys");
 const axios = require('axios');
@@ -77,20 +78,23 @@ router.get('/youtube/statistics-channel/:id_widget', JWTService.authenticateToke
 })
 
 router.post('/youtube/statistics-channel/', JWTService.authenticateToken, function (req, res) {
-    pool.getPool().query("INSERT INTO statistics_channel_youtube (id_youtube_service, activate, id_channel) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.body.activated, req.body.id_channel], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"});
-        } else {
-            if (!result.rows.length) {
-                res.status(401)
-                res.json({message: "Unauthorized"});
+
+    findPosition.findPosition(req, (position) => {
+        pool.getPool().query("INSERT INTO statistics_channel_youtube (id_youtube_service, activate, id_channel, position_x, position_y) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3, $4, $5) RETURNING id", [req.user.user_id, req.body.activated, req.body.id_channel, position.x, position.y], (err, result) => {
+            if (err) {
+                res.status(503);
+                res.json({message: "Service Unavailable"});
             } else {
-                res.status(200);
-                res.json({id: result.rows[0].id});
+                if (!result.rows.length) {
+                    res.status(401)
+                    res.json({message: "Unauthorized"});
+                } else {
+                    res.status(200);
+                    res.json({id: result.rows[0].id});
+                }
             }
-        }
-    })
+        })
+    });
 })
 
 router.get('/youtube/statistics-channel/:id_widget/params', JWTService.authenticateToken, function (req, res) {
@@ -188,20 +192,23 @@ router.get('/youtube/statistics-video/:id_widget', JWTService.authenticateToken,
 })
 
 router.post('/youtube/statistics-video/', JWTService.authenticateToken, function (req, res) {
-    pool.getPool().query("INSERT INTO statistics_video_youtube (id_youtube_service, activate, id_video) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3) RETURNING id", [req.user.user_id, req.body.activated, req.body.id_video], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"});
-        } else {
-            if (!result.rows.length) {
-                res.status(401)
-                res.json({message: "Unauthorized"});
+
+    findPosition.findPosition(req, (position) => {
+        pool.getPool().query("INSERT INTO statistics_video_youtube (id_youtube_service, activate, id_video, position_x, position_y) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3, $4, $5) RETURNING id", [req.user.user_id, req.body.activated, req.body.id_video, position.x, position.y], (err, result) => {
+            if (err) {
+                res.status(503);
+                res.json({message: "Service Unavailable"});
             } else {
-                res.status(200);
-                res.json({id: result.rows[0].id});
+                if (!result.rows.length) {
+                    res.status(401)
+                    res.json({message: "Unauthorized"});
+                } else {
+                    res.status(200);
+                    res.json({id: result.rows[0].id});
+                }
             }
-        }
-    })
+        })
+    });
 })
 
 router.get('/youtube/statistics-video/:id_widget/params', JWTService.authenticateToken, function (req, res) {
@@ -313,20 +320,22 @@ router.post('/youtube/comments-video/', JWTService.authenticateToken, function (
         return;
     }
 
-    pool.getPool().query("INSERT INTO comments_video_youtube (id_youtube_service, activate, number_comments, id_video) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.body.activated, req.body.number_comments, req.body.id_video], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"});
-        } else {
-            if (!result.rows.length) {
-                res.status(401)
-                res.json({message: "Unauthorized"});
+    findPosition.findPosition(req, (position) => {
+        pool.getPool().query("INSERT INTO comments_video_youtube (id_youtube_service, activate, number_comments, id_video, position_x, position_y) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3, $4, $5, $6) RETURNING id", [req.user.user_id, req.body.activated, req.body.number_comments, req.body.id_video, position.x, position.y], (err, result) => {
+            if (err) {
+                res.status(503);
+                res.json({message: "Service Unavailable"});
             } else {
-                res.status(200);
-                res.json({id: result.rows[0].id});
+                if (!result.rows.length) {
+                    res.status(401)
+                    res.json({message: "Unauthorized"});
+                } else {
+                    res.status(200);
+                    res.json({id: result.rows[0].id});
+                }
             }
-        }
-    })
+        })
+    });
 })
 
 router.get('/youtube/comments-video/:id_widget/params', JWTService.authenticateToken, function (req, res) {
@@ -439,20 +448,22 @@ router.post('/youtube/channel-videos/', JWTService.authenticateToken, function (
         return;
     }
 
-    pool.getPool().query("INSERT INTO channel_videos_youtube (id_youtube_service, activate, id_channel, number_videos) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3, $4) RETURNING id", [req.user.user_id, req.body.activated, req.body.id_channel, req.body.number_videos], (err, result) => {
-        if (err) {
-            res.status(503);
-            res.json({message: "Service Unavailable"});
-        } else {
-            if (!result.rows.length) {
-                res.status(401)
-                res.json({message: "Unauthorized"});
+    findPosition.findPosition(req, (position) => {
+        pool.getPool().query("INSERT INTO channel_videos_youtube (id_youtube_service, activate, id_channel, number_videos, position_x, position_y) VALUES ((SELECT id FROM youtube_service WHERE id_user = $1), $2, $3, $4, $5, $6) RETURNING id", [req.user.user_id, req.body.activated, req.body.id_channel, req.body.number_videos, position.x, position.y], (err, result) => {
+            if (err) {
+                res.status(503);
+                res.json({message: "Service Unavailable"});
             } else {
-                res.status(200);
-                res.json({id: result.rows[0].id});
+                if (!result.rows.length) {
+                    res.status(401)
+                    res.json({message: "Unauthorized"});
+                } else {
+                    res.status(200);
+                    res.json({id: result.rows[0].id});
+                }
             }
-        }
-    })
+        })
+    });
 })
 
 router.get('/youtube/channel-videos/:id_widget/params', JWTService.authenticateToken, function (req, res) {

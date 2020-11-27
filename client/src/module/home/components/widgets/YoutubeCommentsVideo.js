@@ -18,7 +18,7 @@ class YoutubeCommentsVideo extends Component
 
         this.state = {
             model: new CommentsVideoModel(),
-            isLoading: false,
+            isLoading: true,
             errorMessage: '',
             errorAppear: false
         }

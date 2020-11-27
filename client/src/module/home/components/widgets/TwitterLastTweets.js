@@ -17,7 +17,7 @@ class TwitterLastTweets extends Component
 
         this.state = {
             model: new LastTweetsModel(),
-            isLoading: false,
+            isLoading: true,
             errorMessage: '',
             errorAppear: false
         }

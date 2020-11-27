@@ -1,10 +1,8 @@
 #youtube-statistics-video
 {
-    margin-left: 100px;
     height: 450px;
     width: 400px;
     box-shadow: 2px 2px 4px 3px grey;
-    margin-top: 100px;
     transition: 0.5s;
     cursor: pointer;
 }

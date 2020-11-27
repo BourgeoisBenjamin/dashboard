@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import './WeatherCityMeteo.css'
-import {FiSettings} from "react-icons/fi";
 import history from "../../../../history";
 import StatisticsVideoModel from "../../../../core/models/services/youtube/response/StatisticsVideoModel";
 import YoutubeStatisticsVideoService from "../../../../core/services/services/youtube/YoutubeStatisticsVideoService";
@@ -9,8 +8,6 @@ import DislikeImage from '../../../../assets/images/dislike.png'
 import CommentImage from '../../../../assets/images/comment.png'
 import ViewImage from '../../../../assets/images/view.png'
 import './YoutubeStatisticsVideo.css'
-import ClipLoader from "react-spinners/ClipLoader";
-import {VscRefresh} from "react-icons/vsc";
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
@@ -24,7 +21,7 @@ class YoutubeStatisticsVideo extends Component
 
         this.state = {
             model: new StatisticsVideoModel(),
-            isLoading: false,
+            isLoading: true,
             errorMessage: '',
             errorAppear: false
         }

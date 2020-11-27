@@ -1,13 +1,10 @@
 import React, {Component} from "react";
-import {FiSettings} from "react-icons/fi";
 import './TwitterSearchTweets.css'
 import history from "../../../../history";
 import TwitterService from "../../../../core/services/services/TwitterService";
 import SearchTweetsModel from "../../../../core/models/services/twitter/response/SearchTweetsModel";
 import RetweetImage from "../../../../assets/images/retweet.png";
 import LikeImage from "../../../../assets/images/like.png";
-import ClipLoader from "react-spinners/ClipLoader";
-import {VscRefresh} from "react-icons/vsc";
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
@@ -19,7 +16,7 @@ class TwitterSearchTweets extends Component
 
         this.state = {
             model: new SearchTweetsModel(),
-            isLoading: false,
+            isLoading: true,
             errorMessage: '',
             errorAppear: false
         }

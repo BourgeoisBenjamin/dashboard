@@ -10,7 +10,7 @@ export default class WidgetService
 
     data = [];
 
-    url = 'http://localhost:8080/user/widgets/';
+    url = 'http://localhost:8080/widgets/';
 
     getUserWidgets(onSuccess, onFailure)
     {
@@ -24,6 +24,16 @@ export default class WidgetService
                 onSuccess();
             }).catch(error => {
                 onFailure(error);
+        })
+    }
+
+    putUserWidgets(data, onSuccess, onFailure)
+    {
+        axios.put(this.url, data, this.header)
+            .then(res => {
+                onSuccess();
+            }).catch(error => {
+            onFailure(error);
         })
     }
 }
