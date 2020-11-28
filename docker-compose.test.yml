@@ -20,7 +20,14 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile.test
-    restart: always
+    depends_on:
+      - dashboard-db
+    command: sh -c "/wait && mocha -R spec tests/spec.js"
+    environment:
+      - WAIT_HOSTS=dashboard-db:5432
+      - WAIT_HOSTS_TIMEOUT=300
+      - WAIT_SLEEP_INTERVAL=5
+      - WAIT_HOST_CONNECT_TIMEOUT=30
     ports:
       - 8080:8080
     networks:
