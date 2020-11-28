@@ -79,7 +79,7 @@ class TwitterSearchTweets extends Component
         const tweets = this.initTweets();
 
         return (
-            <div id="twitter-search-tweets">
+            <div id="twitter-search-tweets" class="widget">
                 <div className="content">
                     <WidgetHeader
                         mainTitle="Twitter"

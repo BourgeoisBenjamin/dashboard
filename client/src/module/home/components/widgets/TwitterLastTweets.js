@@ -72,7 +72,7 @@ class TwitterLastTweets extends Component
         const tweets = this.initTweets();
 
         return (
-            <div id="twitter-last-tweets">
+            <div id="twitter-last-tweets" class="widget">
                 <div className="content">
                     <WidgetHeader
                         mainTitle="Twitter"

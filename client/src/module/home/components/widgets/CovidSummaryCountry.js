@@ -62,7 +62,7 @@ class CovidSummaryCountry extends Component
 
     render() {
         return (
-            <div id="covid-summary-country">
+            <div id="covid-summary-country" class="widget">
                 <div className="content">
                     <WidgetHeader
                         mainTitle="COVID 19"

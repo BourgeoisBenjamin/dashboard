@@ -6,6 +6,7 @@
     width: 600px;
     margin-right: auto;
     margin-left: auto;
+    margin-bottom: 100px;
     height: 700px;
     align-items: center;
 }
@@ -105,4 +106,17 @@
 #login-form .button-sign-up p:hover
 {
     color: #5C80BC;
+}
+
+@media all and (max-width: 700px)
+{
+    #login-form
+    {
+        width: 90%;
+    }
+
+    #login-form .username-input, #login-form .password-input, #login-form .forgot-password
+    {
+        width: 90%;
+    }
 }

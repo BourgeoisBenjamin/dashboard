@@ -1,6 +1,7 @@
 #sign-up-module
 {
     padding-top: 50px;
+    overflow-x: hidden;
 }
 
 #sign-up-module .title
@@ -50,4 +51,18 @@
 #sign-up-module .basic-button
 {
     margin-top: 100px;
+}
+
+@media all and (max-width: 460px)
+{
+    #sign-up-module .input
+    {
+        width: 90%;
+    }
+
+    #sign-up-module .basic-button .button button
+    {
+        padding: 15px 30px;
+        font-size: 14px;
+    }
 }

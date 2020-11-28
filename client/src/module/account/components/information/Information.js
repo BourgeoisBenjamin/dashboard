@@ -121,7 +121,6 @@ class Information extends Component
 
     onClickUpdateInfo()
     {
-        console.log('send');
         this.setState({
             sendingUpdateInfo: true
         });
@@ -131,14 +130,14 @@ class Information extends Component
             username: this.state.username
         };
 
-        const changedEmail = data.email !== this.service.getEmail();
+        const activateEmail = (data.email !== this.service.getEmail() ? false : this.state.activateEmail);
 
         this.service.updateUserInfos(data,() => {
             this.setState({
                 sendingUpdateInfo: false,
                 successMessageOpen: true,
                 successMessageText: 'Infos updated !',
-                activateEmail: !changedEmail
+                activateEmail: activateEmail
             });
         }, () => {
             this.setState({

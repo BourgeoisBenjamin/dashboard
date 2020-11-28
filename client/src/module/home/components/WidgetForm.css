@@ -60,6 +60,7 @@
 {
     text-align: left;
     padding: 15px;
+    min-width: 320px;
 }
 
 #widget-form .form .content .title-parameters
@@ -98,4 +99,69 @@
 {
     text-align: left;
     padding: 15px;
+    width: 270px;
+}
+
+@media all and (max-width: 926px)
+{
+    #widget-form .form
+    {
+        width: 90%;
+    }
+
+    #widget-form .form .header .title, #widget-form .form .content .title
+    {
+        font-size: 20px;
+    }
+
+    #widget-form .form .content .title
+    {
+
+    }
+
+    #widget-form .form .content .title-parameters
+    {
+        font-size: 15px;
+    }
+
+    #widget-form .form .content .input .MuiSelect-select, #widget-form .form .content .input .MuiMenuItem-root
+    {
+        font-size: 13px !important;
+    }
+
+    #widget-form .input-parameters 	.MuiOutlinedInput-root
+    {
+        font-size: 13px!important;
+    }
+}
+
+@media all and (max-width: 458px)
+{
+    #widget-form .form .content .title-parameters
+    {
+        width: 90%;
+    }
+
+    #widget-form .form .content .input .MuiSelect-select
+    {
+        min-width: 200px !important;
+        max-width: 200px !important;
+    }
+
+    #widget-form .widget-form .MuiSelect-select
+    {
+        min-width: 200px !important;
+        max-width: 200px !important;
+    }
+
+    #widget-form .input-parameters
+    {
+        width: 230px;
+    }
+
+    #widget-form .basic-button .button button
+    {
+        padding-inline: 20px;
+        font-size: 14px;
+    }
 }

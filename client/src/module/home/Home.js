@@ -205,7 +205,7 @@ class Home extends Component {
                             {this.state.widgets.map((el, ind) => (
                                 <Droppable key={ind} droppableId={`${ind}`}>
                                     {(provided, snapshot) => (
-                                        <div ref={provided.innerRef} {...provided.droppableProps} style={{ width: '450px' }}>
+                                        <div class="droppable-content" ref={provided.innerRef} {...provided.droppableProps} style={{ width: '450px' }}>
                                             {el.map((item, index) => (
                                                 <Draggable key={item.id} draggableId={item.id} index={index}>
                                                     {(provided, snapshot) => (

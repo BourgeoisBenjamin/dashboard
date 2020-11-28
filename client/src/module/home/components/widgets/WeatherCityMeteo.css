@@ -5,6 +5,7 @@
     box-shadow: 2px 2px 4px 3px grey;
     cursor: pointer;
     transition: 0.5s;
+    margin-inline: auto;
 }
 
 #weather-city-meteo:hover

@@ -2,6 +2,7 @@
 {
     width: 100%;
     display: flex;
+    overflow-x: hidden;
 }
 
 #account-module .account-menu
@@ -54,4 +55,25 @@
 
 #account-module .hide
 {
+}
+
+@media all and (max-width: 575px)
+{
+    #account-module
+    {
+        flex-direction: column;
+    }
+
+    #account-module .account-menu
+    {
+        width: 100%;
+        border: none;
+        height: auto;
+    }
+
+    #account-module .account-menu .element
+    {
+        margin-inline: auto;
+        width: 90%;
+    }
 }

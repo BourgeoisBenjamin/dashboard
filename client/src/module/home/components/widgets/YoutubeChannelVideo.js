@@ -63,7 +63,7 @@ class YoutubeChannelVideo extends Component
         const videos = this.initVideos();
 
         return (
-            <div id="youtube-channel-videos">
+            <div id="youtube-channel-videos" class="widget">
                 <div class="content">
                     <WidgetHeader
                         mainTitle="Youtube"

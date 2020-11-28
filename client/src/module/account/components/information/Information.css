@@ -124,3 +124,87 @@
 {
     background-color: grey;
 }
+
+@media all and (max-width: 1300px)
+{
+    #information-account .element .second-column .delete-button button
+    {
+        font-size: 15px;
+        padding: 15px 40px;
+    }
+
+    #information-account .element .second-column .update-button button
+    {
+        padding: 15px 30px;
+        font-size: 15px;
+    }
+
+    #information-account .element .second-column .loader-confirmation-email
+    {
+        margin-left: 300px;
+    }
+
+    #information-account .element .second-column .loader
+    {
+        margin-left: 250px;
+    }
+}
+
+@media all and (max-width: 877px)
+{
+    #information-account .element
+    {
+        flex-direction: column;
+    }
+
+    #information-account .element .first-column, #information-account .element .second-column
+    {
+        width: 100%;
+    }
+
+    #information-account .element .first-column
+    {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    #information-account .element .second-column
+    {
+        border: none;
+    }
+
+    #information-account .element .second-column .loader-confirmation-email
+    {
+        margin-left: 400px;
+    }
+
+    #information-account .element .second-column .loader
+    {
+        margin-left: 250px;
+    }
+
+    #information-account .element .second-column .delete-button button
+    {
+        font-size: 13px;
+        padding: 15px 20px;
+    }
+
+    #information-account .element .second-column .update-button button
+    {
+        padding: 15px 20px;
+        font-size: 13px;
+    }
+}
+
+@media all and (max-width: 410px)
+{
+    #information-account .element .second-column .email-input, #information-account .element .second-column .username-input
+    {
+        width: 90%;
+    }
+
+    #information-account .element .second-column .loader
+    {
+        margin-left: 200px;
+    }
+}

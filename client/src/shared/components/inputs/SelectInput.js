@@ -33,7 +33,7 @@ export default function SelectInput(props) {
     };
 
     return (
-        <FormControl style={{minWidth: 300}} variant="outlined">
+        <FormControl variant="outlined">
             <InputLabel>{props.label}</InputLabel>
             <Select
                 label={props.label}
