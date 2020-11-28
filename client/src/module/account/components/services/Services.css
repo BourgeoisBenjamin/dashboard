@@ -100,4 +100,10 @@
         width: 90%;
         min-width: auto;
     }
+
+    #services .service .button button
+    {
+        padding: 13px 40px;
+        font-size: 13px;
+    }
 }
