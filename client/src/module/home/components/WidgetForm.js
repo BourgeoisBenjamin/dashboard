@@ -200,9 +200,11 @@ class WidgetForm extends Component {
                                 name="Select a widget" arrayKey="name" arrayValue="name" array={(this.state.servicesSelected === null ? [] : this.state.servicesSelected.widgets)}
                             />
                         </div>
-                        <div class="title-parameters">
-                            <p>Parameters</p>
-                        </div>
+                        { this.state.widgetSelected.length === 0 ? null : (
+                            <div class="title-parameters">
+                                <p>Parameters</p>
+                            </div>
+                        ) }
                         <Switch>
                             <Route path={'/home/widget/covid/summary-country/'} render={() => <CovidSummaryCountryForm parentState={this.state} onClickUpdate={this.props.onUpdateWidget} />}/>
                             <Route path={'/home/widget/covid/country-case/'} render={() => <CovidCountryCaseForm parentState={this.state} onClickUpdate={this.props.onUpdateWidget} />}/>

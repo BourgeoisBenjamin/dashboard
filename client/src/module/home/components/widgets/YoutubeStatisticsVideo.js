@@ -65,7 +65,7 @@ class YoutubeStatisticsVideo extends Component
 
     render() {
         return (
-            <div id="youtube-statistics-video">
+            <div id="youtube-statistics-video" class="widget">
                 <div class="content">
                     <WidgetHeader
                         mainTitle="Youtube"

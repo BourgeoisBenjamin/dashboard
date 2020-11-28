@@ -3,6 +3,7 @@
     background-color: #fafafa;
     padding-top: 70px;
     padding-bottom: 100px;
+    overflow-x: hidden;
 }
 
 #home-module .new-widgets-button
@@ -37,6 +38,11 @@
     justify-content: center;
 }
 
+#home-module .widget
+{
+    margin-inline: auto;
+}
+
 
 .fade-enter {
     opacity: 0.01;
@@ -55,3 +61,20 @@
     opacity: 0.01;
     transition: opacity 300ms ease-in;
 }
+
+@media all and (max-width: 380px)
+{
+    #home-module .new-widgets-button button
+    {
+        padding-inline: 50px;
+    }
+}
+
+@media all and (max-width: 450px)
+{
+    #home-module .widget
+    {
+        width: 95% !important;
+    }
+}
+

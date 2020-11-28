@@ -65,7 +65,7 @@ class YoutubeCommentsVideo extends Component
         const comments = this.initComments();
 
         return (
-            <div id="youtube-comments-video">
+            <div id="youtube-comments-video" class="widget">
                 <div class="content">
                     <WidgetHeader
                         mainTitle="Youtube"

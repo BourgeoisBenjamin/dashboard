@@ -49,7 +49,7 @@ export let services = [
         connected: true,
         widgets: [
             {
-                name: 'City\'s Weather in Celsius or Fahrenheit',
+                name: 'City\'s Weather',
                 urlClient: '/home/widget/weather/city-weather/',
                 urlRequest: '/service/weather/city-meteo/'
             }

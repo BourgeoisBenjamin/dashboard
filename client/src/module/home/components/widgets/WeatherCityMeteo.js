@@ -83,7 +83,7 @@ class WeatherCityMeteo extends Component
         const imageWeather = this.initImageWeather();
 
         return (
-            <div id="weather-city-meteo">
+            <div id="weather-city-meteo" class="widget">
                 <div class="content">
                     <WidgetHeader
                         mainTitle="Weather"

@@ -70,7 +70,7 @@ class SpotifyTopTracksUser extends Component
         const tracks = this.initTracks();
 
         return (
-            <div id="spotify-top-tracks-user">
+            <div id="spotify-top-tracks-user" class="widget">
                 <div className="content">
                     <WidgetHeader
                         mainTitle="Spotify"

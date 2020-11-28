@@ -79,7 +79,7 @@ class CovidCountryCase extends Component
 
     render() {
         return (
-            <div id="covid-country-case">
+            <div id="covid-country-case" class="widget">
                 <div className="content">
                     <WidgetHeader mainTitle="COVID 19" secondTitle="Country case" onClickRefresh={this.getDataWidget} onClickDelete={this.onClickDelete} onClickSettings={this.onClickSettings} />
                     <div className="content" style={{ display: this.state.isLoading || this.state.errorAppear ? 'none' : 'block' }}>

@@ -71,7 +71,7 @@ class SpotifyRecentlyPlayedTracksUser extends Component
         const tracks = this.initTracks();
 
         return (
-            <div id="spotify-recently-played-tracks-user">
+            <div id="spotify-recently-played-tracks-user" class="widget">
                 <div className="content">
                     <WidgetHeader
                         mainTitle="Spotify"
