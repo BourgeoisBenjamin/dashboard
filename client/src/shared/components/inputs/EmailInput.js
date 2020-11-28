@@ -2,7 +2,7 @@ import {FormControl, InputAdornment, InputLabel, OutlinedInput} from "@material-
 import React from "react";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 
-export default function(props) {
+export default function EmailInput(props) {
     return (
         <FormControl fullWidth variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">{props.name}</InputLabel>

@@ -2,7 +2,7 @@ import {FiAlertTriangle} from "react-icons/fi";
 import React from "react";
 import './WidgetError.css'
 
-export default function(props)
+export default function WidgetError(props)
 {
     return (
         <div className="widget-error" style={{display: props.appear ? 'block' : 'none'}}>

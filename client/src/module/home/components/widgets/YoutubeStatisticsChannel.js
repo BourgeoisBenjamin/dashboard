@@ -72,7 +72,7 @@ class YoutubeStatisticsChannel extends Component
                 <div className="core" style={{ display: this.state.isLoading || this.state.errorAppear ? 'none' : 'block' }}>
                     <div className="channel-description">
                         <div className="logo">
-                            <img src={this.state.model.snippet?.thumbnails.default.url} />
+                            <img src={this.state.model.snippet?.thumbnails.default.url} alt=""/>
                         </div>
                         <div className="name-channel">
                             <p>{this.state.model.snippet?.title}</p>
@@ -81,7 +81,7 @@ class YoutubeStatisticsChannel extends Component
                     <div className="channel-stats">
                         <div className="stat">
                             <div className="logo">
-                                <img src={SubscriberImage} />
+                                <img src={SubscriberImage} alt="" />
                             </div>
                             <div className="title">
                                 <p>Subscribers</p>
@@ -92,7 +92,7 @@ class YoutubeStatisticsChannel extends Component
                         </div>
                         <div className="stat">
                             <div className="logo">
-                                <img src={VideosImage} />
+                                <img src={VideosImage} alt="" />
                             </div>
                             <div className="title">
                                 <p>Videos count</p>
@@ -103,7 +103,7 @@ class YoutubeStatisticsChannel extends Component
                         </div>
                         <div className="stat">
                             <div className="logo">
-                                <img src={ViewImage} />
+                                <img src={ViewImage} alt="" />
                             </div>
                             <div className="title">
                                 <p>Views count</p>

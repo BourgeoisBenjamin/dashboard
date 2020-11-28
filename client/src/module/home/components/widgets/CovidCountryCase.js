@@ -83,7 +83,7 @@ class CovidCountryCase extends Component
                         <div className="header-content">
                             <div className="description">
                                 <div className="logo">
-                                    <img src={LocationImage}/>
+                                    <img src={LocationImage} alt=""/>
                                 </div>
                                 <div className="text">
                                     <p>In {this.state.model.Country}, {new Date(this.state.model.Date).toLocaleString()}</p>

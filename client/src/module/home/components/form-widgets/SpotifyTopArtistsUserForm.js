@@ -1,10 +1,8 @@
 import React, {Component} from "react";
 import NumberInput from "../../../../shared/components/inputs/NumberInput";
 import SelectInput from "../../../../shared/components/inputs/SelectInput";
-import SpotifyTopTracksUserService from "../../../../core/services/services/spotify/SpotifyTopTracksUserService";
 import SpotifyTopArtistsUserService from "../../../../core/services/services/spotify/SpotifyTopArtistsUserService";
 import queryString from "query-string";
-import TopTracksUserModel from "../../../../core/models/services/spotify/request/TopTracksUserModel";
 import TopArtistsUserModel from "../../../../core/models/services/spotify/request/TopArtistsUserModel";
 
 const timeRange = [

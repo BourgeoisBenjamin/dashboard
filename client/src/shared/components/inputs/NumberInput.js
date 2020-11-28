@@ -2,7 +2,7 @@ import {FormControl, InputAdornment, InputLabel, OutlinedInput} from "@material-
 import React from "react";
 import DialpadIcon from '@material-ui/icons/Dialpad';
 
-export default function(props) {
+export default function NumberInput(props) {
     return (
         <FormControl fullWidth variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">{props.name}</InputLabel>

@@ -2,7 +2,7 @@ import {FormControl, InputAdornment, InputLabel, OutlinedInput} from "@material-
 import React from "react";
 import {LocationCity} from "@material-ui/icons";
 
-export default function(props) {
+export default function CityInput(props) {
     return (
         <FormControl fullWidth variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">{props.name}</InputLabel>
