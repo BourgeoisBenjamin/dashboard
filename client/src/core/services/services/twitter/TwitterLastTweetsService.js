@@ -7,7 +7,7 @@ export default class TwitterLastTweetsService extends Service
     constructor()
     {
         super(
-            'http://localhost:8080/service/twitter/last-tweets/',
+            'service/twitter/last-tweets/',
             new LastTweetsModelRequest(),
             new LastTweetsModelResponse(),
             (res, responseModel) => {

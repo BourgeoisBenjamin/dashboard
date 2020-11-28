@@ -13,6 +13,8 @@ class EmailVerify extends Component
     constructor(props) {
         super(props);
 
+        document.title = 'Dashboard - Email verify';
+
         const { token } = this.props.match.params
 
         console.log(token);

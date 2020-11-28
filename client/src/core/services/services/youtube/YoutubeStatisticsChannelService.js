@@ -7,7 +7,7 @@ export default class YoutubeStatisticsChannelService extends Service
     constructor()
     {
         super(
-            'http://localhost:8080/service/youtube/statistics-channel/',
+            'service/youtube/statistics-channel/',
             new StatisticsChannelModelRequest(),
             new StatisticsChannelModelResponse(),
             (res, responseModel) => {

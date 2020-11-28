@@ -17,6 +17,8 @@ class ResetPassword extends Component {
             history.push('/home');
         }
 
+        document.title = 'Dashboard - Reset password';
+
         this.forgotPassword = new ForgotPasswordService();
 
         this.state = {

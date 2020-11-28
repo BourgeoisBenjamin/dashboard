@@ -23,7 +23,7 @@ class AccountService
             }
         }
 
-        axios.get(`http://localhost:8080/account/infos`, header)
+        axios.get(`account/infos`, header)
             .then(res => {
                 console.log(res);
                 Object.assign(this.model, res.data);
@@ -41,7 +41,7 @@ class AccountService
             }
         }
 
-        axios.post(`http://localhost:8080/account/email/send`, null, header)
+        axios.post(`account/email/send`, null, header)
             .then(res => {
                 onSuccess();
             }).catch(error => {
@@ -57,7 +57,7 @@ class AccountService
             }
         }
 
-        axios.post(`http://localhost:8080/account/infos`, data, header)
+        axios.post(`account/infos`, data, header)
             .then(res => {
                 Object.assign(this.model, data);
                 onSuccess();
@@ -74,7 +74,7 @@ class AccountService
             }
         }
 
-        axios.delete(`http://localhost:8080/account/delete`, header)
+        axios.delete(`account/delete`, header)
             .then(res => {
                 onSuccess();
             }).catch(error => {
@@ -90,7 +90,7 @@ class AccountService
             }
         }
 
-        axios.put(`http://localhost:8080/account/password/update`, data, header)
+        axios.put(`account/password/update`, data, header)
             .then(res => {
                 onSuccess();
             }).catch(error => {
@@ -106,7 +106,7 @@ class AccountService
             }
         }
 
-        axios.get(`http://localhost:8080/account/service`, header)
+        axios.get(`account/service`, header)
             .then(res => {
                 this.userServices = res.data.data;
                 onSuccess();
@@ -117,7 +117,7 @@ class AccountService
 
     init(onSuccess, onFailure)
     {
-        axios.get(`http://localhost:8080/account/service/init`, this.header)
+        axios.get(`account/service/init`, this.header)
             .then(res => {
                 onSuccess(res.data.uuid);
             }).catch(error => {
@@ -135,7 +135,7 @@ class AccountService
             }
         }
 
-        axios.get(`http://localhost:8080/account/service/connect`, header)
+        axios.get(`account/service/connect`, header)
             .then(res => {
                 console.log(res);
                 onSuccess();
@@ -146,7 +146,7 @@ class AccountService
 
     disconnectTwitter(onSuccess, onFailure)
     {
-        axios.post(`http://localhost:8080/account/service/twitter/disconnect`, null, this.header)
+        axios.post(`account/service/twitter/disconnect`, null, this.header)
             .then(res => {
                 onSuccess();
             }).catch(error => {
@@ -156,7 +156,7 @@ class AccountService
 
     disconnectGoogle(onSuccess, onFailure)
     {
-        axios.post(`http://localhost:8080/account/service/google/disconnect`, null, this.header)
+        axios.post(`account/service/google/disconnect`, null, this.header)
             .then(res => {
                 onSuccess();
             }).catch(error => {
@@ -166,7 +166,7 @@ class AccountService
 
     disconnectSpotify(onSuccess, onFailure)
     {
-        axios.post(`http://localhost:8080/account/service/spotify/disconnect`, null, this.header)
+        axios.post(`account/service/spotify/disconnect`, null, this.header)
             .then(res => {
                 onSuccess();
             }).catch(error => {

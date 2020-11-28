@@ -18,6 +18,8 @@ class Account extends Component {
     {
         super(props);
 
+        document.title = 'Dashboard - Account';
+
         this.state = {
             informationIsSelected: false,
             passwordIsSelected: false,
@@ -65,23 +67,25 @@ class Account extends Component {
                 <div class="account-menu">
                     <div className={this.state.informationIsSelected ? "element selected" : "element"} onClick={this.onClickInformation}>
                         <div class="logo">
-                            <VscAccount></VscAccount>
+                            <VscAccount/>
                         </div>
                         <div class="name">
                             <p>Information</p>
                         </div>
                     </div>
-                    <div className={this.state.passwordIsSelected ? "element selected" : "element"} onClick={this.onClickPassword}>
-                        <div className="logo">
-                            <RiLockPasswordLine></RiLockPasswordLine>
+                    { this.context.isConnectedViaTiers ? null : (
+                        <div className={this.state.passwordIsSelected ? "element selected" : "element"} onClick={this.onClickPassword}>
+                            <div className="logo">
+                                <RiLockPasswordLine/>
+                            </div>
+                            <div className="name">
+                                <p>Password</p>
+                            </div>
                         </div>
-                        <div className="name">
-                            <p>Password</p>
-                        </div>
-                    </div>
+                    ) }
                     <div className={this.state.servicesIsSelected ? "element selected" : "element"} onClick={this.onClickServices}>
                         <div className="logo">
-                            <AiOutlineShareAlt></AiOutlineShareAlt>
+                            <AiOutlineShareAlt/>
                         </div>
                         <div className="name">
                             <p>Services</p>
