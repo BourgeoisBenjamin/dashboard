@@ -1,7 +1,8 @@
 import React from 'react';
 
 const MenuContext = React.createContext({
-    showMenu: 'none'
+    showMenu: 'none',
+    isConnectedViaTiers: false
 });
 
 export default MenuContext;

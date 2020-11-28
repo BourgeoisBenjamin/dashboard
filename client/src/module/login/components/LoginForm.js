@@ -87,6 +87,7 @@ export class LoginForm extends Component {
             sessionStorage.setItem('menu', 'block');
             history.push('/home')
             this.context.setShowMenu('block');
+            this.context.setConnectedViaTiers(true);
         }, (res) => {
             this.setState({
                 errorMessageOpen: true,
@@ -106,6 +107,7 @@ export class LoginForm extends Component {
             sessionStorage.setItem('menu', 'block');
             history.push('/home')
             this.context.setShowMenu('block');
+            this.context.setConnectedViaTiers(true);
         }, (res) => {
             this.setState({
                 errorMessageOpen: true,
