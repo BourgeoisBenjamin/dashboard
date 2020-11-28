@@ -36,10 +36,10 @@ class TwitterSearchTweets extends Component
         this.getDataWidget();
     }
 
-    getDataWidget()
+    getDataWidget(isLoading = true)
     {
         this.setState({
-            isLoading: true,
+            isLoading: isLoading,
             errorAppear: false
         })
         this.service.get(this.props.id, () => {
@@ -54,6 +54,9 @@ class TwitterSearchTweets extends Component
                 errorAppear: true
             })
         });
+        setTimeout(() => {
+            this.getDataWidget(false);
+        }, 30000);
     }
 
     onClickParameters()

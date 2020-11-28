@@ -34,10 +34,10 @@ class SpotifyTopTracksUser extends Component
         this.getDataWidget();
     }
 
-    getDataWidget()
+    getDataWidget(isLoading = true)
     {
         this.setState({
-            isLoading: true,
+            isLoading: isLoading,
             errorAppear: false
         });
         this.service.get(this.props.id, () => {
@@ -53,6 +53,9 @@ class SpotifyTopTracksUser extends Component
                 errorAppear: true
             })
         });
+        setTimeout(() => {
+            this.getDataWidget(false);
+        }, 3600000);
     }
 
     onClickParameters()
