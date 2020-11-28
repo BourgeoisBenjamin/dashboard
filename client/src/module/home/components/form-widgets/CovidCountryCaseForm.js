@@ -4,9 +4,12 @@ import CountryCaseModel from "../../../../core/models/services/covid/request/Cou
 import queryString from 'query-string';
 import CovidCountryCaseService from "../../../../core/services/services/covid/CovidCountryCaseService";
 import history from "../../../../history";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class CovidCountryCaseForm extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 

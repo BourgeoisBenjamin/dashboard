@@ -6,9 +6,12 @@ import WidgetError from "../widget-error/WidgetError";
 import SpotifyTopTracksUserService from "../../../../core/services/services/spotify/SpotifyTopTracksUserService";
 import TopTracksUserModel from "../../../../core/models/services/spotify/response/TopTracksUserModel";
 import './SpotifyTopTracksUser.css'
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class SpotifyTopTracksUser extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 

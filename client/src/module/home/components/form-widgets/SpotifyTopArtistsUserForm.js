@@ -5,6 +5,7 @@ import SpotifyTopArtistsUserService from "../../../../core/services/services/spo
 import queryString from "query-string";
 import TopArtistsUserModel from "../../../../core/models/services/spotify/request/TopArtistsUserModel";
 import history from "../../../../history";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 const timeRange = [
     {
@@ -32,6 +33,8 @@ const timeRangeRequests = {
 
 class SpotifyTopArtistsUserForm extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 

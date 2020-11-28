@@ -4,9 +4,12 @@ import LastTweetsModel from "../../../../core/models/services/twitter/request/La
 import NumberInput from "../../../../shared/components/inputs/NumberInput";
 import TwitterLastTweetsService from "../../../../core/services/services/twitter/TwitterLastTweetsService";
 import history from "../../../../history";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class TwitterLastTweetsForm extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 

@@ -5,9 +5,12 @@ import CityWeatherModel from "../../../../core/models/services/weather/request/C
 import queryString from "query-string";
 import WeatherCityMeteoService from "../../../../core/services/services/weather/WeatherCityMeteoService";
 import history from "../../../../history";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class CityWeatherForm extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props)
     {
         super(props);

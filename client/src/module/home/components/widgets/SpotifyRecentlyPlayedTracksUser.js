@@ -7,9 +7,12 @@ import './SpotifyRecentlyPlayedTracksUser.css'
 import RecentlyPlayedTracksUserModel from "../../../../core/models/services/spotify/response/RecentlyPlayedTracksUserModel";
 import SpotifyRecentlyPlayedTracksUserService
     from "../../../../core/services/services/spotify/SpotifyRecentlyPlayedTracksUserService";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class SpotifyRecentlyPlayedTracksUser extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 

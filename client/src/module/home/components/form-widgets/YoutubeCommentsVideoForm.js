@@ -4,9 +4,12 @@ import NumberInput from "../../../../shared/components/inputs/NumberInput";
 import YoutubeCommentsVideoService from "../../../../core/services/services/youtube/YoutubeCommentsVideoService";
 import CommentsVideoModel from "../../../../core/models/services/youtube/request/CommentsVideoModel";
 import history from "../../../../history";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class YoutubeCommentsVideoForm extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 

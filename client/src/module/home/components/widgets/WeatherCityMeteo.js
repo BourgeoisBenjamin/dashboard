@@ -11,9 +11,12 @@ import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
 import WeatherCityMeteoService from "../../../../core/services/services/weather/WeatherCityMeteoService";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class WeatherCityMeteo extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 

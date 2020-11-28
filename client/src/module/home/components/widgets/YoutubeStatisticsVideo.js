@@ -11,9 +11,12 @@ import './YoutubeStatisticsVideo.css'
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class YoutubeStatisticsVideo extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 

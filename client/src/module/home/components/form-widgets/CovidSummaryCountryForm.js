@@ -4,9 +4,12 @@ import SummaryCountryModel from "../../../../core/models/services/covid/request/
 import queryString from "query-string";
 import CovidSummaryCountryService from "../../../../core/services/services/covid/CovidSummaryCountryService";
 import history from "../../../../history";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class CovidSummaryCountryForm extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 

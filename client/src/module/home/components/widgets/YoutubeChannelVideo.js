@@ -7,9 +7,12 @@ import './YoutubeChannelVideo.css'
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class YoutubeChannelVideo extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 

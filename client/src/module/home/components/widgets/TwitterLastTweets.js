@@ -9,9 +9,12 @@ import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
 import TwitterLastTweetsService from "../../../../core/services/services/twitter/TwitterLastTweetsService";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class TwitterLastTweets extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 

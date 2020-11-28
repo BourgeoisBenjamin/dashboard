@@ -4,9 +4,12 @@ import NumberInput from "../../../../shared/components/inputs/NumberInput";
 import YoutubeStatisticsChannelService from "../../../../core/services/services/youtube/YoutubeStatisticsChannelService";
 import StatisticsChannelModel from "../../../../core/models/services/youtube/request/StatisticsChannelModel";
 import history from "../../../../history";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class YoutubeStatisticsChannelForm extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 

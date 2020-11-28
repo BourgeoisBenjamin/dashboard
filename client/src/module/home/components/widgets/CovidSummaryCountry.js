@@ -10,9 +10,12 @@ import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
 import CovidSummaryCountryService from "../../../../core/services/services/covid/CovidSummaryCountryService";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class CovidSummaryCountry extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 
