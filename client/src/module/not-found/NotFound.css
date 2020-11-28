@@ -1,0 +1,40 @@
+#not-found-module
+{
+    text-align: center;
+}
+
+#not-found-module .title
+{
+    margin-top: 100px;
+    font-size: 100px;
+}
+
+#not-found-module .description
+{
+    margin-top: 100px;
+    font-size: 30px;
+}
+
+#not-found-module .button
+{
+    margin-top: 100px;
+}
+
+@media all and (max-width: 450px)
+{
+    #not-found-module .title
+    {
+        font-size: 50px;
+    }
+
+    #not-found-module .description
+    {
+        font-size: 20px;
+    }
+
+    #not-found-module .basic-button .button button
+    {
+        font-size: 14px;
+        padding-inline: 30px;
+    }
+}
