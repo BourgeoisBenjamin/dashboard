@@ -2,7 +2,7 @@ const router = require('express').Router();
 const pool = require('../../services/postgresql');
 const findPosition = require('../../utils/findPosition');
 const JWTService = require("../../services/JWTToken");
-const weather = require('openweather-apis');
+const axios = require('axios');
 
 router.delete('/weather/city-meteo/:id_widget', JWTService.authenticateToken, function (req, res) {
     pool.getPool().query("DELETE FROM city_meteo_weather WHERE id = $1 AND id_weather_service IN (SELECT id FROM weather_service WHERE id_user = $2) RETURNING *", [req.params.id_widget, req.user.user_id], (err, result) => {
@@ -51,28 +51,30 @@ router.get('/weather/city-meteo/:id_widget', JWTService.authenticateToken, funct
                 return;
             }
             widgetInfos = result.rows[0];
-            const infos = {city: widgetInfos.city, celsius: widgetInfos.celsius}
-            weather.setLang('en');
-            weather.setCity(widgetInfos.city)
+            let unit;
             if (widgetInfos.celsius)
-                weather.setUnits('metric')
+                unit = 'metric'
             else
-                weather.setUnits('imperial')
-            weather.setAPPID(widgetInfos.api_key)
-            weather.getSmartJSON((err, smart) => {
-                if (err) {
-                    res.status(503);
-                    res.json({message: "Service Unavailable"})
-                } else {
-                    smart.city = widgetInfos.city
-                    smart.celsius = widgetInfos.celsius
-                    res.status(200);
-                    res.json(smart);
+                unit = 'imperial'
+
+            axios.get('http://api.openweathermap.org/data/2.5/weather?q=' + widgetInfos.city + '&units=' + unit + '&appid=' + widgetInfos.api_key)
+            .then(function (response) {
+                const data = response.data
+                let rain = 0
+
+                if (data.precipitation) {
+                    rain = data.precipitation.value
                 }
+                const responseData = {temp: data.main.temp, humidity: data.main.humidity, pressure: data.main.pressure, description: data.weather[0].description, rain:rain, weathercode: data.weather[0].id}
+                res.status(200)
+                res.json(responseData)
+            })
+            .catch(function (error) {
+                res.status(503)
+                res.json({message: "Service Unavailable with this configuration"})
             })
         }
     })
-
 })
 
 router.post('/weather/city-meteo/', JWTService.authenticateToken, function (req, res) {
