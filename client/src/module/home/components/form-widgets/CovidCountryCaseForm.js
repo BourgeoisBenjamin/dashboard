@@ -40,7 +40,7 @@ class CovidCountryCaseForm extends Component
                     countryName: this.service.getRequestModel().country
                 })
             }, () => {
-                if (this.service.getError().response.status === 403) {
+                if (this.service.getError().response?.status === 403) {
                     localStorage.removeItem('JWTToken');
                     this.context.setShowMenu('none');
                     history.push('/');
@@ -63,7 +63,7 @@ class CovidCountryCaseForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
-            if (this.service.getError().response.status === 403) {
+            if (this.service.getError().response?.status === 403) {
                 localStorage.removeItem('JWTToken');
                 this.context.setShowMenu('none');
                 history.push('/');
@@ -86,7 +86,7 @@ class CovidCountryCaseForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
-            if (this.service.getError().response.status === 403) {
+            if (this.service.getError().response?.status === 403) {
                 localStorage.removeItem('JWTToken');
                 this.context.setShowMenu('none');
                 history.push('/');

@@ -72,7 +72,7 @@ class SpotifyTopArtistsUserForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
-            if (this.service.getError().response.status === 403) {
+            if (this.service.getError().response?.status === 403) {
                 localStorage.removeItem('JWTToken');
                 this.context.setShowMenu('none');
                 history.push('/');
@@ -96,7 +96,7 @@ class SpotifyTopArtistsUserForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
-            if (this.service.getError().response.status === 403) {
+            if (this.service.getError().response?.status === 403) {
                 localStorage.removeItem('JWTToken');
                 this.context.setShowMenu('none');
                 history.push('/');
@@ -117,7 +117,7 @@ class SpotifyTopArtistsUserForm extends Component
                     timeRange: timeRangeRequests[this.service.getRequestModel().time_range]
                 })
             }, () => {
-                if (this.service.getError().response.status === 403) {
+                if (this.service.getError().response?.status === 403) {
                     localStorage.removeItem('JWTToken');
                     this.context.setShowMenu('none');
                     history.push('/');
