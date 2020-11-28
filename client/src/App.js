@@ -15,6 +15,7 @@ class App extends Component {
 
     constructor(props) {
         super(props);
+        console.log(process.env)
         this.state = {
             showMenu : 'none',
             isConnectedViaTiers: localStorage.getItem('isConnectedViaTiers') === 'true',
