@@ -1,19 +1,16 @@
 import React, {Component} from "react";
-import CountryInput from "../../../../shared/components/inputs/CountryInput";
-import SummaryCountryModel from "../../../../core/models/services/covid/request/SummaryCountryModel";
 import queryString from "query-string";
-import LastTweetsModel from "../../../../core/models/services/twitter/request/LastTweetsModel";
-import TwitterService from "../../../../core/services/services/TwitterService";
 import NumberInput from "../../../../shared/components/inputs/NumberInput";
 import SearchInput from "../../../../shared/components/inputs/SearchInput";
 import SearchTweetsModel from "../../../../core/models/services/twitter/request/SearchTweetsModel";
+import TwitterSearchTweetsService from "../../../../core/services/services/twitter/TwitterSearchTweetsService";
 
 class TwitterSearchTweetsForm extends Component
 {
     constructor(props) {
         super(props);
 
-        this.service = new TwitterService();
+        this.service = new TwitterSearchTweetsService();
 
         this.state = {
             search: '',
@@ -37,10 +34,10 @@ class TwitterSearchTweetsForm extends Component
         let params = queryString.parse(window.location.search);
 
         if (params.id) {
-            this.service.getSearchTweetsParams(params.id, () => {
+            this.service.getParams(params.id, () => {
                 this.setState({
-                    search: this.service.getSearchTweetRequest().search,
-                    numberTweets: this.service.getSearchTweetRequest().number_tweets
+                    search: this.service.getRequestModel().search,
+                    numberTweets: this.service.getRequestModel().number_tweets
                 })
             }, () => {
 
@@ -58,7 +55,7 @@ class TwitterSearchTweetsForm extends Component
 
         this.props.parentState.setDisplayLoader(true);
 
-        this.service.putSearchTweets(model, params.id, () => {
+        this.service.put(model, params.id, () => {
             this.props.parentState.setDisplayLoader(false);
             onSuccess();
             this.props.onClickUpdate();
@@ -77,7 +74,7 @@ class TwitterSearchTweetsForm extends Component
 
         this.props.parentState.setDisplayLoader(true);
 
-        this.service.postSearchTweets(model, () => {
+        this.service.post(model, () => {
             this.props.parentState.setDisplayLoader(false);
             onSuccess();
             this.props.onClickUpdate();

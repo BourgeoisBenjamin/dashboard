@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import './LoginForm.css';
-import { FormControl, InputLabel, OutlinedInput, InputAdornment } from '@material-ui/core';
-import LockIcon from '@material-ui/icons/Lock';
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import youtubeImage from '../../../assets/images/youtube.png';
 import twitterImage from '../../../assets/images/twitter.png';
 import history from '../../../history';

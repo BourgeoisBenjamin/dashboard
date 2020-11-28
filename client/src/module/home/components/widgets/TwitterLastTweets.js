@@ -2,13 +2,13 @@ import React, {Component} from "react";
 import './CovidCountryCase.css'
 import history from "../../../../history";
 import LastTweetsModel from "../../../../core/models/services/twitter/response/LastTweetsModel";
-import TwitterService from "../../../../core/services/services/TwitterService";
 import LikeImage from '../../../../assets/images/like.png'
 import RetweetImage from '../../../../assets/images/retweet.png'
 import './TwitterLastTweets.css'
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
+import TwitterLastTweetsService from "../../../../core/services/services/twitter/TwitterLastTweetsService";
 
 class TwitterLastTweets extends Component
 {
@@ -21,7 +21,7 @@ class TwitterLastTweets extends Component
             errorMessage: '',
             errorAppear: false
         }
-        this.service = new TwitterService();
+        this.service = new TwitterLastTweetsService();
 
         this.onClickParameters = this.onClickParameters.bind(this);
         this.onClickRefresh = this.onClickRefresh.bind(this);
@@ -43,9 +43,9 @@ class TwitterLastTweets extends Component
             isLoading: true,
             errorAppear: false
         });
-        this.service.getLastTweets(this.props.id, () => {
+        this.service.get(this.props.id, () => {
             this.setState({
-                model: this.service.getLastTweetModelResponse(),
+                model: this.service.getResponseModel(),
                 isLoading: false
             })
         }, () => {
@@ -59,7 +59,6 @@ class TwitterLastTweets extends Component
 
     onClickParameters()
     {
-        // history.push('/home/widget/covid/country-case/' + this.props.id);
         history.push({
             pathname: '/home/widget/twitter/last-tweets/',
             search: '?id=' + this.props.id
@@ -91,7 +90,7 @@ class TwitterLastTweets extends Component
 
     onClickDelete()
     {
-        this.service.deleteLastTweet(this.props.id, () => {
+        this.service.delete(this.props.id, () => {
             this.props.onClickDelete();
         }, () => {
         });

@@ -74,7 +74,7 @@ class YoutubeStatisticsVideo extends Component
                     <div className="core" style={{ display: this.state.isLoading || this.state.errorAppear ? 'none' : 'block' }}>
                         <div className="video-description">
                             <div className="image">
-                                <img src={this.state.model.snippet?.thumbnails.standard.url} />
+                                <img src={this.state.model.snippet?.thumbnails.standard.url} alt="" />
                             </div>
                             <div className="name-video">
                                 <p>{this.state.model.snippet?.title}</p>
@@ -98,7 +98,7 @@ class YoutubeStatisticsVideo extends Component
                                 <div className="like-dislike">
                                     <div className="like">
                                         <div className="logo">
-                                            <img src={LikeImage} />
+                                            <img src={LikeImage} alt="" />
                                         </div>
                                         <div className="value">
                                             <p>{this.state.model.statistics?.likeCount}</p>
@@ -106,7 +106,7 @@ class YoutubeStatisticsVideo extends Component
                                     </div>
                                     <div className="dislike">
                                         <div className="logo">
-                                            <img src={DislikeImage} />
+                                            <img src={DislikeImage} alt="" />
                                         </div>
                                         <div className="value">
                                             <p>{this.state.model.statistics?.dislikeCount}</p>
@@ -115,7 +115,7 @@ class YoutubeStatisticsVideo extends Component
                                 </div>
                                 <div className="comment">
                                     <div className="logo">
-                                        <img src={CommentImage} />
+                                        <img src={CommentImage} alt="" />
                                     </div>
                                     <div className="value">
                                         <p>{this.state.model.statistics?.commentCount}</p>

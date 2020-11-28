@@ -5,7 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import Tooltip from "@material-ui/core/Tooltip";
 
-export default function(props) {
+export default function SelectInput(props) {
 
     const menuItems = () => {
         let items = [];

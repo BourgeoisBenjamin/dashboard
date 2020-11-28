@@ -2,8 +2,8 @@ import React from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import {FiSettings} from "react-icons/fi";
-import history from "../../../../history";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -28,9 +28,6 @@ export default function(props) {
     return (
         <div>
             <FiSettings color="white" size={30} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} />
-            {/*<Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>*/}
-            {/*    Open Menu*/}
-            {/*</Button>*/}
             <Menu
                 id="simple-menu"
                 anchorEl={anchorEl}

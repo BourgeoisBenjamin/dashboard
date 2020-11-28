@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import './ForgotPassword.css'
-import { Alert } from '@material-ui/lab'
-import Snackbar from "@material-ui/core/Snackbar";
 import history from "../../history";
 import EmailInput from "../../shared/components/inputs/EmailInput";
-import PasswordInput from "../../shared/components/inputs/PasswordInput";
 import UsernameInput from "../../shared/components/inputs/UsernameInput";
 import BasicButton from "../../shared/components/buttons/BasicButton";
 import SuccessDialog from "../../shared/components/dialogs/SuccessDialog";
 import ErrorDialog from "../../shared/components/dialogs/ErrorDialog";
-import {Error} from "@material-ui/icons";
 import ForgotPasswordService from "../../core/services/forgot-password/ForgotPassword";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";

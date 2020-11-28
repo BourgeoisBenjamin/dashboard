@@ -1,17 +1,15 @@
 import React, {Component} from "react";
-import CountryInput from "../../../../shared/components/inputs/CountryInput";
-import SummaryCountryModel from "../../../../core/models/services/covid/request/SummaryCountryModel";
 import queryString from "query-string";
 import LastTweetsModel from "../../../../core/models/services/twitter/request/LastTweetsModel";
-import TwitterService from "../../../../core/services/services/TwitterService";
 import NumberInput from "../../../../shared/components/inputs/NumberInput";
+import TwitterLastTweetsService from "../../../../core/services/services/twitter/TwitterLastTweetsService";
 
 class TwitterLastTweetsForm extends Component
 {
     constructor(props) {
         super(props);
 
-        this.service = new TwitterService();
+        this.service = new TwitterLastTweetsService();
 
         this.state = {
             numberTweets: ''
@@ -32,11 +30,10 @@ class TwitterLastTweetsForm extends Component
         let params = queryString.parse(window.location.search);
 
         if (params.id) {
-            this.service.getLastTweetsParams(params.id, () => {
-                console.log(this.service.getLastTweetModelResponse());
-                // this.setState({
-                //     countryName: this.service.getLastTweetModelResponse().country
-                // })
+            this.service.getParams(params.id, () => {
+                this.setState({
+                    numberTweets: this.service.getRequestModel().number_tweets
+                })
             }, () => {
 
             });
@@ -45,14 +42,14 @@ class TwitterLastTweetsForm extends Component
 
     onClickUpdateWidget(onSuccess, onFailure)
     {
-        let model = new SummaryCountryModel();
+        let model = new LastTweetsModel();
         let params = queryString.parse(window.location.search);
 
-        model.country = this.state.countryName;
+        model.number_tweets = this.state.numberTweets;
 
         this.props.parentState.setDisplayLoader(true);
 
-        this.service.putLastTweets(model, params.id, () => {
+        this.service.put(model, params.id, () => {
             this.props.parentState.setDisplayLoader(false);
             onSuccess();
             this.props.onClickUpdate();
@@ -70,7 +67,7 @@ class TwitterLastTweetsForm extends Component
 
         this.props.parentState.setDisplayLoader(true);
 
-        this.service.postLastTweets(model, () => {
+        this.service.post(model, () => {
             this.props.parentState.setDisplayLoader(false);
             onSuccess();
             this.props.onClickUpdate();

@@ -6,7 +6,7 @@ import './EmailVerify.css'
 import ClipLoader from "react-spinners/ClipLoader";
 import history from "../../history";
 
-class EmailVerify extends React.Component
+class EmailVerify extends Component
 {
     service;
 

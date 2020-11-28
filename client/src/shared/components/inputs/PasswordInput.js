@@ -2,7 +2,7 @@ import {FormControl, InputAdornment, InputLabel, OutlinedInput} from "@material-
 import LockIcon from "@material-ui/icons/Lock";
 import React from "react";
 
-export default function(props) {
+export default function PasswordInput(props) {
     return (
         <FormControl fullWidth variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">{props.name}</InputLabel>

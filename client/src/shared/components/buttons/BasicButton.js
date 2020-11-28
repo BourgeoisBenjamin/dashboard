@@ -2,7 +2,7 @@ import React from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import './BasicButton.css'
 
-export default function(props) {
+export default function BasicButton(props) {
     return (
         <div className="basic-button">
             <div className="button">

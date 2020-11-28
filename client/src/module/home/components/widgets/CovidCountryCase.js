@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import CountryCaseModel from "../../../../core/models/services/covid/response/CountryCaseModel";
-import CovidService from "../../../../core/services/services/CovidService";
 import './CovidCountryCase.css'
 import LocationImage from '../../../../assets/images/placeholder.png'
 import DeathImage from '../../../../assets/images/death.png'
@@ -10,6 +9,7 @@ import history from "../../../../history";
 import WidgetHeader from "../widget-header/WidgetHeader";
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
+import CovidCountryCaseService from "../../../../core/services/services/covid/CovidCountryCaseService";
 
 class CovidCountryCase extends Component
 {
@@ -22,7 +22,7 @@ class CovidCountryCase extends Component
             errorMessage: '',
             errorAppear: false
         }
-        this.service = new CovidService();
+        this.service = new CovidCountryCaseService();
 
         this.onClickSettings = this.onClickSettings.bind(this);
         this.onClickDelete = this.onClickDelete.bind(this);
@@ -44,10 +44,9 @@ class CovidCountryCase extends Component
             isLoading: true,
             errorAppear: false
         })
-        this.service.getCountryCase(this.props.id, () => {
-            // console.log( this.service.getDataCountryCaseResponse());
+        this.service.get(this.props.id, () => {
             this.setState({
-                model: this.service.getDataCountryCaseResponse(),
+                model: this.service.getResponseModel(),
                 isLoading: false
             })
         }, () => {
@@ -69,7 +68,7 @@ class CovidCountryCase extends Component
 
     onClickDelete()
     {
-        this.service.deleteCountryCase(this.props.id, () => {
+        this.service.delete(this.props.id, () => {
             this.props.onClickDelete();
         }, () => {
         });
@@ -84,7 +83,7 @@ class CovidCountryCase extends Component
                         <div className="header-content">
                             <div className="description">
                                 <div className="logo">
-                                    <img src={LocationImage}/>
+                                    <img src={LocationImage} alt=""/>
                                 </div>
                                 <div className="text">
                                     <p>In {this.state.model.Country}, {new Date(this.state.model.Date).toLocaleString()}</p>

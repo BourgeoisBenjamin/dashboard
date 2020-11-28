@@ -95,6 +95,7 @@ class SpotifyRecentlyPlayedTracksUser extends Component
             tracks.push(
                 <div className="track">
                     <div className="song">
+                        {/* eslint-disable-next-line jsx-a11y/iframe-has-title */}
                         <iframe
                             src={"https://open.spotify.com/embed/track/" + d.track.id} width="300" height="90"
                                 frameBorder="0" allowTransparency="true" allow="encrypted-media">

@@ -88,6 +88,7 @@ class YoutubeChannelVideo extends Component
             videos.push(
                 <div className="video">
                     <div className="image">
+                        {/* eslint-disable-next-line jsx-a11y/iframe-has-title */}
                         <iframe
                             width="260"
                             height="200"

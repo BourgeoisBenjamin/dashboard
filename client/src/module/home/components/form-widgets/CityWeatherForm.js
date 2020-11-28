@@ -1,10 +1,9 @@
 import React, {Component} from "react";
 import CityInput from "../../../../shared/components/inputs/CityInput";
 import SelectInput from "../../../../shared/components/inputs/SelectInput";
-import WeatherService from "../../../../core/services/services/WeatherService";
 import CityWeatherModel from "../../../../core/models/services/weather/request/CityWeatherModel";
 import queryString from "query-string";
-import CountryCaseModel from "../../../../core/models/services/covid/request/CountryCaseModel";
+import WeatherCityMeteoService from "../../../../core/services/services/weather/WeatherCityMeteoService";
 
 class CityWeatherForm extends Component
 {
@@ -12,7 +11,7 @@ class CityWeatherForm extends Component
     {
         super(props);
 
-        this.service = new WeatherService();
+        this.service = new WeatherCityMeteoService();
 
         this.state = {
             temperatureOptions: [
@@ -45,10 +44,10 @@ class CityWeatherForm extends Component
         let params = queryString.parse(window.location.search);
 
         if (params.id) {
-            this.service.getCityWeatherWidgetParams(params.id, () => {
+            this.service.getParams(params.id, () => {
                 this.setState({
-                    cityName: this.service.getDataRequest().city,
-                    temperature: this.service.getDataRequest().celsius ? 'Celsius' : 'Fahrenheit'
+                    cityName: this.service.getRequestModel().city,
+                    temperature: this.service.getRequestModel().celsius ? 'Celsius' : 'Fahrenheit'
                 })
             }, () => {
 
@@ -66,7 +65,7 @@ class CityWeatherForm extends Component
 
         this.props.parentState.setDisplayLoader(true);
 
-        this.service.putCityWeatherWidget(model, params.id, () => {
+        this.service.put(model, params.id, () => {
             this.props.parentState.setDisplayLoader(false);
             onSuccess();
             this.props.onClickUpdate();
@@ -85,7 +84,7 @@ class CityWeatherForm extends Component
 
         this.props.parentState.setDisplayLoader(true);
 
-        this.service.postCityWeatherWidget(model, () => {
+        this.service.post(model, () => {
             this.props.parentState.setDisplayLoader(false);
             onSuccess();
             this.props.onClickUpdate();

@@ -1,7 +1,4 @@
 import React, {Component} from "react";
-import {FiSettings} from "react-icons/fi";
-import CountryCaseModel from "../../../../core/models/services/covid/response/CountryCaseModel";
-import CovidService from "../../../../core/services/services/CovidService";
 import './CovidSummaryCountry.css'
 import LocationImage from '../../../../assets/images/placeholder.png'
 import history from "../../../../history";
@@ -9,11 +6,10 @@ import DeathImage from '../../../../assets/images/death.png'
 import RecoveryImage from '../../../../assets/images/recovery.png'
 import ConfirmedImage from '../../../../assets/images/confirmed.png'
 import SummaryCountryModel from "../../../../core/models/services/covid/response/SummaryCountryModel";
-import ClipLoader from "react-spinners/ClipLoader";
-import {VscRefresh} from "react-icons/vsc";
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
+import CovidSummaryCountryService from "../../../../core/services/services/covid/CovidSummaryCountryService";
 
 class CovidSummaryCountry extends Component
 {
@@ -26,7 +22,7 @@ class CovidSummaryCountry extends Component
             errorMessage: '',
             errorAppear: false
         }
-        this.service = new CovidService();
+        this.service = new CovidSummaryCountryService();
 
         let getWidgetsData = this.props.parentState.getWidgetData;
 
@@ -47,10 +43,9 @@ class CovidSummaryCountry extends Component
             isLoading: true,
             errorAppear: false
         })
-        this.service.getSummaryCountry(this.props.id, () => {
-            // console.log( this.service.getDataSummaryCountryResponse());
+        this.service.get(this.props.id, () => {
             this.setState({
-                model: this.service.getDataSummaryCountryResponse(),
+                model: this.service.getResponseModel(),
                 isLoading: false
             })
         }, () => {
@@ -77,7 +72,7 @@ class CovidSummaryCountry extends Component
                         <div class="header-content">
                             <div className="description">
                                 <div class="logo">
-                                    <img src={LocationImage} />
+                                    <img src={LocationImage} alt="" />
                                 </div>
                                 <div class="text">
                                     <p>In {this.state.model.Country}, {new Date(this.state.model.Date).toLocaleString()}</p>
@@ -135,7 +130,7 @@ class CovidSummaryCountry extends Component
 
     onClickDelete()
     {
-        this.service.deleteSummaryCountry(this.props.id, () => {
+        this.service.delete(this.props.id, () => {
             this.props.onClickDelete();
         }, () => {
         });
@@ -143,7 +138,6 @@ class CovidSummaryCountry extends Component
 
     onClickParameters()
     {
-        // history.push('/home/widget/covid/country-case/' + this.props.id);
         history.push({
             pathname: '/home/widget/covid/summary-country/',
             search: '?id=' + this.props.id

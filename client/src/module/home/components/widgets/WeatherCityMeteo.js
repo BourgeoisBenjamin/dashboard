@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import WeatherService from "../../../../core/services/services/WeatherService";
 import CityWeatherModel from "../../../../core/models/services/weather/response/CityWeatherModel";
 import './WeatherCityMeteo.css'
 import HumidityImage from '../../../../assets/images/humidity.png'
@@ -10,13 +9,14 @@ import history from "../../../../history";
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
+import WeatherCityMeteoService from "../../../../core/services/services/weather/WeatherCityMeteoService";
 
 class WeatherCityMeteo extends Component
 {
     constructor(props) {
         super(props);
 
-        this.service = new WeatherService();
+        this.service = new WeatherCityMeteoService();
 
         this.state = {
             model: new CityWeatherModel(),
@@ -45,9 +45,9 @@ class WeatherCityMeteo extends Component
             isLoading: true,
             errorAppear: false
         })
-        this.service.getCityWeatherWidget(this.props.id, () => {
+        this.service.get(this.props.id, () => {
             this.setState({
-                model: this.service.getDataResponse(),
+                model: this.service.getResponseModel(),
                 isLoading: false
             })
         }, () => {
@@ -69,7 +69,7 @@ class WeatherCityMeteo extends Component
 
     onClickDelete()
     {
-        this.service.deleteCityWeatherWidget(this.props.id, () => {
+        this.service.delete(this.props.id, () => {
             this.props.onClickDelete();
         }, () => {
         });

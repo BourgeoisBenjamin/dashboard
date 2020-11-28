@@ -203,7 +203,9 @@ class Home extends Component {
         const isAnUpdate = !!queryString.parse(window.location.search).id;
 
         const routes = [];
+        // eslint-disable-next-line array-callback-return
         services.map((service, i) => {
+            // eslint-disable-next-line array-callback-return
             service.widgets.map((widget) => {
                 routes.push(<Route path={widget.urlClient} render={() => <WidgetForm isAnUpdate={isAnUpdate} name={service.name} widget={widget.name} onUpdateWidget={this.getUserWidgets} />} />)
             });
