@@ -18,6 +18,8 @@ class Account extends Component {
     {
         super(props);
 
+        document.title = 'Dashboard - Account';
+
         this.state = {
             informationIsSelected: false,
             passwordIsSelected: false,

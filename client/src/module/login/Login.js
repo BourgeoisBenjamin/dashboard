@@ -11,6 +11,9 @@ class Login extends Component {
         if (localStorage.getItem('JWTToken') !== null) {
             history.push('/home');
         }
+
+        document.title = 'Dashboard - Login';
+
         localStorage.setItem('isConnectedViaTiers', 'false');
     }
 

@@ -17,6 +17,8 @@ class ForgotPassword extends Component {
             history.push('/home');
         }
 
+        document.title = 'Dashboard - Forgot password';
+
         this.forgotPassword = new ForgotPasswordService();
 
         this.state = {
