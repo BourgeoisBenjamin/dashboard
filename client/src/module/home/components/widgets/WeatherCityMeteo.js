@@ -5,6 +5,7 @@ import HumidityImage from '../../../../assets/images/humidity.png'
 import SunImage from '../../../../assets/images/sun.png'
 import PressureImage from '../../../../assets/images/pressure.png';
 import RainImage from '../../../../assets/images/rain.png';
+import LocationImage from '../../../../assets/images/placeholder.png'
 import history from "../../../../history";
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
@@ -89,6 +90,14 @@ class WeatherCityMeteo extends Component
                         onClickSettings={this.onClickParameters}
                     />
                     <div class="content" style={{ display: this.state.isLoading || this.state.errorAppear ? 'none' : 'block' }}>
+                        <div class="city-name">
+                            <div class="logo">
+                                <img src={LocationImage} alt=""/>
+                            </div>
+                            <div class="name">
+                                <p>{this.state.model.city}</p>
+                            </div>
+                        </div>
                         <div class="temperature">
                             <div className="weather">
                                 <img src={imageWeather} alt="" />
