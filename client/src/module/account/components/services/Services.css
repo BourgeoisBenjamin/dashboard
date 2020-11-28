@@ -87,3 +87,17 @@
 {
     display: none;
 }
+
+@media all and (max-width: 730px)
+{
+    #services .title
+    {
+        font-size: 25px;
+    }
+
+    #services .service
+    {
+        width: 90%;
+        min-width: auto;
+    }
+}
