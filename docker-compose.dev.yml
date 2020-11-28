@@ -3,13 +3,12 @@ version: '3'
 services:
   dashboard-db:
     container_name: dashboard-db
-    image: postgres:12.4
+    build: ./db
     restart: always
     ports:
       - 5432:5432
     volumes:
       - db-data:/var/lib/postgresql/data
-      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     networks:
       - db-tier
     environment:
@@ -20,6 +19,8 @@ services:
   dashboard-server:
     container_name: dashboard-server
     build: ./server
+    depends_on:
+      - dashboard-db
     restart: always
     ports:
       - 8080:8080
@@ -34,9 +35,11 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile.dev
+    depends_on:
+      - dashboard-server
     restart: always
     volumes:
-      - './client:/app'
+      - './client:/app:z'
       - '/app/node_modules'
     ports:
       - 3000:3000

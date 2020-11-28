@@ -3,11 +3,10 @@ version: '3'
 services:
   dashboard-db:
     container_name: dashboard-db
-    image: postgres:12.4
+    build: ./db
     restart: always
     volumes:
       - db-data:/var/lib/postgresql/data
-      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     networks:
       - db-tier
     environment:
