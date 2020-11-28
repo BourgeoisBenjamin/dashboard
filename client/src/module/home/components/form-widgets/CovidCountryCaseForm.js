@@ -1,15 +1,15 @@
 import React, {Component} from "react";
 import CountryInput from "../../../../shared/components/inputs/CountryInput";
-import CovidService from "../../../../core/services/services/CovidService";
 import CountryCaseModel from "../../../../core/models/services/covid/request/CountryCaseModel";
 import queryString from 'query-string';
+import CovidCountryCaseService from "../../../../core/services/services/covid/CovidCountryCaseService";
 
 class CovidCountryCaseForm extends Component
 {
     constructor(props) {
         super(props);
 
-        this.service = new CovidService();
+        this.service = new CovidCountryCaseService();
 
         this.state = {
             countryName: ''
@@ -31,9 +31,9 @@ class CovidCountryCaseForm extends Component
         let params = queryString.parse(window.location.search);
 
         if (params.id) {
-            this.service.getCountryCaseParams(params.id, () => {
+            this.service.getParams(params.id, () => {
                 this.setState({
-                    countryName: this.service.getDataCountryCaseRequest().country
+                    countryName: this.service.getRequestModel().country
                 })
             }, () => {
 
@@ -50,7 +50,7 @@ class CovidCountryCaseForm extends Component
 
         this.props.parentState.setDisplayLoader(true);
 
-        this.service.putCountryCase(model, params.id, () => {
+        this.service.put(model, params.id, () => {
             this.props.parentState.setDisplayLoader(false);
             onSuccess();
             this.props.onClickUpdate();
@@ -68,7 +68,7 @@ class CovidCountryCaseForm extends Component
 
         this.props.parentState.setDisplayLoader(true);
 
-        this.service.postCountryCase(model, () => {
+        this.service.post(model, () => {
             this.props.parentState.setDisplayLoader(false);
             onSuccess();
             this.props.onClickUpdate();

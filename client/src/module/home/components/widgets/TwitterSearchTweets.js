@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import './TwitterSearchTweets.css'
 import history from "../../../../history";
-import TwitterService from "../../../../core/services/services/TwitterService";
 import SearchTweetsModel from "../../../../core/models/services/twitter/response/SearchTweetsModel";
 import RetweetImage from "../../../../assets/images/retweet.png";
 import LikeImage from "../../../../assets/images/like.png";
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
+import TwitterSearchTweetsService from "../../../../core/services/services/twitter/TwitterSearchTweetsService";
 
 class TwitterSearchTweets extends Component
 {
@@ -20,7 +20,7 @@ class TwitterSearchTweets extends Component
             errorMessage: '',
             errorAppear: false
         }
-        this.service = new TwitterService();
+        this.service = new TwitterSearchTweetsService();
 
         this.onClickParameters = this.onClickParameters.bind(this);
         this.onClickDelete = this.onClickDelete.bind(this);
@@ -42,9 +42,9 @@ class TwitterSearchTweets extends Component
             isLoading: true,
             errorAppear: false
         })
-        this.service.getSearchTweets(this.props.id, () => {
+        this.service.get(this.props.id, () => {
             this.setState({
-                model: this.service.getSearchTweetResponse(),
+                model: this.service.getResponseModel(),
                 isLoading: false
             })
         }, () => {
@@ -66,7 +66,7 @@ class TwitterSearchTweets extends Component
 
     onClickDelete()
     {
-        this.service.deleteSearchTweet(this.props.id, () => {
+        this.service.delete(this.props.id, () => {
             this.props.onClickDelete();
         }, () => {
         });

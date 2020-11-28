@@ -1,16 +1,15 @@
 import React, {Component} from "react";
 import CountryInput from "../../../../shared/components/inputs/CountryInput";
-import CovidService from "../../../../core/services/services/CovidService";
 import SummaryCountryModel from "../../../../core/models/services/covid/request/SummaryCountryModel";
 import queryString from "query-string";
-import CountryCaseModel from "../../../../core/models/services/covid/request/CountryCaseModel";
+import CovidSummaryCountryService from "../../../../core/services/services/covid/CovidSummaryCountryService";
 
 class CovidSummaryCountryForm extends Component
 {
     constructor(props) {
         super(props);
 
-        this.service = new CovidService();
+        this.service = new CovidSummaryCountryService();
 
         this.state = {
             countryName: ''
@@ -31,9 +30,9 @@ class CovidSummaryCountryForm extends Component
         let params = queryString.parse(window.location.search);
 
         if (params.id) {
-            this.service.getSummaryCountryParams(params.id, () => {
+            this.service.getParams(params.id, () => {
                 this.setState({
-                    countryName: this.service.getDataSummaryCountryRequest().country
+                    countryName: this.service.getRequestModel().country
                 })
             }, () => {
 
@@ -50,7 +49,7 @@ class CovidSummaryCountryForm extends Component
 
         this.props.parentState.setDisplayLoader(true);
 
-        this.service.putSummaryCountry(model, params.id, () => {
+        this.service.put(model, params.id, () => {
             this.props.parentState.setDisplayLoader(false);
             onSuccess();
             this.props.onClickUpdate();
@@ -68,7 +67,7 @@ class CovidSummaryCountryForm extends Component
 
         this.props.parentState.setDisplayLoader(true);
 
-        this.service.postSummaryCountry(model, () => {
+        this.service.post(model, () => {
             this.props.parentState.setDisplayLoader(false);
             onSuccess();
             this.props.onClickUpdate();
