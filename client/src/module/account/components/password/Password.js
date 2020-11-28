@@ -59,15 +59,6 @@ class Password extends Component
             if (error.response.status === 403) {
                 localStorage.removeItem('JWTToken');
                 this.context.setShowMenu('none');
-                this.setState({
-                    styleMenu: {
-                        'margin-left': '-300px'
-                    },
-                    menuIsOpen: false,
-                    title: 'Home',
-                    visibilityBackground: 'hidden',
-                    opacityBackground: '0'
-                })
                 history.push('/');
             }
             this.displayLoaderButtonUpdate(false);

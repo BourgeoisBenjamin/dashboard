@@ -49,6 +49,11 @@ class TwitterLastTweets extends Component
                 isLoading: false
             })
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.setState({
                 isLoading: false,
                 errorMessage: 'Could not load data',
@@ -96,6 +101,11 @@ class TwitterLastTweets extends Component
         this.service.delete(this.props.id, () => {
             this.props.onClickDelete();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
         });
     }
 

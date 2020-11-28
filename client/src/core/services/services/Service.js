@@ -11,6 +11,7 @@ class Service
     requestModel;
     responseModel;
     onGetSucceed;
+    error;
 
     constructor(url, requestModel, responseModel, onGetSucceed)
     {
@@ -30,6 +31,7 @@ class Service
                 this.onGetSucceed(res, this.responseModel);
                 onSuccess();
             }).catch(error => {
+            this.error = error;
             onFailure();
         })
     }
@@ -41,6 +43,7 @@ class Service
                 Object.assign(this.requestModel, res.data);
                 onSuccess();
             }).catch(error => {
+                this.error = error;
             onFailure();
         })
     }
@@ -52,6 +55,7 @@ class Service
                 Object.assign(this.requestModel, data);
                 onSuccess();
             }).catch(error => {
+            this.error = error;
             onFailure();
         })
     }
@@ -63,6 +67,7 @@ class Service
                 Object.assign(this.requestModel, data);
                 onSuccess();
             }).catch(error => {
+            this.error = error;
             onFailure();
         })
     }
@@ -73,6 +78,7 @@ class Service
             .then(res => {
                 onSuccess();
             }).catch(error => {
+            this.error = error;
             onFailure();
         })
     }
@@ -85,6 +91,11 @@ class Service
     getResponseModel()
     {
         return this.responseModel;
+    }
+
+    getError()
+    {
+        return this.error;
     }
 }
 

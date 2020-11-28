@@ -47,6 +47,11 @@ class SpotifyTopTracksUser extends Component
                 isLoading: false
             })
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.setState({
                 isLoading: false,
                 errorMessage: 'Could not load data',

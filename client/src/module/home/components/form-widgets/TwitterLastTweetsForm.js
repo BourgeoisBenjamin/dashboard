@@ -3,6 +3,7 @@ import queryString from "query-string";
 import LastTweetsModel from "../../../../core/models/services/twitter/request/LastTweetsModel";
 import NumberInput from "../../../../shared/components/inputs/NumberInput";
 import TwitterLastTweetsService from "../../../../core/services/services/twitter/TwitterLastTweetsService";
+import history from "../../../../history";
 
 class TwitterLastTweetsForm extends Component
 {
@@ -35,7 +36,11 @@ class TwitterLastTweetsForm extends Component
                     numberTweets: this.service.getRequestModel().number_tweets
                 })
             }, () => {
-
+                if (this.service.getError().response.status === 403) {
+                    localStorage.removeItem('JWTToken');
+                    this.context.setShowMenu('none');
+                    history.push('/');
+                }
             });
         }
     }
@@ -54,6 +59,11 @@ class TwitterLastTweetsForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });
@@ -72,6 +82,11 @@ class TwitterLastTweetsForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });

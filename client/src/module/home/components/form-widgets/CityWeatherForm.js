@@ -4,6 +4,7 @@ import SelectInput from "../../../../shared/components/inputs/SelectInput";
 import CityWeatherModel from "../../../../core/models/services/weather/request/CityWeatherModel";
 import queryString from "query-string";
 import WeatherCityMeteoService from "../../../../core/services/services/weather/WeatherCityMeteoService";
+import history from "../../../../history";
 
 class CityWeatherForm extends Component
 {
@@ -50,7 +51,11 @@ class CityWeatherForm extends Component
                     temperature: this.service.getRequestModel().celsius ? 'Celsius' : 'Fahrenheit'
                 })
             }, () => {
-
+                if (this.service.getError().response.status === 403) {
+                    localStorage.removeItem('JWTToken');
+                    this.context.setShowMenu('none');
+                    history.push('/');
+                }
             });
         }
     }
@@ -70,6 +75,11 @@ class CityWeatherForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });
@@ -89,6 +99,11 @@ class CityWeatherForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });

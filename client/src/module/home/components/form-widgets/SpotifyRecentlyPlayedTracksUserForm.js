@@ -5,6 +5,7 @@ import RecentlyPlayedTracksUserModel
     from "../../../../core/models/services/spotify/request/RecentlyPlayedTracksUserModel";
 import SpotifyRecentlyPlayedTracksUserService
     from "../../../../core/services/services/spotify/SpotifyRecentlyPlayedTracksUserService";
+import history from "../../../../history";
 
 class SpotifyRecentlyPlayedTracksUserForm extends Component
 {
@@ -42,6 +43,11 @@ class SpotifyRecentlyPlayedTracksUserForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });
@@ -60,6 +66,11 @@ class SpotifyRecentlyPlayedTracksUserForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });
@@ -75,7 +86,11 @@ class SpotifyRecentlyPlayedTracksUserForm extends Component
                     limitTracks: this.service.getRequestModel().limit_tracks
                 })
             }, () => {
-
+                if (this.service.getError().response.status === 403) {
+                    localStorage.removeItem('JWTToken');
+                    this.context.setShowMenu('none');
+                    history.push('/');
+                }
             });
         }
     }

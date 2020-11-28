@@ -4,6 +4,7 @@ import SelectInput from "../../../../shared/components/inputs/SelectInput";
 import SpotifyTopArtistsUserService from "../../../../core/services/services/spotify/SpotifyTopArtistsUserService";
 import queryString from "query-string";
 import TopArtistsUserModel from "../../../../core/models/services/spotify/request/TopArtistsUserModel";
+import history from "../../../../history";
 
 const timeRange = [
     {
@@ -68,6 +69,11 @@ class SpotifyTopArtistsUserForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });
@@ -87,6 +93,11 @@ class SpotifyTopArtistsUserForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });
@@ -103,7 +114,11 @@ class SpotifyTopArtistsUserForm extends Component
                     timeRange: timeRangeRequests[this.service.getRequestModel().time_range]
                 })
             }, () => {
-
+                if (this.service.getError().response.status === 403) {
+                    localStorage.removeItem('JWTToken');
+                    this.context.setShowMenu('none');
+                    history.push('/');
+                }
             });
         }
     }

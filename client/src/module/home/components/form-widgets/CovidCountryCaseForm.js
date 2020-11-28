@@ -3,6 +3,7 @@ import CountryInput from "../../../../shared/components/inputs/CountryInput";
 import CountryCaseModel from "../../../../core/models/services/covid/request/CountryCaseModel";
 import queryString from 'query-string';
 import CovidCountryCaseService from "../../../../core/services/services/covid/CovidCountryCaseService";
+import history from "../../../../history";
 
 class CovidCountryCaseForm extends Component
 {
@@ -36,7 +37,11 @@ class CovidCountryCaseForm extends Component
                     countryName: this.service.getRequestModel().country
                 })
             }, () => {
-
+                if (this.service.getError().response.status === 403) {
+                    localStorage.removeItem('JWTToken');
+                    this.context.setShowMenu('none');
+                    history.push('/');
+                }
             });
         }
     }
@@ -55,6 +60,11 @@ class CovidCountryCaseForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });
@@ -73,6 +83,11 @@ class CovidCountryCaseForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });

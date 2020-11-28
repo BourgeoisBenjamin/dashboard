@@ -4,6 +4,7 @@ import NumberInput from "../../../../shared/components/inputs/NumberInput";
 import SearchInput from "../../../../shared/components/inputs/SearchInput";
 import SearchTweetsModel from "../../../../core/models/services/twitter/request/SearchTweetsModel";
 import TwitterSearchTweetsService from "../../../../core/services/services/twitter/TwitterSearchTweetsService";
+import history from "../../../../history";
 
 class TwitterSearchTweetsForm extends Component
 {
@@ -40,7 +41,11 @@ class TwitterSearchTweetsForm extends Component
                     numberTweets: this.service.getRequestModel().number_tweets
                 })
             }, () => {
-
+                if (this.service.getError().response.status === 403) {
+                    localStorage.removeItem('JWTToken');
+                    this.context.setShowMenu('none');
+                    history.push('/');
+                }
             });
         }
     }
@@ -60,6 +65,11 @@ class TwitterSearchTweetsForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });
@@ -79,6 +89,11 @@ class TwitterSearchTweetsForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });

@@ -3,6 +3,7 @@ import queryString from "query-string";
 import NumberInput from "../../../../shared/components/inputs/NumberInput";
 import YoutubeStatisticsChannelService from "../../../../core/services/services/youtube/YoutubeStatisticsChannelService";
 import StatisticsChannelModel from "../../../../core/models/services/youtube/request/StatisticsChannelModel";
+import history from "../../../../history";
 
 class YoutubeStatisticsChannelForm extends Component
 {
@@ -37,7 +38,11 @@ class YoutubeStatisticsChannelForm extends Component
                     idChannel: this.service.getRequestModel().id_channel,
                 })
             }, () => {
-
+                if (this.service.getError().response.status === 403) {
+                    localStorage.removeItem('JWTToken');
+                    this.context.setShowMenu('none');
+                    history.push('/');
+                }
             });
         }
     }
@@ -56,6 +61,11 @@ class YoutubeStatisticsChannelForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });
@@ -74,6 +84,11 @@ class YoutubeStatisticsChannelForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });

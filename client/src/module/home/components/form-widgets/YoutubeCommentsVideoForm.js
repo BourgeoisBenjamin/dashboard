@@ -3,6 +3,7 @@ import queryString from "query-string";
 import NumberInput from "../../../../shared/components/inputs/NumberInput";
 import YoutubeCommentsVideoService from "../../../../core/services/services/youtube/YoutubeCommentsVideoService";
 import CommentsVideoModel from "../../../../core/models/services/youtube/request/CommentsVideoModel";
+import history from "../../../../history";
 
 class YoutubeCommentsVideoForm extends Component
 {
@@ -40,7 +41,11 @@ class YoutubeCommentsVideoForm extends Component
                     numberComments: this.service.getRequestModel().number_comments
                 })
             }, () => {
-
+                if (this.service.getError().response.status === 403) {
+                    localStorage.removeItem('JWTToken');
+                    this.context.setShowMenu('none');
+                    history.push('/');
+                }
             });
         }
     }
@@ -60,6 +65,11 @@ class YoutubeCommentsVideoForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });
@@ -79,6 +89,11 @@ class YoutubeCommentsVideoForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });

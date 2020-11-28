@@ -3,6 +3,7 @@ import queryString from "query-string";
 import NumberInput from "../../../../shared/components/inputs/NumberInput";
 import YoutubeChannelVideoService from "../../../../core/services/services/youtube/YoutubeChannelVideoService";
 import ChannelVideosModel from "../../../../core/models/services/youtube/request/ChannelVideosModel";
+import history from "../../../../history";
 
 class YoutubeChannelVideoForm extends Component
 {
@@ -40,7 +41,11 @@ class YoutubeChannelVideoForm extends Component
                     numberVideos: this.service.getRequestModel().number_videos
                 })
             }, () => {
-
+                if (this.service.getError().response.status === 403) {
+                    localStorage.removeItem('JWTToken');
+                    this.context.setShowMenu('none');
+                    history.push('/');
+                }
             });
         }
     }
@@ -60,6 +65,11 @@ class YoutubeChannelVideoForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });
@@ -79,6 +89,11 @@ class YoutubeChannelVideoForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });

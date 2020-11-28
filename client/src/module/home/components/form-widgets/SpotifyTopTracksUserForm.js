@@ -4,6 +4,7 @@ import SelectInput from "../../../../shared/components/inputs/SelectInput";
 import SpotifyTopTracksUserService from "../../../../core/services/services/spotify/SpotifyTopTracksUserService";
 import queryString from "query-string";
 import TopTracksUserModel from "../../../../core/models/services/spotify/request/TopTracksUserModel";
+import history from "../../../../history";
 
 const timeRange = [
     {
@@ -69,6 +70,11 @@ class SpotifyTopTracksUserForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });
@@ -88,6 +94,11 @@ class SpotifyTopTracksUserForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });
@@ -104,7 +115,11 @@ class SpotifyTopTracksUserForm extends Component
                     timeRange: timeRangeRequests[this.service.getRequestModel().time_range]
                 })
             }, () => {
-
+                if (this.service.getError().response.status === 403) {
+                    localStorage.removeItem('JWTToken');
+                    this.context.setShowMenu('none');
+                    history.push('/');
+                }
             });
         }
     }

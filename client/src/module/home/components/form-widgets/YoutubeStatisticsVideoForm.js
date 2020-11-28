@@ -3,6 +3,7 @@ import queryString from "query-string";
 import NumberInput from "../../../../shared/components/inputs/NumberInput";
 import StatisticsVideoModel from "../../../../core/models/services/youtube/request/StatisticsVideoModel";
 import YoutubeStatisticsVideoService from "../../../../core/services/services/youtube/YoutubeStatisticsVideoService";
+import history from "../../../../history";
 
 class YoutubeStatisticsVideoForm extends Component
 {
@@ -38,7 +39,11 @@ class YoutubeStatisticsVideoForm extends Component
                     idVideo: this.service.getRequestModel().id_video,
                 })
             }, () => {
-
+                if (this.service.getError().response.status === 403) {
+                    localStorage.removeItem('JWTToken');
+                    this.context.setShowMenu('none');
+                    history.push('/');
+                }
             });
         }
     }
@@ -57,6 +62,11 @@ class YoutubeStatisticsVideoForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });
@@ -75,6 +85,11 @@ class YoutubeStatisticsVideoForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
+            if (this.service.getError().response.status === 403) {
+                localStorage.removeItem('JWTToken');
+                this.context.setShowMenu('none');
+                history.push('/');
+            }
             this.props.parentState.setDisplayLoader(false);
             onFailure();
         });
