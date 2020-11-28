@@ -174,6 +174,7 @@ class Information extends Component
 
         this.service.deleteUser(() => {
             localStorage.removeItem('JWTToken');
+            this.context.setShowMenu('none');
             this.setState({
                 sendingDeleteAccount: false,
                 successMessageOpen: true,

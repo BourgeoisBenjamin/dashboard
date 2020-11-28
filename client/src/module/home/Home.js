@@ -3,7 +3,7 @@ import history from "../../history";
 import MenuContext from "../../core/contexts/MenuContext";
 import './Home.css'
 import WidgetForm from './components/WidgetForm'
-import {Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import {services} from "./services";
 import WidgetService from "../../core/services/widget/WidgetService";
 import {widgets} from "./widgets";
@@ -233,6 +233,7 @@ class Home extends Component {
                     <Switch location={this.props.location}>
                         { routes }
                         <Route path={'/home/widget/'} render={() => <WidgetForm isAnUpdate={isAnUpdate} />} />
+                        <Route path='/home/*' exact={true} render={() => <Redirect to="/404" />} />
                     </Switch>
             </div>
         );
