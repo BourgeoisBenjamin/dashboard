@@ -7,8 +7,6 @@ import BasicButton from "../../shared/components/buttons/BasicButton";
 import SuccessDialog from "../../shared/components/dialogs/SuccessDialog";
 import ErrorDialog from "../../shared/components/dialogs/ErrorDialog";
 import ForgotPasswordService from "../../core/services/forgot-password/ForgotPassword";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 
 class ForgotPassword extends Component {
 
@@ -26,34 +24,15 @@ class ForgotPassword extends Component {
             email: '',
             successMessageOpen: false,
             errorMessageOpen: false,
-            sendingRequest: false,
-            open: false
+            sendingRequest: false
         };
 
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleSuccessMessageClose = this.handleSuccessMessageClose.bind(this);
         this.handleErrorMessageClose = this.handleErrorMessageClose.bind(this);
-        this.onClick = this.onClick.bind(this);
-        this.handleClose = this.handleClose.bind(this);
 
     }
-
-    handleClose()
-    {
-        this.setState({
-            open: false
-        })
-    }
-
-    onClick()
-    {
-        this.setState({
-            open: true
-        })
-    }
-
-
 
     onClickForgot = () =>
     {
@@ -81,17 +60,6 @@ class ForgotPassword extends Component {
     render() {
         return (
             <div id="forgot-password-module">
-                <button  aria-controls="simple-menu" aria-haspopup="true" onClick={this.onClick}>Lol</button>
-                <Menu
-                    id="simple-menu"
-                    keepMounted
-                    open={this.state.open}
-                    onClose={this.handleClose}
-                >
-                    <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                    <MenuItem onClick={this.handleClose}>Logout</MenuItem>
-                </Menu>
                 <SuccessDialog onClose={this.handleSuccessMessageClose} text="Reset link sent to your email !" open={this.state.successMessageOpen} />
                 <ErrorDialog onClose={this.handleErrorMessageClose} text="Cannot reset your password" open={this.state.errorMessageOpen} />
                 <div class="title">
