@@ -17,7 +17,7 @@ function authenticateToken(req, res, next) {
 }
 
 function generateAccessToken(user_id) {
-    return jwt.sign(user_id, KEYS.JWT.JWT_SECRET, { expiresIn: '1800s' });
+    return jwt.sign(user_id, KEYS.JWT.JWT_SECRET, { expiresIn: '3600s' });
 }
 
 module.exports = {
