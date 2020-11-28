@@ -1,0 +1,2361 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Dashboard
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /account/register:
+    post:
+      parameters:
+        - name: username
+          in: query
+          description: username
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: password
+          required: true
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: email
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User registered
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: User already exist
+
+  /account/login:
+    post:
+      parameters:
+        - name: identifier
+          in: query
+          description: identifier
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Login success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendToken'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/login/tiers/init:
+    get:
+      responses:
+        '200':
+          description: Init success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginInit'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/login/tiers/oauth:
+    get:
+      parameters:
+        - name: uuid
+          in: query
+          description: uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Login success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendToken'
+        '401':
+          description: Unauthorized
+
+  /account/login/tiers/twitter:
+    get:
+      parameters:
+        - name: uuid
+          in: query
+          description: uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Login success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendToken'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/login/tiers/google:
+    get:
+      parameters:
+        - name: uuid
+          in: query
+          description: uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Login success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendToken'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/password/lost:
+    post:
+      parameters:
+        - name: email
+          in: query
+          description: email
+          required: true
+          schema:
+            type: string
+        - name: username
+          in: query
+          description: username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lost password process activated
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/password/reset:
+    post:
+      parameters:
+        - name: uuid
+          in: query
+          description: uuid
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Password reset
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/delete:
+    delete:
+      responses:
+        '200':
+          description: Delete account
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/password/update:
+    put:
+      parameters:
+        - name: old_password
+          in: query
+          description: Old password
+          required: true
+          schema:
+            type: string
+        - name: new_password
+          in: query
+          description: New password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Password changed
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/infos:
+    get:
+      responses:
+        '200':
+          description: Get account info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountInfo'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/service:
+    get:
+      responses:
+        '200':
+          description: Get account services
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceList'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/service/init:
+    post:
+      responses:
+        '200':
+          description: Return uuid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceInit'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/service/connect:
+    get:
+      parameters:
+        - name: uuid
+          in: query
+          description: uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Service connected
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/service/twitter/disconnect:
+    post:
+      responses:
+        '200':
+          description: Disconnect from twitter service
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/service/twitter/connect:
+    post:
+      parameters:
+        - name: uuid
+          in: query
+          description: uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Connect to twitter service
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/service/spotify/disconnect:
+    post:
+      responses:
+        '200':
+          description: Disconnect from spotift service
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/service/spotify/connect:
+    post:
+      parameters:
+        - name: uuid
+          in: query
+          description: uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Connect to spotify service
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/service/youtube/disconnect:
+    post:
+      responses:
+        '200':
+          description: Disconnect from youtube service
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/service/youtube/connect:
+    post:
+      parameters:
+        - name: uuid
+          in: query
+          description: uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Connect to youtube service
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /service/weather/city-meteo/:id_widget:
+    put:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: city
+          in: query
+          description: city
+          required: true
+          schema:
+            type: string
+        - name: celsius
+          in: query
+          description: celsius or fahrenheit
+          schema:
+            type: boolean
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget updated
+        '418':
+          description: Service disconnected
+
+    get:
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: infos return by the widget
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/city_meteo'
+        '418':
+          description: Service disconnected
+    delete:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget deleted
+
+  /service/weather/city-meteo/:
+    post:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: city
+          in: query
+          description: city
+          required: true
+          schema:
+            type: string
+        - name: celsius
+          in: query
+          description: celsius or fahrenheit
+          schema:
+            type: boolean
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetCreated'
+
+  /service/weather/city-meteo/:id_widget/params:
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: params configuration of the widget
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/city_meteo_params'
+
+  /service/covid/country-case/:id_widget:
+    put:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: country
+          in: query
+          description: country
+          required: true
+          schema:
+            type: string
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget updated
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: infos return by the widget
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/country_case'
+        '418':
+          description: Service disconnected
+    delete:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget deleted
+
+  /service/covid/country-case/:
+    post:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: country
+          in: query
+          description: country
+          required: true
+          schema:
+            type: string
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetCreated'
+
+  /service/covid/country-case/:id_widget/params:
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: actual params configuration of the widget
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/country_case_params'
+
+  /service/covid/summary-country/:id_widget:
+    put:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: country
+          in: query
+          description: country
+          required: true
+          schema:
+            type: string
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget updated
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: infos return by the widget
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/summary_country'
+        '418':
+          description: Service disconnected
+    delete:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget deleted
+
+  /service/covid/summary-country/:
+    post:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: country
+          in: query
+          description: country
+          required: true
+          schema:
+            type: string
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetCreated'
+
+  /service/covid/summary-country/:id_widget/params:
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: actual configuration of the widget params
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/summary_country_params'
+
+  /service/twitter/last-tweets/:id_widget:
+    put:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: number_tweets
+          in: query
+          description: number of tweets to display
+          required: true
+          schema:
+            type: integer
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget updated
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: infos return by the widget
+        '418':
+          description: Service disconnected
+    delete:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget deleted
+
+  /service/twitter/last-tweets/:
+    post:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: number_tweets
+          in: query
+          description: number of tweets to display
+          required: true
+          schema:
+            type: integer
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetCreated'
+
+  /service/twitter/last-tweets/:id_widget/params:
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: actual configuration of the widget params
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/last_tweets_params'
+
+  /service/twitter/search-tweets/:id_widget:
+    put:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: search
+          in: query
+          description: number of tweets to display
+          required: true
+          schema:
+            type: string
+        - name: number_tweets
+          in: query
+          description: number of tweets to display
+          required: true
+          schema:
+            type: integer
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget updated
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: infos return by the widget
+        '418':
+          description: Service disconnected
+    delete:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget deleted
+
+  /service/twitter/search-tweets/:
+    post:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: search
+          in: query
+          description: number of tweets to display
+          required: true
+          schema:
+            type: string
+        - name: number_tweets
+          in: query
+          description: number of tweets to display
+          required: true
+          schema:
+            type: integer
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetCreated'
+
+  /service/twitter/search-tweets/:id_widget/params:
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: actual configuration of the widget params
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/search_tweets_params'
+
+  /service/youtube/statistics-channel/:id_widget:
+    put:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: id_channel
+          in: query
+          description: id of the youtube channel
+          required: true
+          schema:
+            type: string
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget updated
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: infos return by the widget
+        '418':
+          description: Service disconnected
+    delete:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget deleted
+
+  /service/youtube/statistics-channel/:
+    post:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: id_channel
+          in: query
+          description: id of the youtube channel
+          required: true
+          schema:
+            type: string
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetCreated'
+
+  /service/youtube/statistics-channel/:id_widget/params:
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: actual configuration of the widget params
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/statistics_channel_params'
+
+  /service/youtube/statistics-video/:id_widget:
+    put:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: id_video
+          in: query
+          description: id of the youtube video
+          required: true
+          schema:
+            type: string
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget updated
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: infos return by the widget
+        '418':
+          description: Service disconnected
+    delete:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget deleted
+
+  /service/youtube/statistics-video/:
+    post:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: id_video
+          in: query
+          description: id of the youtube video
+          required: true
+          schema:
+            type: string
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetCreated'
+
+  /service/youtube/statistics-video/:id_widget/params:
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: actual configuration of the widget params
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/statistics_video_params'
+
+  /service/youtube/comments-video/:id_widget:
+    put:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: id_video
+          in: query
+          description: id of the youtube video
+          required: true
+          schema:
+            type: string
+        - name: number_comments
+          in: query
+          description: number of comments to display
+          required: true
+          schema:
+            type: integer
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget updated
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: infos return by the widget
+        '418':
+          description: Service disconnected
+    delete:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget deleted
+
+  /service/youtube/comments-video/:
+    post:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: id_video
+          in: query
+          description: id of the youtube video
+          required: true
+          schema:
+            type: string
+        - name: number_comments
+          in: query
+          description: number of comments to display
+          required: true
+          schema:
+            type: integer
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetCreated'
+
+  /service/youtube/comments-video/:id_widget/params:
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: actual configuration of the widget params
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comments_video_params'
+
+  /service/youtube/channel-videos/:id_widget:
+    put:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: id_channel
+          in: query
+          description: id of the youtube channel
+          required: true
+          schema:
+            type: string
+        - name: number_videos
+          in: query
+          description: number of videos to display
+          required: true
+          schema:
+            type: integer
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget updated
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: infos return by the widget
+        '418':
+          description: Service disconnected
+    delete:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget deleted
+
+  /service/youtube/channel-videos/:
+    post:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: id_channel
+          in: query
+          description: id of the youtube channel
+          required: true
+          schema:
+            type: string
+        - name: number_videos
+          in: query
+          description: number of videos to display
+          required: true
+          schema:
+            type: integer
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetCreated'
+
+  /service/youtube/channel-videos/:id_widget/params:
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: actual configuration of the widget params
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/channel_videos_params'
+
+  /service/spotify/top-tracks-user/:id_widget:
+    put:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: limit_tracks
+          in: query
+          description: limit track to display
+          required: true
+          schema:
+            type: integer
+        - name: time_range
+          in: query
+          description: time of the top (long_term (calculated from several years of data, medium_term (approximately last 6 months), short_term (approximately last 4 weeks).
+          required: true
+          schema:
+            type: string
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget updated
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: infos return by the widget
+        '418':
+          description: Service disconnected
+    delete:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget deleted
+
+  /service/spotify/top-tracks-user/:
+    post:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: limit_tracks
+          in: query
+          description: limit track to display
+          required: true
+          schema:
+            type: integer
+        - name: time_range
+          in: query
+          description: time of the top (long_term (calculated from several years of data, medium_term (approximately last 6 months), short_term (approximately last 4 weeks).
+          required: true
+          schema:
+            type: string
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetCreated'
+
+  /service/spotify/top-tracks-user/:id_widget/params:
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: actual configuration of the widget params
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/top_tracks_user_params'
+
+  /service/spotify/top-artists-user/:id_widget:
+    put:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: limit_artists
+          in: query
+          description: limit artist to display
+          required: true
+          schema:
+            type: integer
+        - name: time_range
+          in: query
+          description: time of the top (long_term (calculated from several years of data, medium_term (approximately last 6 months), short_term (approximately last 4 weeks).
+          required: true
+          schema:
+            type: string
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget updated
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: infos return by the widget
+        '418':
+          description: Service disconnected
+    delete:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget deleted
+
+  /service/spotify/top-artists-user/:
+    post:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: limit_artists
+          in: query
+          description: limit artist to display
+          required: true
+          schema:
+            type: integer
+        - name: time_range
+          in: query
+          description: time of the top (long_term (calculated from several years of data, medium_term (approximately last 6 months), short_term (approximately last 4 weeks).
+          required: true
+          schema:
+            type: string
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetCreated'
+
+  /service/spotify/top-artists-user/:id_widget/params:
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: actual configuration of the widget params
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/top_artists_user_params'
+
+  /service/spotify/recently-played-tracks-user/:id_widget:
+    put:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: limit_tracks
+          in: query
+          description: limit track to display
+          required: true
+          schema:
+            type: integer
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget updated
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: infos return by the widget
+        '418':
+          description: Service disconnected
+    delete:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget deleted
+
+  /service/spotify/recently-played-tracks-user/:
+    post:
+      parameters:
+        - name: activated
+          in: query
+          description: activate widget
+          required: true
+          schema:
+            type: boolean
+        - name: limit_tracks
+          in: query
+          description: limit track to display
+          required: true
+          schema:
+            type: integer
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widget created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetCreated'
+
+  /service/spotify/recently-played-tracks-user/:id_widget/params:
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: actual configuration of the widget params
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recently_played_tracks_user_params'
+
+  /widgets:
+    get:
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Get all user's widget
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/widgets'
+    put:
+      parameters:
+        - name: id
+          in: query
+          description: Id of the widget
+          required: true
+          schema:
+            type: integer
+        - name: name
+          in: query
+          description: Name of the widget
+          required: true
+          schema:
+            type: string
+        - name: position_x
+          in: query
+          description: Position x of the widget
+          required: true
+          schema:
+            type: integer
+        - name: position_y
+          in: query
+          description: Position y of the widget
+          required: true
+          schema:
+            type: integer
+      responses:
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '200':
+          description: Widgets position save
+
+components:
+  schemas:
+    LoginInit:
+      type: object
+      required:
+        - uuid
+      properties:
+        uuid:
+          type: string
+
+    ServiceInit:
+      type: object
+      required:
+        - uuid
+      properties:
+        uuid:
+          type: string
+
+    SendToken:
+      type: object
+      required:
+        - JWTToken
+      properties:
+        JWTToken:
+          type: string
+
+    AccountInfo:
+      type: object
+      required:
+        - username
+        - email
+        - activate_email
+        - tier_username
+        - tier_name
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        email_verify:
+          type: boolean
+        tier_username:
+          type: string
+        tier_name:
+          type: string
+
+    ServiceList:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            required:
+              - service_name
+              - connected
+            properties:
+              service_name:
+                type: string
+              connected:
+                type: boolean
+
+    city_meteo:
+      type: object
+      required:
+        - temp
+        - humidity
+        - pressure
+        - description
+        - weathercode
+        - rain
+        - city
+        - celsius
+      properties:
+        temp:
+          type: integer
+        humidity:
+          type: integer
+        pressure:
+          type: integer
+        description:
+          type: string
+        weathercode:
+          type: integer
+        rain:
+          type: integer
+        city:
+          type: string
+        celsius:
+          type: boolean
+
+    city_meteo_params:
+      type: object
+      required:
+        - activate
+        - city
+        - celsius
+      properties:
+        activate:
+          type: boolean
+        city:
+          type: string
+        celsius:
+          type: boolean
+
+    country_case:
+      type: object
+      required:
+        - Country
+        - CountryCode
+        - Province
+        - City
+        - CityCode
+        - Lat
+        - Lon
+        - Confirmed
+        - Deaths
+        - Recovered
+        - Active
+        - Date
+      properties:
+        Country:
+          type: string
+        CountryCode:
+          type: string
+        Province:
+          type: string
+        City:
+          type: string
+        CityCode:
+          type: integer
+        Lat:
+          type: string
+        Lon:
+          type: string
+        Confirmed:
+          type: string
+        Deaths:
+          type: string
+        Recovered:
+          type: string
+        Active:
+          type: string
+        Date:
+          type: string
+
+    country_case_params:
+      type: object
+      required:
+        - activate
+        - country
+      properties:
+        activate:
+          type: boolean
+        country:
+          type: string
+
+    summary_country:
+      type: object
+      required:
+        - Country
+        - CountryCode
+        - Slug
+        - NewConfirmed
+        - TotalConfirmed
+        - NewDeaths
+        - TotalDeaths
+        - NewRecovered
+        - TotalRecovered
+        - Date
+      properties:
+        Country:
+          type: string
+        CountryCode:
+          type: string
+        Slug:
+          type: string
+        NewConfirmed:
+          type: integer
+        TotalConfirmed:
+          type: integer
+        NewDeaths:
+          type: integer
+        TotalDeaths:
+          type: integer
+        NewRecovered:
+          type: integer
+        TotalRecovered:
+          type: integer
+        Date:
+          type: string
+
+    summary_country_params:
+      type: object
+      required:
+        - activate
+        - country
+      properties:
+        activate:
+          type: boolean
+        country:
+          type: string
+
+    last_tweets_params:
+      type: object
+      required:
+        - activate
+        - number_tweets
+      properties:
+        activate:
+          type: boolean
+        number_tweets:
+          type: integer
+
+    search_tweets_params:
+      type: object
+      required:
+        - activate
+        - search
+        - number_tweets
+      properties:
+        activate:
+          type: boolean
+        search:
+          type: string
+        number_tweets:
+          type: integer
+
+    statistics_channel_params:
+      type: object
+      required:
+        - activate
+        - id_channel
+      properties:
+        activate:
+          type: boolean
+        id_channel:
+          type: string
+
+    statistics_video_params:
+      type: object
+      required:
+        - activate
+        - id_video
+      properties:
+        activate:
+          type: boolean
+        id_video:
+          type: string
+
+    comments_video_params:
+      type: object
+      required:
+        - activate
+        - number_comments
+        - id_video
+      properties:
+        activate:
+          type: boolean
+        number_comments:
+          type: integer
+        id_video:
+          type: string
+
+    channel_videos_params:
+      type: object
+      required:
+        - activate
+        - number_videos
+        - id_channel
+      properties:
+        activate:
+          type: boolean
+        number_videos:
+          type: integer
+        id_channel:
+          type: string
+
+    top_tracks_user_params:
+      type: object
+      required:
+        - activate
+        - limit_tracks
+        - time_range
+      properties:
+        activate:
+          type: boolean
+        limit_tracks:
+          type: integer
+        time_range:
+          type: string
+
+    top_artists_user_params:
+      type: object
+      required:
+        - activate
+        - limit_artists
+        - time_range
+      properties:
+        activate:
+          type: boolean
+        limit_artists:
+          type: integer
+        time_range:
+          type: string
+
+    recently_played_tracks_user_params:
+      type: object
+      required:
+        - activate
+        - limit_tracks
+      properties:
+        activate:
+          type: boolean
+        limit_tracks:
+          type: integer
+
+    widgets:
+      type: object
+      required:
+        - id
+        - name
+        - position_x
+        - position_y
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        position_x:
+          type: integer
+        position_y:
+          type: integer
+
+
+    WidgetCreated:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
