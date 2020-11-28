@@ -7,7 +7,7 @@ export default class SpotifyTopArtistsUserService extends Service
     constructor()
     {
         super(
-            'http://localhost:8080/service/spotify/top-artists-user/',
+            'service/spotify/top-artists-user/',
             new TopArtistsUserModelRequest(),
             new TopArtistsUserModelResponse(),
             (res, responseModel) => {

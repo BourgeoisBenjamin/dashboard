@@ -15,7 +15,7 @@ export default class EmailVerifyService
             token_email: this.token
         };
 
-        axios.post(`http://localhost:8080/account/email/verify/`, data)
+        axios.post(`account/email/verify/`, data)
             .then(res => {
                 onSuccess();
             }).catch(error => {

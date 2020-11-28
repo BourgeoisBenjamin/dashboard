@@ -4,7 +4,7 @@ class ForgotPasswordService
 {
     forgot(data, onSuccess, onFailure)
     {
-        axios.post(`http://localhost:8080/account/password/lost`, data)
+        axios.post(`account/password/lost`, data)
         .then(res => {
             onSuccess(res);
         }).catch(error => {
@@ -14,7 +14,7 @@ class ForgotPasswordService
 
     reset(data, onSuccess, onFailure)
     {
-        axios.post(`http://localhost:8080/account/password/reset`, data)
+        axios.post(`account/password/reset`, data)
             .then(res => {
                 onSuccess(res);
             }).catch(error => {

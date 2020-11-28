@@ -4,7 +4,7 @@ class RegisterService
 {
     register(data, onSuccess, onFailure)
     {
-        axios.post(`http://localhost:8080/account/register`, data)
+        axios.post(`account/register`, data)
         .then(res => {
             onSuccess(res);
         }).catch(error => {

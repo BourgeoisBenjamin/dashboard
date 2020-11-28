@@ -7,7 +7,7 @@ export default class YoutubeStatisticsVideoService extends Service
     constructor()
     {
         super(
-            'http://localhost:8080/service/youtube/statistics-video/',
+            'service/youtube/statistics-video/',
             new StatisticsVideoModelRequest(),
             new StatisticsVideoModelResponse(),
             (res, responseModel) => {

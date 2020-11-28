@@ -7,7 +7,7 @@ export default class YoutubeChannelVideoService extends Service
     constructor()
     {
         super(
-            'http://localhost:8080/service/youtube/channel-videos/',
+            'service/youtube/channel-videos/',
             new ChannelVideosModelRequest(),
             new ChannelVideosModelResponse(),
             (res, responseModel) => {

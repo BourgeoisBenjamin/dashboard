@@ -17,7 +17,7 @@ class App extends Component {
         super(props);
         this.state = {
             showMenu : 'none',
-            isConnectedViaTiers: false,
+            isConnectedViaTiers: localStorage.getItem('isConnectedViaTiers') === 'true',
 
             setShowMenu: (showMenu) => {
                 this.setState({ showMenu: showMenu })

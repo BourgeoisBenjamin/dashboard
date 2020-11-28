@@ -7,7 +7,7 @@ export default class CovidSummaryCountryService extends Service
     constructor()
     {
         super(
-            'http://localhost:8080/service/covid/summary-country/',
+            'service/covid/summary-country/',
             new SummaryCountryModelRequest(),
             new SummaryCountryModelResponse(),
             (res, responseModel) => {

@@ -58,6 +58,8 @@ export class LoginForm extends Component {
             sessionStorage.setItem('menu', 'block');
             history.push('/home')
             this.context.setShowMenu('block');
+            this.context.setConnectedViaTiers(false);
+            localStorage.setItem('isConnectedViaTiers', 'false');
         }, (res) => {
             this.setState({
                 errorMessageOpen: true,
@@ -88,6 +90,7 @@ export class LoginForm extends Component {
             history.push('/home')
             this.context.setShowMenu('block');
             this.context.setConnectedViaTiers(true);
+            localStorage.setItem('isConnectedViaTiers', 'true');
         }, (res) => {
             this.setState({
                 errorMessageOpen: true,
@@ -108,6 +111,7 @@ export class LoginForm extends Component {
             history.push('/home')
             this.context.setShowMenu('block');
             this.context.setConnectedViaTiers(true);
+            localStorage.setItem('isConnectedViaTiers', 'true');
         }, (res) => {
             this.setState({
                 errorMessageOpen: true,

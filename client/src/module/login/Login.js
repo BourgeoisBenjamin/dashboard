@@ -11,6 +11,7 @@ class Login extends Component {
         if (localStorage.getItem('JWTToken') !== null) {
             history.push('/home');
         }
+        localStorage.setItem('isConnectedViaTiers', 'false');
     }
 
     render() {

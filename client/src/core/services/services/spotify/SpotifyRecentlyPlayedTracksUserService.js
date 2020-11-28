@@ -7,7 +7,7 @@ export default class SpotifyRecentlyPlayedTracksUserService extends Service
     constructor()
     {
         super(
-            'http://localhost:8080/service/spotify/recently-played-tracks-user/',
+            'service/spotify/recently-played-tracks-user/',
             new RecentlyPlayedTracksUserModelRequest(),
             new RecentlyPlayedTracksUserModelResponse(),
             (res, responseModel) => {

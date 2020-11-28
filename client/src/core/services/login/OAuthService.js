@@ -4,10 +4,10 @@ class OAuthService
 {
     connectOAuth(onConnect, onSuccess, onFailure)
     {
-        axios.get(`http://localhost:8080/account/login/tiers/init`)
+        axios.get(`account/login/tiers/init`)
             .then(res => {
                 const params = {uuid: res.data.uuid}
-                axios.get('http://localhost:8080/account/login/tiers/oauth', {params})
+                axios.get('account/login/tiers/oauth', {params})
                     .then(res => {
                         localStorage.setItem('JWTToken', res.data.JWTToken)
                         onSuccess(res);

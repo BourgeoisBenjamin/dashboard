@@ -7,7 +7,7 @@ export default class CovidCountryCaseService extends Service
     constructor()
     {
         super(
-            'http://localhost:8080/service/covid/country-case/',
+            'service/covid/country-case/',
             new CountryCaseModelRequest(),
             new CountryCaseModelResponse(),
             (res, responseModel) => {
