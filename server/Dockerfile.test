@@ -1,0 +1,20 @@
+FROM node:14-alpine
+
+# create app directory
+WORKDIR /usr/src/app/
+
+ENV NODE_ENV dev
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
+
+# build the app
+RUN npm install
+RUN npm install -g mocha
+
+# Bundle app source
+COPY . ./
+
+CMD [ "mocha", "-R", "spec", "tests/spec.js" ]
