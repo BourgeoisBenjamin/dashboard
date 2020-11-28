@@ -115,13 +115,17 @@ class WidgetForm extends Component {
 
     handleSelectServicesChanged(e)
     {
+        const service = services.find(service => service.name === e.target.value);
+
+        if (!service)
+            return;
         this.setState(
             {
                 'servicesSelected': services.find(service => service.name === e.target.value),
                 'widgetSelected': ''
             },
         );
-        history.push(services.find(service => service.name === e.target.value).url);
+        history.push(service.url);
     }
 
     handleSelectWidgetsChanged(e)

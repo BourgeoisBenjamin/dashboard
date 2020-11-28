@@ -18,6 +18,8 @@ class SignUp extends Component {
             history.push('/home');
         }
 
+        document.title = 'Dashboard - Sign up';
+
         this.registerService = new RegisterService();
 
         this.state = {

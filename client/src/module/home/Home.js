@@ -10,29 +10,6 @@ import {widgets} from "./widgets";
 import queryString from "query-string";
 import {Draggable, DragDropContext} from "react-beautiful-dnd";
 import {Droppable} from "react-beautiful-dnd";
-// import { CSSTransition, TransitionGroup } from 'react-transition-group';
-
-const move = (source, destination, droppableSource, droppableDestination) => {
-    const sourceClone = Array.from(source);
-    const destClone = Array.from(destination);
-    const [removed] = sourceClone.splice(droppableSource.index, 1);
-
-    destClone.splice(droppableDestination.index, 0, removed);
-
-    const result = {};
-    result[droppableSource.droppableId] = sourceClone;
-    result[droppableDestination.droppableId] = destClone;
-
-    return result;
-};
-
-const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-};
 
 class Home extends Component {
 
@@ -40,6 +17,8 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
+
+        document.title = 'Dashboard - Home';
 
         this.widgetService = new WidgetService();
 
@@ -129,32 +108,36 @@ class Home extends Component {
     }
 
     onDragEnd(result) {
+        console.log(result)
         const { source, destination } = result;
 
-        // dropped outside the list
+        // if dropped outside the list
         if (!destination) {
             return;
         }
+        // Parse to int
         const sInd = +source.droppableId;
         const dInd = +destination.droppableId;
 
+        // If draggable haven't change column
         if (sInd === dInd) {
-            const items = reorder(this.state.widgets[sInd], source.index, destination.index);
-            const newState = [...this.state.widgets];
-            newState[sInd] = items;
-            this.updateWidgetsState(newState);
+            // Reorder list
+            const items = this.reorder(this.state.widgets[sInd], source.index, destination.index);
+            const newWidgets = [...this.state.widgets];
+            newWidgets[sInd] = items;
+            this.updateWidgetsState(newWidgets);
             this.setState({
-                widgets: newState
+                widgets: newWidgets
             });
-            console.log(newState);
         } else {
-            const result = move(this.state.widgets[sInd], this.state.widgets[dInd], source, destination);
-            const newState = [...this.state.widgets];
-            newState[sInd] = result[sInd];
-            newState[dInd] = result[dInd];
-            this.updateWidgetsState(newState);
-            this.setState({widgets: newState});
-            console.log(newState);
+            // Moved source to dest
+            const result = this.move(this.state.widgets[sInd], this.state.widgets[dInd], source, destination);
+            const newWidgets = [...this.state.widgets];
+            // Replace newWidgets columns with these of result
+            newWidgets[sInd] = result[sInd];
+            newWidgets[dInd] = result[dInd];
+            this.updateWidgetsState(newWidgets);
+            this.setState({widgets: newWidgets});
         }
     }
 
@@ -222,18 +205,9 @@ class Home extends Component {
                             {this.state.widgets.map((el, ind) => (
                                 <Droppable key={ind} droppableId={`${ind}`}>
                                     {(provided, snapshot) => (
-                                        <div
-                                            ref={provided.innerRef}
-                                            // style={getListStyle(snapshot.isDraggingOver)}
-                                            {...provided.droppableProps}
-                                            style={{ width: '450px' }}
-                                        >
+                                        <div ref={provided.innerRef} {...provided.droppableProps} style={{ width: '450px' }}>
                                             {el.map((item, index) => (
-                                                <Draggable
-                                                    key={item.id}
-                                                    draggableId={item.id}
-                                                    index={index}
-                                                >
+                                                <Draggable key={item.id} draggableId={item.id} index={index}>
                                                     {(provided, snapshot) => (
                                                         <div
                                                             ref={provided.innerRef}
@@ -255,19 +229,42 @@ class Home extends Component {
                                 </Droppable>
                             ))}
                         </DragDropContext>
-                        {/*{ this.state.widgets }*/}
                     </div>
-                {/*<TransitionGroup component={null}>*/}
-                {/*    <CSSTransition timeout={{ enter: 300, exit: 300 }} classNames="fade" key={this.state.key}>*/}
-                        <Switch location={this.props.location}>
-                            { routes }
-                            <Route path={'/home/widget/'} render={() => <WidgetForm isAnUpdate={isAnUpdate} />} />
-                        </Switch>
-                {/*    </CSSTransition>*/}
-                {/*</TransitionGroup>*/}
+                    <Switch location={this.props.location}>
+                        { routes }
+                        <Route path={'/home/widget/'} render={() => <WidgetForm isAnUpdate={isAnUpdate} />} />
+                    </Switch>
             </div>
         );
     }
+
+    move(source, destination, droppableSource, droppableDestination) {
+        const sourceClone = Array.from(source);
+        const destClone = Array.from(destination);
+        // Removed element from the source
+        const [removed] = sourceClone.splice(droppableSource.index, 1);
+
+        // Added element to the destination list
+        destClone.splice(droppableDestination.index, 0, removed);
+
+        // Create an array in order to return it
+        const result = {};
+        result[droppableSource.droppableId] = sourceClone;
+        result[droppableDestination.droppableId] = destClone;
+
+        return result;
+    }
+
+    reorder(list, startI, endI) {
+        // Create a clone
+        const result = Array.from(list);
+        // Remove an element
+        const [removed] = result.splice(startI, 1);
+        // Insert the removed element at end index
+        result.splice(endI, 0, removed);
+
+        return result;
+    };
 }
 
 export default Home;

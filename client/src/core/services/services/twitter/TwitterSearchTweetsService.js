@@ -7,7 +7,7 @@ export default class TwitterSearchTweetsService extends Service
     constructor()
     {
         super(
-            'http://localhost:8080/service/twitter/search-tweets/',
+            'service/twitter/search-tweets/',
             new SearchTweetsModelRequest(),
             new SearchTweetsModelResponse(),
             (res, responseModel) => {

@@ -7,7 +7,7 @@ export default class YoutubeCommentsVideoService extends Service
     constructor()
     {
         super(
-            'http://localhost:8080/service/youtube/comments-video/',
+            'service/youtube/comments-video/',
             new CommentsVideoModelRequest(),
             new CommentsVideoModelResponse(),
             (res, responseModel) => {

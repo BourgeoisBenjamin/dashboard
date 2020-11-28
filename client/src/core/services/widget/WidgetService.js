@@ -10,7 +10,7 @@ export default class WidgetService
 
     data = [];
 
-    url = 'http://localhost:8080/widgets/';
+    url = 'widgets/';
 
     getUserWidgets(onSuccess, onFailure)
     {
