@@ -161,7 +161,6 @@ class Home extends Component {
             });
             posY++;
         })
-        console.log(data);
         this.widgetService.putUserWidgets(data, () => {
             console.log('update !')
         }, (error) => {
@@ -197,15 +196,15 @@ class Home extends Component {
 
         return (
             <div id="home-module">
-                <div class="new-widgets-button">
+                <div className="new-widgets-button">
                     <button onClick={this.handleNewWidgetClick}>New widgets</button>
                 </div>
-                    <div class="home-content">
+                    <div className="home-content">
                         <DragDropContext onDragEnd={this.onDragEnd} >
                             {this.state.widgets.map((el, ind) => (
                                 <Droppable key={ind} droppableId={`${ind}`}>
                                     {(provided, snapshot) => (
-                                        <div class="droppable-content" ref={provided.innerRef} {...provided.droppableProps} style={{ width: '450px' }}>
+                                        <div className="droppable-content" ref={provided.innerRef} {...provided.droppableProps} style={{ width: '450px' }}>
                                             {el.map((item, index) => (
                                                 <Draggable key={item.id} draggableId={item.id} index={index}>
                                                     {(provided, snapshot) => (

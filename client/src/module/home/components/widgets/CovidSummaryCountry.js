@@ -10,9 +10,12 @@ import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
 import CovidSummaryCountryService from "../../../../core/services/services/covid/CovidSummaryCountryService";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class CovidSummaryCountry extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 
@@ -34,6 +37,10 @@ class CovidSummaryCountry extends Component
         this.onClickParameters  = this.onClickParameters.bind(this);
         this.getDataWidget = this.getDataWidget.bind(this);
         this.onClickDelete = this.onClickDelete.bind(this);
+    }
+
+    componentDidMount()
+    {
         this.getDataWidget();
     }
 
@@ -77,23 +84,23 @@ class CovidSummaryCountry extends Component
                         onClickSettings={this.onClickParameters}
                     />
                     <div className="content" style={{ display: this.state.isLoading || this.state.errorAppear ? 'none' : 'block' }}>
-                        <div class="header-content">
+                        <div className="header-content">
                             <div className="description">
-                                <div class="logo">
+                                <div className="logo">
                                     <img src={LocationImage} alt="" />
                                 </div>
-                                <div class="text">
+                                <div className="text">
                                     <p>In {this.state.model.Country}, {new Date(this.state.model.Date).toLocaleString()}</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="stat-wrap">
+                        <div className="stat-wrap">
                             <div className="stat">
-                                <div class="image">
-                                    <div class="logo">
+                                <div className="image">
+                                    <div className="logo">
                                         <img alt="" src={ConfirmedImage} />
                                     </div>
-                                    <div class="description">
+                                    <div className="description">
                                         <p>New confirmed</p>
                                     </div>
                                 </div>

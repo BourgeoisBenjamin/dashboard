@@ -7,9 +7,12 @@ import './SpotifyRecentlyPlayedTracksUser.css'
 import RecentlyPlayedTracksUserModel from "../../../../core/models/services/spotify/response/RecentlyPlayedTracksUserModel";
 import SpotifyRecentlyPlayedTracksUserService
     from "../../../../core/services/services/spotify/SpotifyRecentlyPlayedTracksUserService";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class SpotifyRecentlyPlayedTracksUser extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 
@@ -31,7 +34,10 @@ class SpotifyRecentlyPlayedTracksUser extends Component
             this.getDataWidget();
         });
         this.props.parentState.setGetWidgetData(getWidgetsData);
+    }
 
+    componentDidMount()
+    {
         this.getDataWidget();
     }
 
@@ -76,7 +82,7 @@ class SpotifyRecentlyPlayedTracksUser extends Component
         const tracks = this.initTracks();
 
         return (
-            <div id="spotify-recently-played-tracks-user" class="widget">
+            <div id="spotify-recently-played-tracks-user" className="widget">
                 <div className="content">
                     <WidgetHeader
                         mainTitle="Spotify"

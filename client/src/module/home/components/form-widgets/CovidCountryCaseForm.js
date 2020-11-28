@@ -4,9 +4,12 @@ import CountryCaseModel from "../../../../core/models/services/covid/request/Cou
 import queryString from 'query-string';
 import CovidCountryCaseService from "../../../../core/services/services/covid/CovidCountryCaseService";
 import history from "../../../../history";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class CovidCountryCaseForm extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 
@@ -95,8 +98,8 @@ class CovidCountryCaseForm extends Component
 
     render() {
         return (
-            <div class="widget-form">
-                <div class="input-parameters">
+            <div className="widget-form">
+                <div className="input-parameters">
                     <CountryInput name="Country" value={this.state.countryName} onChange={this.handleCountryChange} />
                 </div>
             </div>

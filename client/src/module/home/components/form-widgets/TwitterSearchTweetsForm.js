@@ -5,9 +5,12 @@ import SearchInput from "../../../../shared/components/inputs/SearchInput";
 import SearchTweetsModel from "../../../../core/models/services/twitter/request/SearchTweetsModel";
 import TwitterSearchTweetsService from "../../../../core/services/services/twitter/TwitterSearchTweetsService";
 import history from "../../../../history";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class TwitterSearchTweetsForm extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 

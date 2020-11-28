@@ -25,13 +25,13 @@ class NotFound extends Component
     render() {
         return (
             <div id="not-found-module">
-                <div class="title">
+                <div className="title">
                     <p>Error 404</p>
                 </div>
-                <div class="description">
+                <div className="description">
                     <p>The page you want to access doesn't exist.</p>
                 </div>
-                <div class="button">
+                <div className="button">
                     <BasicButton onClick={this.handleOnClickBackHome} loaderSize={50} name="Back to home" />
                 </div>
             </div>

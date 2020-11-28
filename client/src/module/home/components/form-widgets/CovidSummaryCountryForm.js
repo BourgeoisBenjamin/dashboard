@@ -4,9 +4,12 @@ import SummaryCountryModel from "../../../../core/models/services/covid/request/
 import queryString from "query-string";
 import CovidSummaryCountryService from "../../../../core/services/services/covid/CovidSummaryCountryService";
 import history from "../../../../history";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class CovidSummaryCountryForm extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 
@@ -94,7 +97,7 @@ class CovidSummaryCountryForm extends Component
 
     render() {
         return (
-            <div class="widget-form">
+            <div className="widget-form">
                 <div className="input-parameters">
                     <CountryInput name="Country" value={this.state.countryName} onChange={this.handleCountryChange}/>
                 </div>

@@ -6,9 +6,12 @@ import WidgetError from "../widget-error/WidgetError";
 import TopArtistsUserModel from "../../../../core/models/services/spotify/response/TopArtistsUserModel";
 import SpotifyTopArtistsUserService from "../../../../core/services/services/spotify/SpotifyTopArtistsUserService";
 import './SpotifyTopArtistsUser.css'
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class SpotifyTopArtistsUser extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 
@@ -30,7 +33,10 @@ class SpotifyTopArtistsUser extends Component
             this.getDataWidget();
         });
         this.props.parentState.setGetWidgetData(getWidgetsData);
+    }
 
+    componentDidMount()
+    {
         this.getDataWidget();
     }
 

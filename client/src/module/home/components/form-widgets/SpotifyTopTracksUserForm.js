@@ -5,6 +5,7 @@ import SpotifyTopTracksUserService from "../../../../core/services/services/spot
 import queryString from "query-string";
 import TopTracksUserModel from "../../../../core/models/services/spotify/request/TopTracksUserModel";
 import history from "../../../../history";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 const timeRange = [
     {
@@ -32,6 +33,8 @@ const timeRangeRequests = {
 
 class SpotifyTopTracksUserForm extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 

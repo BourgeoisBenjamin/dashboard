@@ -29,14 +29,13 @@ export default function(props) {
         <div>
             <FiSettings color="white" size={30} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} />
             <Menu
-                id="simple-menu"
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={onClickSettings}>Settings</MenuItem>
-                <MenuItem onClick={onClickDelete} color="red">Delete</MenuItem>
+                <MenuItem key={0} onClick={onClickSettings}>Settings</MenuItem>
+                <MenuItem key={1} onClick={onClickDelete} color="red">Delete</MenuItem>
             </Menu>
         </div>
     );

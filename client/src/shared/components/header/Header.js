@@ -13,7 +13,7 @@ class HeaderMenu extends Component {
 
         this.state = {
             styleMenu: {
-                'margin-left': '-300px'
+                'marginLeft': '-300px'
             },
             menuIsOpen: false,
             title: 'Home',
@@ -27,7 +27,7 @@ class HeaderMenu extends Component {
         if (this.state.menuIsOpen) {
             this.setState({
                 styleMenu: {
-                    'margin-left': '-300px'
+                    'marginLeft': '-300px'
                 },
                 menuIsOpen: false,
                 visibilityBackground: 'hidden',
@@ -36,7 +36,7 @@ class HeaderMenu extends Component {
         } else {
             this.setState({
                 styleMenu: {
-                    'margin-left': '0px'
+                    'marginLeft': '0px'
                 },
                 menuIsOpen: true,
                 visibilityBackground: 'visible',
@@ -51,7 +51,7 @@ class HeaderMenu extends Component {
         this.context.setShowMenu('none');
         this.setState({
             styleMenu: {
-                'margin-left': '-300px'
+                'marginLeft': '-300px'
             },
             menuIsOpen: false,
             title: 'Home',
@@ -65,7 +65,7 @@ class HeaderMenu extends Component {
     {
         this.setState({
             styleMenu: {
-                'margin-left': '-300px'
+                'marginLeft': '-300px'
             },
             menuIsOpen: false,
             title: 'Home',
@@ -79,7 +79,7 @@ class HeaderMenu extends Component {
     {
         this.setState({
             styleMenu: {
-                'margin-left': '-300px'
+                'marginLeft': '-300px'
             },
             menuIsOpen: false,
             title: 'Account',

@@ -10,9 +10,12 @@ import WidgetHeader from "../widget-header/WidgetHeader";
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import CovidCountryCaseService from "../../../../core/services/services/covid/CovidCountryCaseService";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class CovidCountryCase extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 
@@ -34,7 +37,10 @@ class CovidCountryCase extends Component
             this.getDataWidget();
         });
         this.props.parentState.setGetWidgetData(getWidgetsData);
+    }
 
+    componentDidMount()
+    {
         this.getDataWidget();
     }
 

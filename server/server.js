@@ -176,8 +176,8 @@ app.put('/widgets', JWTService.authenticateToken, (req, res) => {
                 res.sendStatus(200);
                 return;
             }
-            console.log('UPDATE ' + widgetNames[data[i].name].widgetTable + ' SET position_x = $2, position_y = $3 WHERE id_' + widgetNames[data[i].name].serviceTable + ' = (SELECT id FROM weather_service WHERE id_user = $1)');
-            pool.getPool().query('UPDATE ' + widgetNames[data[i].name].widgetTable + ' SET position_x = $2, position_y = $3 WHERE id_' + widgetNames[data[i].name].serviceTable + ' = (SELECT id FROM ' + widgetNames[data[i].name].serviceTable + ' WHERE id_user = $1)', [req.user.user_id, data[i].position_x, data[i].position_y], (err, result) => {
+            console.log('UPDATE ' + widgetNames[data[i].name].widgetTable + ' SET position_x = $2, position_y = $3 WHERE id_' + widgetNames[data[i].name].serviceTable + ' = (SELECT id FROM weather_service WHERE id = $1 id_user = $1)');
+            pool.getPool().query('UPDATE ' + widgetNames[data[i].name].widgetTable + ' SET position_x = $2, position_y = $3 WHERE id = $4 AND id_' + widgetNames[data[i].name].serviceTable + ' = (SELECT id FROM ' + widgetNames[data[i].name].serviceTable + ' WHERE id_user = $1)', [req.user.user_id, data[i].position_x, data[i].position_y, data[i].id], (err, result) => {
                 if (err) {
                     res.sendStatus(503);
                 } else {

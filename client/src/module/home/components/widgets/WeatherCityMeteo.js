@@ -11,9 +11,12 @@ import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
 import WeatherCityMeteoService from "../../../../core/services/services/weather/WeatherCityMeteoService";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class WeatherCityMeteo extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 
@@ -36,7 +39,10 @@ class WeatherCityMeteo extends Component
         this.onClickParameters = this.onClickParameters.bind(this);
         this.getDataWidget = this.getDataWidget.bind(this);
         this.onClickDelete = this.onClickDelete.bind(this);
+    }
 
+    componentDidMount()
+    {
         this.getDataWidget();
     }
 
@@ -93,8 +99,8 @@ class WeatherCityMeteo extends Component
         const imageWeather = this.initImageWeather();
 
         return (
-            <div id="weather-city-meteo" class="widget">
-                <div class="content">
+            <div id="weather-city-meteo" className="widget">
+                <div className="content">
                     <WidgetHeader
                         mainTitle="Weather"
                         secondTitle="City weather"
@@ -102,38 +108,38 @@ class WeatherCityMeteo extends Component
                         onClickDelete={this.onClickDelete}
                         onClickSettings={this.onClickParameters}
                     />
-                    <div class="content" style={{ display: this.state.isLoading || this.state.errorAppear ? 'none' : 'block' }}>
-                        <div class="city-name">
-                            <div class="logo">
+                    <div className="content" style={{ display: this.state.isLoading || this.state.errorAppear ? 'none' : 'block' }}>
+                        <div className="city-name">
+                            <div className="logo">
                                 <img src={LocationImage} alt=""/>
                             </div>
-                            <div class="name">
+                            <div className="name">
                                 <p>{this.state.model.city}</p>
                             </div>
                         </div>
-                        <div class="temperature">
+                        <div className="temperature">
                             <div className="weather">
                                 <img src={imageWeather} alt="" />
                             </div>
-                            <div class="degree">
+                            <div className="degree">
                                 <p>{this.state.model.temp}°</p>
                             </div>
-                            <div class="type-degree">
+                            <div className="type-degree">
                                 <p>{this.state.model.celsius ? 'C' : 'F'}</p>
                             </div>
                         </div>
-                        <div class="humidity element">
-                            <div class="icon">
+                        <div className="humidity element">
+                            <div className="icon">
                                 <img alt="" src={HumidityImage} />
                             </div>
-                            <div class="description">
+                            <div className="description">
                                 <p>Humidity</p>
                             </div>
-                            <div class="value">
+                            <div className="value">
                                 <p>{this.state.model.humidity}%</p>
                             </div>
                         </div>
-                        <div class="pressure element">
+                        <div className="pressure element">
                             <div className="icon">
                                 <img alt="" src={PressureImage}/>
                             </div>
@@ -144,7 +150,7 @@ class WeatherCityMeteo extends Component
                                 <p>{this.state.model.pressure}</p>
                             </div>
                         </div>
-                        <div class="rain element">
+                        <div className="rain element">
                             <div className="icon">
                                 <img alt="" src={RainImage}/>
                             </div>

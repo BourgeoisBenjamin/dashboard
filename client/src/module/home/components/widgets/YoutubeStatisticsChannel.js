@@ -10,9 +10,12 @@ import "./YoutubeStatisticsChannel.css"
 import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class YoutubeStatisticsChannel extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 
@@ -35,7 +38,10 @@ class YoutubeStatisticsChannel extends Component
         this.onClickParameters = this.onClickParameters.bind(this);
         this.getDataWidget = this.getDataWidget.bind(this);
         this.onClickDelete = this.onClickDelete.bind(this);
+    }
 
+    componentDidMount()
+    {
         this.getDataWidget();
     }
 

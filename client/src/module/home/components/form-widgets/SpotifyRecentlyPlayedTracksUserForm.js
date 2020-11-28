@@ -6,9 +6,12 @@ import RecentlyPlayedTracksUserModel
 import SpotifyRecentlyPlayedTracksUserService
     from "../../../../core/services/services/spotify/SpotifyRecentlyPlayedTracksUserService";
 import history from "../../../../history";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class SpotifyRecentlyPlayedTracksUserForm extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 

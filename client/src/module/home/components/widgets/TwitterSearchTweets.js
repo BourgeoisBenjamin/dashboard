@@ -8,9 +8,12 @@ import WidgetLoader from "../widget-loader/WidgetLoader";
 import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
 import TwitterSearchTweetsService from "../../../../core/services/services/twitter/TwitterSearchTweetsService";
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class TwitterSearchTweets extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 
@@ -32,7 +35,10 @@ class TwitterSearchTweets extends Component
         });
         this.props.parentState.setGetWidgetData(getWidgetsData);
         this.getDataWidget = this.getDataWidget.bind(this);
+    }
 
+    componentDidMount()
+    {
         this.getDataWidget();
     }
 
@@ -89,7 +95,7 @@ class TwitterSearchTweets extends Component
         const tweets = this.initTweets();
 
         return (
-            <div id="twitter-search-tweets" class="widget">
+            <div id="twitter-search-tweets" className="widget">
                 <div className="content">
                     <WidgetHeader
                         mainTitle="Twitter"

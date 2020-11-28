@@ -51,7 +51,7 @@ class EmailVerify extends Component
 
         return (
             <div id="email-verify-module">
-                <div class="title">
+                <div className="title">
                     <p>{this.state.title}</p>
                 </div>
                 <div className="status" >

@@ -8,9 +8,12 @@ import WidgetError from "../widget-error/WidgetError";
 import WidgetHeader from "../widget-header/WidgetHeader";
 import LikeImage from '../../../../assets/images/likeThumb.png'
 import CommentImage from '../../../../assets/images/comment.png'
+import MenuContext from "../../../../core/contexts/MenuContext";
 
 class YoutubeCommentsVideo extends Component
 {
+    static contextType = MenuContext;
+
     constructor(props) {
         super(props);
 
@@ -33,7 +36,10 @@ class YoutubeCommentsVideo extends Component
         this.onClickParameters = this.onClickParameters.bind(this);
         this.getDataWidget = this.getDataWidget.bind(this);
         this.onClickDelete = this.onClickDelete.bind(this);
+    }
 
+    componentDidMount()
+    {
         this.getDataWidget();
     }
 

@@ -7,7 +7,7 @@ class WidgetHeader extends Component
 {
     render() {
         return (
-            <div class="widget-header">
+            <div className="widget-header">
                 <div className="title">
                     <div className="main-title">
                         <p>{this.props.mainTitle}</p>
