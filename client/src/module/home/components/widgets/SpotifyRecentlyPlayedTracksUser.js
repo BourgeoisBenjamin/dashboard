@@ -31,7 +31,10 @@ class SpotifyRecentlyPlayedTracksUser extends Component
             this.getDataWidget();
         });
         this.props.parentState.setGetWidgetData(getWidgetsData);
+    }
 
+    componentDidMount()
+    {
         this.getDataWidget();
     }
 
@@ -76,7 +79,7 @@ class SpotifyRecentlyPlayedTracksUser extends Component
         const tracks = this.initTracks();
 
         return (
-            <div id="spotify-recently-played-tracks-user" class="widget">
+            <div id="spotify-recently-played-tracks-user" className="widget">
                 <div className="content">
                     <WidgetHeader
                         mainTitle="Spotify"

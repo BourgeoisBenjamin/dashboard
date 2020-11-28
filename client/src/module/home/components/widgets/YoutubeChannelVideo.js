@@ -32,7 +32,10 @@ class YoutubeChannelVideo extends Component
         this.onClickParameters = this.onClickParameters.bind(this);
         this.getDataWidget = this.getDataWidget.bind(this);
         this.onClickDelete = this.onClickDelete.bind(this);
+    }
 
+    componentDidMount()
+    {
         this.getDataWidget();
     }
 

@@ -32,7 +32,10 @@ class TwitterSearchTweets extends Component
         });
         this.props.parentState.setGetWidgetData(getWidgetsData);
         this.getDataWidget = this.getDataWidget.bind(this);
+    }
 
+    componentDidMount()
+    {
         this.getDataWidget();
     }
 
@@ -89,7 +92,7 @@ class TwitterSearchTweets extends Component
         const tweets = this.initTweets();
 
         return (
-            <div id="twitter-search-tweets" class="widget">
+            <div id="twitter-search-tweets" className="widget">
                 <div className="content">
                     <WidgetHeader
                         mainTitle="Twitter"

@@ -34,7 +34,10 @@ class CovidCountryCase extends Component
             this.getDataWidget();
         });
         this.props.parentState.setGetWidgetData(getWidgetsData);
+    }
 
+    componentDidMount()
+    {
         this.getDataWidget();
     }
 

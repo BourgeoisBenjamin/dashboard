@@ -128,7 +128,7 @@ export class LoginForm extends Component {
                         Wrong username/password.
                     </Alert>
                 </Snackbar>
-                <div class="title">
+                <div className="title">
                      <p>Dashboard</p>
                 </div>
                 <div className="username-input">
@@ -141,11 +141,11 @@ export class LoginForm extends Component {
                     <p onClick={this.handleForgotPasswordClick}>Forgot your password ?</p>
                 </div>
                 <BasicButton onClick={this.handleConnectClick} display={this.state.sendingLoginRequest} name="Login" loaderSize={50} />
-                <div class="tiers-service-connect">
-                    <div class="title">
+                <div className="tiers-service-connect">
+                    <div className="title">
                         <p>Or with</p>
                     </div>
-                    <div class="logos">
+                    <div className="logos">
                         <div onClick={this.handleSignInTwitter} className="twitter logo">
                             <img src={twitterImage} alt=""/>
                         </div>

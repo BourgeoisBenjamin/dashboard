@@ -65,15 +65,15 @@ class ResetPassword extends Component {
             <div id="reset-password-module">
                 <SuccessDialog onClose={this.handleSuccessMessageClose} text="Password reset !" open={this.state.successMessageOpen} />
                 <ErrorDialog onClose={this.handleErrorMessageClose} text="Cannot reset your password" open={this.state.errorMessageOpen} />
-                <div class="title">
+                <div className="title">
                     <p>Reset your password</p>
                 </div>
-                <div class="reset-form">
+                <div className="reset-form">
 
-                    <div class="password-input input">
+                    <div className="password-input input">
                         <PasswordInput name="New password" labelWidth={70} onChange={this.handlePasswordChange} value={this.state.password} />
                     </div>
-                    <div class="password-confirmation-input input">
+                    <div className="password-confirmation-input input">
                         <PasswordInput name="Confirm new password" labelWidth={150} onChange={this.handleConfirmPasswordChange} value={this.state.confirmPassword} />
                     </div>
                 </div>

@@ -94,7 +94,7 @@ class CovidSummaryCountryForm extends Component
 
     render() {
         return (
-            <div class="widget-form">
+            <div className="widget-form">
                 <div className="input-parameters">
                     <CountryInput name="Country" value={this.state.countryName} onChange={this.handleCountryChange}/>
                 </div>

@@ -20,7 +20,7 @@ class Login extends Component {
     render() {
         return (
             <div id="login-module">
-                <div class="content">
+                <div className="content">
                     <LoginForm/>
                 </div>
             </div>

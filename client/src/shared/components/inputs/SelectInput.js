@@ -10,12 +10,13 @@ export default function SelectInput(props) {
     const menuItems = () => {
         let items = [];
 
+        let i = 0;
         props.array.forEach((a) => {
             if (!a[props.arrayValueNotDisabled] && props.arrayValueNotDisabled) {
                 items.push(
                     <Tooltip title={props.messageOnValueDisabled} aria-label="add" disableInteractive={true} aria-setsize={50}>
                         <span>
-                            <MenuItem key={a[props.arrayKey]} value={a[props.arrayValue]} disabled={!a[props.arrayValueNotDisabled]}>
+                            <MenuItem key={i} value={a[props.arrayValue]} disabled={!a[props.arrayValueNotDisabled]}>
                                 {a[props.arrayValue]}
                             </MenuItem>
                         </span>
@@ -23,11 +24,12 @@ export default function SelectInput(props) {
                 );
             } else {
                 items.push(
-                    <MenuItem key={a[props.arrayKey]} value={a[props.arrayValue]}>
+                    <MenuItem key={i} value={a[props.arrayValue]}>
                         {a[props.arrayValue]}
                     </MenuItem>
                 );
             }
+            i++;
         });
         return items;
     };

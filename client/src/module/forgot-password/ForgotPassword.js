@@ -64,19 +64,19 @@ class ForgotPassword extends Component {
             <div id="forgot-password-module">
                 <SuccessDialog onClose={this.handleSuccessMessageClose} text="Reset link sent to your email !" open={this.state.successMessageOpen} />
                 <ErrorDialog onClose={this.handleErrorMessageClose} text="Cannot reset your password" open={this.state.errorMessageOpen} />
-                <div class="title">
+                <div className="title">
                     <p>Forgot password ?</p>
                 </div>
-                <div class="forgot-form">
-                    <div class="username-input input">
+                <div className="forgot-form">
+                    <div className="username-input input">
                         <UsernameInput name="Username" labelWidth={80} onChange={this.handleUsernameChange} value={this.state.username} />
                     </div>
-                    <div class="email-input input">
+                    <div className="email-input input">
                         <EmailInput name="Email" labelWidth={70} onChange={this.handleEmailChange} value={this.state.email} />
                     </div>
                 </div>
                 <BasicButton onClick={this.onClickForgot} name="Send reset link" display={this.state.sendingRequest} loaderSize={50} />
-                <div class="back-home">
+                <div className="back-home">
                     <p><strong onClick={this.returnToHomeClick}>Back to home</strong></p>
                 </div>
             </div>

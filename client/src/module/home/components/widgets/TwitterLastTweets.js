@@ -33,7 +33,10 @@ class TwitterLastTweets extends Component
             this.getDataWidget();
         });
         this.props.parentState.setGetWidgetData(getWidgetsData);
+    }
 
+    componentDidMount()
+    {
         this.getDataWidget();
     }
 
@@ -77,7 +80,7 @@ class TwitterLastTweets extends Component
         const tweets = this.initTweets();
 
         return (
-            <div id="twitter-last-tweets" class="widget">
+            <div id="twitter-last-tweets" className="widget">
                 <div className="content">
                     <WidgetHeader
                         mainTitle="Twitter"

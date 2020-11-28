@@ -64,12 +64,12 @@ class Account extends Component {
     render() {
         return (
             <div id="account-module">
-                <div class="account-menu">
+                <div className="account-menu">
                     <div className={this.state.informationIsSelected ? "element selected" : "element"} onClick={this.onClickInformation}>
-                        <div class="logo">
+                        <div className="logo">
                             <VscAccount/>
                         </div>
-                        <div class="name">
+                        <div className="name">
                             <p>Information</p>
                         </div>
                     </div>
@@ -92,7 +92,7 @@ class Account extends Component {
                         </div>
                     </div>
                 </div>
-                <div class="content">
+                <div className="content">
                     <Switch>
                         <Route path={'/account/information'}>
                             <Information parentState={this.state}/>
