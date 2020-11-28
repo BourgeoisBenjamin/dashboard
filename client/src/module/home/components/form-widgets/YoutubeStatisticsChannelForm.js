@@ -41,7 +41,7 @@ class YoutubeStatisticsChannelForm extends Component
                     idChannel: this.service.getRequestModel().id_channel,
                 })
             }, () => {
-                if (this.service.getError().response.status === 403) {
+                if (this.service.getError().response?.status === 403) {
                     localStorage.removeItem('JWTToken');
                     this.context.setShowMenu('none');
                     history.push('/');
@@ -64,7 +64,7 @@ class YoutubeStatisticsChannelForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
-            if (this.service.getError().response.status === 403) {
+            if (this.service.getError().response?.status === 403) {
                 localStorage.removeItem('JWTToken');
                 this.context.setShowMenu('none');
                 history.push('/');
@@ -87,7 +87,7 @@ class YoutubeStatisticsChannelForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
-            if (this.service.getError().response.status === 403) {
+            if (this.service.getError().response?.status === 403) {
                 localStorage.removeItem('JWTToken');
                 this.context.setShowMenu('none');
                 history.push('/');

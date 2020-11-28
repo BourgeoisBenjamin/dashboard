@@ -54,7 +54,7 @@ class CityWeatherForm extends Component
                     temperature: this.service.getRequestModel().celsius ? 'Celsius' : 'Fahrenheit'
                 })
             }, () => {
-                if (this.service.getError().response.status === 403) {
+                if (this.service.getError().response?.status === 403) {
                     localStorage.removeItem('JWTToken');
                     this.context.setShowMenu('none');
                     history.push('/');
@@ -78,7 +78,7 @@ class CityWeatherForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
-            if (this.service.getError().response.status === 403) {
+            if (this.service.getError().response?.status === 403) {
                 localStorage.removeItem('JWTToken');
                 this.context.setShowMenu('none');
                 history.push('/');
@@ -102,7 +102,7 @@ class CityWeatherForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
-            if (this.service.getError().response.status === 403) {
+            if (this.service.getError().response?.status === 403) {
                 localStorage.removeItem('JWTToken');
                 this.context.setShowMenu('none');
                 history.push('/');

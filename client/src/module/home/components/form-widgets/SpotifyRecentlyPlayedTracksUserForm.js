@@ -46,7 +46,7 @@ class SpotifyRecentlyPlayedTracksUserForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
-            if (this.service.getError().response.status === 403) {
+            if (this.service.getError().response?.status === 403) {
                 localStorage.removeItem('JWTToken');
                 this.context.setShowMenu('none');
                 history.push('/');
@@ -69,7 +69,7 @@ class SpotifyRecentlyPlayedTracksUserForm extends Component
             onSuccess();
             this.props.onClickUpdate();
         }, () => {
-            if (this.service.getError().response.status === 403) {
+            if (this.service.getError().response?.status === 403) {
                 localStorage.removeItem('JWTToken');
                 this.context.setShowMenu('none');
                 history.push('/');
@@ -89,7 +89,7 @@ class SpotifyRecentlyPlayedTracksUserForm extends Component
                     limitTracks: this.service.getRequestModel().limit_tracks
                 })
             }, () => {
-                if (this.service.getError().response.status === 403) {
+                if (this.service.getError().response?.status === 403) {
                     localStorage.removeItem('JWTToken');
                     this.context.setShowMenu('none');
                     history.push('/');

@@ -54,7 +54,7 @@ class YoutubeChannelVideo extends Component
                 isLoading: false
             })
         }, () => {
-            if (this.service.getError().response.status === 403) {
+            if (this.service.getError().response?.status === 403) {
                 localStorage.removeItem('JWTToken');
                 this.context.setShowMenu('none');
                 history.push('/');
@@ -139,7 +139,7 @@ class YoutubeChannelVideo extends Component
         this.service.delete(this.props.id, () => {
             this.props.onClickDelete();
         }, () => {
-            if (this.service.getError().response.status === 403) {
+            if (this.service.getError().response?.status === 403) {
                 localStorage.removeItem('JWTToken');
                 this.context.setShowMenu('none');
                 history.push('/');

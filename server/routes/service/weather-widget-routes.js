@@ -72,7 +72,6 @@ router.get('/weather/city-meteo/:id_widget', JWTService.authenticateToken, funct
             })
         }
     })
-
 })
 
 router.post('/weather/city-meteo/', JWTService.authenticateToken, function (req, res) {
