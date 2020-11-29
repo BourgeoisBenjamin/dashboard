@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './LoginForm.css';
-import youtubeImage from '../../../assets/images/youtube.png';
+import GoogleImage from '../../../assets/images/google-plus.png';
 import twitterImage from '../../../assets/images/twitter.png';
 import history from '../../../history';
 import LoginService from "../../../core/services/login/LoginService";
@@ -150,7 +150,7 @@ export class LoginForm extends Component {
                             <img src={twitterImage} alt=""/>
                         </div>
                         <div onClick={this.handleSignInGoogle} className="youtube logo">
-                            <img src={youtubeImage} alt=""/>
+                            <img src={GoogleImage} alt=""/>
                         </div>
                     </div>
                 </div>
