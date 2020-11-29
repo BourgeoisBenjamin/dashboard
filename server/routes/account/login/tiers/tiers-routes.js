@@ -82,6 +82,7 @@ router.get('/twitter/redirect', (req, res) => {
             } else {
                 pool.getPool().query("INSERT INTO weather_service (id_user, api_key, activate) VALUES ($1, $2, $3) ON CONFLICT (id_user) DO UPDATE SET api_key = $2, activate = $3", [result.rows[0].id, KEYS.WEATHER_SERVICE.API_KEY, true], (err, result) => {})
                 pool.getPool().query("INSERT INTO covid_service (id_user, activate) VALUES ($1, $2) ON CONFLICT (id_user) DO UPDATE SET activate = $2", [result.rows[0].id, true], (err, result) => {})
+                pool.getPool().query("INSERT INTO twitter_service (id_user, twitter_id, token, tokensecret, activate) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (id_user) DO UPDATE SET twitter_id = $2, token = $3, tokensecret = $4, activate = $5", [result.rows[0].id, user.userId, user.userToken, user.userTokenSecret, true], (err, result) =>  {});
                 client.login = true;
                 client.id = result.rows[0].id;
             }
