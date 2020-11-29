@@ -65,7 +65,7 @@ router.get('/weather/city-meteo/:id_widget', JWTService.authenticateToken, funct
                 if (data.precipitation) {
                     rain = data.precipitation.value
                 }
-                const responseData = {temp: data.main.temp, humidity: data.main.humidity, pressure: data.main.pressure, description: data.weather[0].description, rain:rain, weathercode: data.weather[0].id}
+                const responseData = {temp: data.main.temp, humidity: data.main.humidity, pressure: data.main.pressure, description: data.weather[0].description, rain:rain, weathercode: data.weather[0].id, city: widgetInfos.city, celsius: widgetInfos.celsius}
                 res.status(200)
                 res.json(responseData)
             })
