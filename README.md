@@ -56,3 +56,4 @@ docker-compose -f docker-compose.test.yml up --build
 This project has been made by :
 - [Benjamin Bourgeois](https://github.com/BourgeoisBenjamin)
 - [Amaury Lecomte](https://github.com/Brukols)
+.
